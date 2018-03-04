@@ -11,6 +11,10 @@
 
 @implementation AttenceTimeView
 
+- (void)setType:(NSString *)type{
+    self.typeBtn.text = type;
+}
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.iconBgView.layer.cornerRadius = 25;

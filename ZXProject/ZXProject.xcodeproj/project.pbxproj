@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
+		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
+		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
+		8C045225204BD9270067F10E /* WorkManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C045224204BD9270067F10E /* WorkManagerController.m */; };
 		8C305BEF202C09AD00A843B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BEE202C09AD00A843B5 /* main.m */; };
 		8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BF1202C09AD00A843B5 /* AppDelegate.m */; };
 		8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C305BF9202C09AD00A843B5 /* Assets.xcassets */; };
@@ -62,6 +65,12 @@
 		8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102E7204682B100F0E40D /* AttenceTimeView.m */; };
 		8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5102E92046832200F0E40D /* AttenceTimeView.xib */; };
 		8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102ED2046A51900F0E40D /* PersonInfoController.m */; };
+		8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F32047AA5000F0E40D /* ZXCalendar.m */; };
+		8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F62047AAB700F0E40D /* ZXCalendarItem.m */; };
+		8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F92047AFE700F0E40D /* ZXCalendarCell.m */; };
+		8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */; };
+		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
+		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
 		8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB14587203918A7003E94D4 /* MainTabBar.m */; };
 		8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458B203919F0003E94D4 /* MainTabBarItem.m */; };
 		8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458F20391BF9003E94D4 /* UIView+Layout.m */; };
@@ -92,6 +101,11 @@
 /* Begin PBXFileReference section */
 		0FA8A3E83B5BFD10F3605179 /* Pods-ZXProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.debug.xcconfig"; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
+		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
+		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
+		8C04521C204914AD0067F10E /* LeaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaveView.xib; sourceTree = "<group>"; };
+		8C045223204BD9270067F10E /* WorkManagerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkManagerController.h; sourceTree = "<group>"; };
+		8C045224204BD9270067F10E /* WorkManagerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkManagerController.m; sourceTree = "<group>"; };
 		8C305BEA202C09AD00A843B5 /* ZXProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZXProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C305BEE202C09AD00A843B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8C305BF0202C09AD00A843B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -201,6 +215,18 @@
 		8C5102E92046832200F0E40D /* AttenceTimeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttenceTimeView.xib; sourceTree = "<group>"; };
 		8C5102EC2046A51900F0E40D /* PersonInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
 		8C5102ED2046A51900F0E40D /* PersonInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
+		8C5102F22047AA5000F0E40D /* ZXCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendar.h; sourceTree = "<group>"; };
+		8C5102F32047AA5000F0E40D /* ZXCalendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCalendar.m; sourceTree = "<group>"; };
+		8C5102F52047AAB700F0E40D /* ZXCalendarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendarItem.h; sourceTree = "<group>"; };
+		8C5102F62047AAB700F0E40D /* ZXCalendarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCalendarItem.m; sourceTree = "<group>"; };
+		8C5102F82047AFE700F0E40D /* ZXCalendarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendarCell.h; sourceTree = "<group>"; };
+		8C5102F92047AFE700F0E40D /* ZXCalendarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCalendarCell.m; sourceTree = "<group>"; };
+		8C5102FB2047DB6800F0E40D /* ZXCalendarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendarManager.h; sourceTree = "<group>"; };
+		8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCalendarManager.m; sourceTree = "<group>"; };
+		8C5102FE2047E3E500F0E40D /* AttenceDKController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceDKController.h; sourceTree = "<group>"; };
+		8C5102FF2047E3E500F0E40D /* AttenceDKController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceDKController.m; sourceTree = "<group>"; };
+		8C5103012048DDF000F0E40D /* SettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewCell.h; sourceTree = "<group>"; };
+		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
 		8CB14586203918A7003E94D4 /* MainTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBar.h; sourceTree = "<group>"; };
 		8CB14587203918A7003E94D4 /* MainTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBar.m; sourceTree = "<group>"; };
 		8CB1458A203919F0003E94D4 /* MainTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarItem.h; sourceTree = "<group>"; };
@@ -246,6 +272,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C0452182049139F0067F10E /*  LeaveView */ = {
+			isa = PBXGroup;
+			children = (
+				8C045219204913FC0067F10E /* LeaveView.h */,
+				8C04521A204913FC0067F10E /* LeaveView.m */,
+				8C04521C204914AD0067F10E /* LeaveView.xib */,
+			);
+			path = " LeaveView";
+			sourceTree = "<group>";
+		};
+		8C04521F204BD7E30067F10E /* WorkManager(作业管理) */ = {
+			isa = PBXGroup;
+			children = (
+				8C045223204BD9270067F10E /* WorkManagerController.h */,
+				8C045224204BD9270067F10E /* WorkManagerController.m */,
+			);
+			path = "WorkManager(作业管理)";
+			sourceTree = "<group>";
+		};
 		8C305BE1202C09AD00A843B5 = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +404,7 @@
 		8C305C25202C0F1400A843B5 /* Gob */ = {
 			isa = PBXGroup;
 			children = (
+				8C5102F02047A9DF00F0E40D /* FrameWork */,
 				8C305C50202C1AB900A843B5 /* GobHeaderFile.h */,
 				8C305C51202C1AB900A843B5 /* GobHeaderFile.m */,
 				8C5102A920427B4300F0E40D /* ZXShowLoadingManager.h */,
@@ -381,12 +427,13 @@
 		8C305C27202C0F1400A843B5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8C305C37202C113C00A843B5 /* HomeViewController.h */,
+				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				8C04521F204BD7E30067F10E /* WorkManager(作业管理) */,
 				8C5102EB2046A4EC00F0E40D /* PersonInfo（个人信息） */,
 				8C5102DA20443E6E00F0E40D /* Attendance(考勤打卡) */,
 				8C5102D620443A2F00F0E40D /* WorkFlow(工作流程) */,
 				8C5102D520443A2300F0E40D /* Notification(通知公告) */,
-				8C305C37202C113C00A843B5 /* HomeViewController.h */,
-				8C305C38202C113C00A843B5 /* HomeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -408,6 +455,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8C0452182049139F0067F10E /*  LeaveView */,
 				8C5102CA2043E8BC00F0E40D /* Notification */,
 				8CB1459120393F42003E94D4 /* HomeHeaderView.h */,
 				8CB1459220393F42003E94D4 /* HomeHeaderView.m */,
@@ -476,6 +524,8 @@
 		8C305C2E202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8C5103012048DDF000F0E40D /* SettingViewCell.h */,
+				8C5103022048DDF000F0E40D /* SettingViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -687,6 +737,8 @@
 			children = (
 				8C5102DB20443EC000F0E40D /* AttendanceController.h */,
 				8C5102DC20443EC000F0E40D /* AttendanceController.m */,
+				8C5102FE2047E3E500F0E40D /* AttenceDKController.h */,
+				8C5102FF2047E3E500F0E40D /* AttenceDKController.m */,
 			);
 			path = "Attendance(考勤打卡)";
 			sourceTree = "<group>";
@@ -698,6 +750,21 @@
 				8C5102ED2046A51900F0E40D /* PersonInfoController.m */,
 			);
 			path = "PersonInfo（个人信息）";
+			sourceTree = "<group>";
+		};
+		8C5102F02047A9DF00F0E40D /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				8C5102F22047AA5000F0E40D /* ZXCalendar.h */,
+				8C5102F32047AA5000F0E40D /* ZXCalendar.m */,
+				8C5102F52047AAB700F0E40D /* ZXCalendarItem.h */,
+				8C5102F62047AAB700F0E40D /* ZXCalendarItem.m */,
+				8C5102F82047AFE700F0E40D /* ZXCalendarCell.h */,
+				8C5102F92047AFE700F0E40D /* ZXCalendarCell.m */,
+				8C5102FB2047DB6800F0E40D /* ZXCalendarManager.h */,
+				8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */,
+			);
+			path = FrameWork;
 			sourceTree = "<group>";
 		};
 		8CB14589203919D3003E94D4 /* Model */ = {
@@ -865,6 +932,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
 				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
@@ -948,6 +1016,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C045225204BD9270067F10E /* WorkManagerController.m in Sources */,
 				8C305C3C202C115300A843B5 /* ContactListController.m in Sources */,
 				8C5102C32042F2D400F0E40D /* BaseViewController.m in Sources */,
 				8C5102DD20443EC000F0E40D /* AttendanceController.m in Sources */,
@@ -957,6 +1026,8 @@
 				8C33C2D3203170BD00B93F6E /* HttpClient.m in Sources */,
 				8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */,
 				8C5102D920443A4700F0E40D /* WorkFlowController.m in Sources */,
+				8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */,
+				8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */,
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
 				8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
@@ -964,12 +1035,14 @@
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
+				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
 				8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */,
 				8C340E7020357DDC00D1A0AD /* ForgetPasswordCotroller.m in Sources */,
 				8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */,
 				8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */,
+				8C04521B204913FC0067F10E /* LeaveView.m in Sources */,
 				8C33C2C42031700400B93F6E /* XMCenter.m in Sources */,
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
@@ -997,10 +1070,13 @@
 				8C33C2CA2031700400B93F6E /* AFSecurityPolicy.m in Sources */,
 				8C5102B72042E77900F0E40D /* HomeRightItems.m in Sources */,
 				8C305C45202C143D00A843B5 /* MainNavigationController.m in Sources */,
+				8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */,
 				8C33C2C72031700400B93F6E /* AFHTTPSessionManager.m in Sources */,
 				8C305C39202C113C00A843B5 /* HomeViewController.m in Sources */,
 				8C33C2CD2031700400B93F6E /* AFURLSessionManager.m in Sources */,
+				8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */,
 				8C33C2D92031857400B93F6E /* Tool+MD5.m in Sources */,
+				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1144,6 +1220,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1153,8 +1232,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhonxin.ZXProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.ZXProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1164,6 +1245,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1173,8 +1257,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhonxin.ZXProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.ZXProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

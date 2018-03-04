@@ -8,17 +8,16 @@
 
 #import "FButton.h"
 #import "UIView+Layout.h"
+#import "NSString+boundSize.h"
 
 @interface FButton()
 
 @property (nonatomic, assign) FBLayoutType layoutType;
 @property (nonatomic, assign) CGFloat padding;
 
-
 @end
 
 @implementation FButton
-
 
 - (void)layoutSubviews{
     [super layoutSubviews];
@@ -34,6 +33,15 @@
             break;
         case FBLayoutTypeImageFull:
             [self fbLayoutImageFull];
+            break;
+        case FBLayoutTypeLeft:
+            [self fbLayoutLeft];
+            break;
+        case FBLayoutTypeRight:
+            [self fbLayoutRight];
+            break;
+        case FBLayoutTypeLeftRight:
+            [self fbLayoutLeftRight];
             break;
         default:
             break;
@@ -64,6 +72,37 @@
     self.imageView.y = (self.height - self.imageView.height) * 0.5;
 }
 
+- (void)fbLayoutLeft{
+    
+}
+
+- (void)fbLayoutRight{
+    CGFloat padding = self.padding;
+    self.imageView.width = self.imageView.image.size.width * self.ratio;
+    self.imageView.height = self.imageView.image.size.height * self.ratio;
+    self.imageView.x = self.width - padding - self.imageView.width;
+    self.imageView.y = (self.height - self.imageView.height) * 0.5;
+    CGFloat width = [self.titleLabel.text boudSizeWithFont:self.titleLabel.font andMaxSize:CGSizeMake(self.width - self.imageView.width - padding, self.height)].width;
+    self.titleLabel.width = width;
+    self.titleLabel.height = self.height;
+    self.titleLabel.x = self.imageView.x - padding - width;
+    self.titleLabel.y = 0;
+}
+
+- (void)fbLayoutLeftRight{
+    CGFloat padding = self.padding;
+    self.imageView.width = self.imageView.image.size.width * self.ratio;
+    self.imageView.height = self.imageView.image.size.height * self.ratio;
+    self.imageView.x = self.width - padding - self.imageView.width;
+    self.imageView.y = (self.height - self.imageView.height) * 0.5;
+    CGFloat width = [self.titleLabel.text boudSizeWithFont:self.titleLabel.font andMaxSize:CGSizeMake(self.width - self.imageView.width - padding, self.height)].width;
+    self.titleLabel.width = width;
+    self.titleLabel.x = padding;
+    self.titleLabel.height = self.height;
+    self.titleLabel.y = 0;
+    
+}
+
 + (instancetype)fbtn{
     FButton *btn = [[FButton alloc] init];
     btn.layoutType = FBLayoutTypeNone;
@@ -77,5 +116,7 @@
     btn.padding = padding;
     return btn;
 }
+
+
 
 @end

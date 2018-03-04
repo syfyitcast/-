@@ -166,6 +166,9 @@
                                                                                                                                                 NSForegroundColorAttributeName:WhiteColor,
                                                                                                                                                 NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
                                                                                                                                                 }];
+    self.mobileField.keyboardType = UIKeyboardTypeTwitter;
+    self.mobileField.text = @"zhangsan";
+    self.screCodeField.text = @"123456";
     self.screCodeField.keyboardType = UIKeyboardTypeTwitter;
     self.screCodeField.secureTextEntry = YES;
     self.screCodeIcon.image = [UIImage imageNamed:@"pwdIcon"];
@@ -260,11 +263,8 @@
             [MBProgressHUD showError:@"请输入正确的手机号码"];
         }
     }else{//账号密码登录
-        NSString *regex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-        BOOL isMatch = [pred evaluateWithObject:self.mobileField.text];
-        if (isMatch) {
-            if (self.screCodeField.text.length >= 8) {
+        if (self.mobileField.text.length != 0) {
+            if (self.screCodeField.text.length >= 6) {
                 ZXSHOW_LOADING(self.view, @"登录中...");
                 [HttpClient zx_httpClientToLoginWithUserName:self.mobileField.text andPassword:self.screCodeField.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING
@@ -284,7 +284,7 @@
                 [MBProgressHUD showError:@"请输入格式正确的密码"];
             }
         }else{
-            [MBProgressHUD showError:@"请输入正确的手机号码"];
+            [MBProgressHUD showError:@"请输入账号  "];
         }
     }
     
@@ -387,7 +387,7 @@
 - (UITextField *)screCodeField{
     if (_screCodeField == nil) {
         _screCodeField = [[UITextField alloc] init];
-        _screCodeField.keyboardType = UIKeyboardTypeNumberPad;
+        _screCodeField.keyboardType = UIKeyboardTypeNumberPad;               ;
         _screCodeField.textColor = WhiteColor;
         NSAttributedString *nString = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{
                                                                                                         NSForegroundColorAttributeName:WhiteColor,

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface AttenceHeaderView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *headerIcon;
 @property (weak, nonatomic) IBOutlet UIButton *dkBtn;
 @property (weak, nonatomic) IBOutlet UIView *iconBgView;
+@property (nonatomic, copy) void(^clickDKBtnBlock)();
 
 + (instancetype)attenceHeaderView;
 

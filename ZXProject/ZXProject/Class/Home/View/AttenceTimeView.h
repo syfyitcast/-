@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *offLabel;
 
 + (instancetype)attenceTimeView;
+- (void)setType:(NSString *)type;
 
 @end

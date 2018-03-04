@@ -14,7 +14,9 @@ typedef enum {
    FBLayoutTypeImageFull,
    FBLayoutTypeDownUp,
    FBLayoutTypeLeftRight,
-   FBLayoutTypeRightLeft
+   FBLayoutTypeRightLeft,
+   FBLayoutTypeRight,
+   FBLayoutTypeLeft
 }FBLayoutType;
 
 @interface FButton : UIButton

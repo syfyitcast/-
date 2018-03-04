@@ -15,11 +15,16 @@
 
 
 
-#define UIColorWithRGB(r,g,b)  [UIColor colorWithRed:r*1.0/255.0 green:g*1.0/255.0 blue:b*1.0/255.0 alpha:1]
-
+#define UIColorWithRGB(r,g,b)   [UIColor colorWithRed:r*1.0/255.0 green:g*1.0/255.0 blue:b*1.0/255.0 alpha:1]
+#define UIColorWithFloat(float) [UIColor colorWithRed:float*1.0/255.0 green:float*1.0/255.0 blue:float*1.0/255.0 alpha:1]
 
 #define WhiteColor UIColorWithRGB(255,255,255)
 #define BlackColor UIColorWithRGB(0,0,0)
+
+#define BTNBackgroudColor UIColorWithRGB(120, 200, 58)
+
+#define kScreenRatioWidth   [UIScreen mainScreen].bounds.size.width / 375.0
+#define kScreenRatioHeight  [UIScreen mainScreen].bounds.size.height / 667.0
 
 
 

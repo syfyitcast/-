@@ -252,7 +252,7 @@
     BOOL isMatch = [pred evaluateWithObject:self.mobileField.text];
     if(isMatch) { //有效手机号
         if (self.screCodeField.text.length == 6) {
-            if (self.pwdTextField.text.length >= 8) {
+            if (self.pwdTextField.text.length >= 6) {
                 if ([self.pwdTextFieldTwo.text isEqualToString:self.pwdTextField.text]) {
                     [HttpClient zx_httpClientToForgetPasswordWithMobile:self.mobileField.text andVerifyCode:self.screCodeField.text andSmsid:[NetworkConfig sharedNetworkingConfig].smsid andNewPassword:self.pwdTextField.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                         if (code == 0) {
@@ -270,7 +270,7 @@
                    [MBProgressHUD showError:@"两次密码输入不一致"];
                 }
             }else{
-               [MBProgressHUD showError:@"密码长度不能小于8位"];
+               [MBProgressHUD showError:@"密码长度不能小于6位"];
             }
         }else{
             [MBProgressHUD showError:@"请输入正确的验证码"];
@@ -379,7 +379,7 @@
     if (_pwdTextField == nil) {
         _pwdTextField = [[UITextField alloc] init];
         _pwdTextField.textColor = WhiteColor;
-        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少8位,数字+字母)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
+        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少6位)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
                                                                                                                                   NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
                                                                                                                                   
                                                                                                                                   
@@ -423,7 +423,7 @@
     if (_pwdTextFieldTwo == nil) {
         _pwdTextFieldTwo = [[UITextField alloc] init];
         _pwdTextFieldTwo.textColor = WhiteColor;
-        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少8位,数字+字母)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
+        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少6位)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
                                                                                                                                   NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
                                                                                                                                   
                                                                                                                                   

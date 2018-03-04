@@ -9,10 +9,16 @@
 #import "WorkFlowController.h"
 #import "NotificationBar.h"
 #import "GobHeaderFile.h"
+#import "LeaveView.h"
+#import <Masonry.h>
+
 
 @interface WorkFlowController ()
 
 @property (nonatomic, strong) NotificationBar *topBar;
+@property (nonatomic, strong) NSArray *childViews;
+@property (nonatomic, strong) UIView *currentView;
+@property (nonatomic, assign) int currentViewIndex;
 
 @end
 
@@ -26,6 +32,16 @@
 
 - (void)setSubViews{
     [self.view addSubview:self.topBar];
+    self.currentView = self.childViews[self.currentViewIndex];
+    [self.view addSubview:self.currentView];
+    __weak typeof(self) weakself = self;
+    [self.currentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(weakself.topBar.mas_bottom);
+        make.bottom.equalTo(weakself.view.mas_bottom);
+    }];
+    
 }
 
 #pragma  mark - setter && getter
@@ -36,6 +52,17 @@
         _topBar = [NotificationBar notificationBarWithItems:@[@"请假",@"出差",@"报销",@"呈报"] andFrame:frame];
     }
     return _topBar;
+}
+
+- (NSArray *)childViews{
+    if (_childViews == nil) {
+        LeaveView *view_0 = [LeaveView leaveView];
+        LeaveView *view_1 = [LeaveView leaveView];
+        LeaveView *view_2 = [LeaveView leaveView];
+        LeaveView *view_3 = [LeaveView leaveView];
+        _childViews = @[view_0,view_1,view_2,view_3];
+    }
+    return _childViews;
 }
 
 

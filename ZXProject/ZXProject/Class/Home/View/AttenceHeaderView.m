@@ -11,6 +11,13 @@
 
 @implementation AttenceHeaderView
 
+
+- (IBAction)ClickDkBtn {
+    if (self.clickDKBtnBlock) {
+        self.clickDKBtnBlock();
+    }
+}
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.iconBgView.layer.cornerRadius = 25;

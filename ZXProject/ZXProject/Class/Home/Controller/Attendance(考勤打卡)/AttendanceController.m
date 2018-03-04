@@ -12,6 +12,7 @@
 #import "FButton.h"
 #import <Masonry.h>
 #import "AttenceTimeView.h"
+#import "AttenceDKController.h"
 
 @interface AttendanceController ()
 
@@ -101,6 +102,11 @@
 - (AttenceHeaderView *)headerView{
     if (_headerView == nil) {
         _headerView = [AttenceHeaderView attenceHeaderView];
+        __weak typeof(self) weakself = self;
+        [_headerView setClickDKBtnBlock:^{
+            AttenceDKController *vc = [[AttenceDKController alloc] init];
+            [weakself.navigationController pushViewController:vc animated:YES];
+        }];
     }
     return _headerView;
 }
@@ -146,6 +152,7 @@
 - (AttenceTimeView *)twoTimeView{
     if (_twoTimeView == nil) {
         _twoTimeView = [AttenceTimeView attenceTimeView];
+        [_twoTimeView setType:@"中班"];
     }
     return _twoTimeView;
 }

@@ -18,6 +18,7 @@
 #import "WorkFlowController.h"
 #import "AttendanceController.h"
 #import "PersonInfoController.h"
+#import "WorkManagerController.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
@@ -183,7 +184,7 @@
 
 - (NSArray *)items{
     if (_items == nil) {
-        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
+        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
     }
     return _items;
 }

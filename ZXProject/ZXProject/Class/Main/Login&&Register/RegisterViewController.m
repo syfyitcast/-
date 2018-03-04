@@ -205,7 +205,7 @@
                 [MBProgressHUD showError:@"请先获取验证码"];
                 return;
             }
-            if (self.pwdTextField.text.length >= 8) {
+            if (self.pwdTextField.text.length >= 6) {
                 ZXSHOW_LOADING(self.view, @"加载中...")
                 [HttpClient zx_httpClientToRegisterWithMobile:self.mobileField.text andSmcontent:self.screCodeField.text andSmsid:[NetworkConfig sharedNetworkingConfig].smsid andPassword:self.pwdTextField.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING
@@ -221,7 +221,7 @@
                     }
                 }];
             }else{
-                [MBProgressHUD showError:@"密码长度必须不小于8位"];
+                [MBProgressHUD showError:@"密码长度必须不小于6位"];
             }
         }else{
             [MBProgressHUD showError:@"请输入正确的验证码"];
@@ -349,7 +349,7 @@
 - (UITextField *)pwdTextField{
     if (_pwdTextField == nil) {
         _pwdTextField = [[UITextField alloc] init];
-        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少8位,数字+字母)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
+        NSMutableAttributedString *nString = [[NSMutableAttributedString alloc] initWithString:@"请输入新密码(最少6位)" attributes:@{NSForegroundColorAttributeName:WhiteColor,
                                                                                                                 NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
                                                                                                                 
                                                                                                 
