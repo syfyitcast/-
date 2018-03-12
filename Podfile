@@ -4,5 +4,6 @@ target 'ZXProject' do
      pod 'MBProgressHUD'
      pod 'Masonry'
      pod 'IQKeyboardManager'
+     pod 'SDWebImage'
 
 end

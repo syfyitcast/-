@@ -12,6 +12,7 @@
 #import "UIView+Layout.h"
 #import "ZXShowLoadingManager.h"
 #import "MBProgressHUD+PKX.h"
+#import "UserManager.h"
 
 
 

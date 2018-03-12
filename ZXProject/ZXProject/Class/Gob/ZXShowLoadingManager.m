@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIView *inView;
+@property (nonatomic, strong) UIView *coverView;
 
 @end
 
@@ -56,6 +57,11 @@
     label.x = 0;
     label.y = CGRectGetMaxY(loadingView.frame) + 5;
     [bgView addSubview:loadingView];
+    UIView *coverView = [[UIView alloc] init];
+    coverView.backgroundColor = [UIColor clearColor];
+    coverView.frame = view.bounds;
+    self.coverView = coverView;
+    [view addSubview:coverView];
     [view addSubview:bgView];
     [bgView addSubview:wheelView];
     [bgView addSubview:label];
@@ -71,6 +77,7 @@
 
 - (void)hideLoadingView{
     if (self.bgView) {
+        [self.coverView removeFromSuperview];
         [self.bgView removeFromSuperview];
         self.bgView = nil;
     }

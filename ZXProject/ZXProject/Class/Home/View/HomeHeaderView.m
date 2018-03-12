@@ -7,6 +7,9 @@
 //
 
 #import "HomeHeaderView.h"
+#import "UserManager.h"
+#import "NSString+boundSize.h"
+#import <Masonry.h>
 
 @interface HomeHeaderView()
 
@@ -14,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headerIconView;
 @property (weak, nonatomic) IBOutlet UIImageView *personIcon;
+
+@property (weak, nonatomic) IBOutlet UILabel *personName;
+
+@property (weak, nonatomic) IBOutlet UILabel *userrank;
 
 @end
 
@@ -45,6 +52,13 @@
     
     [self.personIcon addGestureRecognizer:tap_0];
     [self.headerIconView addGestureRecognizer:tap];
+    User *user = [UserManager sharedUserManager].user;
+    self.personName.text = [NSString stringWithFormat:@"%@ 欢迎你",user.employername];
+    self.userrank.text = user.userrank;
+    CGFloat width = [self.userrank.text boundSizeWithFont:self.userrank.font].width + 20;
+    [self.userrank mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+    }];
 }
 
 - (void)clickIconView{

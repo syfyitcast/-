@@ -100,9 +100,12 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="companyName" destination="lKF-wh-yjP" id="fAl-qQ-Djj"/>
                 <outlet property="dkBtn" destination="WKH-zG-dL9" id="2Md-c2-wcJ"/>
                 <outlet property="headerIcon" destination="te6-J9-btG" id="ND2-aF-xKK"/>
                 <outlet property="iconBgView" destination="bOV-f9-EjU" id="5FI-c9-8qq"/>
+                <outlet property="personName" destination="oFD-Dj-H9S" id="SJd-iK-eUh"/>
+                <outlet property="userrank" destination="e3l-Nb-R6p" id="UCm-tb-PET"/>
             </connections>
             <point key="canvasLocation" x="432" y="-8"/>
         </view>

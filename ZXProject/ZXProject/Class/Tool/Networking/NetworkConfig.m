@@ -9,12 +9,16 @@
 #import "NetworkConfig.h"
 #import "UserLocationManager.h"
 #import "Tool+MD5.h"
+#import "UserManager.h"
 
 NSString *const API_LOGINPWD = @"checklogin";//登陆
 NSString *const API_LOGINCODE = @"verificationcodelogin";//验证码登录
 NSString *const API_GETCODE = @"getverificationcode";//获取短信验证码
 NSString *const API_REGISTER = @"verificationcoderegiste";//注册
 NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
+
+
+NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 
 @implementation NetworkConfig
 
@@ -35,9 +39,9 @@ NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
         self.accountid = @"0";
         self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude];
 #if DEBUG
-        self.baseUrl = @"http://113.247.222.46:9080/hjwulian/appservice/";
+        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
 #else
-        
+        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
 #endif
     }
     return self;
@@ -70,6 +74,10 @@ NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
     NSString *tokenString = [NSString stringWithFormat:@"%@%@%@%@%@%@",config.apiuser,config.snid,methodName,config.position,config.accountid,MD5_ID];
     config.token = [Tool MD5ForLower32Bate:tokenString];
     [config.publicParamters setObject:config.token forKey:@"token"];
+}
+
+- (NSString *)accountid{
+    return [UserManager sharedUserManager].user.accountid?[UserManager sharedUserManager].user.accountid:_accountid;
 }
 
 @end

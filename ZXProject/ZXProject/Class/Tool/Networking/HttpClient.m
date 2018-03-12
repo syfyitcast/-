@@ -9,6 +9,7 @@
 #import "HttpClient.h"
 #import "Tool+MD5.h"
 #import "NetworkConfig.h"
+#import "NSNULL+Filtration.h"
 
 @implementation HttpClient
 
@@ -26,9 +27,10 @@
         request.useGeneralServer     = YES;
         request.useGeneralParameters = NO;
     } onSuccess:^(id  _Nullable responseObject) {
-        int resultCode = [responseObject[@"code"] intValue];
-        id data = responseObject[@"datas"];
-        NSString *message = responseObject[@"codedesc"];
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(resultCode,data,message,nil);
         });
@@ -54,9 +56,10 @@
         request.useGeneralServer     = YES;
         request.useGeneralParameters = NO;
     } onSuccess:^(id  _Nullable responseObject) {
-        int resultCode = [responseObject[@"code"] intValue];
-        id data = responseObject[@"datas"];
-        NSString *message = responseObject[@"codedesc"];
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(resultCode,data,message,nil);
         });
@@ -81,9 +84,10 @@
         request.useGeneralServer     = YES;
         request.useGeneralParameters = NO;
     } onSuccess:^(id  _Nullable responseObject) {
-        int resultCode = [responseObject[@"code"] intValue];
-        id data = responseObject[@"datas"];
-        NSString *message = responseObject[@"codedesc"];
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(resultCode,data,message,nil);
         });
@@ -110,11 +114,12 @@
         request.useGeneralServer     = YES;
         request.useGeneralParameters = NO;
     } onSuccess:^(id  _Nullable responseObject) {
-        int resultCode = [responseObject[@"code"] intValue];
-        id data = responseObject[@"datas"];
-        NSString *message = responseObject[@"codedesc"];
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
         dispatch_async(dispatch_get_main_queue(), ^{
-             block(resultCode,data,message,nil);
+            block(resultCode,data,message,nil);
         });
     } onFailure:^(NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -140,9 +145,38 @@
         request.useGeneralServer     = YES;
         request.useGeneralParameters = NO;
     } onSuccess:^(id  _Nullable responseObject) {
-        int resultCode = [responseObject[@"code"] intValue];
-        id data = responseObject[@"datas"];
-        NSString *message = responseObject[@"codedesc"];
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(resultCode,data,message,nil);
+        });
+    } onFailure:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(-1,nil,nil,error);
+        });
+    }];
+}
+
++ (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:projectId forKey:@"projectid"];
+    [dict setObject:eventStatus forKey:@"eventstatus"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETEVENTS];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(resultCode,data,message,nil);
         });

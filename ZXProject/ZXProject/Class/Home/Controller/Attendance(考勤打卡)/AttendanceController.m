@@ -25,7 +25,6 @@
 @property (nonatomic, strong) UIView *twoLineView;
 @property (nonatomic, strong) UIView *threeLineView;
 
-
 @end
 
 @implementation AttendanceController

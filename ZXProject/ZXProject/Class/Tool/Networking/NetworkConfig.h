@@ -17,6 +17,9 @@ extern NSString *const API_GETCODE;//获取短信验证码
 extern NSString *const API_REGISTER;//注册
 extern NSString *const API_FORGETPWD;//忘记密码
 
+extern NSString *const API_GETEVENTS;//获取环卫事件
+
+
 @interface NetworkConfig : NSObject
 
 @property (nonatomic, copy) NSString *baseUrl;
@@ -27,6 +30,8 @@ extern NSString *const API_FORGETPWD;//忘记密码
 @property (nonatomic, copy) NSString *position;//位置信息
 @property (nonatomic, copy) NSString *token;//用户token
 @property (nonatomic, copy) NSString *smsid;//短信验证码校验码
+
+
 
 + (instancetype)sharedNetworkingConfig;
 

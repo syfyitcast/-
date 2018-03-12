@@ -23,7 +23,7 @@
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];
     MainNavigationController *navc = [[MainNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-    self.window.rootViewController = [[MainTabBarController alloc] init];//navc;
+    self.window.rootViewController = navc;//[[MainTabBarController alloc] init];//navc;
     [self.window makeKeyAndVisible];
     [[UserLocationManager sharedUserLocationManager] getUserLocation];
     return YES;

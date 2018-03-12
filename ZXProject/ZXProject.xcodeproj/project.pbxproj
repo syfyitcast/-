@@ -11,6 +11,14 @@
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
 		8C045225204BD9270067F10E /* WorkManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C045224204BD9270067F10E /* WorkManagerController.m */; };
+		8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C045229204C1EFD0067F10E /* WorkTaskCell.m */; };
+		8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04522D204C1F300067F10E /* WorkTaskCell.xib */; };
+		8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B05204D23BA00319CC0 /* WorkTaskModel.m */; };
+		8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B0C204D2D2100319CC0 /* UserManager.m */; };
+		8C224B10204D2D2A00319CC0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B0F204D2D2A00319CC0 /* User.m */; };
+		8C224B13204D320C00319CC0 /* NSNULL+Filtration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B11204D320B00319CC0 /* NSNULL+Filtration.m */; };
+		8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B18204FABE100319CC0 /* WorkTaskAddController.m */; };
+		8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B1B204FACAA00319CC0 /* WorkTaskAddImagePickView.m */; };
 		8C305BEF202C09AD00A843B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BEE202C09AD00A843B5 /* main.m */; };
 		8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BF1202C09AD00A843B5 /* AppDelegate.m */; };
 		8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C305BF9202C09AD00A843B5 /* Assets.xcassets */; };
@@ -71,6 +79,7 @@
 		8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */; };
 		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
 		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
+		8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */; };
 		8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB14587203918A7003E94D4 /* MainTabBar.m */; };
 		8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458B203919F0003E94D4 /* MainTabBarItem.m */; };
 		8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458F20391BF9003E94D4 /* UIView+Layout.m */; };
@@ -106,6 +115,21 @@
 		8C04521C204914AD0067F10E /* LeaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaveView.xib; sourceTree = "<group>"; };
 		8C045223204BD9270067F10E /* WorkManagerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkManagerController.h; sourceTree = "<group>"; };
 		8C045224204BD9270067F10E /* WorkManagerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkManagerController.m; sourceTree = "<group>"; };
+		8C045228204C1EFD0067F10E /* WorkTaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskCell.h; sourceTree = "<group>"; };
+		8C045229204C1EFD0067F10E /* WorkTaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskCell.m; sourceTree = "<group>"; };
+		8C04522D204C1F300067F10E /* WorkTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTaskCell.xib; sourceTree = "<group>"; };
+		8C224B04204D23BA00319CC0 /* WorkTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskModel.h; sourceTree = "<group>"; };
+		8C224B05204D23BA00319CC0 /* WorkTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskModel.m; sourceTree = "<group>"; };
+		8C224B0B204D2D2100319CC0 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		8C224B0C204D2D2100319CC0 /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		8C224B0E204D2D2A00319CC0 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8C224B0F204D2D2A00319CC0 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8C224B11204D320B00319CC0 /* NSNULL+Filtration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNULL+Filtration.m"; sourceTree = "<group>"; };
+		8C224B12204D320B00319CC0 /* NSNULL+Filtration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNULL+Filtration.h"; sourceTree = "<group>"; };
+		8C224B17204FABE100319CC0 /* WorkTaskAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskAddController.h; sourceTree = "<group>"; };
+		8C224B18204FABE100319CC0 /* WorkTaskAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskAddController.m; sourceTree = "<group>"; };
+		8C224B1A204FACAA00319CC0 /* WorkTaskAddImagePickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskAddImagePickView.h; sourceTree = "<group>"; };
+		8C224B1B204FACAA00319CC0 /* WorkTaskAddImagePickView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskAddImagePickView.m; sourceTree = "<group>"; };
 		8C305BEA202C09AD00A843B5 /* ZXProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZXProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C305BEE202C09AD00A843B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8C305BF0202C09AD00A843B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -227,6 +251,8 @@
 		8C5102FF2047E3E500F0E40D /* AttenceDKController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceDKController.m; sourceTree = "<group>"; };
 		8C5103012048DDF000F0E40D /* SettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewCell.h; sourceTree = "<group>"; };
 		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
+		8CA11DB520525E7300BC14C5 /* WorkTaskDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskDetailController.h; sourceTree = "<group>"; };
+		8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskDetailController.m; sourceTree = "<group>"; };
 		8CB14586203918A7003E94D4 /* MainTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBar.h; sourceTree = "<group>"; };
 		8CB14587203918A7003E94D4 /* MainTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBar.m; sourceTree = "<group>"; };
 		8CB1458A203919F0003E94D4 /* MainTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarItem.h; sourceTree = "<group>"; };
@@ -287,8 +313,44 @@
 			children = (
 				8C045223204BD9270067F10E /* WorkManagerController.h */,
 				8C045224204BD9270067F10E /* WorkManagerController.m */,
+				8C224B17204FABE100319CC0 /* WorkTaskAddController.h */,
+				8C224B18204FABE100319CC0 /* WorkTaskAddController.m */,
+				8CA11DB520525E7300BC14C5 /* WorkTaskDetailController.h */,
+				8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */,
 			);
 			path = "WorkManager(作业管理)";
+			sourceTree = "<group>";
+		};
+		8C045227204C1ED00067F10E /* WorkManagerCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C045228204C1EFD0067F10E /* WorkTaskCell.h */,
+				8C045229204C1EFD0067F10E /* WorkTaskCell.m */,
+				8C04522D204C1F300067F10E /* WorkTaskCell.xib */,
+				8C224B1A204FACAA00319CC0 /* WorkTaskAddImagePickView.h */,
+				8C224B1B204FACAA00319CC0 /* WorkTaskAddImagePickView.m */,
+			);
+			path = WorkManagerCell;
+			sourceTree = "<group>";
+		};
+		8C224B03204D239F00319CC0 /* WorkTask */ = {
+			isa = PBXGroup;
+			children = (
+				8C224B04204D23BA00319CC0 /* WorkTaskModel.h */,
+				8C224B05204D23BA00319CC0 /* WorkTaskModel.m */,
+			);
+			path = WorkTask;
+			sourceTree = "<group>";
+		};
+		8C224B07204D2CFD00319CC0 /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				8C224B0B204D2D2100319CC0 /* UserManager.h */,
+				8C224B0C204D2D2100319CC0 /* UserManager.m */,
+				8C224B0E204D2D2A00319CC0 /* User.h */,
+				8C224B0F204D2D2A00319CC0 /* User.m */,
+			);
+			path = UserManager;
 			sourceTree = "<group>";
 		};
 		8C305BE1202C09AD00A843B5 = {
@@ -356,6 +418,7 @@
 		8C305C20202C0F1400A843B5 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				8C224B07204D2CFD00319CC0 /* UserManager */,
 				8CB1459E203E86B8003E94D4 /* Resource */,
 				8C305C21202C0F1400A843B5 /* ContactList */,
 				8C305C25202C0F1400A843B5 /* Gob */,
@@ -441,6 +504,7 @@
 		8C305C28202C0F1400A843B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8C224B03204D239F00319CC0 /* WorkTask */,
 				8C5102CE20442FA600F0E40D /* Notification */,
 				8CB1459B203D5246003E94D4 /* HomeCollectionItem.h */,
 				8CB1459C203D5246003E94D4 /* HomeCollectionItem.m */,
@@ -455,6 +519,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8C045227204C1ED00067F10E /* WorkManagerCell */,
 				8C0452182049139F0067F10E /*  LeaveView */,
 				8C5102CA2043E8BC00F0E40D /* Notification */,
 				8CB1459120393F42003E94D4 /* HomeHeaderView.h */,
@@ -779,6 +844,8 @@
 		8CB1458D20391B96003E94D4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				8C224B12204D320B00319CC0 /* NSNULL+Filtration.h */,
+				8C224B11204D320B00319CC0 /* NSNULL+Filtration.m */,
 				8C5102AC204282C900F0E40D /* NSString+boundSize.h */,
 				8C5102AD204282C900F0E40D /* NSString+boundSize.m */,
 				8CB1458E20391BF9003E94D4 /* UIView+Layout.h */,
@@ -935,6 +1002,7 @@
 				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
 				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
+				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
@@ -1033,6 +1101,7 @@
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
+				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
@@ -1047,6 +1116,7 @@
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				8C33C2C82031700400B93F6E /* AFNetworkActivityIndicatorManager.m in Sources */,
+				8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */,
 				8C33C2D62031717200B93F6E /* NetworkConfig.m in Sources */,
 				8C340E762037C22E00D1A0AD /* UserLocationManager.m in Sources */,
 				8C5102E3204671F400F0E40D /* AttenceHeaderView.m in Sources */,
@@ -1054,6 +1124,7 @@
 				8C5102C92043CA3800F0E40D /* NotificationBar.m in Sources */,
 				8C305BEF202C09AD00A843B5 /* main.m in Sources */,
 				8C5102AE204282C900F0E40D /* NSString+boundSize.m in Sources */,
+				8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */,
 				8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */,
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
 				8CB1459320393F42003E94D4 /* HomeHeaderView.m in Sources */,
@@ -1063,9 +1134,14 @@
 				8CB145A5203E86B9003E94D4 /* MBProgressHUD+PKX.m in Sources */,
 				8C5102B42042E37900F0E40D /* HomeRightTableViewCell.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
+				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
+				8C224B10204D2D2A00319CC0 /* User.m in Sources */,
+				8C224B13204D320C00319CC0 /* NSNULL+Filtration.m in Sources */,
 				8C33C2C52031700400B93F6E /* XMEngine.m in Sources */,
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
+				8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */,
+				8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */,
 				8C5102D120442FC400F0E40D /* NotificationNewsModel.m in Sources */,
 				8C33C2CA2031700400B93F6E /* AFSecurityPolicy.m in Sources */,
 				8C5102B72042E77900F0E40D /* HomeRightItems.m in Sources */,

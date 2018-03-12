@@ -9,6 +9,16 @@
 #import "AttenceHeaderView.h"
 #import "GobHeaderFile.h"
 
+
+@interface AttenceHeaderView()
+
+@property (weak, nonatomic) IBOutlet UILabel *personName;
+@property (weak, nonatomic) IBOutlet UILabel *userrank;
+@property (weak, nonatomic) IBOutlet UILabel *companyName;
+
+
+@end
+
 @implementation AttenceHeaderView
 
 
@@ -24,6 +34,9 @@
     self.iconBgView.layer.borderColor = UIColorWithRGB(200, 200, 200).CGColor;
     self.iconBgView.layer.borderWidth = 1;
     self.dkBtn.layer.cornerRadius = 6;
+    User *user = [UserManager sharedUserManager].user;
+    self.personName.text = [NSString stringWithFormat:@"姓名:%@", user.employername];
+    self.userrank.text = [NSString stringWithFormat:@"职务:%@",user.userrank];
 }
 
 + (instancetype)attenceHeaderView{

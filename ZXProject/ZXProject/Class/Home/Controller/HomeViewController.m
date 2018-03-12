@@ -19,6 +19,7 @@
 #import "AttendanceController.h"
 #import "PersonInfoController.h"
 #import "WorkManagerController.h"
+#import "UserLocationManager.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
@@ -46,6 +47,7 @@
     self.title = @"首页";
     [self setSubviews];
     self.navigationController.navigationBar.hidden = YES;
+    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

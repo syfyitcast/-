@@ -39,6 +39,17 @@
     }
 }
 
+- (void)reverseGeocodeLocationWithAdressBlock:(void(^)(NSDictionary *))adressBlock{
+    CLGeocoder *clGeoCoder = [[CLGeocoder alloc] init];
+    [clGeoCoder reverseGeocodeLocation:self.currentLaction completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *placemark = placemarks.lastObject;
+        NSDictionary *addressDic = placemark.addressDictionary;
+        if (adressBlock) {
+            adressBlock(addressDic);
+        }
+    }];
+}
+
 #pragma mark - CLLocationManagerDelegateMethod
 
 //定位失败后调用此代理方法

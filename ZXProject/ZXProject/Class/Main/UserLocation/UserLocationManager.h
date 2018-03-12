@@ -16,7 +16,8 @@
 
 + (instancetype)sharedUserLocationManager;
 
-
 - (void)getUserLocation;
+
+- (void)reverseGeocodeLocationWithAdressBlock:(void(^)(NSDictionary *))adressBlock;
 
 @end

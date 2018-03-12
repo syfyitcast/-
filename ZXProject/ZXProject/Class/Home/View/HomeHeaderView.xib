@@ -222,7 +222,9 @@
                 <outlet property="headerIconView" destination="Npf-va-19w" id="Uh6-ac-lx4"/>
                 <outlet property="leftBtn" destination="Wt1-51-aBb" id="6fO-RA-xcf"/>
                 <outlet property="personIcon" destination="BAG-MU-5kn" id="4AE-c6-CNt"/>
+                <outlet property="personName" destination="oCJ-Sp-Q8H" id="xqu-Bd-eRR"/>
                 <outlet property="rightBtn" destination="odx-OH-F1W" id="IKb-Vn-h71"/>
+                <outlet property="userrank" destination="t2U-iy-Xdk" id="bTp-Xf-fTg"/>
             </connections>
             <point key="canvasLocation" x="-256" y="-264"/>
         </view>

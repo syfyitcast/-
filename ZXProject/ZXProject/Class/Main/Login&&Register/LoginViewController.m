@@ -13,6 +13,7 @@
 #import "MainTabBarController.h"
 #import "ForgetPasswordCotroller.h"
 #import "HttpClient.h"
+#import "UserManager.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>{
     int codeTime;
@@ -166,8 +167,15 @@
                                                                                                                                                 NSForegroundColorAttributeName:WhiteColor,
                                                                                                                                                 NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
                                                                                                                                                 }];
+    _mobileField.attributedPlaceholder = [[NSMutableAttributedString alloc]
+                                          initWithString:@"请输入账号" attributes:@{
+                                                                                NSForegroundColorAttributeName:WhiteColor,
+                                                                                NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
+                                                                                
+                                                                                
+                                                                                }];
     self.mobileField.keyboardType = UIKeyboardTypeTwitter;
-    self.mobileField.text = @"zhangsan";
+    self.mobileField.text = @"13467311554";
     self.screCodeField.text = @"123456";
     self.screCodeField.keyboardType = UIKeyboardTypeTwitter;
     self.screCodeField.secureTextEntry = YES;
@@ -245,6 +253,8 @@
                 [HttpClient zx_httpClientToLoginWithUserName:self.mobileField.text andVerifyCode:self.screCodeField.text andSmsid:[NetworkConfig sharedNetworkingConfig].smsid andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING
                     if (code == 0) {
+                        NSDictionary *userInfo = data[@"systemuser"];
+                        [[UserManager sharedUserManager] getUserInfomationWithDict:userInfo];
                         UIWindow *window = [UIApplication sharedApplication].keyWindow;
                         MainTabBarController *mainVc = [[MainTabBarController alloc] init];
                         window.rootViewController = mainVc;
@@ -269,12 +279,14 @@
                 [HttpClient zx_httpClientToLoginWithUserName:self.mobileField.text andPassword:self.screCodeField.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING
                     if (code == 0) {
+                        NSDictionary *userInfo = data[@"systemuser"];
+                        [[UserManager sharedUserManager] getUserInfomationWithDict:userInfo];
                         UIWindow *window = [UIApplication sharedApplication].keyWindow;
                         MainTabBarController *mainVc = [[MainTabBarController alloc] init];
                         window.rootViewController = mainVc;
                     }else{
                         if ([message isKindOfClass:[NSNull class]] || message.length == 0) {
-                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %zd",code]];
+                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %d",code]];
                         }else{
                             [MBProgressHUD showError:message];
                         }
