@@ -80,6 +80,7 @@
 		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
 		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
 		8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */; };
+		8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA11DBB20595BB500BC14C5 /* MBProgressHUD+PKX.m */; };
 		8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB14587203918A7003E94D4 /* MainTabBar.m */; };
 		8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458B203919F0003E94D4 /* MainTabBarItem.m */; };
 		8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1458F20391BF9003E94D4 /* UIView+Layout.m */; };
@@ -87,7 +88,6 @@
 		8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB1459620394015003E94D4 /* HomeHeaderView.xib */; };
 		8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB14599203BE145003E94D4 /* HomeCollectionView.m */; };
 		8CB1459D203D5246003E94D4 /* HomeCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1459C203D5246003E94D4 /* HomeCollectionItem.m */; };
-		8CB145A5203E86B9003E94D4 /* MBProgressHUD+PKX.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB145A1203E86B8003E94D4 /* MBProgressHUD+PKX.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +253,8 @@
 		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
 		8CA11DB520525E7300BC14C5 /* WorkTaskDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskDetailController.h; sourceTree = "<group>"; };
 		8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskDetailController.m; sourceTree = "<group>"; };
+		8CA11DBA20595BB500BC14C5 /* MBProgressHUD+PKX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+PKX.h"; sourceTree = "<group>"; };
+		8CA11DBB20595BB500BC14C5 /* MBProgressHUD+PKX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+PKX.m"; sourceTree = "<group>"; };
 		8CB14586203918A7003E94D4 /* MainTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBar.h; sourceTree = "<group>"; };
 		8CB14587203918A7003E94D4 /* MainTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBar.m; sourceTree = "<group>"; };
 		8CB1458A203919F0003E94D4 /* MainTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarItem.h; sourceTree = "<group>"; };
@@ -266,8 +268,6 @@
 		8CB14599203BE145003E94D4 /* HomeCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionView.m; sourceTree = "<group>"; };
 		8CB1459B203D5246003E94D4 /* HomeCollectionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCollectionItem.h; sourceTree = "<group>"; };
 		8CB1459C203D5246003E94D4 /* HomeCollectionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionItem.m; sourceTree = "<group>"; };
-		8CB145A0203E86B8003E94D4 /* MBProgressHUD+PKX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+PKX.h"; sourceTree = "<group>"; };
-		8CB145A1203E86B8003E94D4 /* MBProgressHUD+PKX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+PKX.m"; sourceTree = "<group>"; };
 		B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZXProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -418,8 +418,8 @@
 		8C305C20202C0F1400A843B5 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				8CA11DB820595BB500BC14C5 /* Resource */,
 				8C224B07204D2CFD00319CC0 /* UserManager */,
-				8CB1459E203E86B8003E94D4 /* Resource */,
 				8C305C21202C0F1400A843B5 /* ContactList */,
 				8C305C25202C0F1400A843B5 /* Gob */,
 				8C305C26202C0F1400A843B5 /* Home */,
@@ -832,6 +832,23 @@
 			path = FrameWork;
 			sourceTree = "<group>";
 		};
+		8CA11DB820595BB500BC14C5 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				8CA11DB920595BB500BC14C5 /* MBProgressHUD */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		8CA11DB920595BB500BC14C5 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				8CA11DBA20595BB500BC14C5 /* MBProgressHUD+PKX.h */,
+				8CA11DBB20595BB500BC14C5 /* MBProgressHUD+PKX.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		8CB14589203919D3003E94D4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -852,23 +869,6 @@
 				8CB1458F20391BF9003E94D4 /* UIView+Layout.m */,
 			);
 			path = Category;
-			sourceTree = "<group>";
-		};
-		8CB1459E203E86B8003E94D4 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				8CB1459F203E86B8003E94D4 /* MBProgressHUD */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		8CB1459F203E86B8003E94D4 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				8CB145A0203E86B8003E94D4 /* MBProgressHUD+PKX.h */,
-				8CB145A1203E86B8003E94D4 /* MBProgressHUD+PKX.m */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		B1CBEC94D0244E4B7EE6FA47 /* Frameworks */ = {
@@ -959,8 +959,8 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = THPFNYW7A3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 29S4UY9J7H;
+						ProvisioningStyle = Manual;
 					};
 					8C305C02202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1099,6 +1099,7 @@
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
 				8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
+				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
 				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
@@ -1131,7 +1132,6 @@
 				8C33C2CB2031700400B93F6E /* AFURLRequestSerialization.m in Sources */,
 				8C305C49202C17F800A843B5 /* LoginViewController.m in Sources */,
 				8C5102CD2043E8F500F0E40D /* NotificationNewsCell.m in Sources */,
-				8CB145A5203E86B9003E94D4 /* MBProgressHUD+PKX.m in Sources */,
 				8C5102B42042E37900F0E40D /* HomeRightTableViewCell.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
@@ -1296,10 +1296,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = THPFNYW7A3;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 29S4UY9J7H;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1308,10 +1308,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.ZXProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3b1007b1-b0c4-4daf-993f-8b7480efb29f";
+				PROVISIONING_PROFILE_SPECIFIER = "Dis:com.infore.zoomlionhwgps";
 			};
 			name = Debug;
 		};
@@ -1321,10 +1321,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = THPFNYW7A3;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1333,10 +1333,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.ZXProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Dis:com.infore.zoomlionhwgps";
 			};
 			name = Release;
 		};
