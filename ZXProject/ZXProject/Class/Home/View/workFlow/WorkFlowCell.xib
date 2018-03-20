@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="136" id="shn-DO-laB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="shn-DO-laB" id="pRD-2v-oWy">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="135.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZxB-uj-97C">
+                        <rect key="frame" x="16" y="16" width="84" height="79"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="84" id="AMM-OW-eb5"/>
+                            <constraint firstAttribute="height" constant="79" id="hP3-Fk-Mh1"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZxB-uj-97C" firstAttribute="leading" secondItem="pRD-2v-oWy" secondAttribute="leadingMargin" id="0lT-Ra-Far"/>
+                    <constraint firstItem="ZxB-uj-97C" firstAttribute="top" secondItem="pRD-2v-oWy" secondAttribute="topMargin" constant="5" id="NhW-Aa-v7U"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="155.5" y="-159"/>
+        </tableViewCell>
+    </objects>
+</document>

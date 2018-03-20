@@ -12,6 +12,8 @@
 		49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */; };
 		49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0D74205B9C19002CE92C /* ProjectReviewPersonCell.xib */; };
 		49EC0D7A2060F44E002CE92C /* WorkFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D792060F44E002CE92C /* WorkFlowModel.m */; };
+		49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */; };
+		49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0D8020610A91002CE92C /* WorkFlowCell.xib */; };
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
@@ -123,6 +125,9 @@
 		49EC0D74205B9C19002CE92C /* ProjectReviewPersonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectReviewPersonCell.xib; sourceTree = "<group>"; };
 		49EC0D782060F44E002CE92C /* WorkFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowModel.h; sourceTree = "<group>"; };
 		49EC0D792060F44E002CE92C /* WorkFlowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowModel.m; sourceTree = "<group>"; };
+		49EC0D7D20610A0A002CE92C /* WorkFlowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowCell.h; sourceTree = "<group>"; };
+		49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowCell.m; sourceTree = "<group>"; };
+		49EC0D8020610A91002CE92C /* WorkFlowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowCell.xib; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
 		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
 		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
@@ -345,6 +350,16 @@
 				49EC0D792060F44E002CE92C /* WorkFlowModel.m */,
 			);
 			path = WorkFlow;
+			sourceTree = "<group>";
+		};
+		49EC0D7C206109E1002CE92C /* workFlow */ = {
+			isa = PBXGroup;
+			children = (
+				49EC0D7D20610A0A002CE92C /* WorkFlowCell.h */,
+				49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */,
+				49EC0D8020610A91002CE92C /* WorkFlowCell.xib */,
+			);
+			path = workFlow;
 			sourceTree = "<group>";
 		};
 		8C0452182049139F0067F10E /*  LeaveView */ = {
@@ -570,6 +585,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49EC0D7C206109E1002CE92C /* workFlow */,
 				49EC0D6D205B9B22002CE92C /* ProjectReviewCell */,
 				8C045227204C1ED00067F10E /* WorkManagerCell */,
 				8C0452182049139F0067F10E /*  LeaveView */,
@@ -1038,6 +1054,7 @@
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
+				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,6 +1139,7 @@
 				8C5102DD20443EC000F0E40D /* AttendanceController.m in Sources */,
 				8CB1459D203D5246003E94D4 /* HomeCollectionItem.m in Sources */,
 				8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */,
+				49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */,
 				8C305C52202C1AB900A843B5 /* GobHeaderFile.m in Sources */,
 				8C33C2D3203170BD00B93F6E /* HttpClient.m in Sources */,
 				49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */,
