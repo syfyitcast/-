@@ -12,6 +12,8 @@
 #import "NotificationNewsModel.h"
 #import "NotificationNewsCell.h"
 #import "NewsDetailViewController.h"
+#import "HttpClient.h"
+#import "UserManager.h"
 
 @interface NotificationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NotificationBarDelegate>
 
@@ -33,7 +35,14 @@
     self.view.backgroundColor = WhiteColor;
     self.title = @"通知公告";
     [self setSubViews];
-    
+    [self networkRequest];
+}
+
+- (void)networkRequest{
+    User *user = [UserManager sharedUserManager].user;
+    [HttpClient zx_getAppNoticeinfoWithProjectid:user.projectids andEmployedId:user.employerid andPublishType:@"0" andpublishLevel:@"1" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        
+    }];
 }
 
 - (void)setSubViews{

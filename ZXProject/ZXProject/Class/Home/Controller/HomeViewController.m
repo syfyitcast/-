@@ -20,6 +20,7 @@
 #import "PersonInfoController.h"
 #import "WorkManagerController.h"
 #import "UserLocationManager.h"
+#import "ProjectReviewController.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
@@ -186,7 +187,7 @@
 
 - (NSArray *)items{
     if (_items == nil) {
-        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
+        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"ProjectReviewController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
     }
     return _items;
 }

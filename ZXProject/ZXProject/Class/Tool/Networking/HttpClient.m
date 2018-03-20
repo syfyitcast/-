@@ -187,4 +187,69 @@
     }];
 }
 
++ (void)zx_getAppNoticeinfoWithProjectid:(NSString *)projectId andEmployedId:(NSString *)employedId andPublishType:(NSString *)type andpublishLevel:(NSString *)level andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEINFO];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:projectId forKey:@"projectid"];
+    [dict setObject:employedId forKey:@"employerid"];
+    [dict setObject:type forKey:@"publishtype"];
+    [dict setObject:level forKey:@"publishlevel"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETAPPNOTICEINFO];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(resultCode,data,message,nil);
+        });
+    } onFailure:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(-1,nil,nil,error);
+        });
+    }];
+}
+
+//工作流程
++ (void)zx_httpClientWorkFlowWithProject_id:(NSString *_Nullable)project_id andEmployedId:(NSString *_Nullable)employedId andSubmitmployer:(NSString *)submitemployer andEventType:(NSString *)type andBeginTime:(NSString *)beginTime andEndTime:(NSString *)endTime andEventName:(NSString *)eventName andEventRemark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto{
+    
+}
+
+
++ (void)zx_httpClientToDutyEventlistWithProjectid:(NSString *_Nonnull)projectId andEmployerid:(NSString *_Nonnull)employerid  andFlowTaskStatus:(NSString *_Nonnull)taskStatus andSuccessBlock:(responseBlock _Nonnull )block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETDUTYEVENTLIST];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:projectId forKey:@"projectid"];
+    [dict setObject:employerid forKey:@"employerid"];
+    [dict setObject:taskStatus forKey:@"flowtaskstatus"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETDUTYEVENTLIST];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(resultCode,data,message,nil);
+        });
+    } onFailure:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(-1,nil,nil,error);
+        });
+    }];
+}
+
 @end

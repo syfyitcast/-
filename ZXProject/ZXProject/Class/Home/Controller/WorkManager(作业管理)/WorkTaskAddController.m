@@ -10,9 +10,10 @@
 #import "WorkTaskAddImagePickView.h"
 #import "GobHeaderFile.h"
 #import "UserLocationManager.h"
+#import "UIAlertAction+Attribute.h"
 #import <Masonry.h>
 
-@interface WorkTaskAddController()
+@interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) WorkTaskAddImagePickView *pickView;
 @property (nonatomic, strong) UIView *lineOne;
@@ -115,12 +116,55 @@
     }];
 }
 
+#pragma mark - WorkTaskAddImageViewDelegateMethod
+
+- (void)WorkTaskAddImagePickViewDidTapImageView{
+    UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:@"选择" message:@"请选择获取照片的方式" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
+    pickVc.delegate = self;
+    UIAlertAction *alterAction_0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            pickVc.sourceType =  UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
+    }];
+    UIAlertAction *alterAction_1 = [UIAlertAction actionWithTitle:@"从相册中获取照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            pickVc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
+    }];
+    UIAlertAction *alterAction_2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [alterVc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alterAction_0 setTitleColor:UIColorWithFloat(49)];
+    [alterAction_1 setTitleColor:UIColorWithFloat(49)];
+    [alterAction_2 setTitleColor:UIColorWithRGB(245, 0, 0)];
+    [alterVc addAction:alterAction_0];
+    [alterVc addAction:alterAction_1];
+    [alterVc addAction:alterAction_2];
+    [self presentViewController:alterVc animated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.pickView getImage:image];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+   [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - setter && getter
 
 - (WorkTaskAddImagePickView *)pickView{
     if (_pickView == nil) {
         CGRect frame = CGRectMake(0, 0, self.view.width, 100);
         _pickView = [WorkTaskAddImagePickView workTaskAddImagePickViewWithFrame:frame];
+        _pickView.delegate = self;
     }
     return _pickView;
 }

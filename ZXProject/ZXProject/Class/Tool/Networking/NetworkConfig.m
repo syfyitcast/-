@@ -19,6 +19,8 @@ NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
 
 
 NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
+NSString *const API_GETAPPNOTICEINFO = @"appnoticeinfo";//获取环卫事件
+NSString *const API_GETDUTYEVENTLIST = @"dutyeventlist";//查询项目人员待审核考勤事件
 
 @implementation NetworkConfig
 
@@ -34,10 +36,11 @@ NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 
 - (instancetype)init{
     if (self = [super init]) {
-        self.snid = @"0";
-        self.apiuser = @"0";
-        self.accountid = @"0";
+        self.snid = @"";
+        self.apiuser = @"appapi";
+        self.accountid = @"";
         self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude];
+        self.ipUrl = @"http://113.247.222.45:9080";
 #if DEBUG
         self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
 #else
@@ -58,12 +61,14 @@ NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 
 - (NSMutableDictionary *)publicParamters{
     if (_publicParamters == nil) {
+        NSString *version =  [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"];
         _publicParamters = @{
                              @"apiuser":self.apiuser,
                              @"snid":self.snid,
                              @"position":self.position,
                              @"accountid":self.accountid,
-                             @"apptime":@(0)
+                             @"apptime":@(0),
+                             @"appversion": [NSString stringWithFormat:@"iOS-%@",version]
                              }.mutableCopy;
     }
     return _publicParamters;
@@ -71,13 +76,17 @@ NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 
 + (void)networkConfigTokenWithMethodName:(NSString *)methodName{
     NetworkConfig *config = [NetworkConfig sharedNetworkingConfig];
-    NSString *tokenString = [NSString stringWithFormat:@"%@%@%@%@%@%@",config.apiuser,config.snid,methodName,config.position,config.accountid,MD5_ID];
+    NSString *tokenString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",config.apiuser,config.snid,methodName,config.position,config.accountid,config.usertoken,MD5_ID];
     config.token = [Tool MD5ForLower32Bate:tokenString];
     [config.publicParamters setObject:config.token forKey:@"token"];
 }
 
 - (NSString *)accountid{
-    return [UserManager sharedUserManager].user.accountid?[UserManager sharedUserManager].user.accountid:_accountid;
+    return [UserManager sharedUserManager].user.accountid?[UserManager sharedUserManager].user.accountid:@"";
+}
+
+- (NSString *)usertoken{
+     return [UserManager sharedUserManager].user.usertoken?[UserManager sharedUserManager].user.usertoken:@"";
 }
 
 @end

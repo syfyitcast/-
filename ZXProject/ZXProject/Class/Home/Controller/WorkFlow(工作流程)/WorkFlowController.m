@@ -11,14 +11,19 @@
 #import "GobHeaderFile.h"
 #import "LeaveView.h"
 #import <Masonry.h>
+#import "HttpClient.h"
+#import "UserManager.h"
+#import "WorkFlowModel.h"
 
 
-@interface WorkFlowController ()
+@interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NotificationBar *topBar;
-@property (nonatomic, strong) NSArray *childViews;
-@property (nonatomic, strong) UIView *currentView;
-@property (nonatomic, assign) int currentViewIndex;
+@property (nonatomic, strong) UITableView *myTableView;
+@property (nonatomic, strong) UIView *bottomBar;
+@property (nonatomic, strong) UIView *bottomLine;
+@property (nonatomic, strong) FButton *addButton;
+@property (nonatomic, strong) NSMutableArray *unFnishedModels;
 
 @end
 
@@ -28,20 +33,67 @@
     [super viewDidLoad];
     self.title = @"工作流程";
     [self setSubViews];
+    [self networkRequest];
+}
+
+- (void)networkRequest{
+    User *user = [UserManager sharedUserManager].user;
+    [HttpClient zx_httpClientToDutyEventlistWithProjectid:user.projectids andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"appNoticeInfo"];
+            self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+            NSLog(@"%@",_unFnishedModels);
+        }else{
+            if (message.length != 0) {
+                [MBProgressHUD showMessage:message];
+            }else{
+                [MBProgressHUD showError:[NSString stringWithFormat:@"Code = %d 请求错误",code]];
+            }
+        }
+    }];
 }
 
 - (void)setSubViews{
     [self.view addSubview:self.topBar];
-    self.currentView = self.childViews[self.currentViewIndex];
-    [self.view addSubview:self.currentView];
-    __weak typeof(self) weakself = self;
-    [self.currentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.bottomBar];
+    [self.bottomBar addSubview:self.bottomLine];
+    [self.view addSubview:self.myTableView];
+    [self.bottomBar addSubview:self.addButton];
+     __weak typeof(self)  weakself = self;
+    [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.top.equalTo(weakself.topBar.mas_bottom);
-        make.bottom.equalTo(weakself.view.mas_bottom);
+        make.bottom.equalTo(weakself.view.mas_bottom).offset(-60);
     }];
-    
+    [self.bottomBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.bottom.equalTo(weakself.view.mas_bottom);
+        make.height.mas_equalTo(60);
+    }];
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakself.bottomBar.mas_top);
+        make.left.equalTo(weakself.bottomBar.mas_left);
+        make.right.equalTo(weakself.bottomBar.mas_right);
+        make.height.mas_equalTo(1);
+    }];
+    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakself.bottomBar.mas_centerX);
+        make.centerY.equalTo(weakself.bottomBar.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
+}
+
+#pragma mark - UITableViewDelegate && UITabelViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    return cell;
 }
 
 #pragma  mark - setter && getter
@@ -49,22 +101,45 @@
 - (NotificationBar *)topBar{
     if (_topBar == nil) {
         CGRect frame = CGRectMake(0, 0, self.view.width, 50);
-        _topBar = [NotificationBar notificationBarWithItems:@[@"请假",@"出差",@"报销",@"呈报"] andFrame:frame];
+        _topBar = [NotificationBar notificationBarWithItems:@[@"我的草稿",@"未完成",@"已完成",@"待办事项"] andFrame:frame];
     }
     return _topBar;
 }
 
-- (NSArray *)childViews{
-    if (_childViews == nil) {
-        LeaveView *view_0 = [LeaveView leaveView];
-        LeaveView *view_1 = [LeaveView leaveView];
-        LeaveView *view_2 = [LeaveView leaveView];
-        LeaveView *view_3 = [LeaveView leaveView];
-        _childViews = @[view_0,view_1,view_2,view_3];
+- (UITableView *)myTableView{
+    if (_myTableView == nil) {
+        _myTableView = [[UITableView alloc] init];
+        _myTableView.backgroundColor = WhiteColor;
+        _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _myTableView.dataSource = self;
+        _myTableView.delegate = self;
     }
-    return _childViews;
+    return _myTableView;
 }
 
+- (UIView *)bottomBar{
+    if (_bottomBar == nil) {
+        _bottomBar = [[UIView alloc] init];
+        _bottomBar.backgroundColor = WhiteColor;
+    }
+    return _bottomBar;
+}
+
+- (UIView *)bottomLine{
+    if (_bottomLine == nil) {
+        _bottomLine = [[UIView alloc] init];
+        _bottomLine.backgroundColor = UIColorWithFloat(239);
+    }
+    return _bottomLine;
+}
+
+- (FButton *)addButton{
+    if (_addButton == nil) {
+        _addButton = [FButton fbtnWithFBLayout:FBLayoutTypeImageFull andPadding:0];
+        [_addButton setImage:[UIImage imageNamed:@"addEvent"] forState:UIControlStateNormal];
+    }
+    return _addButton;
+}
 
 
 @end

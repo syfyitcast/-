@@ -52,10 +52,8 @@
         self.typeLabel.text = @"未完成";
         self.typeLabel.backgroundColor = [UIColor redColor];
     }
-    
-    [self.workTaskIcon sd_setImageWithURL:[NSString stringWithFormat:@"%@%@",[NetworkConfig sharedNetworkingConfig].baseUrl,model.photoUrls.firstObject] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        
-    }];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[NetworkConfig sharedNetworkingConfig].ipUrl,model.photoUrls.firstObject]];
+    [self.workTaskIcon sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"workTaskIcon"]];
 }
 
 @end

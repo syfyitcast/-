@@ -299,7 +299,6 @@
             [MBProgressHUD showError:@"请输入账号  "];
         }
     }
-    
 }
 
 - (void)changeCodeBtn{

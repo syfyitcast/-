@@ -34,4 +34,13 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 //获取环卫事件
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block;
 
+//获取通知公告
++ (void)zx_getAppNoticeinfoWithProjectid:(NSString *_Nonnull)projectId andEmployedId:(NSString *_Nullable)employedId andPublishType:(NSString *_Nonnull)type andpublishLevel:(NSString *_Nonnull)level andSuccessBlock:(responseBlock _Nullable )block;
+
+//工作流程
++ (void)zx_httpClientWorkFlowWithProject_id:(NSString *_Nullable)project_id andEmployedId:(NSString *_Nullable)employedId andSubmitmployer:(NSString *_Nonnull)submitemployer andEventType:(NSString *_Nonnull)type andBeginTime:(NSString *_Nonnull)beginTime andEndTime:(NSString *_Nonnull)endTime andEventName:(NSString *_Nonnull)eventName andEventRemark:(NSString *_Nonnull)eventMark andPhotoUrl:(NSString *_Nonnull)photoUrl andSubmitto:(NSString *_Nonnull)submitto;
+
+//待审核考勤事件
++ (void)zx_httpClientToDutyEventlistWithProjectid:(NSString *_Nonnull)projectId andEmployerid:(NSString *_Nonnull)employerid  andFlowTaskStatus:(NSString *_Nonnull)taskStatus andSuccessBlock:(responseBlock _Nonnull )block;
+
 @end

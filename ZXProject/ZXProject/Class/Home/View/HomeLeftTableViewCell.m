@@ -42,7 +42,6 @@
         make.bottom.equalTo(weakself.mas_bottom);
         make.height.mas_equalTo(1);
     }];
-    
 }
 
 #pragma mark - setter && getter
