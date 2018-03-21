@@ -15,6 +15,7 @@
 #import "WorkTaskCell.h"
 #import "WorkTaskAddImagePickView.h"
 #import "WorkTaskAddController.h"
+#import "ProjectManager.h"
 
 
 @interface WorkManagerController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -54,18 +55,17 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[UserManager sharedUserManager].user.projectids andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"getprojectevents"];
                 self.unfinishedmodels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
-                [self.myTable reloadData];
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[UserManager sharedUserManager].user.projectids andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"getprojectevents"];
                 self.finishedModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
@@ -75,7 +75,7 @@
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[UserManager sharedUserManager].user.projectids andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"getprojectevents"];
                 self.draftModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
@@ -84,13 +84,15 @@
         }];
     });
     // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
-    dispatch_group_notify(group, queue, ^{
+    dispatch_queue_t mQueue = dispatch_get_main_queue();
+    dispatch_group_notify(group, mQueue, ^{
         ZXHIDE_LOADING;
         NSMutableArray *tem_arr = [NSMutableArray array];
         [tem_arr addObjectsFromArray:self.draftModels];
         [tem_arr addObjectsFromArray:self.unfinishedmodels];
         [tem_arr addObjectsFromArray:self.finishedModels];
         self.allModels = tem_arr;
+        [self.myTable reloadData];
     });
 }
 

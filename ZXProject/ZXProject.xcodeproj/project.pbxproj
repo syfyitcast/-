@@ -14,6 +14,10 @@
 		49EC0D7A2060F44E002CE92C /* WorkFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D792060F44E002CE92C /* WorkFlowModel.m */; };
 		49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */; };
 		49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0D8020610A91002CE92C /* WorkFlowCell.xib */; };
+		49EC0D852061F315002CE92C /* NotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D842061F315002CE92C /* NotificationModel.m */; };
+		49EC0D8820622983002CE92C /* APPNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8720622983002CE92C /* APPNotificationManager.m */; };
+		49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8A20623F98002CE92C /* ProjectManager.m */; };
+		49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8D20624026002CE92C /* ProjectModel.m */; };
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
@@ -71,7 +75,6 @@
 		8C5102C62042F35600F0E40D /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102C52042F35600F0E40D /* NotificationViewController.m */; };
 		8C5102C92043CA3800F0E40D /* NotificationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102C82043CA3800F0E40D /* NotificationBar.m */; };
 		8C5102CD2043E8F500F0E40D /* NotificationNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102CC2043E8F500F0E40D /* NotificationNewsCell.m */; };
-		8C5102D120442FC400F0E40D /* NotificationNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102D020442FC400F0E40D /* NotificationNewsModel.m */; };
 		8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102D32044388A00F0E40D /* NewsDetailViewController.m */; };
 		8C5102D920443A4700F0E40D /* WorkFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102D820443A4700F0E40D /* WorkFlowController.m */; };
 		8C5102DD20443EC000F0E40D /* AttendanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102DC20443EC000F0E40D /* AttendanceController.m */; };
@@ -128,6 +131,14 @@
 		49EC0D7D20610A0A002CE92C /* WorkFlowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowCell.h; sourceTree = "<group>"; };
 		49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowCell.m; sourceTree = "<group>"; };
 		49EC0D8020610A91002CE92C /* WorkFlowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowCell.xib; sourceTree = "<group>"; };
+		49EC0D832061F315002CE92C /* NotificationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationModel.h; sourceTree = "<group>"; };
+		49EC0D842061F315002CE92C /* NotificationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationModel.m; sourceTree = "<group>"; };
+		49EC0D8620622983002CE92C /* APPNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APPNotificationManager.h; sourceTree = "<group>"; };
+		49EC0D8720622983002CE92C /* APPNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APPNotificationManager.m; sourceTree = "<group>"; };
+		49EC0D8920623F98002CE92C /* ProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectManager.h; sourceTree = "<group>"; };
+		49EC0D8A20623F98002CE92C /* ProjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectManager.m; sourceTree = "<group>"; };
+		49EC0D8C20624026002CE92C /* ProjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
+		49EC0D8D20624026002CE92C /* ProjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
 		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
 		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
@@ -242,8 +253,6 @@
 		8C5102C82043CA3800F0E40D /* NotificationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationBar.m; sourceTree = "<group>"; };
 		8C5102CB2043E8F500F0E40D /* NotificationNewsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationNewsCell.h; sourceTree = "<group>"; };
 		8C5102CC2043E8F500F0E40D /* NotificationNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationNewsCell.m; sourceTree = "<group>"; };
-		8C5102CF20442FC400F0E40D /* NotificationNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationNewsModel.h; sourceTree = "<group>"; };
-		8C5102D020442FC400F0E40D /* NotificationNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationNewsModel.m; sourceTree = "<group>"; };
 		8C5102D22044388A00F0E40D /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		8C5102D32044388A00F0E40D /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		8C5102D720443A4700F0E40D /* WorkFlowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowController.h; sourceTree = "<group>"; };
@@ -317,13 +326,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		49EC0D68205A72E0002CE92C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		49EC0D69205B94D4002CE92C /* ProjectReview（项目总览） */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +362,17 @@
 				49EC0D8020610A91002CE92C /* WorkFlowCell.xib */,
 			);
 			path = workFlow;
+			sourceTree = "<group>";
+		};
+		49EC0D822061F2DF002CE92C /* NotificationModel */ = {
+			isa = PBXGroup;
+			children = (
+				49EC0D832061F315002CE92C /* NotificationModel.h */,
+				49EC0D842061F315002CE92C /* NotificationModel.m */,
+				49EC0D8620622983002CE92C /* APPNotificationManager.h */,
+				49EC0D8720622983002CE92C /* APPNotificationManager.m */,
+			);
+			path = NotificationModel;
 			sourceTree = "<group>";
 		};
 		8C0452182049139F0067F10E /*  LeaveView */ = {
@@ -406,15 +419,19 @@
 			path = WorkTask;
 			sourceTree = "<group>";
 		};
-		8C224B07204D2CFD00319CC0 /* UserManager */ = {
+		8C224B07204D2CFD00319CC0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				8C224B0B204D2D2100319CC0 /* UserManager.h */,
 				8C224B0C204D2D2100319CC0 /* UserManager.m */,
 				8C224B0E204D2D2A00319CC0 /* User.h */,
 				8C224B0F204D2D2A00319CC0 /* User.m */,
+				49EC0D8920623F98002CE92C /* ProjectManager.h */,
+				49EC0D8A20623F98002CE92C /* ProjectManager.m */,
+				49EC0D8C20624026002CE92C /* ProjectModel.h */,
+				49EC0D8D20624026002CE92C /* ProjectModel.m */,
 			);
-			path = UserManager;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		8C305BE1202C09AD00A843B5 = {
@@ -483,7 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				8CA11DB820595BB500BC14C5 /* Resource */,
-				8C224B07204D2CFD00319CC0 /* UserManager */,
+				8C224B07204D2CFD00319CC0 /* Manager */,
 				8C305C21202C0F1400A843B5 /* ContactList */,
 				8C305C25202C0F1400A843B5 /* Gob */,
 				8C305C26202C0F1400A843B5 /* Home */,
@@ -499,8 +516,6 @@
 			isa = PBXGroup;
 			children = (
 				8C305C22202C0F1400A843B5 /* Controller */,
-				8C305C23202C0F1400A843B5 /* Model */,
-				8C305C24202C0F1400A843B5 /* View */,
 			);
 			path = ContactList;
 			sourceTree = "<group>";
@@ -512,20 +527,6 @@
 				8C305C3B202C115300A843B5 /* ContactListController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		8C305C23202C0F1400A843B5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		8C305C24202C0F1400A843B5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		8C305C25202C0F1400A843B5 /* Gob */ = {
@@ -569,9 +570,9 @@
 		8C305C28202C0F1400A843B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49EC0D822061F2DF002CE92C /* NotificationModel */,
 				49EC0D772060F432002CE92C /* WorkFlow */,
 				8C224B03204D239F00319CC0 /* WorkTask */,
-				8C5102CE20442FA600F0E40D /* Notification */,
 				8CB1459B203D5246003E94D4 /* HomeCollectionItem.h */,
 				8CB1459C203D5246003E94D4 /* HomeCollectionItem.m */,
 				8C5102B52042E77900F0E40D /* HomeRightItems.h */,
@@ -631,7 +632,6 @@
 		8C305C2B202C0F1400A843B5 /* Mananger */ = {
 			isa = PBXGroup;
 			children = (
-				49EC0D68205A72E0002CE92C /* Model */,
 				8C305C2C202C0F1400A843B5 /* Controller */,
 				8C305C2E202C0F1400A843B5 /* View */,
 			);
@@ -809,15 +809,6 @@
 				8C5102C82043CA3800F0E40D /* NotificationBar.m */,
 				8C5102CB2043E8F500F0E40D /* NotificationNewsCell.h */,
 				8C5102CC2043E8F500F0E40D /* NotificationNewsCell.m */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		8C5102CE20442FA600F0E40D /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				8C5102CF20442FC400F0E40D /* NotificationNewsModel.h */,
-				8C5102D020442FC400F0E40D /* NotificationNewsModel.m */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -1157,6 +1148,8 @@
 				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
+				49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */,
+				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
@@ -1183,10 +1176,12 @@
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
 				49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */,
 				8CB1459320393F42003E94D4 /* HomeHeaderView.m in Sources */,
+				49EC0D8820622983002CE92C /* APPNotificationManager.m in Sources */,
 				8C33C2CB2031700400B93F6E /* AFURLRequestSerialization.m in Sources */,
 				8C305C49202C17F800A843B5 /* LoginViewController.m in Sources */,
 				8C5102CD2043E8F500F0E40D /* NotificationNewsCell.m in Sources */,
 				8C5102B42042E37900F0E40D /* HomeRightTableViewCell.m in Sources */,
+				49EC0D852061F315002CE92C /* NotificationModel.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
@@ -1196,7 +1191,6 @@
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
 				8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */,
 				8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */,
-				8C5102D120442FC400F0E40D /* NotificationNewsModel.m in Sources */,
 				8C33C2CA2031700400B93F6E /* AFSecurityPolicy.m in Sources */,
 				8C5102B72042E77900F0E40D /* HomeRightItems.m in Sources */,
 				8C305C45202C143D00A843B5 /* MainNavigationController.m in Sources */,

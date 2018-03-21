@@ -26,4 +26,6 @@ typedef enum {
 + (instancetype)fbtn;
 + (instancetype)fbtnWithFBLayout:(FBLayoutType)type andPadding:(CGFloat)padding;
 
+- (void)setBagdeCount:(int)count;
+
 @end

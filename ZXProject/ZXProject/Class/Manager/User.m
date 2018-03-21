@@ -23,4 +23,16 @@
     return [[self alloc] initWithDict:dict];
 }
 
+- (NSArray *)project_ids{
+    if (_project_ids == nil) {
+        if (_projectids.length != 0) {
+            _project_ids = [_projectids componentsSeparatedByString:@"|"];
+            if (_project_ids == nil) {
+                _project_ids = @[_projectids];
+            }
+        }
+    }
+    return _project_ids;
+}
+
 @end

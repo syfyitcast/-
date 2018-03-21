@@ -31,11 +31,19 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 //修改密码
 + (void)zx_httpClientToForgetPasswordWithMobile:(NSString *_Nullable)mobile andVerifyCode:(NSString *_Nullable)code andSmsid:(NSString *_Nullable)smsid andNewPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block;
 
+
+//项目信息列表
++ (void)zx_httpClientToGetProjectListWithProjectCode:(NSString *_Nonnull)projectCode andProjectName:(NSString *_Nonnull)projectName andSuccessBlock:(responseBlock _Nonnull )block;
+
+
 //获取环卫事件
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block;
 
 //获取通知公告
 + (void)zx_getAppNoticeinfoWithProjectid:(NSString *_Nonnull)projectId andEmployedId:(NSString *_Nullable)employedId andPublishType:(NSString *_Nonnull)type andpublishLevel:(NSString *_Nonnull)level andSuccessBlock:(responseBlock _Nullable )block;
+
+//获取通知消息未阅读数
++ (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *)projectid_Nonnull andEmployerid:(NSString *_Nonnull)employerid andSuccessBlock:(responseBlock)block;
 
 //工作流程
 + (void)zx_httpClientWorkFlowWithProject_id:(NSString *_Nullable)project_id andEmployedId:(NSString *_Nullable)employedId andSubmitmployer:(NSString *_Nonnull)submitemployer andEventType:(NSString *_Nonnull)type andBeginTime:(NSString *_Nonnull)beginTime andEndTime:(NSString *_Nonnull)endTime andEventName:(NSString *_Nonnull)eventName andEventRemark:(NSString *_Nonnull)eventMark andPhotoUrl:(NSString *_Nonnull)photoUrl andSubmitto:(NSString *_Nonnull)submitto;

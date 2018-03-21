@@ -33,8 +33,6 @@
 @property (nonatomic, assign) BOOL loginStatus;
 @property (nonatomic, strong) NSTimer *codeTimer;//验证码定时器
 
-
-
 @property (nonatomic, strong) UIView *lineOne;
 @property (nonatomic, strong) UIView *lineTwo;
 
@@ -42,8 +40,6 @@
 @end
 
 @implementation LoginViewController
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];

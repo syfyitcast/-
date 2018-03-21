@@ -21,6 +21,11 @@
 #import "WorkManagerController.h"
 #import "UserLocationManager.h"
 #import "ProjectReviewController.h"
+#import "HttpClient.h"
+#import "UserManager.h"
+#import "APPNotificationManager.h"
+#import "ProjectManager.h"
+
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
@@ -33,6 +38,8 @@
 @property (nonatomic, strong) UITableView *leftTable;
 @property (nonatomic, strong) UITableView *rightTable;
 @property (nonatomic, strong) UIView *coverView;
+@property (nonatomic, strong) ProjectModel *currentModel;
+@property (nonatomic, strong) HomeLeftTableViewCell *currentLeftCell;
 
 @property (nonatomic, strong) NSArray *headerLeftItems;
 @property (nonatomic, strong) NSArray *headerRightItems;
@@ -46,9 +53,28 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     self.title = @"首页";
-    [self setSubviews];
+    self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
     self.navigationController.navigationBar.hidden = YES;
+    [self getNotificationCount];
+    [self getDutyEvents];
     [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
+}
+
+- (void)getNotificationCount{
+    User *user = [UserManager sharedUserManager].user;
+    [HttpClient zx_httpClientToGetNotificationReadCountWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"appNoReadNoticeCount"];
+            [APPNotificationManager sharedAppNotificationManager].notificationCounts = datas;
+        }
+        [self setSubviews];
+    }];
+}
+
+- (void)getDutyEvents{
+    [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -93,7 +119,7 @@
 - (void)homeHeaderViewDidClickLeftBtn{
     self.coverView.frame = self.view.bounds;
     [self.view addSubview:self.coverView];
-    self.leftTable.frame = CGRectMake(5, 65, 100, 170);
+    self.leftTable.frame = CGRectMake(5, 65, 150, 200);
     [self.view addSubview:self.leftTable];
 }
 
@@ -145,7 +171,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.leftTable) {
         HomeLeftTableViewCell *cell = [HomeLeftTableViewCell homeLeftTableViewCellWithTableView:tableView];
-        cell.title = self.headerLeftItems[indexPath.row];
+        ProjectModel *model = self.headerLeftItems[indexPath.row];
+        cell.title = model.projectname;
+        if ([model.projectid isEqualToString:self.currentModel.projectid]) {
+            [cell setTitleColor:WhiteColor];
+            cell.backgroundColor = UIColorWithRGB(110, 199, 54);
+            self.currentLeftCell = cell;
+        }else{
+            [cell setTitleColor:UIColorWithFloat(132)];
+            cell.backgroundColor = WhiteColor;
+        }
         return cell;
     }else if(tableView == self.rightTable){
         HomeRightTableViewCell *cell = [HomeRightTableViewCell homeRightTableViewCellWithTable:tableView];
@@ -162,6 +197,20 @@
         return 40;
     }
     return 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.leftTable) {
+        ProjectModel *model = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        if ([self.currentModel.projectid isEqualToString:model.projectid]) return;
+        HomeLeftTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.backgroundColor = UIColorWithRGB(110, 199, 54);
+        [cell setTitleColor:WhiteColor];
+        self.currentLeftCell.backgroundColor = WhiteColor;
+        [self.currentLeftCell setTitleColor:UIColorWithRGB(132, 132, 132)];
+        self.currentLeftCell = cell;
+        self.currentModel = [ProjectManager sharedProjectManager].projects[indexPath.row];
+    }
 }
 
 #pragma mark - setter && getter
@@ -212,6 +261,7 @@
         _leftTable.layer.shadowOffset = CGSizeMake(1, 1);
         _leftTable.layer.shadowRadius = 3;
         _leftTable.clipsToBounds = NO;
+        _leftTable.bounces = NO;
     }
     return _leftTable;
 }
@@ -246,7 +296,7 @@
 
 - (NSArray *)headerLeftItems{
     if (_headerLeftItems == nil) {
-        _headerLeftItems = @[@"石门项目",@"常德项目",@"益阳项目",@"安化项目",@"汉寿项目"];
+        _headerLeftItems = [ProjectManager sharedProjectManager].projects;
     }
     return _headerLeftItems;
 }

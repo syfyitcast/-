@@ -17,6 +17,9 @@
 
 @property (nonatomic, strong) UIScrollView *myScrollView;
 
+@property (nonatomic, strong) NSArray *badgeLabels;
+
+
 @end
 
 @implementation NotificationBar
@@ -94,6 +97,13 @@
         _bttomGrayLine.backgroundColor = UIColorWithRGB(215, 215, 215);
     }
     return _bttomGrayLine;
+}
+
+- (NSArray *)badgeLabels{
+    if (_badgeLabels == nil) {
+        _badgeLabels = [NSArray array];
+    }
+    return _badgeLabels;
 }
 
 @end

@@ -31,13 +31,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -60,13 +56,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -88,13 +80,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -118,13 +106,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -149,13 +133,33 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToGetProjectListWithProjectCode:(NSString *)projectCode andProjectName:(NSString *)projectName andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETPROJECTLIST];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:projectCode forKey:@"projectcode"];
+    [dict setObject:projectName forKey:@"projectname"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETPROJECTLIST];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -177,13 +181,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -207,13 +207,33 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(-1,nil,nil,error);
-        });
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *)projectid andEmployerid:(NSString *)employerid andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:projectid forKey:@"projectid"];
+    [dict setObject:employerid forKey:@"employerid"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETAPPNOTICEREADCOUNT];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
     }];
 }
 
@@ -242,13 +262,9 @@
         int resultCode = [responseObjectNoNull[@"code"] intValue];
         id data = responseObjectNoNull[@"datas"];
         NSString *message = responseObjectNoNull[@"codedes"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            block(resultCode,data,message,nil);
-        });
+        block(resultCode,data,message,nil);
     } onFailure:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             block(-1,nil,nil,error);
-        });
     }];
 }
 

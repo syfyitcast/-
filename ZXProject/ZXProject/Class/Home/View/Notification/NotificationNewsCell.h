@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NotificationNewsModel.h"
+#import "NotificationModel.h"
 
 @interface NotificationNewsCell : UITableViewCell
 
-@property (nonatomic, strong) NotificationNewsModel *model;
+@property (nonatomic, strong) NotificationModel *model;
 
 + (instancetype)notificationCellWithTableView:(UITableView *)tableView;
 

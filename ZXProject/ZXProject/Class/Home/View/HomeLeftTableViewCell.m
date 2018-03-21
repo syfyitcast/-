@@ -25,6 +25,7 @@
     if (cell == nil) {
         cell = [[HomeLeftTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         [cell setSubViews];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
 }
@@ -46,15 +47,19 @@
 
 #pragma mark - setter && getter
 
+- (void)setTitleColor:(UIColor *)titleColor{
+    self.titleLabel.textColor = titleColor;
+}
+
 - (void)setTitle:(NSString *)title{
     _title = title;
     self.titleLabel.text = title;
+    self.titleLabel.textColor = UIColorWithRGB(132, 132, 132);
 }
 
 - (UILabel *)titleLabel{
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = UIColorWithRGB(132, 132, 132);
         _titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }

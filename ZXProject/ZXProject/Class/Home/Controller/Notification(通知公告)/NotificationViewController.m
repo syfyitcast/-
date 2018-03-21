@@ -9,11 +9,12 @@
 #import "NotificationViewController.h"
 #import "GobHeaderFile.h"
 #import "NotificationBar.h"
-#import "NotificationNewsModel.h"
 #import "NotificationNewsCell.h"
 #import "NewsDetailViewController.h"
 #import "HttpClient.h"
 #import "UserManager.h"
+#import "NotificationModel.h"
+#import "ProjectManager.h"
 
 @interface NotificationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NotificationBarDelegate>
 
@@ -25,6 +26,8 @@
 @property (nonatomic, strong) UITableView *newsTable;
 
 @property (nonatomic, strong) NSArray *notificationNewsModels;
+@property (nonatomic, strong) NSArray *notificationJtModels;
+@property (nonatomic, strong) NSArray *notificationXmModels;
 
 @end
 
@@ -40,14 +43,55 @@
 
 - (void)networkRequest{
     User *user = [UserManager sharedUserManager].user;
-    [HttpClient zx_getAppNoticeinfoWithProjectid:user.projectids andEmployedId:user.employerid andPublishType:@"0" andpublishLevel:@"1" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        
-    }];
+    ZXSHOW_LOADING(self.view, @"加载中...");
+    // 调度组
+    dispatch_group_t group = dispatch_group_create();
+    // 队列
+    dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
+    // 将任务添加到队列和调度组
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{//集团通知
+        [HttpClient zx_getAppNoticeinfoWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployedId:user.employerid andPublishType:@"0" andpublishLevel:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"appNoticeInfo"];
+                self.notificationJtModels = [NotificationModel notificationModelsWithSource_arr:datas andType:0];
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{//项目通知
+        [HttpClient zx_getAppNoticeinfoWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployedId:user.employerid andPublishType:@"0" andpublishLevel:@"1" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"appNoticeInfo"];
+                self.notificationXmModels = [NotificationModel notificationModelsWithSource_arr:datas andType:1];
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{//新闻公告
+        [HttpClient zx_getAppNoticeinfoWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployedId:user.employerid andPublishType:@"1" andpublishLevel:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"appNoticeInfo"];
+                self.notificationNewsModels = [NotificationModel notificationModelsWithSource_arr:datas andType:2];
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
+    dispatch_queue_t mQueue = dispatch_get_main_queue();
+    dispatch_group_notify(group, mQueue, ^{
+        ZXHIDE_LOADING;
+        [self.systemTable reloadData];
+        [self.newsTable reloadData];
+        [self.notifiTable reloadData];
+    });
 }
 
 - (void)setSubViews{
     CGRect topBarFrame = CGRectMake(0, 0, self.view.width, 60);
-    self.topBar = [NotificationBar notificationBarWithItems:@[@"系统消息",@"通知公告",@"新闻资讯"] andFrame:topBarFrame];
+    self.topBar = [NotificationBar notificationBarWithItems:@[@"集团通知",@"项目通知",@"新闻公告"] andFrame:topBarFrame];
     self.topBar.delegate = self;
     [self.view addSubview:self.topBar];
     self.myScrollView.x = 0;
@@ -70,31 +114,46 @@
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    if (tableView == self.systemTable) {
+        return self.notificationJtModels.count;
+    }else if (tableView == self.notifiTable){
+        return self.notificationXmModels.count;
+    }else{
+        return self.notificationNewsModels.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NotificationNewsCell *cell = [NotificationNewsCell notificationCellWithTableView:tableView];
+    NotificationModel *model = nil;
     if (tableView == self.newsTable) {
-        NotificationNewsCell *cell = [NotificationNewsCell notificationCellWithTableView:tableView];
-        cell.model = self.notificationNewsModels[indexPath.row];
-        return cell;
+        model = self.notificationNewsModels[indexPath.row];
+    }else if (tableView == self.systemTable){
+        model = self.notificationJtModels[indexPath.row];
+    }else if (tableView == self.notifiTable){
+        model = self.notificationXmModels[indexPath.row];
     }
-    return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    cell.model = model;
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.newsTable) {
-        return 82.5;
-    }
-    return 40;
+    return 82.5;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NewsDetailViewController *vc = [[NewsDetailViewController alloc] init];
+    NotificationModel *model = nil;
     if (tableView == self.newsTable) {
-        NewsDetailViewController *vc = [[NewsDetailViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        model = self.notificationNewsModels[indexPath.row];
+    }else if (tableView == self.systemTable){
+        model = self.notificationJtModels[indexPath.row];
+    }else if (tableView == self.notifiTable){
+        model = self.notificationXmModels[indexPath.row];
     }
+    vc.url = model.url;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegateMethod
@@ -117,6 +176,8 @@
 - (UITableView *)systemTable{
     if (_systemTable == nil) {
         _systemTable = [[UITableView alloc] init];
+        _systemTable.delegate = self;
+        _systemTable.dataSource = self;
         _systemTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _systemTable;
@@ -126,6 +187,8 @@
     if (_notifiTable == nil) {
         _notifiTable = [[UITableView alloc] init];
         _notifiTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _notifiTable.delegate = self;
+        _notifiTable.dataSource = self;
     }
     return _notifiTable;
 }
@@ -138,33 +201,6 @@
         _newsTable.dataSource = self;
     }
     return _newsTable;
-}
-
-- (NSArray *)notificationNewsModels{
-    if (_notificationNewsModels == nil) {
-        NSArray *source_arr = @[
-                                @{
-                                    @"imageName":@"newsIcon",
-                                    @"title":@"日方借赈灾之名制造\"一中一台\"",
-                                    @"des":@"问我们注意到,日前,台湾花莲发生地震后,日...",
-                                    @"time":@"17/12/27"
-                                    },
-                                @{
-                                  @"imageName":@"newsIcon",
-                                  @"title":@"日方借赈灾之名制造\"一中一台\"",
-                                  @"des":@"问我们注意到,日前,台湾花莲发生地震后,日...",
-                                  @"time":@"17/12/27",
-                                  },
-                                @{
-                                    @"imageName":@"newsIcon",
-                                    @"title":@"日方借赈灾之名制造\"一中一台\"",
-                                    @"des":@"问我们注意到,日前,台湾花莲发生地震后,日...",
-                                    @"time":@"17/12/27"
-                                    }
-                                ];
-        _notificationNewsModels = [NotificationNewsModel notificationNewsModelsWithSource_arr:source_arr];
-    }
-    return _notificationNewsModels;
 }
 
 @end

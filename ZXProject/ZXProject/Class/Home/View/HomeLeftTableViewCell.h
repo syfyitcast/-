@@ -14,4 +14,6 @@
 
 + (instancetype)homeLeftTableViewCellWithTableView:(UITableView *)tableView;
 
+- (void)setTitleColor:(UIColor *)titleColor;
+
 @end

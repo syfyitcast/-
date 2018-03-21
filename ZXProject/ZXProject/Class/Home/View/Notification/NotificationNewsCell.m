@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *desLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIView *bottomLine;
+@property (nonatomic, strong) UIView *badgeView;
 
 @end
 
@@ -38,6 +39,7 @@
     [self addSubview:self.desLabel];
     [self addSubview:self.timeLabel];
     [self addSubview:self.bottomLine];
+    [self addSubview:self.badgeView];
     __weak typeof(self) weakself = self;
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakself.mas_right).offset(-15);
@@ -46,7 +48,7 @@
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left).offset(15);
         make.centerY.equalTo(weakself.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(72.5, 55));
+        make.size.mas_equalTo(CGSizeMake(50, 50));
     }];
     [self.titlelabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.iconView.mas_right).offset(6);
@@ -56,6 +58,7 @@
     }];
     [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.iconView.mas_right).offset(6);
+        make.right.equalTo(weakself.mas_right).offset(15);
         make.top.equalTo(weakself.titlelabel.mas_bottom).offset(6);
     }];
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,21 +67,33 @@
         make.bottom.equalTo(weakself.mas_bottom);
         make.height.mas_equalTo(1);
     }];
+    [self.badgeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.iconView.mas_left);
+        make.bottom.equalTo(weakself.iconView.mas_top).offset(5);
+        make.size.mas_equalTo(CGSizeMake(6, 6));
+    }];
 }
 
 #pragma mark - setter && getter
 
-- (void)setModel:(NotificationNewsModel *)model{
+- (void)setModel:(NotificationModel *)model{
     _model = model;
-    self.iconView.image = [UIImage imageNamed:model.imageName];
-    self.timeLabel.text = model.time;
-    self.titlelabel.text = model.title;
-    self.desLabel.text = model.des;
+    self.timeLabel.text = model.createtime;
+    self.desLabel.text = model.title;
+    if (model.notificationType == 0) {
+        self.titlelabel.text = @"中联重科通知";
+    }else if (model.notificationType == 1){
+        self.titlelabel.text = @"项目通知";
+    }else if (model.notificationType == 2){
+        self.titlelabel.text = @"新闻通知";
+    }
+    self.badgeView.hidden = model.readstatus;
 }
 
 - (UIImageView *)iconView{
     if (_iconView == nil) {
         _iconView = [[UIImageView alloc] init];
+        _iconView.image = [UIImage imageNamed:@"notificationIcon"];
     }
     return _iconView;
 }
@@ -117,6 +132,15 @@
         _bottomLine.backgroundColor = UIColorWithRGB(225, 225, 225);
     }
     return _bottomLine;
+}
+
+- (UIView *)badgeView{
+    if (_badgeView == nil) {
+        _badgeView = [[UIView alloc] init];
+        _badgeView.backgroundColor = UIColorWithRGB(255, 0, 0);
+        _badgeView.layer.cornerRadius = 3;
+    }
+    return _badgeView;
 }
 
 @end

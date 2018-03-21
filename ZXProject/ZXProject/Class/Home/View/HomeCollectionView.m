@@ -8,6 +8,7 @@
 
 #import "HomeCollectionView.h"
 #import "GobHeaderFile.h"
+#import "APPNotificationManager.h"
 
 static int row = 4;
 
@@ -46,6 +47,11 @@ static int row = 4;
         btn.width = width;
         btn.height = height;
         btn.tag = i;
+        if (i == 0) {
+            if ([APPNotificationManager sharedAppNotificationManager].allReadCount != 0) {
+                [btn setBagdeCount:[APPNotificationManager sharedAppNotificationManager].allReadCount];
+            }
+        }
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         if (i / row != 0 && i % 4 == 0) {

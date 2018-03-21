@@ -19,7 +19,9 @@ extern NSString *const API_FORGETPWD;//忘记密码
 
 extern NSString *const API_GETEVENTS;//获取环卫事件
 extern NSString *const API_GETAPPNOTICEINFO;//获取通知新闻
+extern NSString *const API_GETAPPNOTICEREADCOUNT;//获取app通知消息未阅读数
 extern NSString *const API_GETDUTYEVENTLIST;//获取待审核考勤事件
+extern NSString *const API_GETPROJECTLIST;//获取项目列表
 
 
 @interface NetworkConfig : NSObject

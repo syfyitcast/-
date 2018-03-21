@@ -9,10 +9,12 @@
 #import "FButton.h"
 #import "UIView+Layout.h"
 #import "NSString+boundSize.h"
+#import "GobHeaderFile.h"
 
 @interface FButton()
 
 @property (nonatomic, assign) FBLayoutType layoutType;
+@property (nonatomic, strong) UILabel *badgeLabel;
 @property (nonatomic, assign) CGFloat padding;
 
 @end
@@ -30,6 +32,9 @@
             return;
         case FBLayoutTypeDownUp:
             [self fbLayoutTypeDownUp];
+            self.badgeLabel.x = CGRectGetMaxX(self.imageView.frame) - self.badgeLabel.width * 0.5 - 2;
+            self.badgeLabel.y = CGRectGetMinY(self.imageView.frame) - self.badgeLabel.height * 0.5 - 2;
+            [self addSubview:self.badgeLabel];
             break;
         case FBLayoutTypeImageFull:
             [self fbLayoutImageFull];
@@ -46,6 +51,7 @@
         default:
             break;
     }
+    
 }
 
 - (void)fbLayoutTypeDownUp{
@@ -112,10 +118,35 @@
 
 + (instancetype)fbtnWithFBLayout:(FBLayoutType)type andPadding:(CGFloat)padding{
     FButton *btn = [FButton fbtn];
+    btn.badgeLabel.hidden = YES;
     btn.layoutType = type;
     btn.padding = padding;
     return btn;
 }
+
+#pragma mark - setter && getter
+
+- (UILabel *)badgeLabel{
+    if (_badgeLabel == nil) {
+        _badgeLabel = [[UILabel alloc] init];
+        _badgeLabel.backgroundColor =  UIColorWithRGB(255, 0, 0);
+        _badgeLabel.textColor = WhiteColor;
+        _badgeLabel.layer.cornerRadius = 7;
+        _badgeLabel.clipsToBounds = YES;
+        _badgeLabel.font = [UIFont systemFontOfSize:12];
+        _badgeLabel.width = 14;
+        _badgeLabel.height = 14;
+        _badgeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _badgeLabel;
+}
+
+- (void)setBagdeCount:(int)count{
+    self.badgeLabel.text = [NSString stringWithFormat:@"%d",count];
+    self.badgeLabel.hidden = NO;
+}
+
+
 
 
 

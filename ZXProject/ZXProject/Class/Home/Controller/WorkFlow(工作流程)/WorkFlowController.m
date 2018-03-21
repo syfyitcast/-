@@ -14,6 +14,7 @@
 #import "HttpClient.h"
 #import "UserManager.h"
 #import "WorkFlowModel.h"
+#import "ProjectManager.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource>
@@ -38,7 +39,7 @@
 
 - (void)networkRequest{
     User *user = [UserManager sharedUserManager].user;
-    [HttpClient zx_httpClientToDutyEventlistWithProjectid:user.projectids andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+    [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 0) {
             NSArray *datas = data[@"appNoticeInfo"];
             self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];

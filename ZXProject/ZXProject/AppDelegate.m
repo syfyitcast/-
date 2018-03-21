@@ -11,6 +11,10 @@
 #import "MainNavigationController.h"
 #import "LoginViewController.h"
 #import "UserLocationManager.h"
+#import "XMNetworking.h"
+#import "HttpClient.h"
+#import "ProjectManager.h"
+#import "ProjectModel.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +30,8 @@
     self.window.rootViewController = navc;//[[MainTabBarController alloc] init];//navc;
     [self.window makeKeyAndVisible];
     [[UserLocationManager sharedUserLocationManager] getUserLocation];
+    [self setHttpConfig];
+    [self setupProjectsInfo];
     return YES;
 }
 
@@ -33,6 +39,24 @@
   
 }
 
+- (void)setupProjectsInfo{
+    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"projectList"];
+            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
+        }
+    }];
+}
+
+- (void)setHttpConfig{
+    [XMCenter setupConfig:^(XMConfig * _Nonnull config) {
+        config.callbackQueue = dispatch_get_main_queue();
+        config.engine = [XMEngine sharedEngine];
+#ifdef DEBUG
+        config.consoleLog = YES;
+#endif
+    }];
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
