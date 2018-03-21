@@ -57,7 +57,6 @@
     XMConfig *config = [[XMConfig alloc] init];
     config.consoleLog = NO;
     XM_SAFE_BLOCK(block, config);
-    
     if (config.generalServer) {
         self.generalServer = config.generalServer;
     }

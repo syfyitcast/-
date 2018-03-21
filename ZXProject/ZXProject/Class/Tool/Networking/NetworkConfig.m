@@ -10,6 +10,7 @@
 #import "UserLocationManager.h"
 #import "Tool+MD5.h"
 #import "UserManager.h"
+#import "XMCenter.h"
 
 NSString *const API_LOGINPWD = @"checklogin";//登陆
 NSString *const API_LOGINCODE = @"verificationcodelogin";//验证码登录
