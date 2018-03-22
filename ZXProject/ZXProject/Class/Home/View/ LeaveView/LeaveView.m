@@ -18,10 +18,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reasonLabel;
 @property (weak, nonatomic) IBOutlet UITextView *reasonTextView;
+@property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 
 @property (nonatomic, strong) FButton *typeBtn;
 @property (nonatomic, strong) FButton *startBtn;
 @property (nonatomic, strong) FButton *endBtn;
+@property (nonatomic, strong) FButton *apprvoBtn;
 @property (nonatomic, strong) UITextField *timeField;
 
 @property (nonatomic, strong) FButton *saveBtn;
@@ -50,6 +52,7 @@
     [self addSubview:self.startBtn];
     [self addSubview:self.endBtn];
     [self addSubview:self.timeField];
+    [self addSubview:self.apprvoBtn];
     [self addSubview:self.saveBtn];
     [self addSubview:self.submitBtn];
     __weak typeof(self) weakself = self;
@@ -72,19 +75,25 @@
         make.height.mas_equalTo(30);
     }];
     [self.timeField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.endBtn.mas_left);
+        make.left.equalTo(weakself.timeLabel.mas_right).offset(15);
         make.centerY.equalTo(weakself.timeLabel.mas_centerY);
-        make.right.equalTo(weakself.mas_right).offset(-30);
+        make.right.equalTo(weakself.mas_right).offset(-100);
+        make.height.mas_equalTo(30);
+    }];
+    [self.apprvoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.approvLabel.mas_right).offset(15);
+        make.centerY.equalTo(weakself.approvLabel.mas_centerY);
+        make.right.equalTo(weakself.mas_right).offset(-100);
         make.height.mas_equalTo(30);
     }];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left).offset(60 * kScreenRatioWidth);
-        make.top.equalTo(weakself.reasonTextView.mas_bottom).offset(30);
+        make.bottom.equalTo(weakself.mas_bottom).offset(-30);
         make.size.mas_equalTo(CGSizeMake(100, 44));
     }];
     [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakself.mas_right).offset(-60 * kScreenRatioWidth);
-        make.top.equalTo(weakself.reasonTextView.mas_bottom).offset(30);
+        make.bottom.equalTo(weakself.mas_bottom).offset(-30);
         make.size.mas_equalTo(CGSizeMake(100, 44));
     }];
 }
@@ -130,6 +139,19 @@
     return _endBtn;
 }
 
+- (FButton *)apprvoBtn{
+    if (_apprvoBtn == nil) {
+        _apprvoBtn = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
+        _apprvoBtn.layer.borderWidth = 1;
+        [_apprvoBtn setTitle:@"请选择" forState:UIControlStateNormal];
+        _apprvoBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
+        _apprvoBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_apprvoBtn setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
+        [_apprvoBtn setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+    }
+    return _apprvoBtn;
+}
+
 - (UITextField *)timeField{
     if (_timeField == nil) {
         _timeField = [[UITextField alloc] init];
@@ -162,5 +184,7 @@
     }
     return _submitBtn;
 }
+
+
 
 @end

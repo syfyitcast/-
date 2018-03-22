@@ -29,6 +29,8 @@
 @property (nonatomic, assign) int eventflowid;//流程id
 @property (nonatomic, copy) NSString *photourl;//对应附件的地址
 @property (nonatomic, assign) int flowtaskid;//流程任务id
+@property (nonatomic, copy) NSString *typeName;//流程类型
+@property (nonatomic, copy) NSString *updateTimeString;//更新时间
 
 
 + (NSMutableArray *)workFlowModelsWithSource_arr:(NSArray *)source_arr;

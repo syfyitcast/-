@@ -14,6 +14,7 @@
 
 NSString *const API_LOGINPWD = @"checklogin";//登陆
 NSString *const API_LOGINCODE = @"verificationcodelogin";//验证码登录
+NSString *const API_LOGOUT = @"applogout";//登出
 NSString *const API_GETCODE = @"getverificationcode";//获取短信验证码
 NSString *const API_REGISTER = @"verificationcoderegiste";//注册
 NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
@@ -80,7 +81,6 @@ NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信
     [config.publicParamters setObject:config.accountid forKey:@"accountid"];
     [config.publicParamters setObject:config.position forKey:@"position"];
     [config.publicParamters setObject:config.snid forKey:@"snid"];
-    [config.publicParamters setObject:config.usertoken forKey:@"usertoken"];
     NSString *tokenString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",config.apiuser,config.snid,methodName,config.position,config.accountid,config.usertoken,MD5_ID];
     config.token = [Tool MD5ForLower32Bate:tokenString];
     [config.publicParamters setObject:config.token forKey:@"token"];

@@ -15,6 +15,7 @@
 #import "UserManager.h"
 #import "NotificationModel.h"
 #import "ProjectManager.h"
+#import "APPNotificationManager.h"
 
 @interface NotificationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NotificationBarDelegate>
 
@@ -86,6 +87,9 @@
         [self.systemTable reloadData];
         [self.newsTable reloadData];
         [self.notifiTable reloadData];
+//        [self.topBar setBadgeAtIndex:0 withCount:[APPNotificationManager sharedAppNotificationManager].jtCount];
+//        [self.topBar setBadgeAtIndex:1 withCount:[APPNotificationManager sharedAppNotificationManager].xmCount];
+//        [self.topBar setBadgeAtIndex:2 withCount:[APPNotificationManager sharedAppNotificationManager].newCount];
     });
 }
 

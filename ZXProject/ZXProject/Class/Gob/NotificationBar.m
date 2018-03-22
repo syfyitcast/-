@@ -8,6 +8,7 @@
 
 #import "NotificationBar.h"
 #import "GobHeaderFile.h"
+#import "NSString+boundSize.h"
 
 @interface NotificationBar()
 
@@ -17,8 +18,7 @@
 
 @property (nonatomic, strong) UIScrollView *myScrollView;
 
-@property (nonatomic, strong) NSArray *badgeLabels;
-
+@property (nonatomic, strong) NSMutableArray *badgeLabels;
 
 @end
 
@@ -37,6 +37,22 @@
         UILabel *label = [[UILabel alloc] init];
         label.text = self.items[i];
         label.font = [UIFont systemFontOfSize:15 weight:UIFontWeightBold];
+        CGFloat textWidth = [label.text boudSizeWithFont:label.font andMaxSize:CGSizeMake(width, 60)].width;
+        UILabel *badgeLabel = [[UILabel alloc] init];
+        badgeLabel.backgroundColor = [UIColor redColor];
+        badgeLabel.textColor = WhiteColor;
+        badgeLabel.x = (width + textWidth) * 0.5 - 6;
+        badgeLabel.y =  self.height * 0.5 - 14;
+        badgeLabel.width = 12;
+        badgeLabel.height = 12;
+        badgeLabel.layer.cornerRadius = 6;
+        badgeLabel.hidden = YES;
+        badgeLabel.textAlignment = NSTextAlignmentCenter;
+        badgeLabel.text = @"5";
+        badgeLabel.clipsToBounds = YES;
+        badgeLabel.font = [UIFont systemFontOfSize:11];
+        [self.badgeLabels addObject:badgeLabel];
+        [label addSubview:badgeLabel];
         label.textColor = UIColorWithRGB(51, 51, 51);
         label.x = i * width;
         label.y = 0;
@@ -81,6 +97,16 @@
     }];
 }
 
+- (void)setBadgeAtIndex:(NSInteger)index withCount:(NSInteger)count{
+    UILabel *label = self.badgeLabels[index];
+    if (count == 0) {
+        label.hidden = YES;
+    }else{
+        label.hidden = NO;
+        label.text = [NSString stringWithFormat:@"%zd",count];
+    }
+}
+
 #pragma mark - setter && getter
 
 - (UIView *)bottomLine{
@@ -99,9 +125,9 @@
     return _bttomGrayLine;
 }
 
-- (NSArray *)badgeLabels{
+- (NSMutableArray *)badgeLabels{
     if (_badgeLabels == nil) {
-        _badgeLabels = [NSArray array];
+        _badgeLabels = [NSMutableArray array];
     }
     return _badgeLabels;
 }

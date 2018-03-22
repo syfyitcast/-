@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WorkFlowModel.h"
 
 @interface WorkFlowCell : UITableViewCell
+
+@property (nonatomic, strong) WorkFlowModel *model;
+
++ (instancetype)workFlowCellWithTableView:(UITableView *)tableView;
 
 @end

@@ -9,7 +9,10 @@
 #import "ManagerViewController.h"
 #import "GobHeaderFile.h"
 #import "SettingViewCell.h"
+#import "HttpClient.h"
 #import <Masonry.h>
+#import "LoginViewController.h"
+#import "MainNavigationController.h"
 
 @interface ManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -46,6 +49,24 @@
         make.height.mas_equalTo(44);
     }];
     
+}
+
+- (void)clickLogoOutAction{
+    ZXSHOW_LOADING(self.view, @"退出登录中...")
+    [HttpClient zx_httpClientToLogoutWithUserName:[UserManager sharedUserManager].user.loginname andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        ZXHIDE_LOADING
+        if (code == 0) {//登出成功
+            [[UserManager sharedUserManager] deleteAccessToken];//删除token
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            window.rootViewController = [[MainNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        }else{
+            if (message.length != 0) {
+                [MBProgressHUD showError:message];
+            }else{
+                [MBProgressHUD showError:[NSString stringWithFormat:@"code = %d 登出异常",code]];
+            }
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate && DataSource
@@ -127,6 +148,7 @@
         _logoutBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
         [_logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         [_logoutBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        [_logoutBtn addTarget:self action:@selector(clickLogoOutAction) forControlEvents:UIControlEventTouchUpInside];
         _logoutBtn.backgroundColor = BTNBackgroudColor;
     }
     return _logoutBtn;

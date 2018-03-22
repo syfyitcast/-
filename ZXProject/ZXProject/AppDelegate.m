@@ -15,6 +15,7 @@
 #import "HttpClient.h"
 #import "ProjectManager.h"
 #import "ProjectModel.h"
+#import "UserManager.h"
 
 @interface AppDelegate ()
 
@@ -23,29 +24,24 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self setHttpConfig];
+    [[UserLocationManager sharedUserLocationManager] getUserLocation];
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];
-    MainNavigationController *navc = [[MainNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-    self.window.rootViewController = navc;//[[MainTabBarController alloc] init];//navc;
+    if (![[UserManager sharedUserManager] isAccessToken]) {//有token
+        MainNavigationController *navc = [[MainNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        self.window.rootViewController = navc;
+    }else{
+        [[UserManager sharedUserManager] getAccessToken];
+        self.window.rootViewController = [[MainTabBarController alloc] init];//navc;
+    }
     [self.window makeKeyAndVisible];
-    [[UserLocationManager sharedUserLocationManager] getUserLocation];
-    [self setHttpConfig];
-    [self setupProjectsInfo];
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   
-}
-
-- (void)setupProjectsInfo{
-    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        if (code == 0) {
-            NSArray *datas = data[@"projectList"];
-            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-        }
-    }];
 }
 
 - (void)setHttpConfig{

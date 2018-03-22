@@ -62,6 +62,29 @@
     }];
 }
 
++ (void)zx_httpClientToLogoutWithUserName:(NSString *)userName andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_LOGOUT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:userName forKey:@"loginname"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_LOGOUT];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 + (void)zx_httpClientToGetVerifyCodeWithType:(int)type andMobile:(NSString *)mobile andSuccessBlock:(responseBlock)block{
     [NetworkConfig networkConfigTokenWithMethodName:API_GETCODE];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];

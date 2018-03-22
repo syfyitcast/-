@@ -22,6 +22,9 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 //用户短信验证码登录
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andVerifyCode:(NSString *_Nullable)VerifyCode andSmsid:(NSString *_Nullable)smsid andSuccessBlock:(responseBlock _Nullable )block;
 
+//登出
++ (void)zx_httpClientToLogoutWithUserName:(NSString *)userName andSuccessBlock:(responseBlock)block;
+
 //获取短信验证码
 + (void)zx_httpClientToGetVerifyCodeWithType:(int)type andMobile:(NSString *_Nullable)mobile andSuccessBlock:(responseBlock _Nullable )block;
 

@@ -15,6 +15,8 @@
 #import "UserManager.h"
 #import "WorkFlowModel.h"
 #import "ProjectManager.h"
+#import "WorkFlowAddController.h"
+#import "WorkFlowCell.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource>
@@ -38,12 +40,14 @@
 }
 
 - (void)networkRequest{
+    ZXSHOW_LOADING(self.view, @"加载中...");
     User *user = [UserManager sharedUserManager].user;
     [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        ZXHIDE_LOADING;
         if (code == 0) {
-            NSArray *datas = data[@"appNoticeInfo"];
+            NSArray *datas = data[@"event"];
             self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
-            NSLog(@"%@",_unFnishedModels);
+            [self.myTableView reloadData];
         }else{
             if (message.length != 0) {
                 [MBProgressHUD showMessage:message];
@@ -86,15 +90,25 @@
     }];
 }
 
+- (void)clickAddAction{
+    WorkFlowAddController *vc = [[WorkFlowAddController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - UITableViewDelegate && UITabelViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return self.unFnishedModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    WorkFlowCell *cell = [WorkFlowCell workFlowCellWithTableView:tableView];
+    cell.model = self.unFnishedModels[indexPath.row];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 115;
 }
 
 #pragma  mark - setter && getter
@@ -138,6 +152,7 @@
     if (_addButton == nil) {
         _addButton = [FButton fbtnWithFBLayout:FBLayoutTypeImageFull andPadding:0];
         [_addButton setImage:[UIImage imageNamed:@"addEvent"] forState:UIControlStateNormal];
+        [_addButton addTarget:self action:@selector(clickAddAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addButton;
 }

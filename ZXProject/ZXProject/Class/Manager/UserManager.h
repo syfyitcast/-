@@ -17,6 +17,10 @@
 
 - (void)getUserInfomationWithDict:(NSDictionary *)dict;
 
+- (BOOL)getAccessToken;
 
+- (BOOL)isAccessToken;
+
+- (void)deleteAccessToken;
 
 @end

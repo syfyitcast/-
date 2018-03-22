@@ -18,6 +18,10 @@
 		49EC0D8820622983002CE92C /* APPNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8720622983002CE92C /* APPNotificationManager.m */; };
 		49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8A20623F98002CE92C /* ProjectManager.m */; };
 		49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D8D20624026002CE92C /* ProjectModel.m */; };
+		49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DD020635ABE002CE92C /* eventsMdoel.m */; };
+		49EC0DD5206365AD002CE92C /* EventsHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DD4206365AD002CE92C /* EventsHomeCell.m */; };
+		49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0DD6206366B6002CE92C /* EventsHomeCell.xib */; };
+		49EC0DDA2063986C002CE92C /* WorkFlowAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DD92063986C002CE92C /* WorkFlowAddController.m */; };
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
@@ -139,6 +143,14 @@
 		49EC0D8A20623F98002CE92C /* ProjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectManager.m; sourceTree = "<group>"; };
 		49EC0D8C20624026002CE92C /* ProjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
 		49EC0D8D20624026002CE92C /* ProjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
+		49EC0DCD20635320002CE92C /* NOTIFICATION_HEADER.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NOTIFICATION_HEADER.h; sourceTree = "<group>"; };
+		49EC0DCF20635ABE002CE92C /* eventsMdoel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eventsMdoel.h; sourceTree = "<group>"; };
+		49EC0DD020635ABE002CE92C /* eventsMdoel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eventsMdoel.m; sourceTree = "<group>"; };
+		49EC0DD3206365AD002CE92C /* EventsHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsHomeCell.h; sourceTree = "<group>"; };
+		49EC0DD4206365AD002CE92C /* EventsHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsHomeCell.m; sourceTree = "<group>"; };
+		49EC0DD6206366B6002CE92C /* EventsHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsHomeCell.xib; sourceTree = "<group>"; };
+		49EC0DD82063986C002CE92C /* WorkFlowAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowAddController.h; sourceTree = "<group>"; };
+		49EC0DD92063986C002CE92C /* WorkFlowAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowAddController.m; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
 		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
 		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
@@ -375,6 +387,25 @@
 			path = NotificationModel;
 			sourceTree = "<group>";
 		};
+		49EC0DCE20635A9C002CE92C /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				49EC0DCF20635ABE002CE92C /* eventsMdoel.h */,
+				49EC0DD020635ABE002CE92C /* eventsMdoel.m */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		49EC0DD22063650F002CE92C /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				49EC0DD3206365AD002CE92C /* EventsHomeCell.h */,
+				49EC0DD4206365AD002CE92C /* EventsHomeCell.m */,
+				49EC0DD6206366B6002CE92C /* EventsHomeCell.xib */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		8C0452182049139F0067F10E /*  LeaveView */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,9 +563,12 @@
 		8C305C25202C0F1400A843B5 /* Gob */ = {
 			isa = PBXGroup;
 			children = (
+				8C5102C72043CA3800F0E40D /* NotificationBar.h */,
+				8C5102C82043CA3800F0E40D /* NotificationBar.m */,
 				8C5102F02047A9DF00F0E40D /* FrameWork */,
 				8C305C50202C1AB900A843B5 /* GobHeaderFile.h */,
 				8C305C51202C1AB900A843B5 /* GobHeaderFile.m */,
+				49EC0DCD20635320002CE92C /* NOTIFICATION_HEADER.h */,
 				8C5102A920427B4300F0E40D /* ZXShowLoadingManager.h */,
 				8C5102AA20427B4300F0E40D /* ZXShowLoadingManager.m */,
 				8C305C4A202C1A2F00A843B5 /* FatherClass */,
@@ -570,6 +604,7 @@
 		8C305C28202C0F1400A843B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49EC0DCE20635A9C002CE92C /* Events */,
 				49EC0D822061F2DF002CE92C /* NotificationModel */,
 				49EC0D772060F432002CE92C /* WorkFlow */,
 				8C224B03204D239F00319CC0 /* WorkTask */,
@@ -586,6 +621,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49EC0DD22063650F002CE92C /* Events */,
 				49EC0D7C206109E1002CE92C /* workFlow */,
 				49EC0D6D205B9B22002CE92C /* ProjectReviewCell */,
 				8C045227204C1ED00067F10E /* WorkManagerCell */,
@@ -805,8 +841,6 @@
 		8C5102CA2043E8BC00F0E40D /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				8C5102C72043CA3800F0E40D /* NotificationBar.h */,
-				8C5102C82043CA3800F0E40D /* NotificationBar.m */,
 				8C5102CB2043E8F500F0E40D /* NotificationNewsCell.h */,
 				8C5102CC2043E8F500F0E40D /* NotificationNewsCell.m */,
 			);
@@ -829,6 +863,8 @@
 			children = (
 				8C5102D720443A4700F0E40D /* WorkFlowController.h */,
 				8C5102D820443A4700F0E40D /* WorkFlowController.m */,
+				49EC0DD82063986C002CE92C /* WorkFlowAddController.h */,
+				49EC0DD92063986C002CE92C /* WorkFlowAddController.m */,
 			);
 			path = "WorkFlow(工作流程)";
 			sourceTree = "<group>";
@@ -1044,6 +1080,7 @@
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
+				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
 			);
@@ -1133,6 +1170,7 @@
 				49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */,
 				8C305C52202C1AB900A843B5 /* GobHeaderFile.m in Sources */,
 				8C33C2D3203170BD00B93F6E /* HttpClient.m in Sources */,
+				49EC0DD5206365AD002CE92C /* EventsHomeCell.m in Sources */,
 				49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */,
 				8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */,
 				8C5102D920443A4700F0E40D /* WorkFlowController.m in Sources */,
@@ -1153,6 +1191,7 @@
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
+				49EC0DDA2063986C002CE92C /* WorkFlowAddController.m in Sources */,
 				8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */,
 				8C340E7020357DDC00D1A0AD /* ForgetPasswordCotroller.m in Sources */,
 				8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */,
@@ -1201,6 +1240,7 @@
 				8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */,
 				8C33C2D92031857400B93F6E /* Tool+MD5.m in Sources */,
 				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
+				49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

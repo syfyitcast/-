@@ -25,10 +25,14 @@
 #import "UserManager.h"
 #import "APPNotificationManager.h"
 #import "ProjectManager.h"
+#import "eventsMdoel.h"
+#import "EventsHomeCell.h"
 
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
+
+@property (nonatomic, strong) NSNotificationCenter *notifiCenter;
 
 @property (nonatomic, strong) UIScrollView *mainScollview;
 @property (nonatomic, strong) HomeHeaderView *headerView;
@@ -44,6 +48,10 @@
 @property (nonatomic, strong) NSArray *headerLeftItems;
 @property (nonatomic, strong) NSArray *headerRightItems;
 
+@property (nonatomic, strong) UITableView *bottomTabel;
+@property (nonatomic, strong) NSArray *eventsModels;
+
+
 
 @end
 
@@ -55,9 +63,20 @@
     self.title = @"首页";
     self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
     self.navigationController.navigationBar.hidden = YES;
-    [self getNotificationCount];
-    [self getDutyEvents];
+    [self setSubviews];
+    [self getProjectsInfo];//获取项目信息
     [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
+}
+
+- (void)getProjectsInfo{
+    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"projectList"];
+            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
+             [self getDutyEvents];
+             [self getNotificationCount];
+        }
+    }];
 }
 
 - (void)getNotificationCount{
@@ -66,14 +85,21 @@
         if (code == 0) {
             NSArray *datas = data[@"appNoReadNoticeCount"];
             [APPNotificationManager sharedAppNotificationManager].notificationCounts = datas;
+            [self.notifiCenter postNotificationName:NOTIFI_READCOUNT object:nil];//发送未读消息通知
         }
-        [self setSubviews];
     }];
 }
 
 - (void)getDutyEvents{
     [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        
+        if (code == 0) {
+            NSArray *datas = data[@"getprojectevents"];
+            self.eventsModels = [eventsMdoel eventsModelsWithSource_arr:datas];
+            if (self.eventsModels.count != 0) {
+                [self.bottomTabel reloadData];
+                self.bottomTabel.backgroundColor = WhiteColor;
+            }
+        }
     }];
 }
 
@@ -94,6 +120,7 @@
     self.headerView = [HomeHeaderView homeHeaderView];
     self.headerView.delegate = self;
     [self.view addSubview:self.mainScollview];
+    [self.mainScollview addSubview:self.bottomTabel];
     [self.mainScollview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakself.view);
         make.width.mas_equalTo(weakself.view.width);
@@ -103,7 +130,7 @@
         make.top.equalTo(weakself.view.mas_top);
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
-        make.height.mas_equalTo(232);
+        make.height.mas_equalTo(210);
     }];
     [self.mainScollview addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,15 +139,26 @@
         make.top.equalTo(weakself.headerView.mas_bottom);
         make.height.mas_equalTo(94 * 3);
     }];
+    [self.bottomTabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakself.collectionView.mas_bottom).offset(15);
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.height.mas_equalTo(86);
+    }];
+    
 }
 
 #pragma mark - HomeHeaderViewDelegateMethod
 
 - (void)homeHeaderViewDidClickLeftBtn{
-    self.coverView.frame = self.view.bounds;
-    [self.view addSubview:self.coverView];
-    self.leftTable.frame = CGRectMake(5, 65, 150, 200);
-    [self.view addSubview:self.leftTable];
+    if ([ProjectManager sharedProjectManager].projects.count == 0) {
+        [MBProgressHUD showError:@"正在获取数据请稍后"];
+    }else{
+        self.coverView.frame = self.view.bounds;
+        [self.view addSubview:self.coverView];
+        self.leftTable.frame = CGRectMake(5, 65, 150, 200);
+        [self.view addSubview:self.leftTable];
+    }
 }
 
 - (void)homeHeaderViewDidClickRightBtn{
@@ -163,6 +201,8 @@
         return self.headerLeftItems.count;
     }else if (tableView == self.rightTable){
         return self.headerRightItems.count;
+    }else if (tableView == self.bottomTabel){
+        return self.eventsModels.count;
     }
     return 0;
 }
@@ -186,6 +226,10 @@
         HomeRightTableViewCell *cell = [HomeRightTableViewCell homeRightTableViewCellWithTable:tableView];
         cell.item = self.headerRightItems[indexPath.row];
         return cell;
+    }else if (tableView == self.bottomTabel){
+        EventsHomeCell *cell = [EventsHomeCell eventsHomeCellWithTabelView:tableView];
+        cell.model = self.eventsModels[indexPath.row];
+        return cell;
     }
     return nil;
 }
@@ -195,6 +239,8 @@
         return 34;
     }else if (tableView == self.rightTable){
         return 40;
+    }else if (tableView == self.bottomTabel){
+        return 86;
     }
     return 0;
 }
@@ -324,6 +370,25 @@
         _headerRightItems = [HomeRightItems homeRightItemsWithSource_arr:source_arr];
     }
     return _headerRightItems;
+}
+
+- (NSNotificationCenter *)notifiCenter{
+    if (_notifiCenter == nil) {
+        _notifiCenter = [NSNotificationCenter defaultCenter];
+    }
+    return _notifiCenter;
+}
+
+- (UITableView *)bottomTabel{
+    if (_bottomTabel == nil) {
+        _bottomTabel = [[UITableView alloc] init];
+        _bottomTabel.delegate = self;
+        _bottomTabel.dataSource = self;
+        _bottomTabel.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _bottomTabel.backgroundColor = [UIColor clearColor];
+        
+    }
+    return _bottomTabel;
 }
 
 @end

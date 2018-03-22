@@ -15,6 +15,7 @@ static int row = 4;
 @interface HomeCollectionView()
 
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSMutableArray *btns;
 
 @end
 
@@ -22,6 +23,7 @@ static int row = 4;
 
 + (instancetype)HomeCollectionViewWithItems:(NSArray *)items andFrame:(CGRect)frame{
     HomeCollectionView *view = [[HomeCollectionView alloc] initWithFrame:frame];
+    [[NSNotificationCenter defaultCenter] addObserver:view selector:@selector(readCount) name:NOTIFI_READCOUNT object:nil];
     view.items = items;
     [view setSubviews];
     return view;
@@ -52,6 +54,7 @@ static int row = 4;
                 [btn setBagdeCount:[APPNotificationManager sharedAppNotificationManager].allReadCount];
             }
         }
+        [self.btns addObject:btn];
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         if (i / row != 0 && i % 4 == 0) {
@@ -71,6 +74,20 @@ static int row = 4;
     if (self.delegate && [self.delegate respondsToSelector:@selector(homeCollectionViewDidClickBtnIndex:)]) {
         [self.delegate homeCollectionViewDidClickBtnIndex:index];
     }
+}
+
+- (void)readCount{
+    FButton *btn = self.btns[0];
+    if ([APPNotificationManager sharedAppNotificationManager].allReadCount != 0) {
+        [btn setBagdeCount:[APPNotificationManager sharedAppNotificationManager].allReadCount];
+    }
+}
+
+- (NSMutableArray *)btns{
+    if (_btns == nil) {
+        _btns = [NSMutableArray array];
+    }
+    return _btns;
 }
 
 @end

@@ -11,6 +11,7 @@
 #define MD5_ID  @"ed40065902934b4eb7f7bb12b20f1900"
 
 extern NSString *const API_LOGINPWD;//登录
+extern NSString *const API_LOGOUT;//登出
 extern NSString *const API_LOGINCODE;//验证码登录
 
 extern NSString *const API_GETCODE;//获取短信验证码

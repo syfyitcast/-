@@ -27,4 +27,6 @@
 
 - (void)bottomLineMoveWithIndex:(int)index;
 
+- (void)setBadgeAtIndex:(NSInteger)index withCount:(NSInteger)count;
+
 @end
