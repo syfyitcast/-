@@ -24,6 +24,11 @@ extern NSString *const API_GETAPPNOTICEREADCOUNT;//获取app通知消息未阅�
 extern NSString *const API_GETDUTYEVENTLIST;//获取待审核考勤事件
 extern NSString *const API_GETPROJECTLIST;//获取项目列表
 
+#pragma mark ---------------------------------------------------
+
+extern NSString *const API_SUBMITDUTYEVENT;//提交考勤事件
+extern NSString *const API_QUERYNEXTSTEPFLOW;//查询流程任务下一环节审核人
+
 
 @interface NetworkConfig : NSObject
 

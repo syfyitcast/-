@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString *acctoken;//语音token
 @property (nonatomic, copy) NSString *acctname;//语言账号名字
 @property (nonatomic, copy) NSString *projectids;//项目id
-@property (nonatomic, copy) NSString *employername;//职员姓名f
+@property (nonatomic, copy) NSString *employername;//职员姓名
 @property (nonatomic, copy) NSString *loginname;//登录账号
 @property (nonatomic, copy) NSString *userrank;//职位
 @property (nonatomic, copy) NSString *photourl;//头像图片url

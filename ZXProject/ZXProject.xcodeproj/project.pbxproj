@@ -22,6 +22,19 @@
 		49EC0DD5206365AD002CE92C /* EventsHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DD4206365AD002CE92C /* EventsHomeCell.m */; };
 		49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0DD6206366B6002CE92C /* EventsHomeCell.xib */; };
 		49EC0DDA2063986C002CE92C /* WorkFlowAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DD92063986C002CE92C /* WorkFlowAddController.m */; };
+		49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DDC20648A69002CE92C /* HttpClient+DutyEvents.m */; };
+		49EC0DE0206495AA002CE92C /* ZXDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DDF206495AA002CE92C /* ZXDatePickerView.m */; };
+		49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0DEF2064A7A7002CE92C /* CGXAddressCity.plist */; };
+		49EC0E012064A7A7002CE92C /* CGXPickerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DF12064A7A7002CE92C /* CGXPickerViewManager.m */; };
+		49EC0E022064A7A7002CE92C /* NSDate+CGXPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DF62064A7A7002CE92C /* NSDate+CGXPicker.m */; };
+		49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DF72064A7A7002CE92C /* CGXAddressPcikerView.m */; };
+		49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DF92064A7A7002CE92C /* CGXDatePickerView.m */; };
+		49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFA2064A7A7002CE92C /* CGXPickerUIBaseView.m */; };
+		49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFB2064A7A7002CE92C /* CGXAddressModel.m */; };
+		49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0DFC2064A7A7002CE92C /* CGXBasicInfoPicker.plist */; };
+		49EC0E082064A7A7002CE92C /* CGXStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFE2064A7A7002CE92C /* CGXStringPickerView.m */; };
+		49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFF2064A7A7002CE92C /* CGXPickerView.m */; };
+		49EC0E2D2064DFFC002CE92C /* NextStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0E2C2064DFFC002CE92C /* NextStepModel.m */; };
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
@@ -151,6 +164,30 @@
 		49EC0DD6206366B6002CE92C /* EventsHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsHomeCell.xib; sourceTree = "<group>"; };
 		49EC0DD82063986C002CE92C /* WorkFlowAddController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowAddController.h; sourceTree = "<group>"; };
 		49EC0DD92063986C002CE92C /* WorkFlowAddController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowAddController.m; sourceTree = "<group>"; };
+		49EC0DDB20648A69002CE92C /* HttpClient+DutyEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+DutyEvents.h"; sourceTree = "<group>"; };
+		49EC0DDC20648A69002CE92C /* HttpClient+DutyEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+DutyEvents.m"; sourceTree = "<group>"; };
+		49EC0DDE206495AA002CE92C /* ZXDatePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXDatePickerView.h; sourceTree = "<group>"; };
+		49EC0DDF206495AA002CE92C /* ZXDatePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXDatePickerView.m; sourceTree = "<group>"; };
+		49EC0DEE2064A7A7002CE92C /* CGXAddressPcikerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXAddressPcikerView.h; sourceTree = "<group>"; };
+		49EC0DEF2064A7A7002CE92C /* CGXAddressCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CGXAddressCity.plist; sourceTree = "<group>"; };
+		49EC0DF02064A7A7002CE92C /* CGXDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXDatePickerView.h; sourceTree = "<group>"; };
+		49EC0DF12064A7A7002CE92C /* CGXPickerViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerViewManager.m; sourceTree = "<group>"; };
+		49EC0DF22064A7A7002CE92C /* CGXAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXAddressModel.h; sourceTree = "<group>"; };
+		49EC0DF32064A7A7002CE92C /* CGXPickerUIBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerUIBaseView.h; sourceTree = "<group>"; };
+		49EC0DF42064A7A7002CE92C /* CGXPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerView.h; sourceTree = "<group>"; };
+		49EC0DF52064A7A7002CE92C /* CGXStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXStringPickerView.h; sourceTree = "<group>"; };
+		49EC0DF62064A7A7002CE92C /* NSDate+CGXPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CGXPicker.m"; sourceTree = "<group>"; };
+		49EC0DF72064A7A7002CE92C /* CGXAddressPcikerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXAddressPcikerView.m; sourceTree = "<group>"; };
+		49EC0DF82064A7A7002CE92C /* CGXPickerViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXPickerViewManager.h; sourceTree = "<group>"; };
+		49EC0DF92064A7A7002CE92C /* CGXDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXDatePickerView.m; sourceTree = "<group>"; };
+		49EC0DFA2064A7A7002CE92C /* CGXPickerUIBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerUIBaseView.m; sourceTree = "<group>"; };
+		49EC0DFB2064A7A7002CE92C /* CGXAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXAddressModel.m; sourceTree = "<group>"; };
+		49EC0DFC2064A7A7002CE92C /* CGXBasicInfoPicker.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CGXBasicInfoPicker.plist; sourceTree = "<group>"; };
+		49EC0DFD2064A7A7002CE92C /* NSDate+CGXPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CGXPicker.h"; sourceTree = "<group>"; };
+		49EC0DFE2064A7A7002CE92C /* CGXStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXStringPickerView.m; sourceTree = "<group>"; };
+		49EC0DFF2064A7A7002CE92C /* CGXPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerView.m; sourceTree = "<group>"; };
+		49EC0E2B2064DFFC002CE92C /* NextStepModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextStepModel.h; sourceTree = "<group>"; };
+		49EC0E2C2064DFFC002CE92C /* NextStepModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextStepModel.m; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
 		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
 		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
@@ -362,6 +399,8 @@
 			children = (
 				49EC0D782060F44E002CE92C /* WorkFlowModel.h */,
 				49EC0D792060F44E002CE92C /* WorkFlowModel.m */,
+				49EC0E2B2064DFFC002CE92C /* NextStepModel.h */,
+				49EC0E2C2064DFFC002CE92C /* NextStepModel.m */,
 			);
 			path = WorkFlow;
 			sourceTree = "<group>";
@@ -406,12 +445,39 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		49EC0DED2064A7A7002CE92C /* CGXPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				49EC0DEE2064A7A7002CE92C /* CGXAddressPcikerView.h */,
+				49EC0DEF2064A7A7002CE92C /* CGXAddressCity.plist */,
+				49EC0DF02064A7A7002CE92C /* CGXDatePickerView.h */,
+				49EC0DF22064A7A7002CE92C /* CGXAddressModel.h */,
+				49EC0DF32064A7A7002CE92C /* CGXPickerUIBaseView.h */,
+				49EC0DF42064A7A7002CE92C /* CGXPickerView.h */,
+				49EC0DF52064A7A7002CE92C /* CGXStringPickerView.h */,
+				49EC0DF62064A7A7002CE92C /* NSDate+CGXPicker.m */,
+				49EC0DF72064A7A7002CE92C /* CGXAddressPcikerView.m */,
+				49EC0DF82064A7A7002CE92C /* CGXPickerViewManager.h */,
+				49EC0DF12064A7A7002CE92C /* CGXPickerViewManager.m */,
+				49EC0DF92064A7A7002CE92C /* CGXDatePickerView.m */,
+				49EC0DFA2064A7A7002CE92C /* CGXPickerUIBaseView.m */,
+				49EC0DFB2064A7A7002CE92C /* CGXAddressModel.m */,
+				49EC0DFC2064A7A7002CE92C /* CGXBasicInfoPicker.plist */,
+				49EC0DFD2064A7A7002CE92C /* NSDate+CGXPicker.h */,
+				49EC0DFE2064A7A7002CE92C /* CGXStringPickerView.m */,
+				49EC0DFF2064A7A7002CE92C /* CGXPickerView.m */,
+			);
+			path = CGXPickerView;
+			sourceTree = "<group>";
+		};
 		8C0452182049139F0067F10E /*  LeaveView */ = {
 			isa = PBXGroup;
 			children = (
 				8C045219204913FC0067F10E /* LeaveView.h */,
 				8C04521A204913FC0067F10E /* LeaveView.m */,
 				8C04521C204914AD0067F10E /* LeaveView.xib */,
+				49EC0DDE206495AA002CE92C /* ZXDatePickerView.h */,
+				49EC0DDF206495AA002CE92C /* ZXDatePickerView.m */,
 			);
 			path = " LeaveView";
 			sourceTree = "<group>";
@@ -766,11 +832,13 @@
 		8C33C2A820316FC800B93F6E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				8C33C2D42031717200B93F6E /* NetworkConfig.h */,
+				8C33C2D52031717200B93F6E /* NetworkConfig.m */,
 				8C33C2A92031700400B93F6E /* XMNetworking */,
 				8C33C2D1203170BD00B93F6E /* HttpClient.h */,
 				8C33C2D2203170BD00B93F6E /* HttpClient.m */,
-				8C33C2D42031717200B93F6E /* NetworkConfig.h */,
-				8C33C2D52031717200B93F6E /* NetworkConfig.m */,
+				49EC0DDB20648A69002CE92C /* HttpClient+DutyEvents.h */,
+				49EC0DDC20648A69002CE92C /* HttpClient+DutyEvents.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -907,6 +975,7 @@
 		8CA11DB820595BB500BC14C5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				49EC0DED2064A7A7002CE92C /* CGXPickerView */,
 				8CA11DB920595BB500BC14C5 /* MBProgressHUD */,
 			);
 			path = Resource;
@@ -1073,9 +1142,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */,
 				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
 				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
+				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
@@ -1164,6 +1235,7 @@
 				8C045225204BD9270067F10E /* WorkManagerController.m in Sources */,
 				8C305C3C202C115300A843B5 /* ContactListController.m in Sources */,
 				8C5102C32042F2D400F0E40D /* BaseViewController.m in Sources */,
+				49EC0E012064A7A7002CE92C /* CGXPickerViewManager.m in Sources */,
 				8C5102DD20443EC000F0E40D /* AttendanceController.m in Sources */,
 				8CB1459D203D5246003E94D4 /* HomeCollectionItem.m in Sources */,
 				8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */,
@@ -1174,12 +1246,14 @@
 				49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */,
 				8CB1458C203919F0003E94D4 /* MainTabBarItem.m in Sources */,
 				8C5102D920443A4700F0E40D /* WorkFlowController.m in Sources */,
+				49EC0E2D2064DFFC002CE92C /* NextStepModel.m in Sources */,
 				8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */,
 				8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */,
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
 				8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
 				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
+				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
@@ -1188,6 +1262,7 @@
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
 				49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */,
 				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
+				49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
@@ -1195,21 +1270,25 @@
 				8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */,
 				8C340E7020357DDC00D1A0AD /* ForgetPasswordCotroller.m in Sources */,
 				8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */,
+				49EC0E022064A7A7002CE92C /* NSDate+CGXPicker.m in Sources */,
 				8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */,
 				8C04521B204913FC0067F10E /* LeaveView.m in Sources */,
 				8C33C2C42031700400B93F6E /* XMCenter.m in Sources */,
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
+				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
 				8C33C2C82031700400B93F6E /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */,
 				8C33C2D62031717200B93F6E /* NetworkConfig.m in Sources */,
 				8C340E762037C22E00D1A0AD /* UserLocationManager.m in Sources */,
+				49EC0E082064A7A7002CE92C /* CGXStringPickerView.m in Sources */,
 				8C5102E3204671F400F0E40D /* AttenceHeaderView.m in Sources */,
 				8C5102C62042F35600F0E40D /* NotificationViewController.m in Sources */,
 				8C5102C92043CA3800F0E40D /* NotificationBar.m in Sources */,
 				8C305BEF202C09AD00A843B5 /* main.m in Sources */,
 				49EC0D7A2060F44E002CE92C /* WorkFlowModel.m in Sources */,
 				8C5102AE204282C900F0E40D /* NSString+boundSize.m in Sources */,
+				49EC0DE0206495AA002CE92C /* ZXDatePickerView.m in Sources */,
 				8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */,
 				8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */,
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
@@ -1223,11 +1302,14 @@
 				49EC0D852061F315002CE92C /* NotificationModel.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
+				49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
 				8C224B10204D2D2A00319CC0 /* User.m in Sources */,
 				8C224B13204D320C00319CC0 /* NSNULL+Filtration.m in Sources */,
+				49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */,
 				8C33C2C52031700400B93F6E /* XMEngine.m in Sources */,
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
+				49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */,
 				8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */,
 				8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */,
 				8C33C2CA2031700400B93F6E /* AFSecurityPolicy.m in Sources */,
@@ -1396,7 +1478,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ZX-Project.www";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zx-project.lq";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1421,7 +1503,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ZX-Project.www";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zx-project.lq";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

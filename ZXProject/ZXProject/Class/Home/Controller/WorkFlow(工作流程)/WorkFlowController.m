@@ -50,7 +50,7 @@
             [self.myTableView reloadData];
         }else{
             if (message.length != 0) {
-                [MBProgressHUD showMessage:message];
+                [MBProgressHUD showError:message];
             }else{
                 [MBProgressHUD showError:[NSString stringWithFormat:@"Code = %d 请求错误",code]];
             }

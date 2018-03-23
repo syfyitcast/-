@@ -7,8 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+@class LeaveView;
+@class FButton;
+
+@protocol LeaveViewDelegate<NSObject>
+
+@optional
+
+- (void)leaveViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn;
+
+@end
 
 @interface LeaveView : UIView
+
+@property (nonatomic, weak) id<LeaveViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextView *reasonTextView;
 
 + (instancetype)leaveView;
 
