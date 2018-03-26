@@ -12,6 +12,11 @@
 #define NOTIFI_READCOUNT @"NOTIFI_READCOUNT"
 
 
+#pragma mark --------------------------------  字典的key
+
+#define BUSITRAVEL_TRANSMODE  @"BUSITRAVEL_TRANSMODE"
+
+
 #endif /* NOTIFICATION_HEADER_h */
 
 

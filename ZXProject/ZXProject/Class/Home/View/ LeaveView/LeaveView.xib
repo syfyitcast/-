@@ -241,7 +241,7 @@
                 <outlet property="timeLabel" destination="SyY-Rc-w3d" id="zpl-5Y-XYJ"/>
                 <outlet property="typeLabel" destination="Hv6-qM-Fgm" id="S8U-oo-yTd"/>
             </connections>
-            <point key="canvasLocation" x="-354.5" y="-8.5"/>
+            <point key="canvasLocation" x="-389" y="-17"/>
         </view>
     </objects>
 </document>

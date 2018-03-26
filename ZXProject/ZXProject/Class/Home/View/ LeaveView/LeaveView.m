@@ -122,6 +122,7 @@
 
 - (void)clickMeassageAction{
     self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
+    
 }
 
 - (void)clickAction:(FButton *)btn{
@@ -270,5 +271,7 @@
     }
     return _meassgeNotiLabel;
 }
+
+
 
 @end

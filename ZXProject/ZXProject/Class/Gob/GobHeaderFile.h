@@ -24,6 +24,7 @@
 #define BlackColor UIColorWithRGB(0,0,0)
 
 #define BTNBackgroudColor UIColorWithRGB(120, 200, 58)
+#define DRAFTBackgroudColor UIColorWithRGB(59,127,195)
 
 #define kScreenRatioWidth   [UIScreen mainScreen].bounds.size.width / 375.0
 #define kScreenRatioHeight  [UIScreen mainScreen].bounds.size.height / 667.0

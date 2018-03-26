@@ -19,7 +19,7 @@
 #import "WorkFlowCell.h"
 
 
-@interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
 
 @property (nonatomic, strong) NotificationBar *topBar;
 @property (nonatomic, strong) UITableView *myTableView;
@@ -27,6 +27,11 @@
 @property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) FButton *addButton;
 @property (nonatomic, strong) NSMutableArray *unFnishedModels;
+@property (nonatomic, strong) NSMutableArray *fnishedModels;
+@property (nonatomic, strong) NSMutableArray *draftModels;
+
+@property (nonatomic, assign) int currentIndex;
+
 
 @end
 
@@ -35,27 +40,64 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"工作流程";
+    self.currentIndex = 1;
     [self setSubViews];
     [self networkRequest];
 }
 
 - (void)networkRequest{
-    ZXSHOW_LOADING(self.view, @"加载中...");
     User *user = [UserManager sharedUserManager].user;
-    [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        ZXHIDE_LOADING;
-        if (code == 0) {
-            NSArray *datas = data[@"event"];
-            self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
-            [self.myTableView reloadData];
-        }else{
-            if (message.length != 0) {
-                [MBProgressHUD showError:message];
+    ZXSHOW_LOADING(self.view, @"加载中...");
+    // 调度组
+    dispatch_group_t group = dispatch_group_create();
+    // 队列
+    dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
+    // 将任务添加到队列和调度组
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                NSArray *datas = data[@"flowtask"];
+                self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
             }else{
-                [MBProgressHUD showError:[NSString stringWithFormat:@"Code = %d 请求错误",code]];
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message];
+                }else{
+                    [MBProgressHUD showError:[NSString stringWithFormat:@"Code = %d 请求错误",code]];
+                }
             }
-        }
-    }];
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"1" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                NSArray *datas = data[@"flowtask"];
+                self.fnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                NSArray *datas = data[@"flowtask"];
+                self.draftModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
+    dispatch_queue_t mQueue = dispatch_get_main_queue();
+    dispatch_group_notify(group, mQueue, ^{
+        ZXHIDE_LOADING;
+        [self.myTableView reloadData];
+    });
 }
 
 - (void)setSubViews{
@@ -95,20 +137,40 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)notificationBarDidTapIndexLabel:(NSInteger)index{
+    self.currentIndex = (int)index;
+    [self.myTableView reloadData];
+}
+
 #pragma mark - UITableViewDelegate && UITabelViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.unFnishedModels.count;
+    if (self.currentIndex == 0) {
+        return self.draftModels.count;
+    }else if (self.currentIndex == 1){
+        return self.unFnishedModels.count;
+    }else if (self.currentIndex == 2){
+        return self.fnishedModels.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WorkFlowCell *cell = [WorkFlowCell workFlowCellWithTableView:tableView];
-    cell.model = self.unFnishedModels[indexPath.row];
+    WorkFlowModel *model = nil;
+    if (self.currentIndex == 0) {
+        model = self.draftModels[indexPath.row];
+    }else if (self.currentIndex == 1){
+        model = self.unFnishedModels[indexPath.row];
+    }else if (self.currentIndex == 2){
+        model = self.fnishedModels[indexPath.row];
+    }
+    cell.model = model;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 115;
+    return 125;
 }
 
 #pragma  mark - setter && getter
@@ -117,6 +179,8 @@
     if (_topBar == nil) {
         CGRect frame = CGRectMake(0, 0, self.view.width, 50);
         _topBar = [NotificationBar notificationBarWithItems:@[@"我的草稿",@"未完成",@"已完成",@"待办事项"] andFrame:frame];
+        [_topBar bottomLineMoveWithIndex:1];
+        _topBar.delegate = self;
     }
     return _topBar;
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
+		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
+		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
+		495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D6C2068E6DA00ABE900 /* ReportView.xib */; };
 		49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */; };
 		49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D6B205B9510002CE92C /* ProjectReviewController.m */; };
 		49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */; };
@@ -35,6 +39,8 @@
 		49EC0E082064A7A7002CE92C /* CGXStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFE2064A7A7002CE92C /* CGXStringPickerView.m */; };
 		49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0DFF2064A7A7002CE92C /* CGXPickerView.m */; };
 		49EC0E2D2064DFFC002CE92C /* NextStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0E2C2064DFFC002CE92C /* NextStepModel.m */; };
+		49EC0E302068A261002CE92C /* EvectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0E2F2068A261002CE92C /* EvectionView.m */; };
+		49EC0E322068A271002CE92C /* EvectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EC0E312068A271002CE92C /* EvectionView.xib */; };
 		73CC6E0217187B85614B2CA9 /* libPods-ZXProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C69AB4F0B9480EAFBB76D7 /* libPods-ZXProject.a */; };
 		8C04521B204913FC0067F10E /* LeaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C04521A204913FC0067F10E /* LeaveView.m */; };
 		8C04521E204920CA0067F10E /* LeaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04521C204914AD0067F10E /* LeaveView.xib */; };
@@ -136,6 +142,12 @@
 
 /* Begin PBXFileReference section */
 		0FA8A3E83B5BFD10F3605179 /* Pods-ZXProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.debug.xcconfig"; sourceTree = "<group>"; };
+		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
+		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
+		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
+		495E8D692068E6CF00ABE900 /* ReportView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportView.h; sourceTree = "<group>"; };
+		495E8D6A2068E6CF00ABE900 /* ReportView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportView.m; sourceTree = "<group>"; };
+		495E8D6C2068E6DA00ABE900 /* ReportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportView.xib; sourceTree = "<group>"; };
 		49EC0D61205A4E9B002CE92C /* UIAlertAction+Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertAction+Attribute.h"; sourceTree = "<group>"; };
 		49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertAction+Attribute.m"; sourceTree = "<group>"; };
 		49EC0D6A205B9510002CE92C /* ProjectReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewController.h; sourceTree = "<group>"; };
@@ -188,6 +200,9 @@
 		49EC0DFF2064A7A7002CE92C /* CGXPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXPickerView.m; sourceTree = "<group>"; };
 		49EC0E2B2064DFFC002CE92C /* NextStepModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextStepModel.h; sourceTree = "<group>"; };
 		49EC0E2C2064DFFC002CE92C /* NextStepModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextStepModel.m; sourceTree = "<group>"; };
+		49EC0E2E2068A261002CE92C /* EvectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvectionView.h; sourceTree = "<group>"; };
+		49EC0E2F2068A261002CE92C /* EvectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvectionView.m; sourceTree = "<group>"; };
+		49EC0E312068A271002CE92C /* EvectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EvectionView.xib; sourceTree = "<group>"; };
 		8771AEB4541AE06B429FEC89 /* Pods-ZXProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.release.xcconfig"; sourceTree = "<group>"; };
 		8C045219204913FC0067F10E /* LeaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveView.h; sourceTree = "<group>"; };
 		8C04521A204913FC0067F10E /* LeaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveView.m; sourceTree = "<group>"; };
@@ -478,6 +493,15 @@
 				8C04521C204914AD0067F10E /* LeaveView.xib */,
 				49EC0DDE206495AA002CE92C /* ZXDatePickerView.h */,
 				49EC0DDF206495AA002CE92C /* ZXDatePickerView.m */,
+				49EC0E2E2068A261002CE92C /* EvectionView.h */,
+				49EC0E2F2068A261002CE92C /* EvectionView.m */,
+				49EC0E312068A271002CE92C /* EvectionView.xib */,
+				495E8D642068D82B00ABE900 /* ReimbursementView.h */,
+				495E8D652068D82B00ABE900 /* ReimbursementView.m */,
+				495E8D672068D8A800ABE900 /* ReimbursementView.xib */,
+				495E8D692068E6CF00ABE900 /* ReportView.h */,
+				495E8D6A2068E6CF00ABE900 /* ReportView.m */,
+				495E8D6C2068E6DA00ABE900 /* ReportView.xib */,
 			);
 			path = " LeaveView";
 			sourceTree = "<group>";
@@ -1148,10 +1172,13 @@
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
+				495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */,
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
+				49EC0E322068A271002CE92C /* EvectionView.xib in Resources */,
 				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
+				495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
 			);
@@ -1233,6 +1260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C045225204BD9270067F10E /* WorkManagerController.m in Sources */,
+				49EC0E302068A261002CE92C /* EvectionView.m in Sources */,
 				8C305C3C202C115300A843B5 /* ContactListController.m in Sources */,
 				8C5102C32042F2D400F0E40D /* BaseViewController.m in Sources */,
 				49EC0E012064A7A7002CE92C /* CGXPickerViewManager.m in Sources */,
@@ -1253,11 +1281,13 @@
 				8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
 				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
+				495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */,
 				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
 				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
+				495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */,
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
 				49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */,

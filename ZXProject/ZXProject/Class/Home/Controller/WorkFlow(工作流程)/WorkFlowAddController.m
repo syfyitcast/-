@@ -10,17 +10,21 @@
 #import "NotificationBar.h"
 #import "GobHeaderFile.h"
 #import "LeaveView.h"
+#import "EvectionView.h"
+#import "ReimbursementView.h"
+#import "ReportView.h"
 #import <Masonry.h>
 #import "HttpClient+DutyEvents.h"
 #import "CGXPickerView.h"
 #import "CGXStringPickerView.h"
 #import "NextStepModel.h"
 
-@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate>
+
+@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate>
 
 @property (nonatomic, strong)  NotificationBar *topBar;
 @property (nonatomic, strong) UIView *currentView;
-@property (nonatomic, strong) NSArray *chidViews;
+@property (nonatomic, strong) NSMutableArray *chidViews;
 
 @property (nonatomic, strong) NSDictionary *qjDict;
 @property (nonatomic, copy) NSString *currentApprvoId;
@@ -28,6 +32,10 @@
 @property (nonatomic, assign) NSString *eventId;
 @property (nonatomic, assign) long long startTime;
 @property (nonatomic, assign) long long endTime;
+@property (nonatomic, assign) int currentIndex;
+
+@property (nonatomic, strong) NSArray *transTools;//交通工具
+@property (nonatomic, copy) NSString *transModeId;//交通工具id
 
 @end
 
@@ -36,12 +44,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"发起流程";
+    self.currentIndex = 0;
     [self.view addSubview:self.topBar];
-    LeaveView *leaveView = [LeaveView leaveView];
+    [self setNetWorkRequest];
+    [self setChidViews];
+    [self setupSubViews];
+}
+
+- (void)setChidViews{
+    LeaveView *leaveView =  [LeaveView leaveView];
     leaveView.delegate = self;
     self.currentView = leaveView;
-    [self setNetWorkRequest];
-    [self setupSubViews];
+    [self.chidViews addObject:leaveView];
+    EvectionView *evectionView = [EvectionView evectionView];
+    evectionView.delegate = self;
+    [self.chidViews addObject:evectionView];
+    ReimbursementView *reimbursementView =  [ReimbursementView reimbursementView];
+    [self.chidViews addObject:reimbursementView];
+    ReportView *reportView= [ReportView reportView];
+    [self.chidViews addObject:reportView];
 }
 
 - (void)setNetWorkRequest{
@@ -57,6 +78,12 @@
             }else{
                 [MBProgressHUD showError:@"请求异常，请稍后再试"];
             }
+        }
+    }];
+    [HttpClient zx_httpClientToQueryDictWithDataType:BUSITRAVEL_TRANSMODE andDataCode:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            self.transTools = data[@"getdictionarydata"];
+            NSLog(@"transTool = %@",self.transTools);
         }
     }];
 }
@@ -75,7 +102,20 @@
 #pragma mark - delegateMethod
 
 - (void)notificationBarDidTapIndexLabel:(NSInteger)index{
-    
+     __weak typeof(self)  weakself = self;
+    if (index == self.currentIndex) {
+        return;
+    }
+    self.currentIndex = (int)index;
+    [self.currentView removeFromSuperview];
+    self.currentView = self.chidViews[index];
+    [self.view addSubview:self.currentView];
+    [self.currentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakself.topBar.mas_bottom);
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.bottom.equalTo(weakself.view.mas_bottom);
+    }];
 }
 
 - (void)leaveViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
@@ -100,6 +140,29 @@
             break;
         default:
             
+            break;
+    }
+}
+
+//出差
+- (void)evectionViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    switch (index) {
+        case 1://开始时间
+            [self showDateStringPickViewWithFbBtn:btn];
+            break;
+        case 2://结束时间
+            [self showDateStringPickViewWithFbBtn:btn];
+            break;
+        case 3://交通工具
+            [self businessTransModeWithBtn:btn];
+            break;
+        case 4://流程
+            [self showFlowStepPickerViewWithBtn:btn];
+            break;
+        case 5://审核人
+            [self showApprovStepAndPersonNameWithBtn:btn];
+            break;
+        default:
             break;
     }
 }
@@ -155,6 +218,21 @@
     }];
 }
 
+- (void)businessTransModeWithBtn:(FButton *)btn{
+    NSMutableArray *dataSource_tem = [NSMutableArray array];
+    for (NSDictionary *dict in self.transTools) {
+        NSString *transName = dict[@"dataname"];
+        [dataSource_tem addObject:transName];
+    }
+    [CGXPickerView showStringPickerWithTitle:@"请假类型" DataSource:dataSource_tem DefaultSelValue:@"事假" IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        NSString *selectString = (NSString *)selectValue;
+        int index = [selectRow intValue];
+        NSDictionary *dict = self.transTools[index];
+        self.transModeId =  dict[@"datacode"];
+        [btn setTitle:selectString forState:UIControlStateNormal];
+    }];
+}
+
 - (void)submitApprvo{
     if (self.eventId == nil) {
         [MBProgressHUD showError:@"请选择请假类型" toView:self.currentView];
@@ -192,6 +270,40 @@
         _topBar.delegate = self;
     }
     return _topBar;
+}
+
+- (NSMutableArray *)chidViews{
+    if (_chidViews == nil) {
+        _chidViews = [NSMutableArray array];
+    }
+    return _chidViews;
+}
+
+- (NSArray *)transTools{
+    if (_transTools == nil) {
+        _transTools = @[@{
+                            @"dataname":@"火车",
+                            @"datacode":@"1"
+                            },
+                        @{
+                            @"dataname":@"自驾",
+                            @"datacode":@"5"
+                          },
+                        @{
+                            @"dataname":@"高铁",
+                            @"datacode":@"2"
+                            },
+                        @{
+                            @"dataname":@"飞机",
+                            @"datacode":@"3"
+                            },
+                        @{
+                            @"dataname":@"汽车",
+                            @"datacode":@"4"
+                            }
+                        ];
+    }
+    return _transTools;
 }
 
 @end

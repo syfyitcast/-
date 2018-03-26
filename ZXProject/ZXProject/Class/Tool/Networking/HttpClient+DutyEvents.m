@@ -50,7 +50,7 @@
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
     [dict setObject:[NSString stringWithFormat:@"%lf",[[NSDate date] timeIntervalSince1970] ] forKey:@"apptime"];
-    [dict setObject:eventType forKey:@"eventtype"];
+    [dict setObject:eventType forKey:@"dutytype"];
     [dict setObject:@(beginTime) forKey:@"begintime"];
     [dict setObject:@(endTime) forKey:@"endtime"];
     [dict setObject:eventName forKey:@"eventname"];
