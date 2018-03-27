@@ -19,6 +19,7 @@
 #import "AttendanceController.h"
 #import "PersonInfoController.h"
 #import "WorkManagerController.h"
+#import "EventsViewController.h"
 #import "UserLocationManager.h"
 #import "ProjectReviewController.h"
 #import "HttpClient.h"
@@ -282,7 +283,7 @@
 
 - (NSArray *)items{
     if (_items == nil) {
-        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"ProjectReviewController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
+        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"EventsViewController",@"onFoucsController",@"onFoucsController",@"onFoucsController",@"ProjectReviewController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
     }
     return _items;
 }

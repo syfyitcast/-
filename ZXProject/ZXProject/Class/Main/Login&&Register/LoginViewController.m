@@ -246,7 +246,7 @@
         if (isMatch) {
             if (self.screCodeField.text.length == 6) {
                 ZXSHOW_LOADING(self.view, @"登录中...");
-                [HttpClient zx_httpClientToLoginWithUserName:self.mobileField.text andVerifyCode:self.screCodeField.text andSmsid:[NetworkConfig sharedNetworkingConfig].smsid andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                [HttpClient zx_httpClientToLoginWithUserName:self.mobileField.text andVerifyCode:self.screCodeField.text andSmsid:[NetworkConfig sharedNetworkingConfig].smsid?[NetworkConfig sharedNetworkingConfig].smsid:self.screCodeField.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING
                     if (code == 0) {
                         NSDictionary *userInfo = data[@"systemuser"];

@@ -7,6 +7,7 @@
 //
 
 #import "EventsViewController.h"
+#import "GobHeaderFile.h"
 
 @interface EventsViewController ()
 
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"环卫事件";
+ 
 }
 
 

@@ -23,7 +23,8 @@
                                                                       NSForegroundColorAttributeName:WhiteColor
                                                                       }];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NaviHeaderBg"] forBarMetrics:UIBarMetricsDefault];
-    
+   
+    self.edgesForExtendedLayout =  UIRectEdgeBottom ;
 }
 
 - (void)setNavigationLeftItem{
