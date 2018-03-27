@@ -30,6 +30,11 @@ extern NSString *const API_GETPROJECTLIST;//获取项目列表
 extern NSString *const API_SUBMITDUTYEVENT;//提交考勤事件
 extern NSString *const API_QUERYNEXTSTEPFLOW;//查询流程任务下一环节审核人
 
+extern NSString *const API_DUTYCHECK;//打卡
+extern NSString *const API_DUTYRULE;//考勤规则
+extern NSString *const API_DUTYINIT;//人员排班
+extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
+
 
 @interface NetworkConfig : NSObject
 

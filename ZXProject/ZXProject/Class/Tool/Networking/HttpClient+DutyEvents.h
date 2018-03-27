@@ -17,6 +17,16 @@
 //提交审核流程
 + (void)zx_httpClientToSubmitDutyEventWithEventType:(NSString *)eventType andBeginTime:(long long)beginTime andEndTime:(long long)endTime andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block;
 
+//考勤打卡
++ (void)zx_httpClientToDutyCheckWithDutytype:(NSString *)dutytype andPositionAdress:(NSString *)positionAdress andPosition:(NSString *)posiotion andPhotoUrl:(NSString *)url andSuccessBlock:(responseBlock)block;
 
+//查询考勤规则
++ (void)zx_httpClientToQueryDutyRuleWithWorkDateFormatter:(NSString *)formatter andSuccessBlock:(responseBlock)block;
+
+//人员排班
++ (void)zx_httpClientToInitWorkDateWithProjectId:(NSString *)projectid andSettingId:(NSString *)settingId andEmployerid:(NSString *)employerid andWorkdates:(NSString *)workDates andSuccessBlock:(responseBlock)block;
+
+//项目人员考勤查询
++ (void)zx_httpClientToQueryProjectDutyWithBeginTime:(long)beginTime andEndTime:(long)time andSuccessBlock:(responseBlock)block;
 
 @end

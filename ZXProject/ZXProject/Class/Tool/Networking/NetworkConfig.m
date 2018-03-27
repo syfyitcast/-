@@ -30,6 +30,11 @@ NSString *const API_GETDUTYEVENTLIST = @"myflowtasklist";//查询项目人员待
 NSString *const API_SUBMITDUTYEVENT = @"submitdutyevent";//提交考勤事件
 NSString *const API_QUERYNEXTSTEPFLOW = @"eventflownextstep";//查询流程任务下一环节审核人
 
+NSString *const API_DUTYCHECK = @"projectdutycheck";//打卡
+NSString *const API_DUTYRULE = @"employerdutysetting";//考勤规则
+NSString *const API_DUTYINIT = @"initworkcalendar";//人员排班
+NSString *const API_PROJECTDUTYQUERY = @"projectdutyquery";//项目人员考勤查询
+
 @implementation NetworkConfig
 
 + (instancetype)sharedNetworkingConfig{

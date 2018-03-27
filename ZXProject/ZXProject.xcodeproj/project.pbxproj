@@ -11,6 +11,8 @@
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
 		495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D6C2068E6DA00ABE900 /* ReportView.xib */; };
+		495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D75206A1C3800ABE900 /* EventsViewController.m */; };
+		495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D79206A292900ABE900 /* AttDutySettingModel.m */; };
 		49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */; };
 		49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D6B205B9510002CE92C /* ProjectReviewController.m */; };
 		49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */; };
@@ -148,6 +150,10 @@
 		495E8D692068E6CF00ABE900 /* ReportView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportView.h; sourceTree = "<group>"; };
 		495E8D6A2068E6CF00ABE900 /* ReportView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportView.m; sourceTree = "<group>"; };
 		495E8D6C2068E6DA00ABE900 /* ReportView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportView.xib; sourceTree = "<group>"; };
+		495E8D74206A1C3800ABE900 /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		495E8D75206A1C3800ABE900 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		495E8D78206A292900ABE900 /* AttDutySettingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttDutySettingModel.h; sourceTree = "<group>"; };
+		495E8D79206A292900ABE900 /* AttDutySettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttDutySettingModel.m; sourceTree = "<group>"; };
 		49EC0D61205A4E9B002CE92C /* UIAlertAction+Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertAction+Attribute.h"; sourceTree = "<group>"; };
 		49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertAction+Attribute.m"; sourceTree = "<group>"; };
 		49EC0D6A205B9510002CE92C /* ProjectReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewController.h; sourceTree = "<group>"; };
@@ -390,6 +396,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		495E8D73206A1C1B00ABE900 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				495E8D74206A1C3800ABE900 /* EventsViewController.h */,
+				495E8D75206A1C3800ABE900 /* EventsViewController.m */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		495E8D77206A28E800ABE900 /* AttenceModel */ = {
+			isa = PBXGroup;
+			children = (
+				495E8D78206A292900ABE900 /* AttDutySettingModel.h */,
+				495E8D79206A292900ABE900 /* AttDutySettingModel.m */,
+			);
+			path = AttenceModel;
+			sourceTree = "<group>";
+		};
 		49EC0D69205B94D4002CE92C /* ProjectReview（项目总览） */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +447,7 @@
 		49EC0D7C206109E1002CE92C /* workFlow */ = {
 			isa = PBXGroup;
 			children = (
+				8C0452182049139F0067F10E /*  LeaveView */,
 				49EC0D7D20610A0A002CE92C /* WorkFlowCell.h */,
 				49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */,
 				49EC0D8020610A91002CE92C /* WorkFlowCell.xib */,
@@ -681,6 +706,7 @@
 			children = (
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				495E8D73206A1C1B00ABE900 /* Events */,
 				49EC0D69205B94D4002CE92C /* ProjectReview（项目总览） */,
 				8C04521F204BD7E30067F10E /* WorkManager(作业管理) */,
 				8C5102EB2046A4EC00F0E40D /* PersonInfo（个人信息） */,
@@ -694,6 +720,7 @@
 		8C305C28202C0F1400A843B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				495E8D77206A28E800ABE900 /* AttenceModel */,
 				49EC0DCE20635A9C002CE92C /* Events */,
 				49EC0D822061F2DF002CE92C /* NotificationModel */,
 				49EC0D772060F432002CE92C /* WorkFlow */,
@@ -715,7 +742,6 @@
 				49EC0D7C206109E1002CE92C /* workFlow */,
 				49EC0D6D205B9B22002CE92C /* ProjectReviewCell */,
 				8C045227204C1ED00067F10E /* WorkManagerCell */,
-				8C0452182049139F0067F10E /*  LeaveView */,
 				8C5102CA2043E8BC00F0E40D /* Notification */,
 				8CB1459120393F42003E94D4 /* HomeHeaderView.h */,
 				8CB1459220393F42003E94D4 /* HomeHeaderView.m */,
@@ -1296,6 +1322,7 @@
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
+				495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */,
 				49EC0DDA2063986C002CE92C /* WorkFlowAddController.m in Sources */,
 				8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */,
 				8C340E7020357DDC00D1A0AD /* ForgetPasswordCotroller.m in Sources */,
@@ -1334,6 +1361,7 @@
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
 				49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
+				495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */,
 				8C224B10204D2D2A00319CC0 /* User.m in Sources */,
 				8C224B13204D320C00319CC0 /* NSNULL+Filtration.m in Sources */,
 				49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */,

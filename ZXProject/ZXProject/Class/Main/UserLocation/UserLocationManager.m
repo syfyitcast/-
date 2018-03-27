@@ -70,6 +70,7 @@
     NSLog(@"经纬度: la = %f , lng = %f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     self.currentLaction = currentLocation;
     self.currentCoordinate = self.currentLaction.coordinate;
+    self.position = [NSString stringWithFormat:@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude];
 }
 
 @end

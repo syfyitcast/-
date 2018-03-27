@@ -15,6 +15,8 @@
 #pragma mark --------------------------------  字典的key
 
 #define BUSITRAVEL_TRANSMODE  @"BUSITRAVEL_TRANSMODE"
+#define FEE_TYPE              @"FEE_TYPE"
+#define REPORT_TYPE           @"REPORT_TYPE"
 
 
 #endif /* NOTIFICATION_HEADER_h */

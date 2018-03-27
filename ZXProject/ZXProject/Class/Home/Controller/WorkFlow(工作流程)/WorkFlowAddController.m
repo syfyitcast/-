@@ -20,7 +20,7 @@
 #import "NextStepModel.h"
 
 
-@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate>
+@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate,ReimbursementViewDelegate,ReportViewDelegate>
 
 @property (nonatomic, strong)  NotificationBar *topBar;
 @property (nonatomic, strong) UIView *currentView;
@@ -36,6 +36,12 @@
 
 @property (nonatomic, strong) NSArray *transTools;//交通工具
 @property (nonatomic, copy) NSString *transModeId;//交通工具id
+
+@property (nonatomic, strong) NSArray *fees;//报销费用类型
+@property (nonatomic, copy) NSString *feeTypeid;//报销类型id
+
+@property (nonatomic, strong) NSArray *reports;//报告类型
+@property (nonatomic, copy) NSString *reportTypeid;//报告类型id
 
 @end
 
@@ -60,8 +66,10 @@
     evectionView.delegate = self;
     [self.chidViews addObject:evectionView];
     ReimbursementView *reimbursementView =  [ReimbursementView reimbursementView];
+    reimbursementView.delegate = self;
     [self.chidViews addObject:reimbursementView];
     ReportView *reportView= [ReportView reportView];
+    reportView.delegate = self;
     [self.chidViews addObject:reportView];
 }
 
@@ -84,6 +92,22 @@
         if (code == 0) {
             self.transTools = data[@"getdictionarydata"];
             NSLog(@"transTool = %@",self.transTools);
+        }
+    }];
+    [HttpClient zx_httpClientToQueryDictWithDataType:FEE_TYPE andDataCode:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            self.fees = data[@"getdictionarydata"];
+            for (NSDictionary *dict in self.fees) {
+                NSLog(@"feeName = %@",dict[@"dataname"]);
+            }
+        }
+    }];
+    [HttpClient zx_httpClientToQueryDictWithDataType:REPORT_TYPE andDataCode:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            self.reports = data[@"getdictionarydata"];
+            for (NSDictionary *dict in self.reports) {
+                NSLog(@"reportTypename = %@",dict[@"dataname"]);
+            }
         }
     }];
 }
@@ -162,6 +186,46 @@
         case 5://审核人
             [self showApprovStepAndPersonNameWithBtn:btn];
             break;
+        case 7://提交
+            [self submitApprvo];
+        default:
+            break;
+    }
+}
+
+- (void)reimbursementViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    switch (index) {
+        case 0://报销类型
+            [self feetypeWithBtn:btn];
+            break;
+        case 3://流程
+            [self showFlowStepPickerViewWithBtn:btn];
+            break;
+        case 4://审核人
+            [self showApprovStepAndPersonNameWithBtn:btn];
+            break;
+        case 7://提交
+            [self submitApprvo];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)reportViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    switch (index) {
+        case 0://报销类型
+            [self reportTypeWithBtn:btn];
+            break;
+        case 3://流程
+            [self showFlowStepPickerViewWithBtn:btn];
+            break;
+        case 4://审核人
+            [self showApprovStepAndPersonNameWithBtn:btn];
+            break;
+        case 7://提交
+            [self submitApprvo];
+            break;
         default:
             break;
     }
@@ -224,11 +288,41 @@
         NSString *transName = dict[@"dataname"];
         [dataSource_tem addObject:transName];
     }
-    [CGXPickerView showStringPickerWithTitle:@"请假类型" DataSource:dataSource_tem DefaultSelValue:@"事假" IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+    [CGXPickerView showStringPickerWithTitle:@"交通工具" DataSource:dataSource_tem DefaultSelValue:@"事假" IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
         NSString *selectString = (NSString *)selectValue;
         int index = [selectRow intValue];
         NSDictionary *dict = self.transTools[index];
         self.transModeId =  dict[@"datacode"];
+        [btn setTitle:selectString forState:UIControlStateNormal];
+    }];
+}
+
+- (void)feetypeWithBtn:(FButton *)btn{
+    NSMutableArray *dataSource_tem = [NSMutableArray array];
+    for (NSDictionary *dict in self.fees) {
+        NSString *transName = dict[@"dataname"];
+        [dataSource_tem addObject:transName];
+    }
+    [CGXPickerView showStringPickerWithTitle:@"费用类型" DataSource:dataSource_tem DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        NSString *selectString = (NSString *)selectValue;
+        int index = [selectRow intValue];
+        NSDictionary *dict = self.transTools[index];
+        self.transModeId =  dict[@"datacode"];
+        [btn setTitle:selectString forState:UIControlStateNormal];
+    }];
+}
+
+- (void)reportTypeWithBtn:(FButton *)btn{
+    NSMutableArray *dataSource_tem = [NSMutableArray array];
+    for (NSDictionary *dict in self.reports) {
+        NSString *transName = dict[@"dataname"];
+        [dataSource_tem addObject:transName];
+    }
+    [CGXPickerView showStringPickerWithTitle:@"呈报类型" DataSource:dataSource_tem DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        NSString *selectString = (NSString *)selectValue;
+        int index = [selectRow intValue];
+        NSDictionary *dict = self.reports[index];
+        self.reportTypeid =  dict[@"datacode"];
         [btn setTitle:selectString forState:UIControlStateNormal];
     }];
 }
@@ -304,6 +398,40 @@
                         ];
     }
     return _transTools;
+}
+
+- (NSArray *)fees{
+    if (_fees == nil) {
+        _fees = @[@{
+                            @"dataname":@"招待费",
+                            @"datacode":@"1"
+                            },
+                        @{
+                            @"dataname":@"办公费",
+                            @"datacode":@"2"
+                            },
+                        @{
+                            @"dataname":@"防暑降温补贴",
+                            @"datacode":@"3"
+                            }
+                        ];
+    }
+    return _fees;
+}
+
+- (NSArray *)reports{
+    if (_reports == nil) {
+        _reports = @[@{
+                      @"dataname":@"公文呈报",
+                      @"datacode":@"1"
+                      },
+                  @{
+                      @"dataname":@"发文呈报",
+                      @"datacode":@"2"
+                      }
+                  ];
+    }
+    return _reports;
 }
 
 @end

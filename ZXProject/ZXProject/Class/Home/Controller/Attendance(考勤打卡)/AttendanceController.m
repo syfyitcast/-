@@ -13,6 +13,9 @@
 #import <Masonry.h>
 #import "AttenceTimeView.h"
 #import "AttenceDKController.h"
+#import "HttpClient+DutyEvents.h"
+#import "AttDutySettingModel.h"
+#import "UserLocationManager.h"
 
 @interface AttendanceController ()
 
@@ -25,6 +28,8 @@
 @property (nonatomic, strong) UIView *twoLineView;
 @property (nonatomic, strong) UIView *threeLineView;
 
+@property (nonatomic, strong) NSArray *attDutySettingModels;
+
 @end
 
 @implementation AttendanceController
@@ -32,12 +37,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"考勤打卡";
-    [self setUpSubViews];
+    [self setNetworkRequest];
+}
+
+- (void)setNetworkRequest{
+    ZXSHOW_LOADING(self.view, @"加载中...");
+    dispatch_group_t group = dispatch_group_create();
+    // 队列
+    dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
+    // 将任务添加到队列和调度组
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        NSDate *date = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        NSString *dateString = [formatter stringFromDate:date];
+        [HttpClient zx_httpClientToQueryDutyRuleWithWorkDateFormatter:dateString andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"dutysetting"];
+                self.attDutySettingModels = [AttDutySettingModel attDutySettingModelsWithSource_arr:datas];
+            }
+             dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *now = [NSDate date];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        NSDate *startDate = [calendar dateFromComponents:components];
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+        [HttpClient zx_httpClientToQueryProjectDutyWithBeginTime:[startDate timeIntervalSince1970] * 1000.0 andEndTime:[endDate timeIntervalSince1970] * 1000.0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
+    dispatch_queue_t mQueue = dispatch_get_main_queue();
+    dispatch_group_notify(group, mQueue, ^{
+        ZXHIDE_LOADING;
+        [self setUpSubViews];
+    });
+    
+   
 }
 
 - (void)setUpSubViews{
     __weak typeof(self) weakself = self;
     [self.view addSubview:self.headerView];
+    CGFloat height = CGRectGetMaxY(self.headerView.frame);
+    int i = 0;
+    CGFloat mpadding = 12;
+    for (AttDutySettingModel *model in self.attDutySettingModels) {
+        UILabel *label = [[UILabel alloc] init];
+        label.text = [NSString stringWithFormat:@"%@: %@-%@",model.settingname,model.begintimeString,model.endtimeString];
+        label.textColor = UIColorWithFloat(110);
+        label.font = [UIFont systemFontOfSize:13];
+        label.x = 15;
+        label.width = self.view.width - 30;
+        label.height = 18;
+        label.y = height + mpadding + i * (label.height + 2 * mpadding - 2);
+        [self.view addSubview:label];
+        i ++;
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = UIColorWithFloat(239);
+        lineView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + mpadding - 1, self.view.width, 1);
+        [self.view addSubview:lineView];
+    }
     [self.view addSubview:self.workBtn];
     [self.view addSubview:self.offBtn];
     [self.view addSubview:self.oneLineView];
@@ -55,12 +123,12 @@
     CGFloat padding = (self.view.width - width * 2 - 45)*0.5;
     [self.workBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(padding);
-        make.top.equalTo(weakself.headerView.mas_bottom).offset(20);
+        make.top.equalTo(weakself.headerView.mas_bottom).offset(self.attDutySettingModels.count * 42 + 20);
         make.size.mas_equalTo(CGSizeMake(width, width));
     }];
     [self.offBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakself.view.mas_right).offset(-padding);
-        make.top.equalTo(weakself.headerView.mas_bottom).offset(20);
+        make.top.equalTo(weakself.headerView.mas_bottom).offset(self.attDutySettingModels.count * 42 + 20);
         make.size.mas_equalTo(CGSizeMake(width, width));
     }];
     [self.oneLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,6 +163,29 @@
     }];
 }
 
+- (void)clickDutyBtn:(UIButton *)btn{
+    ZXSHOW_LOADING(self.view, @"获取位置中...");
+    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+        NSString *state=[addressDic objectForKey:@"State"];
+        NSString *city=[addressDic objectForKey:@"City"];
+        NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+        NSString *street=[addressDic objectForKey:@"Street"];
+        NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
+        [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                [MBProgressHUD showError:@"打卡成功" toView:self.view];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }];
+   
+}
 
 #pragma mark - setter && getter
 
@@ -117,6 +208,8 @@
         [_workBtn setTitle:@"上班" forState:UIControlStateNormal];
         [_workBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
         _workBtn.layer.cornerRadius = 85*0.5;
+        _workBtn.tag = 0;
+        [_workBtn addTarget:self action:@selector(clickDutyBtn:) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _workBtn;
@@ -129,6 +222,8 @@
         [_offBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
         _offBtn.backgroundColor =  UIColorWithRGB(120, 200, 55);
         _offBtn.layer.cornerRadius = 85 *0.5;
+        _offBtn.tag = 1;
+        [_offBtn addTarget:self action:@selector(clickDutyBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _offBtn;
 }
