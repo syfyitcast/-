@@ -10,6 +10,7 @@
 
 #define MD5_ID  @"ed40065902934b4eb7f7bb12b20f1900"
 
+extern NSString *const API_QUERYDICT;//字典查询
 extern NSString *const API_LOGINPWD;//登录
 extern NSString *const API_LOGOUT;//登出
 extern NSString *const API_LOGINCODE;//验证码登录
@@ -23,6 +24,16 @@ extern NSString *const API_GETAPPNOTICEINFO;//获取通知新闻
 extern NSString *const API_GETAPPNOTICEREADCOUNT;//获取app通知消息未阅读数
 extern NSString *const API_GETDUTYEVENTLIST;//获取待审核考勤事件
 extern NSString *const API_GETPROJECTLIST;//获取项目列表
+
+#pragma mark ---------------------------------------------------
+
+extern NSString *const API_SUBMITDUTYEVENT;//提交考勤事件
+extern NSString *const API_QUERYNEXTSTEPFLOW;//查询流程任务下一环节审核人
+
+extern NSString *const API_DUTYCHECK;//打卡
+extern NSString *const API_DUTYRULE;//考勤规则
+extern NSString *const API_DUTYINIT;//人员排班
+extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
 
 
 @interface NetworkConfig : NSObject

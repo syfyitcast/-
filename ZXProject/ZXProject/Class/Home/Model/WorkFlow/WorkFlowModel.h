@@ -10,8 +10,11 @@
 
 @interface WorkFlowModel : NSObject
 
-@property (nonatomic, assign) int dutyeventid;//考勤事件主键
-@property (nonatomic, assign) int projectid;//项目id
+@property (nonatomic, assign) long projectid;//项目id
+@property (nonatomic, assign) long eventid;//时间主键
+@property (nonatomic, assign) long flowsubmittime;//流程时间
+@property (nonatomic, copy) NSString *flowname;//流程名称
+
 @property (nonatomic, assign) int eventemployerid;//考勤人
 @property (nonatomic, copy) NSString *eventemployername;//考勤人姓名
 @property (nonatomic, assign) int submitemployerid;//提交人
@@ -19,6 +22,9 @@
 @property (nonatomic, assign) int eventtype;//事件类型
 @property (nonatomic, assign) long begintime;//事件开始时间
 @property (nonatomic, assign) long endtime;//事件结束时间
+@property (nonatomic, assign) long eventstatus;//事件状态
+@property (nonatomic, assign) long tasktype;//任务类型
+@property (nonatomic, assign) long flowtype;//审核类型。1请假 2费用报销 3呈报 4出差
 
 @property (nonatomic, copy) NSString *eventname;//事件名称
 @property (nonatomic, copy) NSString *eventremark;//事件说明
@@ -31,6 +37,7 @@
 @property (nonatomic, assign) int flowtaskid;//流程任务id
 @property (nonatomic, copy) NSString *typeName;//流程类型
 @property (nonatomic, copy) NSString *updateTimeString;//更新时间
+@property (nonatomic, copy) NSString *countTime;//计时
 
 
 + (NSMutableArray *)workFlowModelsWithSource_arr:(NSArray *)source_arr;

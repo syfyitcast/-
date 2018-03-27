@@ -19,6 +19,11 @@ typedef enum {
    FBLayoutTypeLeft
 }FBLayoutType;
 
+typedef enum {
+    FBSetTitleTypeCenter = 0,
+   
+}FBSetTitleType;
+
 @interface FButton : UIButton
 
 @property (nonatomic, assign) CGFloat ratio;
@@ -27,5 +32,7 @@ typedef enum {
 + (instancetype)fbtnWithFBLayout:(FBLayoutType)type andPadding:(CGFloat)padding;
 
 - (void)setBagdeCount:(int)count;
+
+- (void)setTitleWithType:(FBSetTitleType)type;
 
 @end

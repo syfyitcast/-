@@ -10,8 +10,36 @@
 #import "Tool+MD5.h"
 #import "NetworkConfig.h"
 #import "NSNULL+Filtration.h"
+#import "ProjectManager.h"
+#import "UserManager.h"
 
 @implementation HttpClient
+
++ (void)zx_httpClientToQueryDictWithDataType:(NSString *)dataType andDataCode:(NSString *)datacode andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_QUERYDICT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:dataType forKey:@"datatype"];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:@"" forKey:@"companyid"];
+    [dict setObject:datacode forKey:@"datacode"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_QUERYDICT];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
 
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block{
     [NetworkConfig networkConfigTokenWithMethodName:API_LOGINPWD];
@@ -269,8 +297,8 @@
 + (void)zx_httpClientToDutyEventlistWithProjectid:(NSString *_Nonnull)projectId andEmployerid:(NSString *_Nonnull)employerid  andFlowTaskStatus:(NSString *_Nonnull)taskStatus andSuccessBlock:(responseBlock _Nonnull )block{
     [NetworkConfig networkConfigTokenWithMethodName:API_GETDUTYEVENTLIST];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
-    [dict setObject:projectId forKey:@"projectid"];
-    [dict setObject:employerid forKey:@"employerid"];
+    [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
+    [dict setObject:employerid?projectId:@"" forKey:@"employerid"];
     [dict setObject:taskStatus forKey:@"flowtaskstatus"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETDUTYEVENTLIST];

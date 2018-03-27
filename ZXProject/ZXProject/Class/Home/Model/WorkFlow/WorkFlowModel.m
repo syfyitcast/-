@@ -25,16 +25,16 @@
 
 + (NSMutableArray *)workFlowModelsWithSource_arr:(NSArray *)source_arr{
     NSMutableArray *tem_arr = [NSMutableArray array];
-    for (NSDictionary *dict in tem_arr) {
+    for (NSDictionary *dict in source_arr) {
         WorkFlowModel *model = [WorkFlowModel workFlowModelWithDict:dict];
         [tem_arr addObject:model];
     }
     return tem_arr;
 }
 
-- (void)setEventtype:(int)eventtype{
-    _eventtype = eventtype;
-    switch (eventtype) {
+- (void)setFlowtype:(long)flowtype{
+    _flowtype = flowtype;
+    switch (flowtype) {
         case 1:
             self.typeName = @"请假";
             break;
@@ -53,11 +53,20 @@
 }
 
 - (NSString *)updateTimeString{
-    long long time = _localreceivetime / 1000.0;
+    long long time = _flowsubmittime / 1000.0;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
     return [formatter stringFromDate:date];
+}
+
+- (NSString *)countTime{
+    long long time = _flowsubmittime / 1000.0;
+    NSTimeInterval timeInterval =  [[NSDate date] timeIntervalSince1970];
+    long long chaTime = timeInterval - time;
+    long long h = chaTime / 3600.0;
+    long long m = (chaTime - h * 3600) / 60.0;
+    return [NSString stringWithFormat:@"%02lld:%02lld",h,m];
 }
 
 @end

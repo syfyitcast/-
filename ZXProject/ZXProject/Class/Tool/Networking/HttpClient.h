@@ -16,6 +16,9 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 
 @interface HttpClient : NSObject
 
+//字典查询
++ (void)zx_httpClientToQueryDictWithDataType:(NSString *)dataType andDataCode:(NSString *)datacode andSuccessBlock:(responseBlock)block;
+
 //用户密码登录
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block;
 
@@ -23,7 +26,7 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andVerifyCode:(NSString *_Nullable)VerifyCode andSmsid:(NSString *_Nullable)smsid andSuccessBlock:(responseBlock _Nullable )block;
 
 //登出
-+ (void)zx_httpClientToLogoutWithUserName:(NSString *)userName andSuccessBlock:(responseBlock)block;
++ (void)zx_httpClientToLogoutWithUserName:(NSString *_Nonnull)userName andSuccessBlock:(responseBlock _Nonnull )block;
 
 //获取短信验证码
 + (void)zx_httpClientToGetVerifyCodeWithType:(int)type andMobile:(NSString *_Nullable)mobile andSuccessBlock:(responseBlock _Nullable )block;
@@ -46,7 +49,7 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 + (void)zx_getAppNoticeinfoWithProjectid:(NSString *_Nonnull)projectId andEmployedId:(NSString *_Nullable)employedId andPublishType:(NSString *_Nonnull)type andpublishLevel:(NSString *_Nonnull)level andSuccessBlock:(responseBlock _Nullable )block;
 
 //获取通知消息未阅读数
-+ (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *)projectid_Nonnull andEmployerid:(NSString *_Nonnull)employerid andSuccessBlock:(responseBlock)block;
++ (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *)projectid_Nonnull andEmployerid:(NSString *_Nonnull)employerid andSuccessBlock:(responseBlock _Nonnull )block;
 
 //工作流程
 + (void)zx_httpClientWorkFlowWithProject_id:(NSString *_Nullable)project_id andEmployedId:(NSString *_Nullable)employedId andSubmitmployer:(NSString *_Nonnull)submitemployer andEventType:(NSString *_Nonnull)type andBeginTime:(NSString *_Nonnull)beginTime andEndTime:(NSString *_Nonnull)endTime andEventName:(NSString *_Nonnull)eventName andEventRemark:(NSString *_Nonnull)eventMark andPhotoUrl:(NSString *_Nonnull)photoUrl andSubmitto:(NSString *_Nonnull)submitto;

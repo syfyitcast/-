@@ -10,21 +10,30 @@
 #import "UserLocationManager.h"
 #import "Tool+MD5.h"
 #import "UserManager.h"
+#import "ProjectManager.h"
 #import "XMCenter.h"
 
+NSString *const API_QUERYDICT = @"getdictionarydata";//字典查询
 NSString *const API_LOGINPWD = @"checklogin";//登陆
 NSString *const API_LOGINCODE = @"verificationcodelogin";//验证码登录
 NSString *const API_LOGOUT = @"applogout";//登出
 NSString *const API_GETCODE = @"getverificationcode";//获取短信验证码
 NSString *const API_REGISTER = @"verificationcoderegiste";//注册
 NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
-
-
 NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 NSString *const API_GETAPPNOTICEINFO = @"appnoticeinfo";//获取通知公告
 NSString *const API_GETAPPNOTICEREADCOUNT = @"noticenotreadcount";//获取app通知消息未阅读数
-NSString *const API_GETDUTYEVENTLIST = @"dutyeventlist";//查询项目人员待审核考勤事件
 NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信息
+
+#pragma mark 考勤  --------------------------------------------------------------
+NSString *const API_GETDUTYEVENTLIST = @"myflowtasklist";//查询项目人员待审核考勤事件
+NSString *const API_SUBMITDUTYEVENT = @"submitdutyevent";//提交考勤事件
+NSString *const API_QUERYNEXTSTEPFLOW = @"eventflownextstep";//查询流程任务下一环节审核人
+
+NSString *const API_DUTYCHECK = @"projectdutycheck";//打卡
+NSString *const API_DUTYRULE = @"employerdutysetting";//考勤规则
+NSString *const API_DUTYINIT = @"initworkcalendar";//人员排班
+NSString *const API_PROJECTDUTYQUERY = @"projectdutyquery";//项目人员考勤查询
 
 @implementation NetworkConfig
 

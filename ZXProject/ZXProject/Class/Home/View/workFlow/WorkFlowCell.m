@@ -7,6 +7,7 @@
 //
 
 #import "WorkFlowCell.h"
+#import "GobHeaderFile.h"
 
 @interface WorkFlowCell()
 
@@ -33,9 +34,15 @@
     return cell;
 }
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    self.statusLabel.layer.cornerRadius = 6;
+    self.statusLabel.clipsToBounds = YES;
+}
+
 - (void)setModel:(WorkFlowModel *)model{
     _model = model;
-    switch (model.eventtype) {
+    switch (model.flowtype) {
         case 1:
             self.iconView.image = [UIImage imageNamed:@"workFlowQJ"];
             break;
@@ -55,6 +62,23 @@
     self.typeLabel.text = [NSString stringWithFormat:@"流程类别: %@",model.typeName];
     self.updateLabel.text = [NSString stringWithFormat:@"发起时间 :%@",model.updateTimeString];
     self.apprvLabel.text = [NSString stringWithFormat:@"审批人: %@",model.localhandlername];
+    self.timeLbel.text = model.countTime;
+    switch (model.eventstatus) {
+        case 0://草稿
+            self.statusLabel.text = @"草稿";
+            self.statusLabel.backgroundColor = DRAFTBackgroudColor;
+            break;
+        case 1:
+            self.statusLabel.text = @"未完成";
+            self.statusLabel.backgroundColor = [UIColor redColor];
+            break;
+        case 2:
+            self.statusLabel.text = @"已完成";
+            self.statusLabel.backgroundColor = BTNBackgroudColor;
+            break;
+        default:
+            break;
+    }
 }
 
 
