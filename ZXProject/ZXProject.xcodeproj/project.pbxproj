@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */; };
 		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
 		495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D6C2068E6DA00ABE900 /* ReportView.xib */; };
 		495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D75206A1C3800ABE900 /* EventsViewController.m */; };
 		495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D79206A292900ABE900 /* AttDutySettingModel.m */; };
+		495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D7C206B240F00ABE900 /* AttDutyCheckModel.m */; };
 		49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */; };
 		49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D6B205B9510002CE92C /* ProjectReviewController.m */; };
 		49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */; };
@@ -144,6 +146,8 @@
 
 /* Begin PBXFileReference section */
 		0FA8A3E83B5BFD10F3605179 /* Pods-ZXProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.debug.xcconfig"; sourceTree = "<group>"; };
+		4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+UploadFile.h"; sourceTree = "<group>"; };
+		4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+UploadFile.m"; sourceTree = "<group>"; };
 		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
 		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
 		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 		495E8D75206A1C3800ABE900 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		495E8D78206A292900ABE900 /* AttDutySettingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttDutySettingModel.h; sourceTree = "<group>"; };
 		495E8D79206A292900ABE900 /* AttDutySettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttDutySettingModel.m; sourceTree = "<group>"; };
+		495E8D7B206B240F00ABE900 /* AttDutyCheckModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttDutyCheckModel.h; sourceTree = "<group>"; };
+		495E8D7C206B240F00ABE900 /* AttDutyCheckModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttDutyCheckModel.m; sourceTree = "<group>"; };
 		49EC0D61205A4E9B002CE92C /* UIAlertAction+Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertAction+Attribute.h"; sourceTree = "<group>"; };
 		49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertAction+Attribute.m"; sourceTree = "<group>"; };
 		49EC0D6A205B9510002CE92C /* ProjectReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewController.h; sourceTree = "<group>"; };
@@ -410,6 +416,8 @@
 			children = (
 				495E8D78206A292900ABE900 /* AttDutySettingModel.h */,
 				495E8D79206A292900ABE900 /* AttDutySettingModel.m */,
+				495E8D7B206B240F00ABE900 /* AttDutyCheckModel.h */,
+				495E8D7C206B240F00ABE900 /* AttDutyCheckModel.m */,
 			);
 			path = AttenceModel;
 			sourceTree = "<group>";
@@ -889,6 +897,8 @@
 				8C33C2D2203170BD00B93F6E /* HttpClient.m */,
 				49EC0DDB20648A69002CE92C /* HttpClient+DutyEvents.h */,
 				49EC0DDC20648A69002CE92C /* HttpClient+DutyEvents.m */,
+				4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */,
+				4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1152,7 +1162,8 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = THPFNYW7A3;
+						ProvisioningStyle = Automatic;
 					};
 					8C305C02202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1333,6 +1344,7 @@
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
+				4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */,
 				8C33C2C82031700400B93F6E /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */,
 				8C33C2D62031717200B93F6E /* NetworkConfig.m in Sources */,
@@ -1366,6 +1378,7 @@
 				49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */,
 				8C33C2C52031700400B93F6E /* XMEngine.m in Sources */,
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
+				495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */,
 				49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */,
 				8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */,
 				8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */,
@@ -1524,9 +1537,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 29S4UY9J7H;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1535,10 +1548,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zx-project.lq";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3b1007b1-b0c4-4daf-993f-8b7480efb29f";
-				PROVISIONING_PROFILE_SPECIFIER = "Dis:com.infore.zoomlionhwgps";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1549,9 +1562,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1560,10 +1573,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zx-project.lq";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3b1007b1-b0c4-4daf-993f-8b7480efb29f";
-				PROVISIONING_PROFILE_SPECIFIER = "Dis:com.infore.zoomlionhwgps";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

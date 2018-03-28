@@ -20,6 +20,8 @@
 @interface ReimbursementView : UIView
 
 @property (nonatomic, weak) id <ReimbursementViewDelegate>delegate;
+@property (nonatomic, strong) UITextField *payCountField;//报销金额
+@property (weak, nonatomic) IBOutlet UITextView *resonTextView;
 
 + (instancetype)reimbursementView;
 

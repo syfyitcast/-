@@ -167,6 +167,12 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-i6-3o0">
+                    <rect key="frame" x="60" y="32" width="256" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.9567585233" green="1" blue="0.95130423019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -183,6 +189,8 @@
                 <constraint firstItem="84o-gy-luk" firstAttribute="centerX" secondItem="0g0-xj-iNg" secondAttribute="centerX" id="90K-KW-qnr"/>
                 <constraint firstItem="BAG-MU-5kn" firstAttribute="leading" secondItem="RwY-6B-TaY" secondAttribute="leading" constant="28.5" id="981-JO-mJX"/>
                 <constraint firstItem="RIa-fN-keo" firstAttribute="top" secondItem="E7Z-AR-sX7" secondAttribute="bottom" constant="8" id="ARl-bq-vRe"/>
+                <constraint firstItem="odx-OH-F1W" firstAttribute="leading" secondItem="Wr1-i6-3o0" secondAttribute="trailing" constant="15" id="BDQ-gx-sQx"/>
+                <constraint firstItem="Wr1-i6-3o0" firstAttribute="leading" secondItem="Wt1-51-aBb" secondAttribute="trailing" constant="15" id="DI5-Pc-uqa"/>
                 <constraint firstItem="xED-qw-i81" firstAttribute="centerX" secondItem="w2a-ec-wat" secondAttribute="centerX" id="EqG-JM-B1q"/>
                 <constraint firstItem="E7Z-AR-sX7" firstAttribute="leading" secondItem="oCJ-Sp-Q8H" secondAttribute="trailing" constant="104" id="ITW-i1-LdZ"/>
                 <constraint firstItem="NHS-b5-VCw" firstAttribute="centerX" secondItem="f3D-1s-sbu" secondAttribute="centerX" id="JJ3-hW-E7s"/>
@@ -200,6 +208,7 @@
                 <constraint firstItem="Wt1-51-aBb" firstAttribute="top" secondItem="RwY-6B-TaY" secondAttribute="top" constant="32" id="bVG-AN-Tza"/>
                 <constraint firstItem="xp5-Xs-FdQ" firstAttribute="leading" secondItem="0g0-xj-iNg" secondAttribute="trailing" constant="30" id="cwJ-7h-WTX"/>
                 <constraint firstItem="t2U-iy-Xdk" firstAttribute="top" secondItem="oCJ-Sp-Q8H" secondAttribute="bottom" constant="10" id="d37-kS-gd9"/>
+                <constraint firstItem="Wr1-i6-3o0" firstAttribute="centerY" secondItem="Wt1-51-aBb" secondAttribute="centerY" constant="-5" id="d47-AZ-DSW"/>
                 <constraint firstItem="t2U-iy-Xdk" firstAttribute="leading" secondItem="Npf-va-19w" secondAttribute="trailing" constant="10" id="eZM-YO-e0Y"/>
                 <constraint firstItem="Npf-va-19w" firstAttribute="leading" secondItem="RwY-6B-TaY" secondAttribute="leading" constant="15" id="ezB-lt-sej"/>
                 <constraint firstItem="w2a-ec-wat" firstAttribute="leading" secondItem="RwY-6B-TaY" secondAttribute="leading" constant="30" id="fXu-j9-qd2"/>
@@ -223,10 +232,11 @@
                 <outlet property="leftBtn" destination="Wt1-51-aBb" id="6fO-RA-xcf"/>
                 <outlet property="personIcon" destination="BAG-MU-5kn" id="4AE-c6-CNt"/>
                 <outlet property="personName" destination="oCJ-Sp-Q8H" id="xqu-Bd-eRR"/>
+                <outlet property="projectName" destination="Wr1-i6-3o0" id="FoZ-00-6ro"/>
                 <outlet property="rightBtn" destination="odx-OH-F1W" id="IKb-Vn-h71"/>
                 <outlet property="userrank" destination="t2U-iy-Xdk" id="bTp-Xf-fTg"/>
             </connections>
-            <point key="canvasLocation" x="-256" y="-264"/>
+            <point key="canvasLocation" x="-256.5" y="-264"/>
         </view>
     </objects>
     <resources>

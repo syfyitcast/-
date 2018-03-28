@@ -209,19 +209,19 @@
                     [NetworkConfig sharedNetworkingConfig].smsid = dict[@"smsid"];
                 }else{
                     if ([message isKindOfClass:[NSNull class]]) {
-                        [MBProgressHUD showError:@"注册失败"];
+                        [MBProgressHUD showError:@"注册失败" toView:self.view];
                     }else{
-                        [MBProgressHUD showError:message];
+                        [MBProgressHUD showError:message toView:self.view];
                     }
                 }
             }];
         }else//无效手机号
         {
-            [MBProgressHUD showError:@"请输入正确的手机号码"];
+            [MBProgressHUD showError:@"请输入正确的手机号码" toView:self.view];
         }
     }else//无效手机号
     {
-        [MBProgressHUD showError:@"请输入正确的手机号码"];
+        [MBProgressHUD showError:@"请输入正确的手机号码" toView:self.view];
     }
 }
 

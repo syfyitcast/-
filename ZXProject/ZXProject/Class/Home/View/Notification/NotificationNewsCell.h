@@ -12,6 +12,7 @@
 @interface NotificationNewsCell : UITableViewCell
 
 @property (nonatomic, strong) NotificationModel *model;
+@property (nonatomic, assign) int cellType;
 
 + (instancetype)notificationCellWithTableView:(UITableView *)tableView;
 

@@ -22,6 +22,7 @@
 
 @property (nonatomic, weak) id<LeaveViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *reasonTextView;
+@property (nonatomic, strong) UITextField *timeField;
 
 + (instancetype)leaveView;
 

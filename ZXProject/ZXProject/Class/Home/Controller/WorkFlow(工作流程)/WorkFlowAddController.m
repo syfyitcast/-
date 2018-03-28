@@ -18,6 +18,7 @@
 #import "CGXPickerView.h"
 #import "CGXStringPickerView.h"
 #import "NextStepModel.h"
+#import "HttpClient+UploadFile.h"
 
 
 @interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate,ReimbursementViewDelegate,ReportViewDelegate>
@@ -27,15 +28,18 @@
 @property (nonatomic, strong) NSMutableArray *chidViews;
 
 @property (nonatomic, strong) NSDictionary *qjDict;
-@property (nonatomic, copy) NSString *currentApprvoId;
-@property (nonatomic, copy) NSString *stepName;
-@property (nonatomic, assign) NSString *eventId;
-@property (nonatomic, assign) long long startTime;
-@property (nonatomic, assign) long long endTime;
-@property (nonatomic, assign) int currentIndex;
+@property (nonatomic, strong) NSMutableDictionary *apprvoIdCache;
+@property (nonatomic, strong) NSMutableDictionary *stepNameCache;
+@property (nonatomic, strong) NSMutableDictionary *eventIdCache;
+@property (nonatomic, strong) NSMutableDictionary *startTimeCache;
+@property (nonatomic, strong) NSMutableDictionary *endTimeCache;
+
+
+@property (nonatomic, assign) int currentIndex;//当前view标志
 
 @property (nonatomic, strong) NSArray *transTools;//交通工具
 @property (nonatomic, copy) NSString *transModeId;//交通工具id
+
 
 @property (nonatomic, strong) NSArray *fees;//报销费用类型
 @property (nonatomic, copy) NSString *feeTypeid;//报销类型id
@@ -55,6 +59,16 @@
     [self setNetWorkRequest];
     [self setChidViews];
     [self setupSubViews];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UIImage *aimae = [UIImage imageNamed:@"NotificationNewsIcon"];
+    NSData *imageData = UIImagePNGRepresentation(aimae);
+    [HttpClient zx_httpClientToUploadFileWithData:imageData andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            
+        }
+    }];
 }
 
 - (void)setChidViews{
@@ -235,15 +249,15 @@
     NSArray *dataSource = @[@"事假",@"病假",@"带薪假"];
     [CGXPickerView showStringPickerWithTitle:@"请假类型" DataSource:dataSource DefaultSelValue:@"事假" IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
         NSString *selectString = (NSString *)selectValue;
-        self.eventId = [NSString stringWithFormat:@"%d",[selectRow intValue]];
+        [self.eventIdCache setObject:[NSString stringWithFormat:@"%d",[selectRow intValue]] forKey:@(self.currentIndex)];
         [btn setTitle:selectString forState:UIControlStateNormal];
     }];
 }
 
 - (void)showFlowStepPickerViewWithBtn:(FButton *)btn{
-    self.currentApprvoId = nil;
+    [self.apprvoIdCache setObject:@"" forKey:@(self.currentIndex)];
     [CGXPickerView showStringPickerWithTitle:@"流程" DataSource: self.qjDict.allKeys DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
-        self.stepName = selectValue;
+        [self.stepNameCache setObject:selectValue forKey:@(self.currentIndex)];
         [btn setTitle:selectValue forState:UIControlStateNormal];
     }];
 }
@@ -257,20 +271,50 @@
         NSDate *date = [formatter dateFromString:selectValue];
         NSTimeInterval time = [date timeIntervalSince1970];
         if (btn.tag == 1) {
-            self.startTime = time;
+            [self.startTimeCache setObject:@(time) forKey:@(self.currentIndex)];
+            NSTimeInterval endTime = [[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue];
+            if (endTime == 0) {
+                endTime = [[NSDate date] timeIntervalSince1970];
+            }
+            if (time > endTime) {
+                [MBProgressHUD showError:@"结束时间不能小于开始时间" toView:self.view];
+            }else{
+                long chaTime = endTime - time;
+                float h = chaTime /  3600.0;
+                if (self.currentIndex == 0) {
+                    LeaveView *view = (LeaveView *)self.currentView;
+                    view.timeField.text = [NSString stringWithFormat:@"%.1f",h];
+                }
+            }
+            [self.startTimeCache setObject:@(time) forKey:@(self.currentIndex)];
         }else if (btn.tag == 2){
-            self.endTime = time;
+            NSTimeInterval startTime = [[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue];
+            if (startTime == 0) {
+                startTime = [[NSDate date] timeIntervalSince1970];
+            }
+            if (time < startTime) {
+                [MBProgressHUD showError:@"结束时间不能小于开始时间" toView:self.view];
+            }else{
+                long chaTime = time - startTime;
+                float h = chaTime /  3600.0;
+                if (self.currentIndex == 0) {
+                    LeaveView *view = (LeaveView *)self.currentView;
+                    view.timeField.text = [NSString stringWithFormat:@"%.1f",h];
+                }
+            }
+            [self.endTimeCache setObject:@(time) forKey:@(self.currentIndex)];
         }
     }];
 }
 
 -  (void)showApprovStepAndPersonNameWithBtn:(FButton *)btn{
-    if (self.stepName == nil) {
+    if ([[self.stepNameCache objectForKey:@(self.currentIndex)] isEqualToString:@""] || [self.stepNameCache objectForKey:@(self.currentIndex)] == nil) {
         [MBProgressHUD showError:@"请先选择流程" toView:self.currentView];
         return;
     }
     NSMutableArray *dataSource = [NSMutableArray array];
-    NSArray *arr = self.qjDict[self.stepName];
+    NSString *stepName = [self.stepNameCache objectForKey:@(self.currentIndex)];
+    NSArray *arr = self.qjDict[stepName];
     for (NextStepModel *model in arr) {
         [dataSource addObject:model.employername];
     }
@@ -278,7 +322,7 @@
         int index = [selectRow intValue];
         [btn setTitle:selectValue forState:UIControlStateNormal];
         NextStepModel *model = arr[index];
-        self.currentApprvoId = [NSString stringWithFormat:@"%d",model.employerid];
+        [self.apprvoIdCache setObject:[NSString stringWithFormat:@"%d",model.employerid] forKey:@(self.currentIndex)];
     }];
 }
 
@@ -307,7 +351,7 @@
         NSString *selectString = (NSString *)selectValue;
         int index = [selectRow intValue];
         NSDictionary *dict = self.transTools[index];
-        self.transModeId =  dict[@"datacode"];
+        self.feeTypeid =  dict[@"datacode"];
         [btn setTitle:selectString forState:UIControlStateNormal];
     }];
 }
@@ -328,33 +372,142 @@
 }
 
 - (void)submitApprvo{
-    if (self.eventId == nil) {
-        [MBProgressHUD showError:@"请选择请假类型" toView:self.currentView];
-        return;
-    }
-    if (self.startTime == 0) {
-        [MBProgressHUD showError:@"请选择请开始时间" toView:self.currentView];
-        return;
-    }
-    if (self.endTime == 0) {
-        [MBProgressHUD showError:@"请选择结束时间" toView:self.currentView];
-        return;
-    }
-    if (self.endTime < self.startTime) {
-        [MBProgressHUD showError:@"结束时间不能早于开始时间" toView:self.currentView];
-        return;
-    }
-    if (self.currentApprvoId == nil) {
-        [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
-        return;
-    }
-    LeaveView *view = (LeaveView *)self.currentView;
-    [HttpClient zx_httpClientToSubmitDutyEventWithEventType:self.eventId andBeginTime:self.startTime andEndTime:self.endTime andEventName:@"" andEventMark:view.reasonTextView.text andPhotoUrl:nil andSubmitto:self.currentApprvoId andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        if (code == 0) {
-        
+    if (self.currentIndex == 0) {//请假
+        if ([self.eventIdCache objectForKey:@(self.currentIndex)] == nil || [[self.eventIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择请假类型" toView:self.currentView];
+            return;
         }
-    }];
-    
+        if ([[self.startTimeCache objectForKey:@(self.currentIndex)] intValue] == 0 || [self.startTimeCache objectForKey:@(self.currentIndex)] == nil) {
+            [MBProgressHUD showError:@"请选择请开始时间" toView:self.currentView];
+            return;
+        }
+        if ([[self.endTimeCache objectForKey:@(self.currentIndex)] intValue] == 0 || [self.endTimeCache objectForKey:@(self.currentIndex)] == nil) {
+            [MBProgressHUD showError:@"请选择结束时间" toView:self.currentView];
+            return;
+        }
+        if ([[self.endTimeCache objectForKey:@(self.currentIndex)] intValue] < [[self.startTimeCache objectForKey:@(self.currentIndex)] intValue] ) {
+            [MBProgressHUD showError:@"结束时间不能早于开始时间" toView:self.currentView];
+            return;
+        }
+        if ([self.apprvoIdCache objectForKey:@(self.currentIndex)] == nil || [[self.apprvoIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
+            return;
+        }
+        LeaveView *view = (LeaveView *)self.currentView;
+        [HttpClient zx_httpClientToSubmitDutyEventWithEventType:[self.eventIdCache objectForKey:@(self.currentIndex)]    andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEventName:@"请假" andEventMark:view.reasonTextView.text andPhotoUrl:@"" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)]  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }else if (self.currentIndex == 1){//出差
+        EvectionView *view = (EvectionView *)self.currentView;
+        if (view.placeLabel.text.length == 0) {
+            [MBProgressHUD showError:@"请填写出发地" toView:self.currentView];
+            return;
+        }
+        if (view.desPlaceLabel.text.length == 0) {
+            [MBProgressHUD showError:@"请填写目的地" toView:self.currentView];
+            return;
+        }
+        if ([[self.startTimeCache objectForKey:@(self.currentIndex)] intValue] == 0 || [self.startTimeCache objectForKey:@(self.currentIndex)] == nil) {
+            [MBProgressHUD showError:@"请选择请开始时间" toView:self.currentView];
+            return;
+        }
+        if ([[self.endTimeCache objectForKey:@(self.currentIndex)] intValue] == 0 || [self.endTimeCache objectForKey:@(self.currentIndex)] == nil) {
+            [MBProgressHUD showError:@"请选择结束时间" toView:self.currentView];
+            return;
+        }
+        if ([[self.endTimeCache objectForKey:@(self.currentIndex)] intValue] < [[self.startTimeCache objectForKey:@(self.currentIndex)] intValue] ) {
+            [MBProgressHUD showError:@"结束时间不能早于开始时间" toView:self.currentView];
+            return;
+        }
+        if (self.transModeId == nil || [self.transModeId isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择交通工具" toView:self.currentView];
+            return;
+        }
+        if ([self.apprvoIdCache objectForKey:@(self.currentIndex)] == nil || [[self.apprvoIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
+            return;
+        }
+        [HttpClient zx_httpClientToSubmitEvectionEventWithEventName:@"" andEventMark:@"" andFromcity:view.placeLabel.text andToCity:view.desPlaceLabel.text andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0   andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0 andTransmode:self.transModeId andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }else if (self.currentIndex == 2){//报销
+        ReimbursementView *view = (ReimbursementView *)self.currentView;
+        if (view.payCountField.text == 0) {
+            [MBProgressHUD showError:@"请填写报销金额" toView:self.view];
+            return;
+        }
+        if (self.feeTypeid == nil || [self.feeTypeid isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择报销类别" toView:self.view];
+            return;
+        }
+        if ([self.apprvoIdCache objectForKey:@(self.currentIndex)] == nil || [[self.apprvoIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
+            return;
+        }
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *now = [NSDate date];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        NSDate *startDate = [calendar dateFromComponents:components];
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+        [HttpClient zx_httpClientToSubmitReimentEventWithFeetype:self.feeTypeid andBeginTime:[startDate timeIntervalSince1970]*1000 andEndTime:[endDate timeIntervalSince1970]*1000 andFeemoney:view.payCountField.text andEventName:@"报销" andEventMark:view.resonTextView.text andPhotoUrl:@"http://www.baidu.com" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }else if (self.currentIndex == 3){//呈报
+        ReportView *view = (ReportView *)self.currentView;
+        if (self.reportTypeid == nil || [self.reportTypeid isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择呈报类型" toView:self.view];
+            return;
+        }
+        if (view.contentTextView.text.length == 0) {
+            [MBProgressHUD showError:@"请填写呈报内容" toView:self.view];
+            return;
+        }
+        if ([self.apprvoIdCache objectForKey:@(self.currentIndex)] == nil || [[self.apprvoIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
+            [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
+            return;
+        }
+        [HttpClient zx_httpClientToSubmitReportWithReportType:self.reportTypeid andEventName:@"" andEventMark:view.contentTextView.text andPhotoUrl:@"" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)]  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                if (code == 0) {
+                    [MBProgressHUD showError:@"提交成功" toView:self.view];
+                    [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message toView:self.view];
+                    }else{
+                        [MBProgressHUD showError:@"请求出错" toView:self.view];
+                    }
+                }
+            }
+        }];
+    }
 }
 
 #pragma mark - setter & getter
@@ -432,6 +585,41 @@
                   ];
     }
     return _reports;
+}
+
+- (NSMutableDictionary *)stepNameCache{
+    if (_stepNameCache == nil) {
+        _stepNameCache = [NSMutableDictionary dictionary];
+    }
+    return _stepNameCache;
+}
+
+- (NSMutableDictionary *)apprvoIdCache{
+    if (_apprvoIdCache == nil) {
+        _apprvoIdCache = [NSMutableDictionary dictionary];
+    }
+    return _apprvoIdCache;
+}
+
+- (NSMutableDictionary *)eventIdCache{
+    if (_eventIdCache == nil) {
+        _eventIdCache = [NSMutableDictionary dictionary];
+    }
+    return _eventIdCache;
+}
+
+- (NSMutableDictionary *)startTimeCache{
+    if (_startTimeCache == nil) {
+        _startTimeCache = [NSMutableDictionary dictionary];
+    }
+    return _startTimeCache;
+}
+
+- (NSMutableDictionary *)endTimeCache{
+    if (_endTimeCache == nil) {
+        _endTimeCache = [NSMutableDictionary dictionary];
+    }
+    return _endTimeCache;
 }
 
 @end

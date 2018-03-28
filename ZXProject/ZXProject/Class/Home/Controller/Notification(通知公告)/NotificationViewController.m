@@ -87,9 +87,9 @@
         [self.systemTable reloadData];
         [self.newsTable reloadData];
         [self.notifiTable reloadData];
-//        [self.topBar setBadgeAtIndex:0 withCount:[APPNotificationManager sharedAppNotificationManager].jtCount];
-//        [self.topBar setBadgeAtIndex:1 withCount:[APPNotificationManager sharedAppNotificationManager].xmCount];
-//        [self.topBar setBadgeAtIndex:2 withCount:[APPNotificationManager sharedAppNotificationManager].newCount];
+        [self.topBar setBadgeAtIndex:0 withCount:[APPNotificationManager sharedAppNotificationManager].jtCount];
+        [self.topBar setBadgeAtIndex:1 withCount:[APPNotificationManager sharedAppNotificationManager].xmCount];
+        [self.topBar setBadgeAtIndex:2 withCount:[APPNotificationManager sharedAppNotificationManager].newCount];
     });
 }
 
@@ -132,10 +132,13 @@
     NotificationModel *model = nil;
     if (tableView == self.newsTable) {
         model = self.notificationNewsModels[indexPath.row];
+        cell.cellType = 2;
     }else if (tableView == self.systemTable){
         model = self.notificationJtModels[indexPath.row];
+        cell.cellType = 0;
     }else if (tableView == self.notifiTable){
         model = self.notificationXmModels[indexPath.row];
+        cell.cellType = 1;
     }
     cell.model = model;
     return cell;

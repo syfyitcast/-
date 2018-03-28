@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) UIView *badgeView;
+@property (nonatomic, strong) FButton *readBtn;
 
 @end
 
@@ -36,6 +37,7 @@
 - (void)setSubViews{
     [self addSubview:self.iconView];
     [self addSubview:self.titlelabel];
+    [self addSubview:self.readBtn];
     [self addSubview:self.desLabel];
     [self addSubview:self.timeLabel];
     [self addSubview:self.bottomLine];
@@ -53,12 +55,18 @@
     [self.titlelabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.iconView.mas_right).offset(6);
         make.top.equalTo(weakself.timeLabel.mas_bottom);
-        make.right.equalTo(weakself.mas_right).offset(-15);
+        make.right.equalTo(weakself.mas_right).offset(-100);
+        make.height.mas_equalTo(15);
+    }];
+    [self.readBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakself.mas_right).offset(-20);
+        make.top.equalTo(weakself.timeLabel.mas_bottom).offset(20);
+        make.width.mas_equalTo(60);
         make.height.mas_equalTo(20);
     }];
     [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.iconView.mas_right).offset(6);
-        make.right.equalTo(weakself.mas_right).offset(15);
+        make.right.equalTo(weakself.mas_right).offset(-100);
         make.top.equalTo(weakself.titlelabel.mas_bottom).offset(6);
     }];
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,6 +80,10 @@
         make.bottom.equalTo(weakself.iconView.mas_top).offset(5);
         make.size.mas_equalTo(CGSizeMake(6, 6));
     }];
+}
+
+- (void)clickReadDetailAction{
+    
 }
 
 #pragma mark - setter && getter
@@ -88,12 +100,29 @@
         self.titlelabel.text = @"新闻通知";
     }
     self.badgeView.hidden = model.readstatus;
+    if (model.readstatus) {
+        self.titlelabel.textColor = UIColorWithFloat(189);
+        self.desLabel.textColor = UIColorWithFloat(189);
+    }else{
+        self.titlelabel.textColor = BlackColor;
+        self.desLabel.textColor = UIColorWithFloat(146);
+    }
+}
+
+- (void)setCellType:(int)cellType{
+    _cellType = cellType;
+    if (cellType == 0) {
+        self.iconView.image = [UIImage imageNamed:@"notificationIcon"];
+    }else if (cellType == 1){
+        self.iconView.image = [UIImage imageNamed:@"NotificationXmIcon"];
+    }else if (cellType == 2){
+        self.iconView.image = [UIImage imageNamed:@"NotificationNewsIcon"];
+    }
 }
 
 - (UIImageView *)iconView{
     if (_iconView == nil) {
         _iconView = [[UIImageView alloc] init];
-        _iconView.image = [UIImage imageNamed:@"notificationIcon"];
     }
     return _iconView;
 }
@@ -141,6 +170,18 @@
         _badgeView.layer.cornerRadius = 3;
     }
     return _badgeView;
+}
+
+- (FButton *)readBtn{
+    if (_readBtn == nil) {
+        _readBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
+        [_readBtn setTitle:@"阅读详情" forState:UIControlStateNormal];
+        _readBtn.backgroundColor = BTNBackgroudColor;
+        _readBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        _readBtn.layer.cornerRadius = 4;
+        [_readBtn addTarget:self action:@selector(clickReadDetailAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _readBtn;
 }
 
 @end

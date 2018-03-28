@@ -21,6 +21,8 @@
 @interface EvectionView : UIView
 
 @property (nonatomic, weak) id <EvectionViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *placeLabel;//出发地
+@property (weak, nonatomic) IBOutlet UILabel *desPlaceLabel;//目的地
 
 
 + (instancetype)evectionView;

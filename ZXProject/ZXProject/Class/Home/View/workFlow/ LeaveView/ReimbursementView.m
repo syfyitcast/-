@@ -14,13 +14,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *payCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *payType;
-@property (weak, nonatomic) IBOutlet UITextView *resonTextView;
+
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 @property (weak, nonatomic) IBOutlet UIView *imagePickView;
 @property (weak, nonatomic) IBOutlet UILabel *flowLabel;
 
-@property (nonatomic, strong) UITextField *payCountField;
+
 @property (nonatomic, strong) FButton *typeBtn;
 @property (nonatomic, strong) FButton *apprvoBtn;
 @property (nonatomic, strong) FButton *flowBtn;
@@ -115,6 +115,7 @@
         _payCountField = [[UITextField alloc] init];
         _payCountField.layer.borderColor = UIColorWithFloat(239).CGColor;
         _payCountField.layer.borderWidth = 1;
+        _payCountField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _payCountField;
 }

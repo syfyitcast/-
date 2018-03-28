@@ -13,6 +13,11 @@
 #import "ProjectManager.h"
 #import "UserManager.h"
 
+@interface HttpClient()
+
+
+@end
+
 @implementation HttpClient
 
 + (void)zx_httpClientToQueryDictWithDataType:(NSString *)dataType andDataCode:(NSString *)datacode andSuccessBlock:(responseBlock)block{

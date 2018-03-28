@@ -22,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *userrank;
 
+@property (weak, nonatomic) IBOutlet UILabel *projectName;
+
 @end
 
 @implementation HomeHeaderView
@@ -70,6 +72,10 @@
 + (instancetype)homeHeaderView{
     HomeHeaderView *view = [[NSBundle mainBundle] loadNibNamed:@"HomeHeaderView" owner:nil options:nil].lastObject;
     return view;
+}
+
+- (void)setProjectLabelName:(NSString *)projectName{
+    self.projectName.text = projectName;
 }
 
 @end

@@ -10,6 +10,9 @@
 
 #define MD5_ID  @"ed40065902934b4eb7f7bb12b20f1900"
 
+
+extern NSString *const API_UPLOADFILE;//上传文件
+
 extern NSString *const API_QUERYDICT;//字典查询
 extern NSString *const API_LOGINPWD;//登录
 extern NSString *const API_LOGOUT;//登出
@@ -28,6 +31,9 @@ extern NSString *const API_GETPROJECTLIST;//获取项目列表
 #pragma mark ---------------------------------------------------
 
 extern NSString *const API_SUBMITDUTYEVENT;//提交考勤事件
+extern NSString *const API_SUBMITFEEEVENT;//报销费用
+extern NSString *const API_SUBMITEVCATION;//出差
+extern NSString *const API_SUBMITREPORTEVENT;//呈报
 extern NSString *const API_QUERYNEXTSTEPFLOW;//查询流程任务下一环节审核人
 
 extern NSString *const API_DUTYCHECK;//打卡
@@ -50,6 +56,8 @@ extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
 @property (nonatomic, copy) NSString *smsid;//短信验证码校验码
 @property (nonatomic, copy) NSString *usertoken;
 
+@property (nonatomic, strong) NSMutableData *responseData;
+
 
 
 
@@ -58,5 +66,7 @@ extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
 + (NSString *)api:(NSString *)apiIdentifier;
 
 + (void)networkConfigTokenWithMethodName:(NSString *)methodName;
+
++ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl;
 
 @end

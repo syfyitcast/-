@@ -13,6 +13,8 @@
 #import "ProjectManager.h"
 #import "XMCenter.h"
 
+NSString *const API_UPLOADFILE = @"getUploadFileUrl";//上传文件
+
 NSString *const API_QUERYDICT = @"getdictionarydata";//字典查询
 NSString *const API_LOGINPWD = @"checklogin";//登陆
 NSString *const API_LOGINCODE = @"verificationcodelogin";//验证码登录
@@ -28,6 +30,9 @@ NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信
 #pragma mark 考勤  --------------------------------------------------------------
 NSString *const API_GETDUTYEVENTLIST = @"myflowtasklist";//查询项目人员待审核考勤事件
 NSString *const API_SUBMITDUTYEVENT = @"submitdutyevent";//提交考勤事件
+NSString *const API_SUBMITFEEEVENT = @"submitfeeevent";//报销费用
+NSString *const API_SUBMITEVCATION = @"submitbusitravelevent";//出差
+NSString *const API_SUBMITREPORTEVENT = @"submitreportevent";//呈报
 NSString *const API_QUERYNEXTSTEPFLOW = @"eventflownextstep";//查询流程任务下一环节审核人
 
 NSString *const API_DUTYCHECK = @"projectdutycheck";//打卡
@@ -68,6 +73,22 @@ NSString *const API_PROJECTDUTYQUERY = @"projectdutyquery";//项目人员考勤�
 + (NSString *)api:(NSString *)apiIdentifier{
     NetworkConfig *config = [NetworkConfig sharedNetworkingConfig];
     return [config.baseUrl stringByAppendingString:apiIdentifier];
+}
+
++ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl{
+    NSMutableString *baseUrl = [[self api:apiUrl] stringByAppendingString:@"?"].mutableCopy;
+    NetworkConfig *config = [NetworkConfig sharedNetworkingConfig];
+    int i = 0;
+    for (NSString *key in config.publicParamters.allKeys) {
+        if (i == config.publicParamters.allKeys.count - 1) {
+            [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,config.publicParamters[key]]];
+            return baseUrl;
+        }
+        [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,config.publicParamters[key]]];
+        [baseUrl appendString:@"&"];
+         i ++;
+    }
+    return baseUrl;
 }
 
 #pragma mark - setter && getter

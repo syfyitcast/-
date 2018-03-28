@@ -24,9 +24,7 @@
 @property (nonatomic, strong) FButton *saveBtn;
 @property (nonatomic, strong) FButton *submitBtn;
 
-@property (weak, nonatomic) IBOutlet UILabel *placeLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *desPlaceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *startLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toolLabel;
@@ -166,7 +164,10 @@
         _startBtn = [FButton fbtnWithFBLayout:FBLayoutTypeLeftRight andPadding:5];
         _startBtn.layer.borderWidth = 1;
         _startBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
-        [_startBtn setTitle:@"2018-01-23 12:30" forState:UIControlStateNormal];
+        NSDate *date = [NSDate date];
+        NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [_startBtn setTitle:[dateformatter stringFromDate:date] forState:UIControlStateNormal];
         _startBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_startBtn setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
         [_startBtn setImage:[UIImage imageNamed:@"workFlowCalendar"] forState:UIControlStateNormal];
@@ -181,7 +182,10 @@
         _endBtn = [FButton fbtnWithFBLayout:FBLayoutTypeLeftRight andPadding:5];
         _endBtn.layer.borderWidth = 1;
         _endBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
-        [_endBtn setTitle:@"2018-01-23 16:30" forState:UIControlStateNormal];
+        NSDate *date = [NSDate date];
+        NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [_endBtn setTitle:[dateformatter stringFromDate:date] forState:UIControlStateNormal];
         _endBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_endBtn setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
         [_endBtn setImage:[UIImage imageNamed:@"workFlowCalendar"] forState:UIControlStateNormal];

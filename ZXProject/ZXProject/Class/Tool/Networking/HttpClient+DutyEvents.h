@@ -14,8 +14,16 @@
 //查询下一步审核人
 + (void)zx_httpClientToQueryNextStepApprvoPersonWithFlowType:(NSString *)type andEventId:(NSString *)eventId andFlowTaskId:(NSString *)flowtaskId andSuccessBlock:(responseBlock)block;
 
-//提交审核流程
+//提交请假审核流程
 + (void)zx_httpClientToSubmitDutyEventWithEventType:(NSString *)eventType andBeginTime:(long long)beginTime andEndTime:(long long)endTime andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block;
+
+//出差
++ (void)zx_httpClientToSubmitEvectionEventWithEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andFromcity:(NSString *)fromcity andToCity:(NSString *)city andBeginTime:(long)beginTime andEndTime:(long)endTime andTransmode:(NSString *)transmode andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block;
+
+ //报销费用
++ (void)zx_httpClientToSubmitReimentEventWithFeetype:(NSString *)feetype andBeginTime:(long)beginTime andEndTime:(long)endTime andFeemoney:(NSString *)feemoney andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)url andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block;
+//呈报
++ (void)zx_httpClientToSubmitReportWithReportType:(NSString *)reportType andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block;
 
 //考勤打卡
 + (void)zx_httpClientToDutyCheckWithDutytype:(NSString *)dutytype andPositionAdress:(NSString *)positionAdress andPosition:(NSString *)posiotion andPhotoUrl:(NSString *)url andSuccessBlock:(responseBlock)block;
@@ -28,5 +36,7 @@
 
 //项目人员考勤查询
 + (void)zx_httpClientToQueryProjectDutyWithBeginTime:(long)beginTime andEndTime:(long)time andSuccessBlock:(responseBlock)block;
+
+
 
 @end

@@ -20,6 +20,7 @@
 @interface ReportView : UIView
 
 @property (nonatomic, weak) id <ReportViewDelegate>delegate;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
 + (instancetype)reportView;
 

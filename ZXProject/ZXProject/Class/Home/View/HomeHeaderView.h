@@ -25,4 +25,6 @@
 
 + (instancetype)homeHeaderView;
 
+- (void)setProjectLabelName:(NSString *)projectName;
+
 @end

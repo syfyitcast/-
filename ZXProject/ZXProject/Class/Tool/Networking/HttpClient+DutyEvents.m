@@ -59,7 +59,103 @@
     [dict setObject:submitto forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITDUTYEVENT];
-        request.httpMethod           = kXMHTTPMethodPOST;
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
+
++ (void)zx_httpClientToSubmitEvectionEventWithEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andFromcity:(NSString *)fromcity andToCity:(NSString *)city andBeginTime:(long)beginTime andEndTime:(long)endTime andTransmode:(NSString *)transmode andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITEVCATION];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
+    [dict setObject:fromcity forKey:@"fromcity"];
+    [dict setObject:city forKey:@"tocity"];
+    [dict setObject:@(beginTime) forKey:@"begintime"];
+    [dict setObject:@(endTime) forKey:@"endtime"];
+    [dict setObject:eventName forKey:@"eventname"];
+    [dict setObject:eventMark forKey:@"eventremark"];
+    [dict setObject:submitto forKey:@"submitto"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_SUBMITEVCATION];
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToSubmitReimentEventWithFeetype:(NSString *)feetype andBeginTime:(long)beginTime andEndTime:(long)endTime andFeemoney:(NSString *)feemoney andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)url andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITFEEEVENT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
+    [dict setObject:@(beginTime) forKey:@"begintime"];
+    [dict setObject:@(endTime) forKey:@"endtime"];
+    [dict setObject:eventName forKey:@"eventname"];
+    [dict setObject:eventMark forKey:@"eventremark"];
+    [dict setObject:url forKey:@"photourl"];
+    [dict setObject:submitto forKey:@"submitto"];
+    [dict setObject:feetype forKey:@"feetype"];
+    [dict setObject:feemoney forKey:@"feemoney"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_SUBMITFEEEVENT];
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToSubmitReportWithReportType:(NSString *)reportType andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITREPORTEVENT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
+    [dict setObject:reportType forKey:@"reporttype"];
+    [dict setObject:eventName forKey:@"eventname"];
+    [dict setObject:eventMark forKey:@"eventremark"];
+    [dict setObject:photoUrl forKey:@"photourl"];
+    [dict setObject:submitto forKey:@"submitto"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_SUBMITREPORTEVENT];
+        request.httpMethod           = kXMHTTPMethodGET;
         request.parameters =         dict;
         request.timeoutInterval      = 30;
         request.useGeneralHeaders    = YES;

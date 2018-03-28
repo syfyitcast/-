@@ -28,6 +28,9 @@
 #import "ProjectManager.h"
 #import "eventsMdoel.h"
 #import "EventsHomeCell.h"
+#import "WorkFlowAddController.h"
+#import "MainNavigationController.h"
+#import "LoginViewController.h"
 
 
 
@@ -74,8 +77,10 @@
         if (code == 0) {
             NSArray *datas = data[@"projectList"];
             [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-             [self getDutyEvents];
-             [self getNotificationCount];
+            self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+            [self.headerView setProjectLabelName:self.currentModel.projectname];
+            [self getDutyEvents];
+            [self getNotificationCount];
         }
     }];
 }
@@ -96,9 +101,11 @@
         if (code == 0) {
             NSArray *datas = data[@"getprojectevents"];
             self.eventsModels = [eventsMdoel eventsModelsWithSource_arr:datas];
+            [self.bottomTabel reloadData];
             if (self.eventsModels.count != 0) {
-                [self.bottomTabel reloadData];
                 self.bottomTabel.backgroundColor = WhiteColor;
+            }else{
+                self.bottomTabel.backgroundColor = [UIColor clearColor];
             }
         }
     }];
@@ -247,6 +254,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftTable) {
         ProjectModel *model = [ProjectManager sharedProjectManager].projects[indexPath.row];
         if ([self.currentModel.projectid isEqualToString:model.projectid]) return;
@@ -257,6 +265,39 @@
         [self.currentLeftCell setTitleColor:UIColorWithRGB(132, 132, 132)];
         self.currentLeftCell = cell;
         self.currentModel = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        [ProjectManager sharedProjectManager].currentProjectid = self.currentModel.projectid;
+        [self.headerView setProjectLabelName:self.currentModel.projectname];
+        [self getDutyEvents];
+        [self clickCoverView];
+    }else if (tableView == self.bottomTabel){
+        
+    }else if (tableView == self.rightTable){
+        if (indexPath.row == 0) {//打卡
+            AttendanceController *vc = [[AttendanceController  alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (indexPath.row == 1){//发起流程
+            WorkFlowAddController *vc = [[WorkFlowAddController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (indexPath.row == 3){//退出登录
+            ZXSHOW_LOADING(self.view, @"退出登录中...")
+            [HttpClient zx_httpClientToLogoutWithUserName:[UserManager sharedUserManager].user.loginname andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING
+                if (code == 0) {//登出成功
+                    [[UserManager sharedUserManager] deleteAccessToken];//删除token
+                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                    window.rootViewController = [[MainNavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message];
+                    }else{
+                        [MBProgressHUD showError:[NSString stringWithFormat:@"code = %d 登出异常",code]];
+                    }
+                }
+            }];
+            [self clickCoverView];
+        }else if (indexPath.row == 2){//扫一扫
+            
+        }
     }
 }
 

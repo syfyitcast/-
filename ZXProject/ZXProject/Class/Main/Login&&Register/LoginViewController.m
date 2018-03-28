@@ -29,6 +29,7 @@
 @property (nonatomic, strong) FButton *loginBtn;//登陆按钮
 @property (nonatomic, strong) FButton *forgetPasswdBtn;//忘记密码
 @property (nonatomic, strong) FButton *registerBtn;//立即注册
+@property (nonatomic, strong) FButton *pwdForgetBtn;//找回密码;
 
 @property (nonatomic, assign) BOOL loginStatus;
 @property (nonatomic, strong) NSTimer *codeTimer;//验证码定时器
@@ -54,6 +55,7 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     [self setSubviews];
+    [self statusAccountLogin];
     
 }
 
@@ -75,6 +77,7 @@
     [self.view addSubview:self.loginBtn];
     [self.view addSubview:self.forgetPasswdBtn];
     [self.view addSubview:self.registerBtn];
+    [self.view addSubview:self.pwdForgetBtn];
     __weak typeof(self) weakself = self;
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakself.view);
@@ -119,6 +122,12 @@
         make.height.mas_equalTo(17);
         make.right.equalTo(weakself.mobileField.mas_right);
     }];
+    [self.pwdForgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakself.view.mas_right).offset(-30);
+        make.bottom.equalTo(weakself.screCodeIcon.mas_bottom).offset(3);
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(75);
+    }];
     [self.lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(30);
         make.right.equalTo(weakself.view.mas_right).offset(-30);
@@ -157,8 +166,9 @@
 
 - (void)statusAccountLogin{
     self.loginStatus = YES;//账号登录
-    [self.forgetPasswdBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
-    [self.forgetPasswdBtn addTarget:self action:@selector(forgetPasswordAction) forControlEvents:UIControlEventTouchUpInside];
+    self.pwdForgetBtn.hidden = NO;
+    [self.forgetPasswdBtn setTitle:@"验证码登录" forState:UIControlStateNormal];
+    [self.forgetPasswdBtn addTarget:self action:@selector(statusScreCodeLogin) forControlEvents:UIControlEventTouchUpInside];
     self.screCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:@{
                                                                                                                                                 NSForegroundColorAttributeName:WhiteColor,
                                                                                                                                                 NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
@@ -183,7 +193,34 @@
     self.sendCodeBtn.hidden = YES;
 }
 
-
+- (void)statusScreCodeLogin{
+    self.loginStatus = NO;//账号登录
+    self.pwdForgetBtn.hidden = YES;
+    [self.forgetPasswdBtn setTitle:@"账号登录" forState:UIControlStateNormal];
+    [self.forgetPasswdBtn addTarget:self action:@selector(statusAccountLogin) forControlEvents:UIControlEventTouchUpInside];
+    self.screCodeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{
+                                                                                                                NSForegroundColorAttributeName:WhiteColor,
+                                                                                                                NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
+                                                                                                                }];
+    _mobileField.attributedPlaceholder = [[NSMutableAttributedString alloc]
+                                          initWithString:@"请输入手机号" attributes:@{
+                                                                               NSForegroundColorAttributeName:WhiteColor,
+                                                                               NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]
+                                                                               
+                                                                               
+                                                                               }];
+    self.mobileField.keyboardType = UIKeyboardTypeTwitter;
+    self.mobileField.text = @"";
+    self.screCodeField.text = @"";
+    self.screCodeField.keyboardType =  UIKeyboardTypeNumberPad;
+    self.screCodeField.secureTextEntry = NO;
+    self.screCodeIcon.image = [UIImage imageNamed:@"scrIcon"];
+    __weak typeof(self) weakself = self;
+    [self.screCodeIcon mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(weakself.screCodeIcon.image.size);
+    }];
+    self.sendCodeBtn.hidden = NO;
+}
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -230,11 +267,11 @@
             }];
         }else//无效手机号
         {
-            [MBProgressHUD showError:@"请输入正确的手机号码"];
+            [MBProgressHUD showError:@"请输入正确的手机号码" toView:self.view];
         }
     }else//无效手机号
     {
-        [MBProgressHUD showError:@"请输入正确的手机号码"];
+        [MBProgressHUD showError:@"请输入正确的手机号码" toView:self.view];
     }
 }
 
@@ -448,6 +485,17 @@
         [_registerBtn addTarget:self action:@selector(clickRegisterAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _registerBtn;
+}
+
+- (FButton *)pwdForgetBtn{
+    if (_pwdForgetBtn == nil) {
+        _pwdForgetBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
+        [_pwdForgetBtn setTitle:@"找回密码" forState:UIControlStateNormal];
+        [_pwdForgetBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        _pwdForgetBtn.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+        [_pwdForgetBtn addTarget:self action:@selector(forgetPasswordAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _pwdForgetBtn;
 }
 
 

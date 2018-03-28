@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *imagePickView;
-@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
+
 @property (weak, nonatomic) IBOutlet UILabel *flowLabel;
 
 @property (nonatomic, strong) FButton *typeBtn;
@@ -78,12 +78,12 @@
     }];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left).offset(60 * kScreenRatioWidth);
-        make.bottom.equalTo(weakself.mas_bottom).offset(-15);
+        make.bottom.equalTo(weakself.mas_bottom).offset(-30                                                                               );
         make.size.mas_equalTo(CGSizeMake(100, 44));
     }];
     [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakself.mas_right).offset(-60 * kScreenRatioWidth);
-        make.bottom.equalTo(weakself.mas_bottom).offset(-15);
+        make.bottom.equalTo(weakself.mas_bottom).offset(-30);
         make.size.mas_equalTo(CGSizeMake(100, 44));
     }];
 }
