@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "ProjectModel.h"
+#import "ProjectModel.h"
 
 @interface ProjectManager : NSObject
 
 @property (nonatomic, strong) NSArray *projects;
 @property (nonatomic, copy) NSString *currentProjectid;
+@property (nonatomic, strong) ProjectModel *currentModel;
+
 
 + (instancetype)sharedProjectManager;
 

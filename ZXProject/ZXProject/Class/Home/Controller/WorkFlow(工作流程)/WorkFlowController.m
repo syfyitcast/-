@@ -17,6 +17,7 @@
 #import "ProjectManager.h"
 #import "WorkFlowAddController.h"
 #import "WorkFlowCell.h"
+#import "HttpClient+DutyEvents.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -26,9 +27,11 @@
 @property (nonatomic, strong) UIView *bottomBar;
 @property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) FButton *addButton;
-@property (nonatomic, strong) NSMutableArray *unFnishedModels;
+@property (nonatomic, strong) NSMutableArray *toComimtModels;
 @property (nonatomic, strong) NSMutableArray *fnishedModels;
 @property (nonatomic, strong) NSMutableArray *draftModels;
+@property (nonatomic, strong) NSMutableArray *unfinishedModels;
+@property (nonatomic, strong) NSMutableArray *finishedSelfModels;
 
 @property (nonatomic, assign) int currentIndex;
 
@@ -43,6 +46,11 @@
     self.currentIndex = 1;
     [self setSubViews];
     [self networkRequest];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:NOTIFI_WORKFLOWRELOADDATA object:nil];//刷新数据
+}
+
+- (void)refreshData{
+    [self networkRequest];
 }
 
 - (void)networkRequest{
@@ -55,11 +63,14 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//待办
             ZXHIDE_LOADING;
             if (code == 0) {
                 NSArray *datas = data[@"flowtask"];
-                self.unFnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                self.toComimtModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                for (WorkFlowModel *model in self.toComimtModels) {
+                    model.eventType = 3;
+                }
             }else{
                 if (message.length != 0) {
                     [MBProgressHUD showError:message];
@@ -77,25 +88,60 @@
             if (code == 0) {
                 NSArray *datas = data[@"flowtask"];
                 self.fnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                for (WorkFlowModel *model in self.fnishedModels) {
+                    model.eventType = 2;
+                }
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
-    dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            ZXHIDE_LOADING;
+    dispatch_group_async(group, queue, ^{//未完成
+        [HttpClient zx_httpClientToQueryEventListBySelfWithEventStatus:@"1" andFlowtype:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *datas = data[@"flowtask"];
-                self.draftModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                NSArray *datas = data[@"event"];
+                self.unfinishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                for (WorkFlowModel *model in self.unfinishedModels) {
+                    model.eventType = 1;
+                }
             }
             dispatch_group_leave(group);
         }];
     });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{//草稿
+        [HttpClient zx_httpClientToQueryEventListBySelfWithEventStatus:@"0" andFlowtype:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"event"];
+                self.draftModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                for (WorkFlowModel *model in self.draftModels) {
+                    model.eventType = 4;
+                }
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{//自己发起的已完成
+        [HttpClient zx_httpClientToQueryEventListBySelfWithEventStatus:@"2" andFlowtype:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *datas = data[@"event"];
+                self.finishedSelfModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
+                for (WorkFlowModel *model in self.finishedSelfModels) {
+                    model.eventType = 2;
+                }
+            }
+            dispatch_group_leave(group);
+        }];
+    });
+    
     // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
     dispatch_queue_t mQueue = dispatch_get_main_queue();
     dispatch_group_notify(group, mQueue, ^{
         ZXHIDE_LOADING;
+        for (WorkFlowModel *model in self.finishedSelfModels) {
+            [self.fnishedModels addObject:model];
+        }
         [self.myTableView reloadData];
     });
 }
@@ -147,10 +193,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.currentIndex == 0) {
         return self.draftModels.count;
-    }else if (self.currentIndex == 1){
-        return self.unFnishedModels.count;
+    }else if (self.currentIndex == 3){
+        return self.toComimtModels.count;
     }else if (self.currentIndex == 2){
         return self.fnishedModels.count;
+    }else if (self.currentIndex == 1){
+        return self.unfinishedModels.count;
     }
     return 0;
 }
@@ -160,10 +208,12 @@
     WorkFlowModel *model = nil;
     if (self.currentIndex == 0) {
         model = self.draftModels[indexPath.row];
-    }else if (self.currentIndex == 1){
-        model = self.unFnishedModels[indexPath.row];
+    }else if (self.currentIndex == 3){
+        model = self.toComimtModels[indexPath.row];
     }else if (self.currentIndex == 2){
         model = self.fnishedModels[indexPath.row];
+    }else if (self.currentIndex == 1){
+        model = self.unfinishedModels[indexPath.row];
     }
     cell.model = model;
     return cell;
@@ -171,6 +221,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 125;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma  mark - setter && getter

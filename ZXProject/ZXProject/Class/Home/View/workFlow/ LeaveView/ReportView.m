@@ -9,13 +9,15 @@
 #import "ReportView.h"
 #import "GobHeaderFile.h"
 #import <Masonry.h>
+#import "WorkTaskAddImagePickView.h"
 
-@interface ReportView()
+@interface ReportView()<WorkTaskAddImagePickViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *reportTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *imagePickView;
+@property (nonatomic, strong) WorkTaskAddImagePickView *pickView;
 
 @property (weak, nonatomic) IBOutlet UILabel *flowLabel;
 
@@ -42,6 +44,7 @@
     [super awakeFromNib];
     self.contentTextView.layer.borderColor = UIColorWithFloat(239).CGColor;
     self.contentTextView.layer.borderWidth = 1;
+    [self.imagePickView addSubview:self.pickView];
     [self addSubview:self.typeBtn];
     [self addSubview:self.apprvoBtn];
     [self addSubview:self.selectApprvoBtn];
@@ -96,6 +99,20 @@
 
 - (void)clickMeassageAction{
     self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
+}
+
+- (NSArray *)returnPickImages{
+    return self.pickView.images;
+}
+
+- (void)getPickImage:(UIImage *)image{
+    [self.pickView getImage:image];
+}
+
+- (void)WorkTaskAddImagePickViewDidTapImageView{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(remibursementPickImage)]) {
+        [self.delegate remibursementPickImage];
+    }
 }
 
 #pragma mark - setter && getter
@@ -194,6 +211,13 @@
 }
 
 
+- (WorkTaskAddImagePickView *)pickView{
+    if (_pickView == nil) {
+        _pickView = [WorkTaskAddImagePickView workTaskAddImagePickViewWithFrame:self.imagePickView.bounds];
+        _pickView.delegate = self;
+    }
+    return _pickView;
+}
 
 
 @end

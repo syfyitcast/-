@@ -19,6 +19,7 @@
 @interface WorkTaskAddImagePickView : UIView
 
 @property (nonatomic, weak) id <WorkTaskAddImagePickViewDelegate>delegate;
+@property (nonatomic, strong) NSMutableArray *images;
 
 + (instancetype)workTaskAddImagePickViewWithFrame:(CGRect)frame;
 

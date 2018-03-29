@@ -21,7 +21,7 @@
 #import "HttpClient+UploadFile.h"
 
 
-@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate,ReimbursementViewDelegate,ReportViewDelegate>
+@interface WorkFlowAddController ()<NotificationBarDelegate,LeaveViewDelegate,EvectionViewDelegate,ReimbursementViewDelegate,ReportViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong)  NotificationBar *topBar;
 @property (nonatomic, strong) UIView *currentView;
@@ -61,15 +61,6 @@
     [self setupSubViews];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UIImage *aimae = [UIImage imageNamed:@"NotificationNewsIcon"];
-    NSData *imageData = UIImagePNGRepresentation(aimae);
-    [HttpClient zx_httpClientToUploadFileWithData:imageData andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        if (code == 0) {
-            
-        }
-    }];
-}
 
 - (void)setChidViews{
     LeaveView *leaveView =  [LeaveView leaveView];
@@ -397,6 +388,7 @@
         [HttpClient zx_httpClientToSubmitDutyEventWithEventType:[self.eventIdCache objectForKey:@(self.currentIndex)]    andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEventName:@"请假" andEventMark:view.reasonTextView.text andPhotoUrl:@"" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)]  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
                 [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
             }else{
                 if (message.length != 0) {
@@ -439,6 +431,7 @@
         [HttpClient zx_httpClientToSubmitEvectionEventWithEventName:@"" andEventMark:@"" andFromcity:view.placeLabel.text andToCity:view.desPlaceLabel.text andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0   andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0 andTransmode:self.transModeId andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
                 [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
             }else{
                 if (message.length != 0) {
@@ -462,23 +455,56 @@
             [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
             return;
         }
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDate *now = [NSDate date];
-        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
-        NSDate *startDate = [calendar dateFromComponents:components];
-        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
-        [HttpClient zx_httpClientToSubmitReimentEventWithFeetype:self.feeTypeid andBeginTime:[startDate timeIntervalSince1970]*1000 andEndTime:[endDate timeIntervalSince1970]*1000 andFeemoney:view.payCountField.text andEventName:@"报销" andEventMark:view.resonTextView.text andPhotoUrl:@"http://www.baidu.com" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            if (code == 0) {
-                [MBProgressHUD showError:@"提交成功" toView:self.view];
-                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
-            }else{
-                if (message.length != 0) {
-                    [MBProgressHUD showError:message toView:self.view];
-                }else{
-                    [MBProgressHUD showError:@"请求出错" toView:self.view];
-                }
+        NSArray *pickImages = [view returnPickImages];
+        // 调度组
+        dispatch_group_t group = dispatch_group_create();
+        // 队列
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        if (pickImages.count != 0) {
+            ZXSHOW_LOADING(self.view, @"上传图片...")
+        }
+        NSMutableString *temStr = [NSMutableString string];//拼接照片url
+        for (UIImage *image in pickImages) {
+            dispatch_group_enter(group);
+            NSData *data = UIImagePNGRepresentation(image);
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        [temStr appendString:[NSString stringWithFormat:@"%@|",url]];
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        dispatch_queue_t mQueue = dispatch_get_main_queue();
+        dispatch_group_notify(group, mQueue, ^{//照片上传完提交审核
+            ZXHIDE_LOADING;
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *now = [NSDate date];
+            NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+            NSDate *startDate = [calendar dateFromComponents:components];
+            NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+            ZXSHOW_LOADING(self.view, @"提交中...");
+            if (temStr.length != 0) {
+                [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
-        }];
+            [HttpClient zx_httpClientToSubmitReimentEventWithFeetype:self.feeTypeid andBeginTime:[startDate timeIntervalSince1970]*1000 andEndTime:[endDate timeIntervalSince1970]*1000 andFeemoney:view.payCountField.text andEventName:@"报销" andEventMark:view.resonTextView.text andPhotoUrl:temStr andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING;
+                if (code == 0) {
+                    [MBProgressHUD showError:@"提交成功" toView:self.view];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                    [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message toView:self.view];
+                    }else{
+                        [MBProgressHUD showError:@"请求出错" toView:self.view];
+                    }
+                }
+            }];
+        });
     }else if (self.currentIndex == 3){//呈报
         ReportView *view = (ReportView *)self.currentView;
         if (self.reportTypeid == nil || [self.reportTypeid isEqualToString:@""]) {
@@ -493,10 +519,41 @@
             [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
             return;
         }
-        [HttpClient zx_httpClientToSubmitReportWithReportType:self.reportTypeid andEventName:@"" andEventMark:view.contentTextView.text andPhotoUrl:@"" andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)]  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            if (code == 0) {
+        NSArray *pickImages = [view returnPickImages];
+        // 调度组
+        dispatch_group_t group = dispatch_group_create();
+        // 队列
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        if (pickImages.count != 0) {
+            ZXSHOW_LOADING(self.view, @"上传图片...")
+        }
+        NSMutableString *temStr = [NSMutableString string];//拼接照片url
+        for (UIImage *image in pickImages) {
+            dispatch_group_enter(group);
+            NSData *data = UIImagePNGRepresentation(image);
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        [temStr appendString:[NSString stringWithFormat:@"%@|",url]];
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        dispatch_queue_t mQueue = dispatch_get_main_queue();
+        dispatch_group_notify(group, mQueue, ^{//照片上传完提交审核
+            ZXHIDE_LOADING;
+            ZXSHOW_LOADING(self.view, @"提交中...");
+            if (temStr.length != 0) {
+                [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
+            }
+            [HttpClient zx_httpClientToSubmitReportWithReportType:self.reportTypeid andEventName:@"" andEventMark:view.contentTextView.text andPhotoUrl:temStr andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)]  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"提交成功" toView:self.view];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
                     [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
                 }else{
                     if (message.length != 0) {
@@ -505,8 +562,49 @@
                         [MBProgressHUD showError:@"请求出错" toView:self.view];
                     }
                 }
-            }
-        }];
+
+            }];
+        });
+       
+    }
+}
+
+- (void)remibursementPickImage{
+    UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:@"选择" message:@"请选择获取照片的方式" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
+    pickVc.delegate = self;
+    UIAlertAction *alterAction_0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            pickVc.sourceType =  UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
+    }];
+    UIAlertAction *alterAction_1 = [UIAlertAction actionWithTitle:@"从相册中获取照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            pickVc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
+    }];
+    UIAlertAction *alterAction_2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [alterVc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alterVc addAction:alterAction_0];
+    [alterVc addAction:alterAction_1];
+    [alterVc addAction:alterAction_2];
+    [self presentViewController:alterVc animated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (self.currentIndex == 2) {//报销照片
+        ReimbursementView *view = (ReimbursementView *)self.currentView;
+        [view getPickImage:image];
+    }else if (self.currentIndex == 3){
+        ReportView *view = (ReportView *)self.currentView;
+        [view getPickImage:image];
     }
 }
 

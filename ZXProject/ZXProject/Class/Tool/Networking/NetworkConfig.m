@@ -28,6 +28,7 @@ NSString *const API_GETAPPNOTICEREADCOUNT = @"noticenotreadcount";//获取app通
 NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信息
 
 #pragma mark 考勤  --------------------------------------------------------------
+NSString *const API_GETEVENTLIST = @"eventlist";//查询事件由自己发起的
 NSString *const API_GETDUTYEVENTLIST = @"myflowtasklist";//查询项目人员待审核考勤事件
 NSString *const API_SUBMITDUTYEVENT = @"submitdutyevent";//提交考勤事件
 NSString *const API_SUBMITFEEEVENT = @"submitfeeevent";//报销费用

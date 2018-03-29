@@ -63,8 +63,8 @@
     self.updateLabel.text = [NSString stringWithFormat:@"发起时间 :%@",model.updateTimeString];
     self.apprvLabel.text = [NSString stringWithFormat:@"审批人: %@",model.localhandlername];
     self.timeLbel.text = model.countTime;
-    switch (model.eventstatus) {
-        case 0://草稿
+    switch (model.eventType) {
+        case 4://草稿
             self.statusLabel.text = @"草稿";
             self.statusLabel.backgroundColor = DRAFTBackgroudColor;
             break;
@@ -74,6 +74,10 @@
             break;
         case 2:
             self.statusLabel.text = @"已完成";
+            self.statusLabel.backgroundColor = BTNBackgroudColor;
+            break;
+        case 3:
+            self.statusLabel.text = @"下一步";
             self.statusLabel.backgroundColor = BTNBackgroudColor;
             break;
         default:

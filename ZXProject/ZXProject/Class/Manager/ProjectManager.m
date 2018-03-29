@@ -21,8 +21,7 @@
 
 - (void)setProjects:(NSArray *)projects{
     _projects = projects;
-    ProjectModel *model = projects.firstObject;
-    _currentProjectid = model.projectid;
+    _currentProjectid = self.currentModel.projectid;
 }
 
 @end

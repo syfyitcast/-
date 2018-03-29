@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 @class  FButton;
+@class WorkTaskAddImagePickView;
 
 @protocol ReimbursementViewDelegate<NSObject>
 
 @optional
 
 - (void)reimbursementViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn;
+
+- (void)remibursementPickImage;
 
 @end
 
@@ -23,6 +26,12 @@
 @property (nonatomic, strong) UITextField *payCountField;//报销金额
 @property (weak, nonatomic) IBOutlet UITextView *resonTextView;
 
+
+
 + (instancetype)reimbursementView;
+
+- (void)getPickImage:(UIImage *)image;
+
+- (NSArray *)returnPickImages;
 
 @end

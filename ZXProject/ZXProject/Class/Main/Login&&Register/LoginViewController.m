@@ -182,7 +182,7 @@
                                                                                 }];
     self.mobileField.keyboardType = UIKeyboardTypeTwitter;
     self.mobileField.text = @"13467311554";
-    self.screCodeField.text = @"123456";
+    self.screCodeField.text = @"a123456";
     self.screCodeField.keyboardType = UIKeyboardTypeTwitter;
     self.screCodeField.secureTextEntry = YES;
     self.screCodeIcon.image = [UIImage imageNamed:@"pwdIcon"];
@@ -293,9 +293,9 @@
                         window.rootViewController = mainVc;
                     }else{
                         if ([message isKindOfClass:[NSNull class]] || message.length == 0) {
-                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %zd",code]];
+                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %zd",code] toView:self.view];
                         }else{
-                            [MBProgressHUD showError:message];
+                            [MBProgressHUD showError:message toView:self.view];
                         }
                     }
                 }];
@@ -319,14 +319,14 @@
                         window.rootViewController = mainVc;
                     }else{
                         if ([message isKindOfClass:[NSNull class]] || message.length == 0) {
-                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %d",code]];
+                            [MBProgressHUD showError:[NSString stringWithFormat:@"登录失败 code = %d",code] toView:self.view];
                         }else{
-                            [MBProgressHUD showError:message];
+                            [MBProgressHUD showError:message toView:self.view];
                         }
                     }
                 }];
             }else{
-                [MBProgressHUD showError:@"请输入格式正确的密码"];
+                [MBProgressHUD showError:@"请输入格式正确的密码" toView:self.view];
             }
         }else{
             [MBProgressHUD showError:@"请输入账号  "];

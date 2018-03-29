@@ -14,6 +14,34 @@
 
 @implementation HttpClient (DutyEvents)
 
+
++ (void)zx_httpClientToQueryEventListBySelfWithEventStatus:(NSString *)eventStatus andFlowtype:(NSString *)flowtype andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTLIST];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
+    [dict setObject:flowtype forKey:@"flowtype"];
+    [dict setObject:eventStatus forKey:@"eventstatus"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETEVENTLIST];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 + (void)zx_httpClientToQueryNextStepApprvoPersonWithFlowType:(NSString *)type andEventId:(NSString *)eventId andFlowTaskId:(NSString *)flowtaskId andSuccessBlock:(responseBlock)block{
     [NetworkConfig networkConfigTokenWithMethodName:API_QUERYNEXTSTEPFLOW];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
@@ -56,7 +84,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:photoUrl forKey:@"photourl"];
-    [dict setObject:submitto forKey:@"submitto"];
+    [dict setObject:@"548" forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITDUTYEVENT];
         request.httpMethod           = kXMHTTPMethodGET;
@@ -89,7 +117,7 @@
     [dict setObject:@(endTime) forKey:@"endtime"];
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
-    [dict setObject:submitto forKey:@"submitto"];
+    [dict setObject:@"548" forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITEVCATION];
         request.httpMethod           = kXMHTTPMethodGET;
@@ -120,7 +148,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:url forKey:@"photourl"];
-    [dict setObject:submitto forKey:@"submitto"];
+    [dict setObject:@"548" forKey:@"submitto"];
     [dict setObject:feetype forKey:@"feetype"];
     [dict setObject:feemoney forKey:@"feemoney"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -152,7 +180,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:photoUrl forKey:@"photourl"];
-    [dict setObject:submitto forKey:@"submitto"];
+    [dict setObject:@"548" forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITREPORTEVENT];
         request.httpMethod           = kXMHTTPMethodGET;

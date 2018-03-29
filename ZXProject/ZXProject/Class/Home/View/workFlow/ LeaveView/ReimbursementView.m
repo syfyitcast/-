@@ -9,8 +9,9 @@
 #import "ReimbursementView.h"
 #import "GobHeaderFile.h"
 #import <Masonry.h>
+#import "WorkTaskAddImagePickView.h"
 
-@interface ReimbursementView()
+@interface ReimbursementView()<WorkTaskAddImagePickViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *payCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *payType;
@@ -18,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 @property (weak, nonatomic) IBOutlet UIView *imagePickView;
+@property (nonatomic, strong) WorkTaskAddImagePickView *pickView;
+
 @property (weak, nonatomic) IBOutlet UILabel *flowLabel;
 
 
@@ -44,6 +47,7 @@
     [super awakeFromNib];
     self.resonTextView.layer.borderColor = UIColorWithFloat(239).CGColor;
     self.resonTextView.layer.borderWidth = 1;
+    [self.imagePickView addSubview:self.pickView];
      __weak typeof(self)  weakself = self;
     [self addSubview:self.typeBtn];
     [self addSubview:self.payCountField];
@@ -98,6 +102,15 @@
     }];
 }
 
+- (void)getPickImage:(UIImage *)image{
+    [self.pickView getImage:image];
+}
+
+- (NSArray *)returnPickImages{
+    return self.pickView.images.mutableCopy;
+}
+
+
 - (void)clickAction:(FButton *)btn{
     if (self.delegate && [self.delegate respondsToSelector:@selector(reimbursementViewDidClickBtnIndex:andView:andfbButton:)]) {
         [self.delegate reimbursementViewDidClickBtnIndex:btn.tag andView:self andfbButton:btn];
@@ -106,6 +119,12 @@
 
 - (void)clickMeassageAction{
     self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
+}
+
+- (void)WorkTaskAddImagePickViewDidTapImageView{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(remibursementPickImage)]) {
+        [self.delegate remibursementPickImage];
+    }
 }
 
 #pragma mark - setter && getter
@@ -211,6 +230,14 @@
         _meassgeNotiLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _meassgeNotiLabel;
+}
+
+- (WorkTaskAddImagePickView *)pickView{
+    if (_pickView == nil) {
+        _pickView = [WorkTaskAddImagePickView workTaskAddImagePickViewWithFrame:self.imagePickView.bounds];
+        _pickView.delegate = self;
+    }
+    return _pickView;
 }
 
 

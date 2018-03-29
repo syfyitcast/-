@@ -7,6 +7,8 @@
 //
 
 #import "ProjectModel.h"
+#import "UserManager.h"
+#import "ProjectManager.h"
 
 @implementation ProjectModel
 
@@ -27,6 +29,9 @@
     NSMutableArray *tem_arr = [NSMutableArray array];
     for (NSDictionary *dic in source_arr) {
         ProjectModel *model = [ProjectModel projectsWithDict:dic];
+        if ([model.projectid isEqualToString:[UserManager sharedUserManager].user.allProjects.firstObject]) {
+            [ProjectManager sharedProjectManager].currentModel = model;
+        }
         [tem_arr addObject:model];
     }
     return tem_arr.mutableCopy;

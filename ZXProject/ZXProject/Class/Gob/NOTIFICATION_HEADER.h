@@ -9,7 +9,11 @@
 #ifndef NOTIFICATION_HEADER_h
 #define NOTIFICATION_HEADER_h
 
+
+#pragma mark --------------------------------- NOTIFICATION_KETY
+
 #define NOTIFI_READCOUNT @"NOTIFI_READCOUNT"
+#define NOTIFI_WORKFLOWRELOADDATA @"NOTIFI_WORKFLOWRELOADDATA"
 
 
 #pragma mark --------------------------------  字典的key
@@ -17,6 +21,8 @@
 #define BUSITRAVEL_TRANSMODE  @"BUSITRAVEL_TRANSMODE"
 #define FEE_TYPE              @"FEE_TYPE"
 #define REPORT_TYPE           @"REPORT_TYPE"
+
+
 
 
 #endif /* NOTIFICATION_HEADER_h */

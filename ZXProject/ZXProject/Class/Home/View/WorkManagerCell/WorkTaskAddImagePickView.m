@@ -14,7 +14,7 @@
 #define WIDTH  ([UIScreen mainScreen].bounds.size.width - 5 * PDDING) / 4.0
 
 @interface WorkTaskAddImagePickView()
-@property (nonatomic, strong) NSMutableArray *images;
+
 @property (nonatomic, strong) NSMutableArray *imageViews;
 
 @property (nonatomic, strong) UIImageView *tapImageView;
@@ -55,6 +55,7 @@
 - (void)getImage:(UIImage *)image{
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.image = image;
+    [self.images addObject:image];
     [self.imageViews addObject:imageView];
     self.currentCount ++;
     CGFloat x = PDDING + (self.currentCount - 1) * (WIDTH + PDDING);

@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */; };
+		4932D98C206CC7470048D299 /* WorkFlowDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98B206CC7470048D299 /* WorkFlowDetailController.m */; };
+		4932D990206CC8970048D299 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98F206CC8970048D299 /* PersonInfoController.m */; };
+		4932D992206CCABE0048D299 /* PersonInfoDeflutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D991206CCABE0048D299 /* PersonInfoDeflutCell.xib */; };
+		4932D995206CCAEA0048D299 /* PersoninfoDeflutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D994206CCAEA0048D299 /* PersoninfoDeflutCell.m */; };
+		4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D997206CD52D0048D299 /* PersonInfoHeaderCell.m */; };
+		4932D99A206CD52D0048D299 /* PersonInfoHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D998206CD52D0048D299 /* PersonInfoHeaderCell.xib */; };
 		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
@@ -109,7 +115,6 @@
 		8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5102E42046723B00F0E40D /* AttenceHeaderView.xib */; };
 		8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102E7204682B100F0E40D /* AttenceTimeView.m */; };
 		8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5102E92046832200F0E40D /* AttenceTimeView.xib */; };
-		8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102ED2046A51900F0E40D /* PersonInfoController.m */; };
 		8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F32047AA5000F0E40D /* ZXCalendar.m */; };
 		8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F62047AAB700F0E40D /* ZXCalendarItem.m */; };
 		8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102F92047AFE700F0E40D /* ZXCalendarCell.m */; };
@@ -148,6 +153,16 @@
 		0FA8A3E83B5BFD10F3605179 /* Pods-ZXProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+UploadFile.h"; sourceTree = "<group>"; };
 		4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+UploadFile.m"; sourceTree = "<group>"; };
+		4932D98A206CC7470048D299 /* WorkFlowDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailController.h; sourceTree = "<group>"; };
+		4932D98B206CC7470048D299 /* WorkFlowDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailController.m; sourceTree = "<group>"; };
+		4932D98E206CC8970048D299 /* PersonInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
+		4932D98F206CC8970048D299 /* PersonInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
+		4932D991206CCABE0048D299 /* PersonInfoDeflutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonInfoDeflutCell.xib; sourceTree = "<group>"; };
+		4932D993206CCAEA0048D299 /* PersoninfoDeflutCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersoninfoDeflutCell.h; sourceTree = "<group>"; };
+		4932D994206CCAEA0048D299 /* PersoninfoDeflutCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersoninfoDeflutCell.m; sourceTree = "<group>"; };
+		4932D996206CD52D0048D299 /* PersonInfoHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfoHeaderCell.h; sourceTree = "<group>"; };
+		4932D997206CD52D0048D299 /* PersonInfoHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfoHeaderCell.m; sourceTree = "<group>"; };
+		4932D998206CD52D0048D299 /* PersonInfoHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonInfoHeaderCell.xib; sourceTree = "<group>"; };
 		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
 		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
 		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
@@ -341,8 +356,6 @@
 		8C5102E6204682B100F0E40D /* AttenceTimeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceTimeView.h; sourceTree = "<group>"; };
 		8C5102E7204682B100F0E40D /* AttenceTimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceTimeView.m; sourceTree = "<group>"; };
 		8C5102E92046832200F0E40D /* AttenceTimeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttenceTimeView.xib; sourceTree = "<group>"; };
-		8C5102EC2046A51900F0E40D /* PersonInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
-		8C5102ED2046A51900F0E40D /* PersonInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
 		8C5102F22047AA5000F0E40D /* ZXCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendar.h; sourceTree = "<group>"; };
 		8C5102F32047AA5000F0E40D /* ZXCalendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCalendar.m; sourceTree = "<group>"; };
 		8C5102F52047AAB700F0E40D /* ZXCalendarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCalendarItem.h; sourceTree = "<group>"; };
@@ -402,6 +415,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4932D98D206CC8840048D299 /* PersonInfo(个人信息) */ = {
+			isa = PBXGroup;
+			children = (
+				4932D98E206CC8970048D299 /* PersonInfoController.h */,
+				4932D98F206CC8970048D299 /* PersonInfoController.m */,
+				4932D993206CCAEA0048D299 /* PersoninfoDeflutCell.h */,
+				4932D994206CCAEA0048D299 /* PersoninfoDeflutCell.m */,
+				4932D991206CCABE0048D299 /* PersonInfoDeflutCell.xib */,
+				4932D996206CD52D0048D299 /* PersonInfoHeaderCell.h */,
+				4932D997206CD52D0048D299 /* PersonInfoHeaderCell.m */,
+				4932D998206CD52D0048D299 /* PersonInfoHeaderCell.xib */,
+			);
+			path = "PersonInfo(个人信息)";
+			sourceTree = "<group>";
+		};
 		495E8D73206A1C1B00ABE900 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,10 +742,10 @@
 			children = (
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				4932D98D206CC8840048D299 /* PersonInfo(个人信息) */,
 				495E8D73206A1C1B00ABE900 /* Events */,
 				49EC0D69205B94D4002CE92C /* ProjectReview（项目总览） */,
 				8C04521F204BD7E30067F10E /* WorkManager(作业管理) */,
-				8C5102EB2046A4EC00F0E40D /* PersonInfo（个人信息） */,
 				8C5102DA20443E6E00F0E40D /* Attendance(考勤打卡) */,
 				8C5102D620443A2F00F0E40D /* WorkFlow(工作流程) */,
 				8C5102D520443A2300F0E40D /* Notification(通知公告) */,
@@ -993,6 +1021,8 @@
 				8C5102D820443A4700F0E40D /* WorkFlowController.m */,
 				49EC0DD82063986C002CE92C /* WorkFlowAddController.h */,
 				49EC0DD92063986C002CE92C /* WorkFlowAddController.m */,
+				4932D98A206CC7470048D299 /* WorkFlowDetailController.h */,
+				4932D98B206CC7470048D299 /* WorkFlowDetailController.m */,
 			);
 			path = "WorkFlow(工作流程)";
 			sourceTree = "<group>";
@@ -1006,15 +1036,6 @@
 				8C5102FF2047E3E500F0E40D /* AttenceDKController.m */,
 			);
 			path = "Attendance(考勤打卡)";
-			sourceTree = "<group>";
-		};
-		8C5102EB2046A4EC00F0E40D /* PersonInfo（个人信息） */ = {
-			isa = PBXGroup;
-			children = (
-				8C5102EC2046A51900F0E40D /* PersonInfoController.h */,
-				8C5102ED2046A51900F0E40D /* PersonInfoController.m */,
-			);
-			path = "PersonInfo（个人信息）";
 			sourceTree = "<group>";
 		};
 		8C5102F02047A9DF00F0E40D /* FrameWork */ = {
@@ -1202,6 +1223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4932D992206CCABE0048D299 /* PersonInfoDeflutCell.xib in Resources */,
 				49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */,
 				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
 				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
@@ -1214,6 +1236,7 @@
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
 				49EC0E322068A271002CE92C /* EvectionView.xib in Resources */,
 				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
+				4932D99A206CD52D0048D299 /* PersonInfoHeaderCell.xib in Resources */,
 				495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
@@ -1313,8 +1336,8 @@
 				49EC0E2D2064DFFC002CE92C /* NextStepModel.m in Sources */,
 				8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */,
 				8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */,
+				4932D995206CCAEA0048D299 /* PersoninfoDeflutCell.m in Sources */,
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
-				8C5102EE2046A51900F0E40D /* PersonInfoController.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
 				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
 				495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */,
@@ -1330,6 +1353,7 @@
 				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
 				49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
+				4932D98C206CC7470048D299 /* WorkFlowDetailController.m in Sources */,
 				8C33C2C92031700400B93F6E /* AFNetworkReachabilityManager.m in Sources */,
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
 				495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */,
@@ -1361,6 +1385,7 @@
 				8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */,
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
 				49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */,
+				4932D990206CC8970048D299 /* PersonInfoController.m in Sources */,
 				8CB1459320393F42003E94D4 /* HomeHeaderView.m in Sources */,
 				49EC0D8820622983002CE92C /* APPNotificationManager.m in Sources */,
 				8C33C2CB2031700400B93F6E /* AFURLRequestSerialization.m in Sources */,
@@ -1370,6 +1395,7 @@
 				49EC0D852061F315002CE92C /* NotificationModel.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
+				4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */,
 				49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
 				495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */,

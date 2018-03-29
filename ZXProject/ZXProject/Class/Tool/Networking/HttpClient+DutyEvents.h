@@ -10,6 +10,8 @@
 
 @interface HttpClient (DutyEvents)
 
+//流程由自己发起
++ (void)zx_httpClientToQueryEventListBySelfWithEventStatus:(NSString *)eventStatus andFlowtype:(NSString *)flowtype andSuccessBlock:(responseBlock)block;
 
 //查询下一步审核人
 + (void)zx_httpClientToQueryNextStepApprvoPersonWithFlowType:(NSString *)type andEventId:(NSString *)eventId andFlowTaskId:(NSString *)flowtaskId andSuccessBlock:(responseBlock)block;

@@ -30,6 +30,7 @@ extern NSString *const API_GETPROJECTLIST;//获取项目列表
 
 #pragma mark ---------------------------------------------------
 
+extern NSString *const API_GETEVENTLIST;//查询事件由自己发起的
 extern NSString *const API_SUBMITDUTYEVENT;//提交考勤事件
 extern NSString *const API_SUBMITFEEEVENT;//报销费用
 extern NSString *const API_SUBMITEVCATION;//出差

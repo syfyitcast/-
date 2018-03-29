@@ -15,6 +15,8 @@
 
 - (void)reportViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn;
 
+- (void)remibursementPickImage;
+
 @end
 
 @interface ReportView : UIView
@@ -23,5 +25,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
 + (instancetype)reportView;
+
+- (void)getPickImage:(UIImage *)image;
+
+- (NSArray *)returnPickImages;
 
 @end

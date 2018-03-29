@@ -303,7 +303,7 @@
     [NetworkConfig networkConfigTokenWithMethodName:API_GETDUTYEVENTLIST];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
     [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
-    [dict setObject:employerid?projectId:@"" forKey:@"employerid"];
+    [dict setObject:employerid?employerid:@"" forKey:@"employerid"];
     [dict setObject:taskStatus forKey:@"flowtaskstatus"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETDUTYEVENTLIST];

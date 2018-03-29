@@ -77,7 +77,10 @@
         if (code == 0) {
             NSArray *datas = data[@"projectList"];
             [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-            self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
+            if (self.currentModel == nil) {
+                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+            }
             [self.headerView setProjectLabelName:self.currentModel.projectname];
             [self getDutyEvents];
             [self getNotificationCount];

@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "NetworkConfig.h"
 
 @implementation User
 
@@ -78,6 +79,17 @@
     return [[self alloc] initWithDict:dict];
 }
 
+- (void)setProjectids:(NSString *)projectids{
+    _projectids = projectids;
+    self.allProjects = [projectids componentsSeparatedByString:@"|"];
+    if (self.allProjects == nil || self.allProjects.count == 0) {
+        self.allProjects = @[projectids];
+    }
+}
+
+- (void)setPhotourl:(NSString *)photourl{
+    _photourl = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:photourl];
+}
 
 
 @end

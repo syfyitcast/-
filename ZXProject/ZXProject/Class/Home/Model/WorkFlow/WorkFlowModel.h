@@ -39,6 +39,8 @@
 @property (nonatomic, copy) NSString *updateTimeString;//更新时间
 @property (nonatomic, copy) NSString *countTime;//计时
 
+@property (nonatomic, assign) int eventType;
+
 
 + (NSMutableArray *)workFlowModelsWithSource_arr:(NSArray *)source_arr;
 
