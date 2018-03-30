@@ -14,6 +14,9 @@
 		4932D995206CCAEA0048D299 /* PersoninfoDeflutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D994206CCAEA0048D299 /* PersoninfoDeflutCell.m */; };
 		4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D997206CD52D0048D299 /* PersonInfoHeaderCell.m */; };
 		4932D99A206CD52D0048D299 /* PersonInfoHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D998206CD52D0048D299 /* PersonInfoHeaderCell.xib */; };
+		4932D99D206DC9580048D299 /* WorkFlowDetailFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D99C206DC9580048D299 /* WorkFlowDetailFooterView.m */; };
+		4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */; };
+		4932D9A2206E25780048D299 /* WorkFlowDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */; };
 		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
@@ -163,6 +166,11 @@
 		4932D996206CD52D0048D299 /* PersonInfoHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfoHeaderCell.h; sourceTree = "<group>"; };
 		4932D997206CD52D0048D299 /* PersonInfoHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfoHeaderCell.m; sourceTree = "<group>"; };
 		4932D998206CD52D0048D299 /* PersonInfoHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonInfoHeaderCell.xib; sourceTree = "<group>"; };
+		4932D99B206DC9580048D299 /* WorkFlowDetailFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailFooterView.h; sourceTree = "<group>"; };
+		4932D99C206DC9580048D299 /* WorkFlowDetailFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailFooterView.m; sourceTree = "<group>"; };
+		4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailFooterView.xib; sourceTree = "<group>"; };
+		4932D9A0206E25780048D299 /* WorkFlowDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailModel.h; sourceTree = "<group>"; };
+		4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailModel.m; sourceTree = "<group>"; };
 		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
 		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
 		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
@@ -476,6 +484,8 @@
 				49EC0D792060F44E002CE92C /* WorkFlowModel.m */,
 				49EC0E2B2064DFFC002CE92C /* NextStepModel.h */,
 				49EC0E2C2064DFFC002CE92C /* NextStepModel.m */,
+				4932D9A0206E25780048D299 /* WorkFlowDetailModel.h */,
+				4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */,
 			);
 			path = WorkFlow;
 			sourceTree = "<group>";
@@ -487,6 +497,9 @@
 				49EC0D7D20610A0A002CE92C /* WorkFlowCell.h */,
 				49EC0D7E20610A0A002CE92C /* WorkFlowCell.m */,
 				49EC0D8020610A91002CE92C /* WorkFlowCell.xib */,
+				4932D99B206DC9580048D299 /* WorkFlowDetailFooterView.h */,
+				4932D99C206DC9580048D299 /* WorkFlowDetailFooterView.m */,
+				4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */,
 			);
 			path = workFlow;
 			sourceTree = "<group>";
@@ -1234,6 +1247,7 @@
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
+				4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */,
 				49EC0E322068A271002CE92C /* EvectionView.xib in Resources */,
 				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
 				4932D99A206CD52D0048D299 /* PersonInfoHeaderCell.xib in Resources */,
@@ -1344,6 +1358,7 @@
 				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */,
+				4932D99D206DC9580048D299 /* WorkFlowDetailFooterView.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
 				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
 				495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */,
@@ -1412,6 +1427,7 @@
 				8C5102B72042E77900F0E40D /* HomeRightItems.m in Sources */,
 				8C305C45202C143D00A843B5 /* MainNavigationController.m in Sources */,
 				8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */,
+				4932D9A2206E25780048D299 /* WorkFlowDetailModel.m in Sources */,
 				8C33C2C72031700400B93F6E /* AFHTTPSessionManager.m in Sources */,
 				8C305C39202C113C00A843B5 /* HomeViewController.m in Sources */,
 				8C33C2CD2031700400B93F6E /* AFURLSessionManager.m in Sources */,

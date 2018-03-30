@@ -41,6 +41,13 @@ NSString *const API_DUTYRULE = @"employerdutysetting";//考勤规则
 NSString *const API_DUTYINIT = @"initworkcalendar";//人员排班
 NSString *const API_PROJECTDUTYQUERY = @"projectdutyquery";//项目人员考勤查询
 
+NSString *const API_QUERYEVENTFLOWTASKLIST = @"eventflowtasklist";//查询事件流程任务列表
+NSString *const API_QUERYDUTYEVNET = @"getdutyevent";//查询请假事件
+NSString *const API_QUERYEVACATION = @"getbusitravelevent";//查询出差事件
+NSString *const API_QUERYREMIMENT  = @"getfeeevent";//查询报销事件
+NSString *const API_QUERYREPORT    = @"getreportevent";//查询呈报事件
+
+
 @implementation NetworkConfig
 
 + (instancetype)sharedNetworkingConfig{

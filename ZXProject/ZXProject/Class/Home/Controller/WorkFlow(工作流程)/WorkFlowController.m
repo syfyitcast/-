@@ -18,6 +18,7 @@
 #import "WorkFlowAddController.h"
 #import "WorkFlowCell.h"
 #import "HttpClient+DutyEvents.h"
+#import "WorkFlowDetailController.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -64,7 +65,6 @@
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//待办
-            ZXHIDE_LOADING;
             if (code == 0) {
                 NSArray *datas = data[@"flowtask"];
                 self.toComimtModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
@@ -84,7 +84,6 @@
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         [HttpClient zx_httpClientToDutyEventlistWithProjectid:[ProjectManager sharedProjectManager].currentProjectid andEmployerid:user.employerid andFlowTaskStatus:@"1" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            ZXHIDE_LOADING;
             if (code == 0) {
                 NSArray *datas = data[@"flowtask"];
                 self.fnishedModels = [WorkFlowModel workFlowModelsWithSource_arr:datas];
@@ -225,6 +224,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
+    if (self.currentIndex == 0) {
+        vc.model = self.draftModels[indexPath.row];
+    }else if (self.currentIndex == 1){
+        vc.model = self.unfinishedModels[indexPath.row];
+    }else if(self.currentIndex == 2){
+        vc.model = self.fnishedModels[indexPath.row];
+    }else if (self.currentIndex == 3){
+        vc.model = self.toComimtModels[indexPath.row];
+    }
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma  mark - setter && getter

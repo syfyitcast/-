@@ -42,6 +42,8 @@
 @property (nonatomic, assign) int eventType;
 
 
++ (instancetype)workFlowModelWithDict:(NSDictionary *)dict;
+
 + (NSMutableArray *)workFlowModelsWithSource_arr:(NSArray *)source_arr;
 
 @end

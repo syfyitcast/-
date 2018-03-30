@@ -71,6 +71,8 @@
     }];
 }
 
+
+
 + (void)zx_httpClientToSubmitDutyEventWithEventType:(NSString *)eventType andBeginTime:(long long)beginTime andEndTime:(long long)endTime andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
     [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITDUTYEVENT];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
@@ -304,5 +306,78 @@
         block(-1,nil,nil,error);
     }];
 }
+
++ (void)zx_httpClientToQueryDutyEventsWithEventId:(long)eventid andFlowType:(long)flowType  andSuccessBlock:(responseBlock)block{
+    NSString *api = @"";
+    switch (flowType) {
+        case 1://请假
+            api = API_QUERYDUTYEVNET;
+            break;
+        case 2://报销
+            api = API_QUERYREMIMENT;
+            break;
+        case 3:
+            api = API_QUERYREPORT;
+            break;
+        case 4:
+            api = API_QUERYEVACATION;
+            break;
+        default:
+            break;
+    }
+    [NetworkConfig networkConfigTokenWithMethodName:api];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:@(eventid) forKey:@"eventid"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:api];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSArray *keyDicts = responseObjectNoNull[@"metadatas"];
+        NSDictionary *dict = keyDicts.lastObject;
+        NSString *key = dict[@"metadataname"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data[key],message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToQueryEventFlowTasklistWithEventid:(int)eventid andflowtype:(int)flowtype andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_QUERYEVENTFLOWTASKLIST];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:@(eventid) forKey:@"eventid"];
+    [dict setObject:@(flowtype) forKey:@"flowtype"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_QUERYEVENTFLOWTASKLIST];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSArray *keyDicts = responseObjectNoNull[@"metadatas"];
+        NSDictionary *dict = keyDicts.lastObject;
+        NSString *key = dict[@"metadataname"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data[key],message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 
 @end
