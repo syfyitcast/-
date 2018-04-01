@@ -21,8 +21,11 @@
 @property (nonatomic, assign) int dutytype;//请假类型：  1事假 2病假 3带薪假
 @property (nonatomic, assign) long begintime;//开始时间
 @property (nonatomic, assign) long endtime;//结束时间
+@property (nonatomic, copy) NSString *beginTimeString;//开始时间字符串
+@property (nonatomic, copy) NSString *endTimeString;//结束时间字符串
 @property (nonatomic, copy) NSString *eventname;//事件名称
 @property (nonatomic, copy) NSString *eventremark;//事件说明
+@property (nonatomic, copy) NSString *timeString;//时长
 
 
 + (instancetype)workFlowDetailModelWithDict:(NSDictionary *)dict;

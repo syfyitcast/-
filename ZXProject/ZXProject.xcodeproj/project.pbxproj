@@ -17,6 +17,7 @@
 		4932D99D206DC9580048D299 /* WorkFlowDetailFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D99C206DC9580048D299 /* WorkFlowDetailFooterView.m */; };
 		4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */; };
 		4932D9A2206E25780048D299 /* WorkFlowDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */; };
+		4932D9A52070725D0048D299 /* WorkFlowApprovModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D9A42070725D0048D299 /* WorkFlowApprovModel.m */; };
 		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
@@ -171,6 +172,8 @@
 		4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailFooterView.xib; sourceTree = "<group>"; };
 		4932D9A0206E25780048D299 /* WorkFlowDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailModel.h; sourceTree = "<group>"; };
 		4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailModel.m; sourceTree = "<group>"; };
+		4932D9A32070725D0048D299 /* WorkFlowApprovModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowApprovModel.h; sourceTree = "<group>"; };
+		4932D9A42070725D0048D299 /* WorkFlowApprovModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowApprovModel.m; sourceTree = "<group>"; };
 		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
 		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
 		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 				49EC0E2C2064DFFC002CE92C /* NextStepModel.m */,
 				4932D9A0206E25780048D299 /* WorkFlowDetailModel.h */,
 				4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */,
+				4932D9A32070725D0048D299 /* WorkFlowApprovModel.h */,
+				4932D9A42070725D0048D299 /* WorkFlowApprovModel.m */,
 			);
 			path = WorkFlow;
 			sourceTree = "<group>";
@@ -1340,6 +1345,7 @@
 				8C5102DD20443EC000F0E40D /* AttendanceController.m in Sources */,
 				8CB1459D203D5246003E94D4 /* HomeCollectionItem.m in Sources */,
 				8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */,
+				4932D9A52070725D0048D299 /* WorkFlowApprovModel.m in Sources */,
 				49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */,
 				8C305C52202C1AB900A843B5 /* GobHeaderFile.m in Sources */,
 				8C33C2D3203170BD00B93F6E /* HttpClient.m in Sources */,
