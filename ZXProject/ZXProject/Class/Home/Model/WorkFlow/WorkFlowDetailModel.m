@@ -7,6 +7,7 @@
 //
 
 #import "WorkFlowDetailModel.h"
+#import "NetworkConfig.h"
 
 @implementation WorkFlowDetailModel
 
@@ -50,6 +51,25 @@
     }else{
         return [NSString stringWithFormat:@"%zd天%zd小时",day,hours];
     }
+}
+
+- (NSArray *)photoUrls{
+    if (self.photourl != nil || self.photourl.length != 0) {
+        NSMutableArray *tem_arr = [NSMutableArray array];
+        NSArray *urls = [self.photourl componentsSeparatedByString:@"|"];
+        if (urls.count != 0) {
+            for (NSString *urlstr in urls) {
+                NSString *comUrl = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:urlstr];
+                [tem_arr addObject:comUrl];
+            }
+            return tem_arr.mutableCopy;
+        }else{
+            [tem_arr addObject:[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.photourl]
+             ];
+            return tem_arr.mutableCopy;
+        }
+    }
+    return @[];
 }
 
 @end

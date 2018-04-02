@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */; };
+		492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */; };
 		4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */; };
 		4932D98C206CC7470048D299 /* WorkFlowDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98B206CC7470048D299 /* WorkFlowDetailController.m */; };
 		4932D990206CC8970048D299 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98F206CC8970048D299 /* PersonInfoController.m */; };
@@ -155,6 +157,9 @@
 
 /* Begin PBXFileReference section */
 		0FA8A3E83B5BFD10F3605179 /* Pods-ZXProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXProject.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject.debug.xcconfig"; sourceTree = "<group>"; };
+		492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailItemView.h; sourceTree = "<group>"; };
+		492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailItemView.m; sourceTree = "<group>"; };
+		492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailItemView.xib; sourceTree = "<group>"; };
 		4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+UploadFile.h"; sourceTree = "<group>"; };
 		4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+UploadFile.m"; sourceTree = "<group>"; };
 		4932D98A206CC7470048D299 /* WorkFlowDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailController.h; sourceTree = "<group>"; };
@@ -505,6 +510,9 @@
 				4932D99B206DC9580048D299 /* WorkFlowDetailFooterView.h */,
 				4932D99C206DC9580048D299 /* WorkFlowDetailFooterView.m */,
 				4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */,
+				492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */,
+				492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */,
+				492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */,
 			);
 			path = workFlow;
 			sourceTree = "<group>";
@@ -1247,6 +1255,7 @@
 				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
+				492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */,
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */,
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
@@ -1442,6 +1451,7 @@
 				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
 				49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
+				492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

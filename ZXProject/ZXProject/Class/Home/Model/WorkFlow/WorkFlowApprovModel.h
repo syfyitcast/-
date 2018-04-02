@@ -20,6 +20,10 @@
 @property (nonatomic, assign) int submittype;//提交类型 1 退回申请人重填 2 提交下一环节审核 3 提交确认 4 完成流程
 @property (nonatomic, assign) int tasktype;//任务类型 1填单 2审核 3确认
 @property (nonatomic, copy) NSString *userrank;//职务名称
+@property (nonatomic, copy) NSString *submittimeStrin;//提交时间字符串
+@property (nonatomic, copy) NSString *receiveTimeString;//接受时间字符串
+
+@property (nonatomic, assign) BOOL isCurrentModel;
 
 + (NSArray *)workFlowApprovModelsWithSource_arr:(NSArray *)source_arr;
 

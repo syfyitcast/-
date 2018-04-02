@@ -86,7 +86,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:photoUrl forKey:@"photourl"];
-    [dict setObject:@"548" forKey:@"submitto"];
+    [dict setObject:submitto forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITDUTYEVENT];
         request.httpMethod           = kXMHTTPMethodGET;
@@ -119,7 +119,8 @@
     [dict setObject:@(endTime) forKey:@"endtime"];
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
-    [dict setObject:@"548" forKey:@"submitto"];
+    [dict setObject:transmode forKey:@"transmode"];
+    [dict setObject:submitto forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITEVCATION];
         request.httpMethod           = kXMHTTPMethodGET;
@@ -150,7 +151,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:url forKey:@"photourl"];
-    [dict setObject:@"548" forKey:@"submitto"];
+    [dict setObject:submitto forKey:@"submitto"];
     [dict setObject:feetype forKey:@"feetype"];
     [dict setObject:feemoney forKey:@"feemoney"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -182,7 +183,7 @@
     [dict setObject:eventName forKey:@"eventname"];
     [dict setObject:eventMark forKey:@"eventremark"];
     [dict setObject:photoUrl forKey:@"photourl"];
-    [dict setObject:@"548" forKey:@"submitto"];
+    [dict setObject:submitto forKey:@"submitto"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_SUBMITREPORTEVENT];
         request.httpMethod           = kXMHTTPMethodGET;
@@ -331,7 +332,7 @@
     [dict setObject:@(eventid) forKey:@"eventid"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:api];
-        request.httpMethod           = kXMHTTPMethodPOST;
+        request.httpMethod           = kXMHTTPMethodGET;
         request.parameters =         dict;
         request.timeoutInterval      = 30;
         request.useGeneralHeaders    = YES;

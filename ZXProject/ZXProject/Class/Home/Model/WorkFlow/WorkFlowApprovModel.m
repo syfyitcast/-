@@ -32,4 +32,26 @@
     return tem_arr.mutableCopy;
 }
 
+- (NSString *)submittimeStrin{
+    if (self.submittime == 0) {
+        return nil;
+    }
+    NSTimeInterval time = self.submittime / 1000.0;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [formatter stringFromDate:date];
+}
+
+- (NSString *)receiveTimeString{
+    if (self.receivetime == 0) {
+        return nil;
+    }
+    NSTimeInterval time = self.receivetime / 1000.0;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [formatter stringFromDate:date];
+}
+
 @end

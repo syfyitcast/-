@@ -26,6 +26,24 @@
 @property (nonatomic, copy) NSString *eventname;//事件名称
 @property (nonatomic, copy) NSString *eventremark;//事件说明
 @property (nonatomic, copy) NSString *timeString;//时长
+@property (nonatomic, copy) NSString *photourl;//照片地址
+
+@property (nonatomic, strong) NSArray *photoUrls;
+
+//报销
+@property (nonatomic, assign) float feemoney;//报销金额
+@property (nonatomic, assign) int feetype;//报销类型
+@property (nonatomic, copy) NSString *feetypename;//报销费用类型名称
+
+//出差
+@property (nonatomic, copy) NSString *fromcity;//出发地
+@property (nonatomic, copy) NSString *tocity;//目的地
+@property (nonatomic, copy) NSString *transmodename;//交通工具名称
+@property (nonatomic, copy) NSString *transmode;//交通工具
+
+//呈报
+@property (nonatomic, copy) NSString *reportname;//呈报类型名称
+@property (nonatomic, copy) NSString *reporttype;//呈报类型
 
 
 + (instancetype)workFlowDetailModelWithDict:(NSDictionary *)dict;

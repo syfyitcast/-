@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WorkFlowApprovModel.h"
 
 @interface WorkFlowDetailFooterView : UIView
 
 + (instancetype)workFlowDetailFooterView;
+
+@property (nonatomic, strong) NSArray *models;
+
+@property (nonatomic, strong) WorkFlowApprovModel *currentModel;//当前审核流程
+@property (nonatomic, strong) WorkFlowApprovModel *submitModel;//提交审核流程
 
 @end
