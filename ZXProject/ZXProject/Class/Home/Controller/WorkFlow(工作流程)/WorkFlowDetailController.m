@@ -40,6 +40,44 @@
             [HttpClient zx_httpClientToQueryEventFlowTasklistWithEventid:self.detailModel.eventid andflowtype:self.detailModel.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//查询审核人
                 ZXHIDE_LOADING;
                 if (code == 0) {
+//                    NSArray *data = @[
+//                                      @{@"employerid":@(548),
+//                                        @"employername":@"张一一",
+//                                        @"eventflowid" :@(64),
+//                                        @"eventid"     :@(34),
+//                                        @"flowtaskid"  :@(127),
+//                                        @"opinion"     :@"wwwww",
+//                                        @"receivetime" :@(1522637360000),
+//                                        @"submittime"  :@(1522637360000),
+//                                        @"submittype"  :@(2),
+//                                        @"tasktype"    :@(1),
+//                                        @"userrank"    :@"经理"
+//                                        },@{
+//                                          @"employerid":@(548),
+//                                          @"employername":@"张88",
+//                                          @"eventflowid" :@(64),
+//                                          @"eventid"     :@(34),
+//                                          @"flowtaskid"  :@(127),
+//                                          @"opinion"     :@"kkkkkkkkk",
+//                                          @"receivetime" :@(1522637368000),
+//                                          @"submittime"  :@(1522637390000),
+//                                          @"submittype"  :@(2),
+//                                          @"tasktype"    :@(1),
+//                                          @"userrank"    :@"将军"
+//                                          },@{
+//                                          @"employerid":@(548),
+//                                          @"employername":@"张22",
+//                                          @"eventflowid" :@(64),
+//                                          @"eventid"     :@(34),
+//                                          @"flowtaskid"  :@(127),
+//                                          @"opinion"     :@"dsal;dklas;k",
+//                                          @"receivetime" :@(1522637370000),
+//                                         // @"submittime"  :@(1522637360000),
+//                                          @"submittype"  :@(2),
+//                                          @"tasktype"    :@(1),
+//                                          @"userrank"    :@"司令"
+//                                          }
+//                                      ];
                     self.approvModels = [WorkFlowApprovModel workFlowApprovModelsWithSource_arr:data];
                     [self setSubViews];
                 }else{

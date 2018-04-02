@@ -10,7 +10,7 @@
 #import "GobHeaderFile.h"
 #import "WorkFlowDetailItemView.h"
 
-@interface WorkFlowDetailFooterView()
+@interface WorkFlowDetailFooterView()<WorkFlowApprovItemViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;
@@ -38,7 +38,7 @@
     //第一个item是申请人
     WorkFlowDetailItemView *item_0 = [WorkFlowDetailItemView workFlowDetailItemView];
     item_0.model = self.submitModel;
-    CGFloat width = 100;//([UIScreen mainScreen].bounds.size.width - 2 * 28.5 ) / 3.0;
+    CGFloat width = ([UIScreen mainScreen].bounds.size.width - 2 * 58.5 ) / 3.0;
     CGFloat height = 100;
     item_0.x = 0;
     item_0.y = 0;
@@ -51,15 +51,36 @@
     imageView_0.height = 28.5;
     imageView_0.y = (self.myScrollView.height - imageView_0.height) * 0.5;
     [self.myScrollView addSubview:imageView_0];
-    for (int i = 1; i <= self.models.count - 1; i ++) {
+    for (int i = 1; i <= self.models.count; i ++) {
+        if (i == self.models.count) {
+            WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailEndItemView];
+            item.x = CGRectGetMaxX(imageView_0.frame) + (i - 1) * (width + 58.5);
+            item.y = 0;
+            item.height = height;
+            item.width = width;
+            [self.myScrollView addSubview:item];
+            self.myScrollView.contentSize = CGSizeMake(CGRectGetMaxX(item.frame), 0);
+            break;
+        }
         WorkFlowApprovModel *model = self.models[i];
         WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailItemView];
         item.model = model;
-        item.x = CGRectGetMaxX(imageView_0.frame) + (i - 1) * width;
+        item.x = CGRectGetMaxX(imageView_0.frame) + (i - 1) * (width + 58.5);
+        if (model.isCurrentModel) {
+            self.myScrollView.contentOffset = CGPointMake(item.x - self.width * 0.5 + width * 0.5  , 0);
+        }
         item.y = 0;
         item.height = height;
         item.width = width;
+        item.delegate = self;
+        item.index = i;
         [self.myScrollView addSubview:item];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];
+        imageView.x = CGRectGetMaxX(item.frame);
+        imageView.y = (self.myScrollView.height - imageView_0.height) * 0.5;
+        imageView.width = 58.5;
+        imageView.height = 28.5;
+        [self.myScrollView addSubview:imageView];
     }
 }
 
@@ -75,7 +96,32 @@
     if (self.currentModel.opinion != nil) {
         self.apprvoResonTextView.text = self.currentModel.opinion;
     }
+    if (self.currentModel.submittime == 0) {
+        self.apprvoStatusLabel.text = @"未审核";
+    }else{
+        self.apprvoStatusLabel.text = @"已审核";
+    }
+    self.approvLabel.text = self.currentModel.employername;
     [self setApprovItem];
+}
+
+- (void)workFlowApprovItemViewDidTapItem:(WorkFlowDetailItemView *)item{
+    [UIView animateWithDuration:0.35 animations:^{
+         self.myScrollView.contentOffset = CGPointMake(item.x - self.width * 0.5 + item.width * 0.5   , 0);
+    }];
+    self.apprvoResonTextView.text = item.model.opinion;
+    if (item.model.submittime == 0) {
+        self.apprvoStatusLabel.text = @"未审核";
+    }else{
+         self.apprvoStatusLabel.text = @"已审核";
+    }
+    self.approvLabel.text = item.model.employername;
+    if (item.model.isCurrentModel) {
+        self.timeLabel.text = item.model.receiveTimeString;
+    }else{
+        self.timeLabel.text = item.model.submittimeStrin;
+    }
+    
 }
 
 

@@ -23,6 +23,26 @@
     return [[NSBundle mainBundle] loadNibNamed:@"WorkFlowDetailItemView" owner:nil options:nil].lastObject;
 }
 
++ (instancetype)workFlowDetailEndItemView{
+    WorkFlowDetailItemView *view = [self workFlowDetailItemView];
+    view.userrankNameLabel.hidden = YES;
+    view.timeLabel.hidden = YES;
+    view.approvNameLabel.text = @"结束";
+    return view;
+}
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self addGestureRecognizer:tap];
+}
+
+- (void)tapAction{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(workFlowApprovItemViewDidTapItem:)]) {
+        [self.delegate workFlowApprovItemViewDidTapItem:self];
+    }
+}
+
 - (void)setModel:(WorkFlowApprovModel *)model{
     _model = model;
     self.userrankNameLabel.text = model.userrank;

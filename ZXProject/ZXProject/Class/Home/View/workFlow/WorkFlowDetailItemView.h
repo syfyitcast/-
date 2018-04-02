@@ -8,13 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "WorkFlowApprovModel.h"
+@class WorkFlowDetailItemView;
+
+@protocol WorkFlowApprovItemViewDelegate<NSObject>
+
+@optional
+
+- (void)workFlowApprovItemViewDidTapItem:(WorkFlowDetailItemView *)item;
+
+@end
 
 @interface WorkFlowDetailItemView : UIView
 
 @property (nonatomic, strong) WorkFlowApprovModel *model;
+@property (nonatomic, weak) id<WorkFlowApprovItemViewDelegate>delegate;
+@property (nonatomic, assign) int index;
 
 + (instancetype)workFlowDetailItemView;
 
-
++ (instancetype)workFlowDetailEndItemView;
 
 @end

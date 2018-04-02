@@ -135,7 +135,7 @@
                         <constraint firstAttribute="height" constant="1" id="QBf-p5-8db"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VE3-vL-fHY">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VE3-vL-fHY">
                     <rect key="frame" x="0.0" y="48" width="375" height="100"/>
                 </scrollView>
             </subviews>
