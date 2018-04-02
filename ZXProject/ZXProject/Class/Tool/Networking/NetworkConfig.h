@@ -42,6 +42,12 @@ extern NSString *const API_DUTYRULE;//考勤规则
 extern NSString *const API_DUTYINIT;//人员排班
 extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
 
+extern NSString *const API_QUERYEVENTFLOWTASKLIST;//查询事件流程任务列表
+extern NSString *const API_QUERYDUTYEVNET;//查询请假事件
+extern NSString *const API_QUERYEVACATION;//查询出差事件
+extern NSString *const API_QUERYREMIMENT;//查询报销事件
+extern NSString *const API_QUERYREPORT;//查询呈报事件
+
 
 @interface NetworkConfig : NSObject
 
@@ -56,6 +62,7 @@ extern NSString *const API_PROJECTDUTYQUERY;//项目人员考勤查询
 @property (nonatomic, copy) NSString *token;//用户token
 @property (nonatomic, copy) NSString *smsid;//短信验证码校验码
 @property (nonatomic, copy) NSString *usertoken;
+
 
 @property (nonatomic, strong) NSMutableData *responseData;
 

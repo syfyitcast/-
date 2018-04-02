@@ -39,6 +39,9 @@
 //项目人员考勤查询
 + (void)zx_httpClientToQueryProjectDutyWithBeginTime:(long)beginTime andEndTime:(long)time andSuccessBlock:(responseBlock)block;
 
-
+//查询事件详情
++ (void)zx_httpClientToQueryDutyEventsWithEventId:(long)eventid andFlowType:(long)flowType  andSuccessBlock:(responseBlock)block;
+//查询事件流程任务列表
++ (void)zx_httpClientToQueryEventFlowTasklistWithEventid:(int)eventid andflowtype:(int)flowtype andSuccessBlock:(responseBlock)block;
 
 @end

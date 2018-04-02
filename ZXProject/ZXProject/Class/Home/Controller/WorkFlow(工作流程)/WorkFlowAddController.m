@@ -466,7 +466,7 @@
         NSMutableString *temStr = [NSMutableString string];//拼接照片url
         for (UIImage *image in pickImages) {
             dispatch_group_enter(group);
-            NSData *data = UIImagePNGRepresentation(image);
+            NSData *data =  UIImageJPEGRepresentation(image, 1);
             dispatch_group_async(group, queue, ^{
                 [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     if (code == 0) {
@@ -530,7 +530,7 @@
         NSMutableString *temStr = [NSMutableString string];//拼接照片url
         for (UIImage *image in pickImages) {
             dispatch_group_enter(group);
-            NSData *data = UIImagePNGRepresentation(image);
+            NSData *data =  UIImageJPEGRepresentation(image, 1);
             dispatch_group_async(group, queue, ^{
                 [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     if (code == 0) {
