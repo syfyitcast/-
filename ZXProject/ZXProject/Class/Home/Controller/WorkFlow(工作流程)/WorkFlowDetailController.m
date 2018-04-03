@@ -14,13 +14,23 @@
 #import "WorkFlowDetailModel.h"
 #import "WorkFlowApprovModel.h"
 #import <UIImageView+WebCache.h>
+#import "WorkFlowDetailFooterApprovView.h"
+#import "CGXPickerView.h"
+#import "CGXStringPickerView.h"
+#import "NextStepModel.h"
+#import "HttpClient+DutyEvents.h"
 
-@interface WorkFlowDetailController ()<UIScrollViewDelegate>
+@interface WorkFlowDetailController ()<UIScrollViewDelegate,WorkFlowApprovDetailViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) WorkFlowDetailFooterView *footerView;
+@property (nonatomic, strong) WorkFlowDetailFooterApprovView *approvFootView;
 @property (nonatomic, strong) WorkFlowDetailModel *detailModel;
 @property (nonatomic, strong) NSArray *approvModels;
+
+@property (nonatomic, strong) NSDictionary *approvPerson_dict;
+@property (nonatomic, copy) NSString *stepName;
+@property (nonatomic, strong) NextStepModel *currentModel;
 
 @end
 
@@ -33,66 +43,85 @@
 }
 
 - (void)setRequestNetWork{
-    ZXSHOW_LOADING(self.view, @"加载中...");
-    [HttpClient zx_httpClientToQueryDutyEventsWithEventId:self.model.eventid andFlowType:self.model.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        if (code == 0) {
-            self.detailModel = [WorkFlowDetailModel workFlowDetailModelWithDict:data];
-            [HttpClient zx_httpClientToQueryEventFlowTasklistWithEventid:self.detailModel.eventid andflowtype:self.detailModel.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//查询审核人
-                ZXHIDE_LOADING;
+    if (self.model.eventType == 3) {//待办事件
+        ZXSHOW_LOADING(self.view, @"加载中...");
+        // 调度组
+        dispatch_group_t group = dispatch_group_create();
+        // 队列
+        dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
+        // 将任务添加到队列和调度组
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            [HttpClient zx_httpClientToQueryDutyEventsWithEventId:self.model.eventid andFlowType:self.model.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                 if (code == 0) {
-//                    NSArray *data = @[
-//                                      @{@"employerid":@(548),
-//                                        @"employername":@"张一一",
-//                                        @"eventflowid" :@(64),
-//                                        @"eventid"     :@(34),
-//                                        @"flowtaskid"  :@(127),
-//                                        @"opinion"     :@"wwwww",
-//                                        @"receivetime" :@(1522637360000),
-//                                        @"submittime"  :@(1522637360000),
-//                                        @"submittype"  :@(2),
-//                                        @"tasktype"    :@(1),
-//                                        @"userrank"    :@"经理"
-//                                        },@{
-//                                          @"employerid":@(548),
-//                                          @"employername":@"张88",
-//                                          @"eventflowid" :@(64),
-//                                          @"eventid"     :@(34),
-//                                          @"flowtaskid"  :@(127),
-//                                          @"opinion"     :@"kkkkkkkkk",
-//                                          @"receivetime" :@(1522637368000),
-//                                          @"submittime"  :@(1522637390000),
-//                                          @"submittype"  :@(2),
-//                                          @"tasktype"    :@(1),
-//                                          @"userrank"    :@"将军"
-//                                          },@{
-//                                          @"employerid":@(548),
-//                                          @"employername":@"张22",
-//                                          @"eventflowid" :@(64),
-//                                          @"eventid"     :@(34),
-//                                          @"flowtaskid"  :@(127),
-//                                          @"opinion"     :@"dsal;dklas;k",
-//                                          @"receivetime" :@(1522637370000),
-//                                         // @"submittime"  :@(1522637360000),
-//                                          @"submittype"  :@(2),
-//                                          @"tasktype"    :@(1),
-//                                          @"userrank"    :@"司令"
-//                                          }
-//                                      ];
-                    self.approvModels = [WorkFlowApprovModel workFlowApprovModelsWithSource_arr:data];
-                    [self setSubViews];
+                    self.detailModel = [WorkFlowDetailModel workFlowDetailModelWithDict:data];
+                    [HttpClient zx_httpClientToQueryEventFlowTasklistWithEventid:self.detailModel.eventid andflowtype:self.detailModel.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//查询审核人
+                        ZXHIDE_LOADING;
+                        if (code == 0) {
+                            self.approvModels = [WorkFlowApprovModel workFlowApprovModelsWithSource_arr:data];
+                            [self setSubViews];
+                        }else{
+                            if (message.length != 0) {
+                                [MBProgressHUD showError:message toView:self.view];
+                            }
+                        }
+                        dispatch_group_leave(group);
+                    }];
                 }else{
                     if (message.length != 0) {
                         [MBProgressHUD showError:message toView:self.view];
                     }
                 }
             }];
-            
-        }else{
-            if (message.length != 0) {
-                [MBProgressHUD showError:message toView:self.view];
+        });
+        
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            [HttpClient zx_httpClientToQueryNextStepApprvoPersonWithFlowType:@"1" andEventId:[NSString stringWithFormat:@"%zd",self.model.eventid] andFlowTaskId:[NSString stringWithFormat:@"%zd",self.model.flowtaskid] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING;
+                if (code == 0) {
+                    NSArray *datas = data[@"eventflownextstep"];
+                    self.approvPerson_dict = [NextStepModel nextStepDictWithSource_arr:datas];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message];
+                    }else{
+                        [MBProgressHUD showError:@"请求异常，请稍后再试"];
+                    }
+                }
+                dispatch_group_leave(group);
+            }];
+        });
+        // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
+        dispatch_queue_t mQueue = dispatch_get_main_queue();
+        dispatch_group_notify(group, mQueue, ^{
+            ZXHIDE_LOADING;
+            [self setSubViews];
+        });
+        
+    }else{
+        ZXSHOW_LOADING(self.view, @"加载中...");
+        [HttpClient zx_httpClientToQueryDutyEventsWithEventId:self.model.eventid andFlowType:self.model.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                self.detailModel = [WorkFlowDetailModel workFlowDetailModelWithDict:data];
+                [HttpClient zx_httpClientToQueryEventFlowTasklistWithEventid:self.detailModel.eventid andflowtype:self.detailModel.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {//查询审核人
+                    ZXHIDE_LOADING;
+                    if (code == 0) {
+                        self.approvModels = [WorkFlowApprovModel workFlowApprovModelsWithSource_arr:data];
+                        [self setSubViews];
+                    }else{
+                        if (message.length != 0) {
+                            [MBProgressHUD showError:message toView:self.view];
+                        }
+                    }
+                }];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)setSubViews{
@@ -120,10 +149,18 @@
     lineOne.height = 1;
     lineOne.width = self.view.width;
     [self.mainScrollView addSubview:lineOne];
-    self.footerView.x = 0;
-    self.footerView.height = 420;
-    self.footerView.width = self.view.width;
-    [self.mainScrollView addSubview:self.footerView];
+    if (self.model.eventType == 3) {//审核
+        self.approvFootView.x = 0;
+        self.approvFootView.width = self.view.width;
+        self.approvFootView.height = 520;
+        [self.mainScrollView addSubview:self.approvFootView];
+    }else{
+        self.footerView.x = 0;
+        self.footerView.height = 420;
+        self.footerView.width = self.view.width;
+        [self.mainScrollView addSubview:self.footerView];
+    }
+   
     if (self.model.flowtype == 1) {//请假
         UILabel *eventTypeLabel = [[UILabel alloc] init];
         eventTypeLabel.textColor = UIColorWithFloat(49);
@@ -235,6 +272,7 @@
         lineSix.width = self.view.width;
         [self.mainScrollView addSubview:lineSix];
         self.footerView.y = CGRectGetMaxY(lineSix.frame);
+        self.approvFootView.y =  CGRectGetMaxY(lineSix.frame) + 15;
     }else if (self.model.flowtype ==4){//出差
         UILabel *placeLabel = [[UILabel alloc] init];
         placeLabel.text = [NSString stringWithFormat:@"出发地:  %@",self.detailModel.fromcity];
@@ -345,6 +383,7 @@
         lineSeven.height = 1;
         [self.mainScrollView addSubview:lineSeven];
         self.footerView.y = CGRectGetMaxY(lineSeven.frame);
+        self.approvFootView.y = CGRectGetMaxY(lineSeven.frame) + 15;
     }else if (self.model.flowtype == 2){//报销
         UILabel *feeMoneyLabel = [[UILabel alloc] init];
         feeMoneyLabel.text = [NSString stringWithFormat:@"报销金额（元）:   %.f",self.detailModel.feemoney];
@@ -445,7 +484,8 @@
         }else{
             lineFive.y = CGRectGetMaxY(picDesLabel.frame) + height + 10 + padding;
         }
-        self.footerView.y = CGRectGetMaxY(lineFive.frame) + 15;
+        self.footerView.y = CGRectGetMaxY(lineFive.frame);
+        self.approvFootView.y = CGRectGetMaxY(lineFive.frame) + 15;
     }else if (self.model.flowtype == 3){//呈报
         UILabel *reportTypeLabel = [[UILabel alloc] init];
         reportTypeLabel.text = [NSString stringWithFormat:@":呈报类型   %@",self.detailModel.reportname];
@@ -546,16 +586,93 @@
         lineFive.width = self.view.width;
         lineFive.y = CGRectGetMaxY(submitTimeLabel.frame) + 15;
         [self.mainScrollView addSubview:lineFive];
-        
         self.footerView.y = CGRectGetMaxY(lineFive.frame);
+        self.approvFootView.y = CGRectGetMaxY(lineFive.frame) + 15;
     }
-    self.footerView.models = self.approvModels;
-    self.mainScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.footerView.frame) + 30);
+    if (self.model.eventType == 3) {
+        self.mainScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.approvFootView.frame) + 30);
+        self.approvFootView.models = self.approvModels;
+    }else{
+        self.mainScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.footerView.frame) + 30);
+        self.footerView.models = self.approvModels;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
+
+- (void)WorkFlowApprovDetailViewDidClickIndex:(int)index andBtn:(FButton *)btn andView:(WorkFlowDetailFooterApprovView *)view{
+    switch (index) {
+        case 1://下一步
+             [self showNextStepWithBtn:btn];
+            break;
+        case 2://下一步审核人
+           [self showNextStepPersonName:btn];
+            break;
+        case 3://提交
+            [self clickApprovBtn];
+            break;
+        case 4:
+            
+        default:
+            break;
+    }
+}
+
+- (void)showNextStepWithBtn:(FButton *)btn{
+    [CGXPickerView showStringPickerWithTitle:@"下一步" DataSource:self.approvPerson_dict.allKeys DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        NSString *selectString = (NSString *)selectValue;
+        self.stepName = selectString;
+        [btn setTitle:selectString forState:UIControlStateNormal];
+    }];
+}
+
+- (void)showNextStepPersonName:(FButton *)btn{
+    if (self.stepName == nil) {
+        [MBProgressHUD showError:@"请先选择下一步" toView:self.view];
+        return;
+    }
+    NSMutableArray *dataSource = [NSMutableArray array];
+    NSArray *arr = self.approvPerson_dict[self.stepName];
+    for (NextStepModel *model in arr) {
+        [dataSource addObject:model.employername];
+    }
+    [CGXPickerView showStringPickerWithTitle:@"下一步处理人" DataSource:dataSource DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        NSString *selectString = (NSString *)selectValue;
+        int row = [selectRow intValue];
+        self.currentModel = arr[row];
+        [btn setTitle:selectString forState:UIControlStateNormal];
+    }];
+}
+
+- (void)clickApprovBtn{
+    if (self.approvFootView.reasonTextView.text.length == 0) {
+        [MBProgressHUD showError:@"填写批示" toView:self.mainScrollView];
+        return;
+    }
+    if (self.stepName == nil) {
+        [MBProgressHUD showError:@"请选择下一步" toView:self.mainScrollView];
+    }
+    if (self.currentModel == nil) {
+        [MBProgressHUD showError:@"请选择下一步处理人" toView:self.mainScrollView];
+    }
+    ZXSHOW_LOADING(self.view, @"加载中");
+    [HttpClient zx_httpClientToConfirmflowtaskWithEventFlowid:self.model.eventflowid andFlowtaskid:self.model.flowtaskid andCheckOpion:self.approvFootView.reasonTextView.text andSubmitto:self.currentModel.employerid andSubmittype:self.currentModel.submittype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        ZXHIDE_LOADING;
+        if (code == 0) {
+            [MBProgressHUD showError:@"提交成功" toView:self.mainScrollView];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+            [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+        }else{
+            if (message.length != 0 ) {
+                [MBProgressHUD showError:message toView:self.mainScrollView];
+            }
+        }
+    }];
+}
+
+
 
 #pragma mark - setter && getter
 
@@ -578,8 +695,26 @@
 - (WorkFlowDetailFooterView *)footerView{
     if (_footerView == nil) {
         _footerView = [WorkFlowDetailFooterView workFlowDetailFooterView];
+        if (self.model.eventstatus == 2) {
+            _footerView.isFnished = YES;
+        }
     }
     return _footerView;
+}
+
+- (WorkFlowDetailFooterApprovView *)approvFootView{
+    if (_approvFootView == nil) {
+        _approvFootView = [WorkFlowDetailFooterApprovView workFlowDetailFooterApprovView];
+        _approvFootView.delegate = self;
+    }
+    return _approvFootView;
+}
+
+- (NSDictionary *)approvPerson_dict{
+    if (_approvPerson_dict == nil) {
+        _approvPerson_dict = [NSDictionary dictionary];
+    }
+    return _approvPerson_dict;
 }
 
 

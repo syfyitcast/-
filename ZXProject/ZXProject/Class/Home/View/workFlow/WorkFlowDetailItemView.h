@@ -22,10 +22,13 @@
 
 @property (nonatomic, strong) WorkFlowApprovModel *model;
 @property (nonatomic, weak) id<WorkFlowApprovItemViewDelegate>delegate;
+@property (nonatomic, assign) BOOL isFnished;
 @property (nonatomic, assign) int index;
 
 + (instancetype)workFlowDetailItemView;
 
 + (instancetype)workFlowDetailEndItemView;
+
+- (void)statusSelected;
 
 @end

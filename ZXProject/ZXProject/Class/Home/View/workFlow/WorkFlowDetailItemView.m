@@ -69,5 +69,13 @@
     }
 }
 
+- (void)statusSelected{
+    self.approvNameLabel.layer.cornerRadius = 18;
+    self.approvNameLabel.backgroundColor = UIColorWithRGB(203, 243, 170);
+    self.approvNameLabel.layer.borderWidth = 0.5;
+    self.approvNameLabel.layer.borderColor = UIColorWithFloat(239).CGColor;
+    self.approvNameLabel.clipsToBounds = YES;
+}
+
 
 @end

@@ -23,6 +23,9 @@
 @property (nonatomic, weak) id <EvectionViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UILabel *placeLabel;//出发地
 @property (weak, nonatomic) IBOutlet UILabel *desPlaceLabel;//目的地
+@property (weak, nonatomic) IBOutlet UITextView *reasonLabel;
+@property (nonatomic, strong) UITextField *placeField;
+@property (nonatomic, strong) UITextField *desPlaceField;
 
 
 + (instancetype)evectionView;

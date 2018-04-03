@@ -148,8 +148,11 @@
 }
 
 - (void)leaveViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    LeaveView *leaveView = (LeaveView *)view;
+    [leaveView.timeField resignFirstResponder];
     switch (index) {
         case 0://点击类型按钮
+
             [self showStringPickViewWithFbtn:btn];
             break;
         case 1://选择开始时间
@@ -164,6 +167,8 @@
         case 4://流程
             [self showFlowStepPickerViewWithBtn:btn];
             break;
+        case 5://保存
+            [self saveData];
         case 6://提交审核
             [self submitApprvo];
             break;
@@ -175,6 +180,10 @@
 
 //出差
 - (void)evectionViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    EvectionView *evctionView = (EvectionView *)view;
+    [evctionView.desPlaceField resignFirstResponder];
+    [evctionView.placeField resignFirstResponder];
+    [evctionView.reasonLabel resignFirstResponder];
     switch (index) {
         case 1://开始时间
             [self showDateStringPickViewWithFbBtn:btn];
@@ -191,6 +200,9 @@
         case 5://审核人
             [self showApprovStepAndPersonNameWithBtn:btn];
             break;
+        case 6:
+            [self saveData];
+            break;
         case 7://提交
             [self submitApprvo];
         default:
@@ -199,6 +211,9 @@
 }
 
 - (void)reimbursementViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    ReimbursementView *reimView = (ReimbursementView *)view;
+    [reimView.payCountField resignFirstResponder];
+    [reimView.resonTextView resignFirstResponder];
     switch (index) {
         case 0://报销类型
             [self feetypeWithBtn:btn];
@@ -209,6 +224,9 @@
         case 4://审核人
             [self showApprovStepAndPersonNameWithBtn:btn];
             break;
+        case 6:
+            [self saveData];
+            break;
         case 7://提交
             [self submitApprvo];
             break;
@@ -218,6 +236,8 @@
 }
 
 - (void)reportViewDidClickBtnIndex:(NSInteger)index andView:(UIView *)view andfbButton:(FButton *)btn{
+    ReportView *reportView = (ReportView *)view;
+    [reportView.contentTextView resignFirstResponder];
     switch (index) {
         case 0://报销类型
             [self reportTypeWithBtn:btn];
@@ -227,6 +247,9 @@
             break;
         case 4://审核人
             [self showApprovStepAndPersonNameWithBtn:btn];
+            break;
+        case 6:
+            [self saveData];
             break;
         case 7://提交
             [self submitApprvo];
@@ -362,6 +385,78 @@
     }];
 }
 
+- (void)saveData{
+    if (self.currentIndex == 0) {
+        LeaveView *view = (LeaveView *)self.currentView;
+        [HttpClient zx_httpClientToSubmitDutyEventWithEventType:[self.eventIdCache objectForKey:@(self.currentIndex)]    andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEventName:@"请假" andEventMark:view.reasonTextView.text andPhotoUrl:@"" andSubmitto:@""  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                [MBProgressHUD showError:@"保存成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }else if (self.currentIndex == 1){
+        EvectionView *view = (EvectionView *)self.currentView;
+        [HttpClient zx_httpClientToSubmitEvectionEventWithEventName:@"出差" andEventMark:view.reasonLabel.text andFromcity:view.placeField.text andToCity:view.desPlaceField.text andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0   andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0 andTransmode:self.transModeId andSubmitto:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                [MBProgressHUD showError:@"保存成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }else if (self.currentIndex == 2){
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *now = [NSDate date];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+        NSDate *startDate = [calendar dateFromComponents:components];
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+        ReimbursementView *view = (ReimbursementView *)self.currentView;
+        [HttpClient zx_httpClientToSubmitReimentEventWithFeetype:self.feeTypeid andBeginTime:[startDate timeIntervalSince1970]*1000 andEndTime:[endDate timeIntervalSince1970]*1000 andFeemoney:view.payCountField.text andEventName:@"报销" andEventMark:view.resonTextView.text andPhotoUrl:@"" andSubmitto:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+        
+    }else if (self.currentIndex == 3){
+        ReportView *view = (ReportView *)self.currentView;
+        [HttpClient zx_httpClientToSubmitReportWithReportType:self.reportTypeid andEventName:@"" andEventMark:view.contentTextView.text andPhotoUrl:@"" andSubmitto:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING;
+            if (code == 0) {
+                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }else{
+                    [MBProgressHUD showError:@"请求出错" toView:self.view];
+                }
+            }
+        }];
+    }
+}
+
 - (void)submitApprvo{
     if (self.currentIndex == 0) {//请假
         if ([self.eventIdCache objectForKey:@(self.currentIndex)] == nil || [[self.eventIdCache objectForKey:@(self.currentIndex)]  isEqualToString:@""]) {
@@ -400,7 +495,7 @@
         }];
     }else if (self.currentIndex == 1){//出差
         EvectionView *view = (EvectionView *)self.currentView;
-        if (view.placeLabel.text.length == 0) {
+        if (view.placeField.text.length == 0) {
             [MBProgressHUD showError:@"请填写出发地" toView:self.currentView];
             return;
         }
@@ -428,7 +523,7 @@
             [MBProgressHUD showError:@"请选择审核人" toView:self.currentView];
             return;
         }
-        [HttpClient zx_httpClientToSubmitEvectionEventWithEventName:@"" andEventMark:@"" andFromcity:view.placeLabel.text andToCity:view.desPlaceLabel.text andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0   andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0 andTransmode:self.transModeId andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToSubmitEvectionEventWithEventName:@"出差" andEventMark:view.reasonLabel.text andFromcity:view.placeField.text andToCity:view.desPlaceField.text andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0   andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0 andTransmode:self.transModeId andSubmitto:[self.apprvoIdCache objectForKey:@(self.currentIndex)] andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 [MBProgressHUD showError:@"提交成功" toView:self.view];
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];

@@ -12,8 +12,7 @@
 
 @interface EvectionView()
 
-@property (nonatomic, strong) UITextField *placeField;
-@property (nonatomic, strong) UITextField *desPlaceField;
+
 @property (nonatomic, strong) FButton *startBtn;
 @property (nonatomic, strong) FButton *endBtn;
 @property (nonatomic, strong) FButton *toolBtn;
@@ -30,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *flowLabel;
 
-@property (weak, nonatomic) IBOutlet UITextView *reasonLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *approvLabel;
 @property (nonatomic, strong) UILabel *meassgeNotiLabel;
 
@@ -267,7 +266,7 @@
         _saveBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
         [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_saveBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        _saveBtn.backgroundColor = UIColorWithFloat(239);
+        _saveBtn.backgroundColor = BTNBackgroudColor;
         _saveBtn.layer.cornerRadius = 6;
         [_saveBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _saveBtn.tag = 6;
