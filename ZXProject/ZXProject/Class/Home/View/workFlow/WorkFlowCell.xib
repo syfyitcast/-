@@ -121,6 +121,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="apprvLabel" destination="ZGJ-JU-Rqu" id="aaU-ug-01D"/>
+                <outlet property="coutTiemDesLabel" destination="LiA-nn-2Uu" id="sFg-kf-FdQ"/>
                 <outlet property="iconView" destination="xN8-5Q-bHu" id="btE-jK-pwr"/>
                 <outlet property="personName" destination="K8u-Q5-S2o" id="Wg4-yL-oUQ"/>
                 <outlet property="statusLabel" destination="62U-fg-Hcs" id="dkM-JJ-OkE"/>

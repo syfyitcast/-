@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */; };
 		492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */; };
+		492F942F207313D500BBB677 /* WorkFlowDetailFooterApprovView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942E207313D500BBB677 /* WorkFlowDetailFooterApprovView.m */; };
+		492F9431207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492F9430207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib */; };
+		492F94372073788800BBB677 /* WorkFlowDraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F94362073788800BBB677 /* WorkFlowDraftViewController.m */; };
 		4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */; };
 		4932D98C206CC7470048D299 /* WorkFlowDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98B206CC7470048D299 /* WorkFlowDetailController.m */; };
 		4932D990206CC8970048D299 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D98F206CC8970048D299 /* PersonInfoController.m */; };
@@ -160,6 +163,11 @@
 		492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailItemView.h; sourceTree = "<group>"; };
 		492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailItemView.m; sourceTree = "<group>"; };
 		492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailItemView.xib; sourceTree = "<group>"; };
+		492F942D207313D500BBB677 /* WorkFlowDetailFooterApprovView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailFooterApprovView.h; sourceTree = "<group>"; };
+		492F942E207313D500BBB677 /* WorkFlowDetailFooterApprovView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailFooterApprovView.m; sourceTree = "<group>"; };
+		492F9430207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailFooterApprovView.xib; sourceTree = "<group>"; };
+		492F94352073788800BBB677 /* WorkFlowDraftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDraftViewController.h; sourceTree = "<group>"; };
+		492F94362073788800BBB677 /* WorkFlowDraftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDraftViewController.m; sourceTree = "<group>"; };
 		4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+UploadFile.h"; sourceTree = "<group>"; };
 		4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+UploadFile.m"; sourceTree = "<group>"; };
 		4932D98A206CC7470048D299 /* WorkFlowDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailController.h; sourceTree = "<group>"; };
@@ -513,6 +521,9 @@
 				492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */,
 				492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */,
 				492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */,
+				492F942D207313D500BBB677 /* WorkFlowDetailFooterApprovView.h */,
+				492F942E207313D500BBB677 /* WorkFlowDetailFooterApprovView.m */,
+				492F9430207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib */,
 			);
 			path = workFlow;
 			sourceTree = "<group>";
@@ -1049,6 +1060,8 @@
 				49EC0DD92063986C002CE92C /* WorkFlowAddController.m */,
 				4932D98A206CC7470048D299 /* WorkFlowDetailController.h */,
 				4932D98B206CC7470048D299 /* WorkFlowDetailController.m */,
+				492F94352073788800BBB677 /* WorkFlowDraftViewController.h */,
+				492F94362073788800BBB677 /* WorkFlowDraftViewController.m */,
 			);
 			path = "WorkFlow(工作流程)";
 			sourceTree = "<group>";
@@ -1268,6 +1281,7 @@
 				495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
+				492F9431207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1372,10 +1386,12 @@
 				495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */,
 				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
+				492F942F207313D500BBB677 /* WorkFlowDetailFooterApprovView.m in Sources */,
 				49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */,
 				4932D99D206DC9580048D299 /* WorkFlowDetailFooterView.m in Sources */,
 				8C305C4E202C1A6B00A843B5 /* FButton.m in Sources */,
 				8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */,
+				492F94372073788800BBB677 /* WorkFlowDraftViewController.m in Sources */,
 				495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */,
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,

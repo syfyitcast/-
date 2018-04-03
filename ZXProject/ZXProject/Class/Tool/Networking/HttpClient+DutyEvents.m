@@ -71,8 +71,6 @@
     }];
 }
 
-
-
 + (void)zx_httpClientToSubmitDutyEventWithEventType:(NSString *)eventType andBeginTime:(long long)beginTime andEndTime:(long long)endTime andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
     [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITDUTYEVENT];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
@@ -360,6 +358,67 @@
     [dict setObject:@(flowtype) forKey:@"flowtype"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_QUERYEVENTFLOWTASKLIST];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSArray *keyDicts = responseObjectNoNull[@"metadatas"];
+        NSDictionary *dict = keyDicts.lastObject;
+        NSString *key = dict[@"metadataname"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data[key],message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToConfirmflowtaskWithEventFlowid:(long)eventFlowid andFlowtaskid:(long)flowTaskid andCheckOpion:(NSString *)checkOpion andSubmitto:(long)submitto andSubmittype:(long)type andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_COMFIRMFLOWTASK];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
+    [dict setObject:@(eventFlowid) forKey:@"eventflowid"];
+    [dict setObject:@(flowTaskid) forKey:@"flowtaskid"];
+    [dict setObject:checkOpion forKey:@"checkopion"];
+    [dict setObject:@(submitto) forKey:@"submitto"];
+    [dict setObject:@(type) forKey:@"submittype"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_COMFIRMFLOWTASK];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSArray *keyDicts = responseObjectNoNull[@"metadatas"];
+        NSDictionary *dict = keyDicts.lastObject;
+        NSString *key = dict[@"metadataname"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data[key],message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToDeleteFlowEventWithEventid:(long)eventid andFlowtype:(long)flowtype andSuccessBlock:(responseBlock)block{
+    [NetworkConfig networkConfigTokenWithMethodName:API_DELETEFLOWEVENT];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
+    [dict setObject:@(eventid) forKey:@"eventid"];
+    [dict setObject:@(flowtype) forKey:@"flowtype"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_DELETEFLOWEVENT];
         request.httpMethod           = kXMHTTPMethodPOST;
         request.parameters =         dict;
         request.timeoutInterval      = 30;

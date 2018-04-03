@@ -28,6 +28,7 @@
     [super awakeFromNib];
     self.apprvoResonTextView.layer.borderWidth = 1;
     self.apprvoResonTextView.layer.borderColor = UIColorWithFloat(239).CGColor;
+    self.apprvoResonTextView.editable = NO;
 }
 
 + (instancetype)workFlowDetailFooterView{
@@ -60,6 +61,10 @@
             item.width = width;
             [self.myScrollView addSubview:item];
             self.myScrollView.contentSize = CGSizeMake(CGRectGetMaxX(item.frame), 0);
+            if (self.isFnished) {
+                [item statusSelected];
+                self.myScrollView.contentOffset = CGPointMake(item.x -  2 * (width + 58.5)  , 0);
+            }
             break;
         }
         WorkFlowApprovModel *model = self.models[i];
@@ -90,7 +95,9 @@
     for (WorkFlowApprovModel *model in _models) {
         if (model.submittime == 0 || model.submittimeStrin == nil) {
             self.currentModel = model;
-            self.currentModel.isCurrentModel = YES;
+            if (self.isFnished == NO) {
+                self.currentModel.isCurrentModel = YES;
+            }
         }
     }
     if (self.currentModel.opinion != nil) {
@@ -123,6 +130,5 @@
     }
     
 }
-
 
 @end

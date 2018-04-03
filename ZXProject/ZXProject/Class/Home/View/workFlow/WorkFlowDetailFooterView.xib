@@ -132,7 +132,7 @@
                     <rect key="frame" x="0.0" y="394.5" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="QBf-p5-8db"/>
+                        <constraint firstAttribute="height" constant="1" id="CjM-Xc-vQ6"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VE3-vL-fHY">
@@ -144,7 +144,6 @@
                 <constraint firstItem="13Y-GV-9h9" firstAttribute="centerY" secondItem="fgV-jO-Uga" secondAttribute="centerY" id="0of-3P-wfR"/>
                 <constraint firstItem="aYn-pa-kB4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1C8-U9-8nc"/>
                 <constraint firstAttribute="trailing" secondItem="vrz-YR-3yc" secondAttribute="trailing" id="1E7-lU-VTq"/>
-                <constraint firstItem="x2T-ZY-oaq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1OA-YD-FZk"/>
                 <constraint firstItem="ynU-vZ-p9R" firstAttribute="top" secondItem="vrz-YR-3yc" secondAttribute="bottom" constant="15" id="1k9-Ax-Jhs"/>
                 <constraint firstItem="lVt-ZT-C1b" firstAttribute="top" secondItem="vrz-YR-3yc" secondAttribute="bottom" constant="15" id="28n-Me-tog"/>
                 <constraint firstItem="03a-pH-7DA" firstAttribute="leading" secondItem="lVt-ZT-C1b" secondAttribute="trailing" constant="30" id="4wE-Zx-O0x"/>
@@ -157,14 +156,13 @@
                 <constraint firstItem="vrz-YR-3yc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Dk8-tT-xXh"/>
                 <constraint firstItem="cuz-So-rYo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FAu-nl-XPI"/>
                 <constraint firstAttribute="trailing" secondItem="ynU-vZ-p9R" secondAttribute="trailing" constant="30" id="Gmx-d6-dA0"/>
-                <constraint firstAttribute="trailing" secondItem="x2T-ZY-oaq" secondAttribute="trailing" id="H3G-C3-A8t"/>
                 <constraint firstAttribute="trailing" secondItem="jNd-pJ-dMY" secondAttribute="trailing" id="IUq-B3-2TB"/>
                 <constraint firstItem="hQJ-DM-G4K" firstAttribute="top" secondItem="IDh-zL-yv8" secondAttribute="bottom" constant="15" id="KPU-ik-UOA"/>
                 <constraint firstItem="jNd-pJ-dMY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LeB-ye-Ju3"/>
                 <constraint firstItem="hQJ-DM-G4K" firstAttribute="leading" secondItem="AGN-VM-bq5" secondAttribute="trailing" constant="40" id="Lj6-dI-udp"/>
-                <constraint firstItem="x2T-ZY-oaq" firstAttribute="top" secondItem="hQJ-DM-G4K" secondAttribute="bottom" constant="15" id="O4v-SQ-w8o"/>
                 <constraint firstItem="VE3-vL-fHY" firstAttribute="top" secondItem="nYG-ep-LJf" secondAttribute="bottom" id="P7s-zR-aON"/>
                 <constraint firstItem="nYG-ep-LJf" firstAttribute="top" secondItem="13Y-GV-9h9" secondAttribute="bottom" constant="15" id="PLq-vs-8dW"/>
+                <constraint firstItem="x2T-ZY-oaq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RDS-fP-WAB"/>
                 <constraint firstItem="9Y9-iK-0Cz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Rp8-ND-Di3"/>
                 <constraint firstAttribute="trailing" secondItem="VE3-vL-fHY" secondAttribute="trailing" id="VaE-Bg-cLw"/>
                 <constraint firstItem="IDh-zL-yv8" firstAttribute="top" secondItem="cuz-So-rYo" secondAttribute="bottom" constant="10" id="XZo-U4-Lx1"/>
@@ -173,8 +171,10 @@
                 <constraint firstItem="MSE-Rh-gwa" firstAttribute="centerY" secondItem="9Y9-iK-0Cz" secondAttribute="centerY" id="ZcT-Qi-vMJ"/>
                 <constraint firstItem="lVt-ZT-C1b" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Zji-Ab-8lI"/>
                 <constraint firstAttribute="trailing" secondItem="cuz-So-rYo" secondAttribute="trailing" constant="15" id="cCl-mK-dBc"/>
+                <constraint firstAttribute="trailing" secondItem="x2T-ZY-oaq" secondAttribute="trailing" id="d9t-rk-712"/>
                 <constraint firstItem="ynU-vZ-p9R" firstAttribute="leading" secondItem="7Nk-rl-F4v" secondAttribute="trailing" constant="30" id="dAe-oy-A5g"/>
                 <constraint firstItem="fgV-jO-Uga" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ei5-R2-baA"/>
+                <constraint firstItem="x2T-ZY-oaq" firstAttribute="top" secondItem="AGN-VM-bq5" secondAttribute="bottom" constant="15" id="epY-1F-Eu2"/>
                 <constraint firstItem="MSE-Rh-gwa" firstAttribute="leading" secondItem="9Y9-iK-0Cz" secondAttribute="trailing" constant="10" id="gAs-I4-9KB"/>
                 <constraint firstItem="VE3-vL-fHY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="j2d-KG-btn"/>
                 <constraint firstItem="AGN-VM-bq5" firstAttribute="top" secondItem="IDh-zL-yv8" secondAttribute="bottom" constant="15" id="mfp-Xv-QJw"/>
@@ -195,7 +195,7 @@
                 <outlet property="myScrollView" destination="VE3-vL-fHY" id="r1T-5P-ArV"/>
                 <outlet property="timeLabel" destination="hQJ-DM-G4K" id="5m0-2K-hNR"/>
             </connections>
-            <point key="canvasLocation" x="13.5" y="130.5"/>
+            <point key="canvasLocation" x="-306" y="100"/>
         </view>
     </objects>
     <resources>

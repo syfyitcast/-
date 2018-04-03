@@ -44,4 +44,10 @@
 //查询事件流程任务列表
 + (void)zx_httpClientToQueryEventFlowTasklistWithEventid:(int)eventid andflowtype:(int)flowtype andSuccessBlock:(responseBlock)block;
 
+//流程任务确认
++ (void)zx_httpClientToConfirmflowtaskWithEventFlowid:(long)eventFlowid andFlowtaskid:(long)flowTaskid andCheckOpion:(NSString *)checkOpion andSubmitto:(long)submitto andSubmittype:(long)type andSuccessBlock:(responseBlock)block;
+
+//删除流程事件
++ (void)zx_httpClientToDeleteFlowEventWithEventid:(long)eventid andFlowtype:(long)flowtype andSuccessBlock:(responseBlock)block;
+
 @end

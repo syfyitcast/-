@@ -236,7 +236,7 @@
         _saveBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
         [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_saveBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        _saveBtn.backgroundColor = UIColorWithFloat(239);
+        _saveBtn.backgroundColor = BTNBackgroudColor;
         _saveBtn.layer.cornerRadius = 6;
         [_saveBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _saveBtn.tag = 5;

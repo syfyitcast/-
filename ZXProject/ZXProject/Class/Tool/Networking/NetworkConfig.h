@@ -47,6 +47,8 @@ extern NSString *const API_QUERYDUTYEVNET;//查询请假事件
 extern NSString *const API_QUERYEVACATION;//查询出差事件
 extern NSString *const API_QUERYREMIMENT;//查询报销事件
 extern NSString *const API_QUERYREPORT;//查询呈报事件
+extern NSString *const API_COMFIRMFLOWTASK;//流程任务确认
+extern NSString *const API_DELETEFLOWEVENT;//删除流程任务
 
 
 @interface NetworkConfig : NSObject

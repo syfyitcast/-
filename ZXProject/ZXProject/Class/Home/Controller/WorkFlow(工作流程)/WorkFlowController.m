@@ -225,8 +225,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
-    if (self.currentIndex == 0) {
-        vc.model = self.draftModels[indexPath.row];
+    if (self.currentIndex == 0) {//草稿
+        return;
     }else if (self.currentIndex == 1){
         vc.model = self.unfinishedModels[indexPath.row];
     }else if(self.currentIndex == 2){
@@ -235,6 +235,54 @@
         vc.model = self.toComimtModels[indexPath.row];
     }
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    WorkFlowModel *model = nil;
+    if (self.currentIndex == 1) {
+        model = self.unfinishedModels[indexPath.row];
+    }else if (self.currentIndex == 2){
+        model = self.fnishedModels[indexPath.row];
+    }else if (self.currentIndex == 3){
+        model = self.toComimtModels[indexPath.row];
+    }else if (self.currentIndex == 0){
+        model = self.draftModels[indexPath.row];
+    }
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ZXSHOW_LOADING(self.view, @"删除中...");
+        [HttpClient zx_httpClientToDeleteFlowEventWithEventid:model.eventid andFlowtype:model.flowtype andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            ZXHIDE_LOADING
+            if (code == 0) {
+                [MBProgressHUD showError:@"删除成功" toView:self.view];
+                if (self.currentIndex == 1) {
+                    [self.unfinishedModels removeObject:model];
+                }else if (self.currentIndex == 2){
+                    [self.fnishedModels removeObject:model];
+                }else if (self.currentIndex == 3){
+                    [self.toComimtModels removeObject:model];
+                }else if (self.currentIndex == 0){
+                    [self.draftModels removeObject:model];
+                }
+                [self.myTableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.myTableView reloadData];
+            }else{
+                if (message.length != 0) {
+                    [MBProgressHUD showError:message toView:self.view];
+                }
+            }
+        }];
+        
+    }
 }
 
 #pragma  mark - setter && getter

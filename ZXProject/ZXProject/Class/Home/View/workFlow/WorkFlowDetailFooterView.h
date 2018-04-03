@@ -14,6 +14,7 @@
 + (instancetype)workFlowDetailFooterView;
 
 @property (nonatomic, strong) NSArray *models;
+@property (nonatomic, assign) BOOL isFnished;
 
 @property (nonatomic, strong) WorkFlowApprovModel *currentModel;//当前审核流程
 @property (nonatomic, strong) WorkFlowApprovModel *submitModel;//提交审核流程

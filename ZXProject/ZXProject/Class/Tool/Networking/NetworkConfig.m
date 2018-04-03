@@ -46,6 +46,8 @@ NSString *const API_QUERYDUTYEVNET = @"getdutyevent";//查询请假事件
 NSString *const API_QUERYEVACATION = @"getbusitravelevent";//查询出差事件
 NSString *const API_QUERYREMIMENT  = @"getfeeevent";//查询报销事件
 NSString *const API_QUERYREPORT    = @"getreportevent";//查询呈报事件
+NSString *const API_COMFIRMFLOWTASK = @"confirmflowtask";//流程任务确认
+NSString *const API_DELETEFLOWEVENT = @"deleteflowevent";//删除流程任务
 
 
 @implementation NetworkConfig
