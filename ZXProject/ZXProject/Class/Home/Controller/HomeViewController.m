@@ -106,6 +106,8 @@
             self.eventsModels = [eventsMdoel eventsModelsWithSource_arr:datas];
             [self.bottomTabel reloadData];
             if (self.eventsModels.count != 0) {
+                self.bottomTabel.height = self.eventsModels.count * 86;
+                self.mainScollview.contentSize = CGSizeMake(0, CGRectGetMaxY(self.bottomTabel.frame) + 20 + 44);
                 self.bottomTabel.backgroundColor = WhiteColor;
             }else{
                 self.bottomTabel.backgroundColor = [UIColor clearColor];
@@ -127,36 +129,29 @@
 }
 
 - (void)setSubviews{
-    __weak typeof(self) weakself = self;
     self.headerView = [HomeHeaderView homeHeaderView];
     self.headerView.delegate = self;
     [self.view addSubview:self.mainScollview];
     [self.mainScollview addSubview:self.bottomTabel];
-    [self.mainScollview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakself.view);
-        make.width.mas_equalTo(weakself.view.width);
-    }];
+    self.mainScollview.frame = self.navigationController.view.bounds;
     [self.mainScollview addSubview:self.headerView];
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakself.view.mas_top);
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.height.mas_equalTo(210);
-    }];
+    self.headerView.x = 0;
+    self.headerView.y = 0;
+    self.headerView.width = self.mainScollview.width;
+    self.headerView.height = 210;
     [self.mainScollview addSubview:self.collectionView];
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.top.equalTo(weakself.headerView.mas_bottom);
-        make.height.mas_equalTo(94 * 3);
-    }];
-    [self.bottomTabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakself.collectionView.mas_bottom).offset(15);
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.height.mas_equalTo(86);
-    }];
-    
+    self.collectionView.x = 0;
+    self.collectionView.y = CGRectGetMaxY(self.headerView.frame);
+    self.collectionView.width = self.mainScollview.width;
+    self.collectionView.height = 94 * 3;
+    self.bottomTabel.y = CGRectGetMaxY(self.collectionView.frame) + 15;
+    self.bottomTabel.x = 0;
+    self.bottomTabel.width = self.mainScollview.width;
+    self.bottomTabel.height = 86;
+}
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
 }
 
 #pragma mark - HomeHeaderViewDelegateMethod
@@ -311,6 +306,11 @@
         _mainScollview = [[UIScrollView alloc] init];
         _mainScollview.showsVerticalScrollIndicator = NO;
         _mainScollview.backgroundColor = UIColorWithRGB(240, 240, 240);
+        if (@available(iOS 11.0, *)) {
+            _mainScollview.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
         
     }
     return _mainScollview;
@@ -431,6 +431,7 @@
         _bottomTabel.dataSource = self;
         _bottomTabel.separatorStyle = UITableViewCellSeparatorStyleNone;
         _bottomTabel.backgroundColor = [UIColor clearColor];
+        _bottomTabel.bounces = NO;
         
     }
     return _bottomTabel;

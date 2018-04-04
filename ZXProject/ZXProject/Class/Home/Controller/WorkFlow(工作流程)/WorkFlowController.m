@@ -309,6 +309,11 @@
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.dataSource = self;
         _myTableView.delegate = self;
+        if (@available(iOS 11.0, *)) {
+            _myTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
     }
     return _myTableView;
 }

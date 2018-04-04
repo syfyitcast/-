@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WorkFlowModel.h"
 @class LeaveView;
 @class FButton;
 
@@ -23,6 +24,8 @@
 @property (nonatomic, weak) id<LeaveViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *reasonTextView;
 @property (nonatomic, strong) UITextField *timeField;
+
+@property (nonatomic, strong) WorkFlowModel *model;
 
 + (instancetype)leaveView;
 
