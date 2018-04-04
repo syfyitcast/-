@@ -152,7 +152,6 @@
     [leaveView.timeField resignFirstResponder];
     switch (index) {
         case 0://点击类型按钮
-
             [self showStringPickViewWithFbtn:btn];
             break;
         case 1://选择开始时间
@@ -169,6 +168,7 @@
             break;
         case 5://保存
             [self saveData];
+            break;
         case 6://提交审核
             [self submitApprvo];
             break;
@@ -391,7 +391,7 @@
         [HttpClient zx_httpClientToSubmitDutyEventWithEventType:[self.eventIdCache objectForKey:@(self.currentIndex)]    andBeginTime:[[self.startTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEndTime:[[self.endTimeCache objectForKey:@(self.currentIndex)] longLongValue]*1000.0  andEventName:@"请假" andEventMark:view.reasonTextView.text andPhotoUrl:@"" andSubmitto:@""  andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 [MBProgressHUD showError:@"保存成功" toView:self.view];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+               [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
                 [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
             }else{
                 if (message.length != 0) {

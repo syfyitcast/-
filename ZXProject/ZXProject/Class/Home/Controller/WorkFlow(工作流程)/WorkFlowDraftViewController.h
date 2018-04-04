@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "WorkFlowModel.h"
 
-@interface WorkFlowDraftViewController : UIViewController
+@interface WorkFlowDraftViewController : BaseViewController
 
 @property (nonatomic, strong) WorkFlowModel *model;
 

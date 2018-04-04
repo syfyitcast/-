@@ -19,6 +19,7 @@
 #import "WorkFlowCell.h"
 #import "HttpClient+DutyEvents.h"
 #import "WorkFlowDetailController.h"
+#import "WorkFlowDraftViewController.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -226,7 +227,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
     if (self.currentIndex == 0) {//草稿
-        
+        WorkFlowDraftViewController *vc = [[WorkFlowDraftViewController alloc] init];
+        vc.model = self.draftModels[indexPath.row];
+        [self.navigationController pushViewController:vc animated:YES];
         return;
     }else if (self.currentIndex == 1){
         vc.model = self.unfinishedModels[indexPath.row];
@@ -305,6 +308,11 @@
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.dataSource = self;
         _myTableView.delegate = self;
+        if (@available(iOS 11.0, *)) {
+            _myTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
     }
     return _myTableView;
 }

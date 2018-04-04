@@ -29,11 +29,11 @@
 - (void)setSubView{
     if (self.model.flowtype == 1) {
         self.currentView = [LeaveView leaveView];
-    }else if(self.model.flowtype == 2){
-        self.currentView = [EvectionView evectionView];
-    }else if (self.model.flowtype == 3){
-        self.currentView = [ReimbursementView reimbursementView];
     }else if(self.model.flowtype == 4){
+        self.currentView = [EvectionView evectionView];
+    }else if (self.model.flowtype == 2){
+        self.currentView = [ReimbursementView reimbursementView];
+    }else if(self.model.flowtype == 3){
         self.currentView = [ReportView reportView];
     }
     self.currentView.frame = self.view.bounds;
