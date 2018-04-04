@@ -226,6 +226,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
     if (self.currentIndex == 0) {//草稿
+        
         return;
     }else if (self.currentIndex == 1){
         vc.model = self.unfinishedModels[indexPath.row];

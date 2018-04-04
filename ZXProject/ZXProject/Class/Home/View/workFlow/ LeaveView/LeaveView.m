@@ -36,8 +36,6 @@
 
 @implementation LeaveView
 
-
-
 + (instancetype)leaveView{
     LeaveView *view = [[NSBundle mainBundle] loadNibNamed:@"LeaveView" owner:nil options:nil].lastObject;
     return view;
@@ -136,6 +134,12 @@
 
 
 #pragma mark - setter && getter
+
+- (void)setModel:(WorkFlowModel *)model{
+    _model = model;
+    
+    
+}
 
 - (FButton *)typeBtn{
     if (_typeBtn == nil) {
