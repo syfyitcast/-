@@ -161,7 +161,7 @@
                 <outlet property="nextStepPersonLabel" destination="9Dw-bO-p4v" id="p14-ls-29Z"/>
                 <outlet property="reasonTextView" destination="aQS-JF-3Wp" id="JGY-Og-Ald"/>
             </connections>
-            <point key="canvasLocation" x="-442.5" y="-474"/>
+            <point key="canvasLocation" x="-440" y="-595"/>
         </view>
     </objects>
     <resources>

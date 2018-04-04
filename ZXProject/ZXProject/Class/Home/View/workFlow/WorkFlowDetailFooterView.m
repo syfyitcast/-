@@ -61,10 +61,6 @@
             item.width = width;
             [self.myScrollView addSubview:item];
             self.myScrollView.contentSize = CGSizeMake(CGRectGetMaxX(item.frame), 0);
-            if (self.isFnished) {
-                [item statusSelected];
-                self.myScrollView.contentOffset = CGPointMake(item.x -  2 * (width + 58.5)  , 0);
-            }
             break;
         }
         WorkFlowApprovModel *model = self.models[i];
@@ -77,7 +73,6 @@
         item.y = 0;
         item.height = height;
         item.width = width;
-        item.delegate = self;
         item.index = i;
         [self.myScrollView addSubview:item];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];

@@ -75,7 +75,6 @@
 		8C305BEF202C09AD00A843B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BEE202C09AD00A843B5 /* main.m */; };
 		8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305BF1202C09AD00A843B5 /* AppDelegate.m */; };
 		8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C305BF9202C09AD00A843B5 /* Assets.xcassets */; };
-		8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C305BFB202C09AD00A843B5 /* LaunchScreen.storyboard */; };
 		8C305C08202C09AD00A843B5 /* ZXProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305C07202C09AD00A843B5 /* ZXProjectTests.m */; };
 		8C305C13202C09AD00A843B5 /* ZXProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305C12202C09AD00A843B5 /* ZXProjectUITests.m */; };
 		8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305C35202C0FFC00A843B5 /* MainTabBarController.m */; };
@@ -280,7 +279,6 @@
 		8C305BF0202C09AD00A843B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8C305BF1202C09AD00A843B5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8C305BF9202C09AD00A843B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C305BFC202C09AD00A843B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C305BFE202C09AD00A843B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C305C03202C09AD00A843B5 /* ZXProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZXProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C305C07202C09AD00A843B5 /* ZXProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXProjectTests.m; sourceTree = "<group>"; };
@@ -682,7 +680,6 @@
 				8C305BF1202C09AD00A843B5 /* AppDelegate.m */,
 				8C305C20202C0F1400A843B5 /* Class */,
 				8C305BF9202C09AD00A843B5 /* Assets.xcassets */,
-				8C305BFB202C09AD00A843B5 /* LaunchScreen.storyboard */,
 				8C305BFE202C09AD00A843B5 /* Info.plist */,
 				8C305BED202C09AD00A843B5 /* Supporting Files */,
 			);
@@ -1265,7 +1262,6 @@
 				4932D992206CCABE0048D299 /* PersonInfoDeflutCell.xib in Resources */,
 				49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */,
 				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
-				8C305BFD202C09AD00A843B5 /* LaunchScreen.storyboard in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
 				492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */,
@@ -1501,17 +1497,6 @@
 			targetProxy = 8C305C0F202C09AD00A843B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8C305BFB202C09AD00A843B5 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8C305BFC202C09AD00A843B5 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8C305C15202C09AD00A843B5 /* Debug */ = {

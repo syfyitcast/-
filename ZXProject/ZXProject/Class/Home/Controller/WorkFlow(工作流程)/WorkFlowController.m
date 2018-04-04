@@ -19,6 +19,7 @@
 #import "WorkFlowCell.h"
 #import "HttpClient+DutyEvents.h"
 #import "WorkFlowDetailController.h"
+#import "WorkFlowDraftViewController.h"
 
 
 @interface WorkFlowController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -226,6 +227,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
     if (self.currentIndex == 0) {//草稿
+        WorkFlowModel *model = self.draftModels[indexPath.row];
+        WorkFlowDraftViewController *vc = [[WorkFlowDraftViewController alloc] init];
+        vc.model = model;
+        [self.navigationController pushViewController:vc animated:YES];
         return;
     }else if (self.currentIndex == 1){
         vc.model = self.unfinishedModels[indexPath.row];
