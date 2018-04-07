@@ -16,6 +16,7 @@
 #import "WorkTaskAddImagePickView.h"
 #import "WorkTaskAddController.h"
 #import "ProjectManager.h"
+#import "WorkTaskDetailController.h"
 
 
 @interface WorkManagerController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -155,6 +156,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    WorkTaskModel *model = nil;
+    if (self.currentype == 0) {//草稿
+       model = self.draftModels[indexPath.row];
+    }else if (self.currentype == 1){
+        model = self.unfinishedmodels[indexPath.row];
+    }else if (self.currentype == 2){
+        model = self.finishedModels[indexPath.row];
+    }else if (self.currentype == 3){
+        model = self.allModels[indexPath.row];
+    }
+    WorkTaskDetailController *vc = [[WorkTaskDetailController alloc] init];
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -189,6 +203,8 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleDelete;
 }
+
+
 
 - (void)clickAddBtn{
     WorkTaskAddController *addVc = [[WorkTaskAddController alloc] init];

@@ -12,6 +12,7 @@
 #import "UserLocationManager.h"
 #import "UIAlertAction+Attribute.h"
 #import <Masonry.h>
+#import "HttpClient+WorkTask.h"
 
 @interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -26,6 +27,24 @@
 @property (nonatomic, strong) UILabel *positionLabel;
 @property (nonatomic, strong) UIImageView *positionIcon;
 @property (nonatomic, strong) UIView *lineFour;
+@property (nonatomic, strong) UILabel *dutyRegionLabel;
+@property (nonatomic, strong) UILabel *dutyPersonLabel;
+@property (nonatomic, strong) UIView  *lineFive;
+
+@property (nonatomic, strong) UILabel *reslovPersonLabel;
+@property (nonatomic, strong) FButton *reslovBtn;
+@property (nonatomic, strong) UIView *lineSix;
+@property (nonatomic, strong) UILabel *levelLabel;
+@property (nonatomic, strong) FButton *levelBtn;
+@property (nonatomic, strong) UIView *lineSeven;
+@property (nonatomic, strong) UILabel *isvehNeedLabel;
+@property (nonatomic, strong) FButton *isvehNeedBtn;
+@property (nonatomic, strong) UIView *lineEight;
+
+@property (nonatomic, strong) FButton *saveBtn;
+@property (nonatomic, strong) FButton *submitBtn;
+
+@property (nonatomic, strong) NSDictionary *pointRegionDict;
 
 
 @end
@@ -35,7 +54,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"新增事件";
-    [self setSubViews];
+    [self setNetworkRequest];
+    
+}
+
+- (void)setNetworkRequest{
+    [HttpClient zx_httpClientToGetWorkTaskPointProjectoRgregionWithPosition:[UserLocationManager sharedUserLocationManager].position andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+           self.pointRegionDict = data[@"projectorgregion"];
+           [self setSubViews];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -62,6 +91,20 @@
     [self.view addSubview:self.positionLabel];
     [self.view addSubview:self.positionIcon];
     [self.view addSubview:self.lineFour];
+    [self.view addSubview:self.dutyRegionLabel];
+    [self.view addSubview:self.dutyPersonLabel];
+    [self.view addSubview:self.lineFive];
+//    [self.view addSubview:self.reslovBtn];
+//    [self.view addSubview:self.reslovPersonLabel];
+//    [self.view addSubview:self.lineSix];
+//    [self.view addSubview:self.levelLabel];
+//    [self.view addSubview:self.levelBtn];
+//    [self.view addSubview:self.isvehNeedLabel];
+//    [self.view addSubview:self.lineSeven];
+//    [self.view addSubview:self.lineEight];
+//    [self.view addSubview:self.isvehNeedBtn];
+    [self.view addSubview:self.submitBtn];
+    [self.view addSubview:self.saveBtn];
     [self.lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
@@ -114,6 +157,81 @@
         make.top.equalTo(weakself.positionLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
+    [self.dutyRegionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left).offset(15);
+        make.top.equalTo(weakself.lineFour.mas_bottom).offset(15);
+    }];
+    [self.dutyPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakself.view.mas_right).offset(-50);
+         make.top.equalTo(weakself.lineFour.mas_bottom).offset(15);
+    }];
+    [self.lineFive mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(weakself.dutyRegionLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+//    [self.reslovPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left).offset(15);
+//        make.top.equalTo(weakself.lineFive.mas_bottom).offset(15);
+//    }];
+//    [self.reslovBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.reslovPersonLabel.mas_right).offset(30);
+//        make.centerY.equalTo(weakself.reslovPersonLabel.mas_centerY);
+//        make.width.mas_equalTo(100);
+//        make.height.mas_equalTo(30);
+//    }];
+//    [self.lineSix mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left);
+//        make.right.equalTo(weakself.view.mas_right);
+//        make.top.equalTo(weakself.reslovPersonLabel.mas_bottom).offset(15);
+//        make.height.mas_equalTo(1);
+//    }];
+//    [self.levelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left).offset(15);
+//        make.top.equalTo(weakself.lineSix.mas_bottom).offset(15);
+//    }];
+//    [self.levelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.levelLabel.mas_right).offset(30);
+//        make.centerY.equalTo(weakself.levelLabel.mas_centerY);
+//        make.width.mas_equalTo(100);
+//        make.height.mas_equalTo(30);
+//    }];
+//    [self.lineSeven mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left);
+//        make.right.equalTo(weakself.view.mas_right);
+//        make.top.equalTo(weakself.levelLabel.mas_bottom).offset(15);
+//        make.height.mas_equalTo(1);
+//    }];
+//    [self.isvehNeedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left).offset(15);
+//        make.top.equalTo(weakself.lineSeven.mas_bottom).offset(15);
+//    }];
+//    [self.isvehNeedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.isvehNeedLabel.mas_right).offset(30);
+//        make.centerY.equalTo(weakself.isvehNeedLabel.mas_centerY);
+//        make.width.mas_equalTo(100);
+//        make.height.mas_equalTo(30);
+//    }];
+//    [self.lineEight mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(weakself.view.mas_left);
+//        make.right.equalTo(weakself.view.mas_right);
+//        make.top.equalTo(weakself.isvehNeedLabel.mas_bottom).offset(15);
+//        make.height.mas_equalTo(1);
+//    }];
+    [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left).offset(60);
+        make.top.equalTo(weakself.lineFive.mas_bottom).offset(60);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(44);
+    }];
+    [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakself.view.mas_right).offset(-60);
+        make.top.equalTo(weakself.lineFive.mas_bottom).offset(60);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(44);
+    }];
+    
 }
 
 #pragma mark - WorkTaskAddImageViewDelegateMethod
@@ -156,6 +274,12 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - ClickAction
+
+- (void)clickAction:(FButton *)btn{
+    
 }
 
 #pragma mark - setter && getter
@@ -256,5 +380,163 @@
     }
     return _lineFour;
 }
+
+- (UILabel *)dutyRegionLabel{
+    if (_dutyRegionLabel == nil) {
+        _dutyRegionLabel = [[UILabel alloc] init];
+        _dutyRegionLabel.textColor = UIColorWithFloat(79);
+        _dutyRegionLabel.font = [UIFont systemFontOfSize:15];
+        ;
+        _dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",self.pointRegionDict[@"regionname"]?self.pointRegionDict[@"regionname"]:@"清扫1班"];
+    }
+    return _dutyRegionLabel;
+}
+
+- (UILabel *)dutyPersonLabel{
+    if (_dutyPersonLabel == nil) {
+        _dutyPersonLabel = [[UILabel alloc] init];
+        _dutyPersonLabel.textColor = UIColorWithFloat(79);
+        _dutyPersonLabel.font = [UIFont systemFontOfSize:15];
+        _dutyPersonLabel.textAlignment = NSTextAlignmentRight;
+        _dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",self.pointRegionDict[@"regionname"]?self.pointRegionDict[@"employername"]:@"小王"];
+    }
+    return _dutyPersonLabel;
+}
+
+- (UIView *)lineFive{
+    if (_lineFive == nil) {
+        _lineFive = [[UIView alloc] init];
+        _lineFive.backgroundColor = UIColorWithFloat(239);
+    }
+    return _lineFive;
+}
+
+//- (UILabel *)reslovPersonLabel{
+//    if (_reslovPersonLabel == nil) {
+//        _reslovPersonLabel = [[UILabel alloc] init];
+//        _reslovPersonLabel.text = @"处理人:";
+//        _reslovPersonLabel.textColor = UIColorWithFloat(79);
+//        _reslovPersonLabel.font = [UIFont systemFontOfSize:15];
+//    }
+//    return _reslovPersonLabel;
+//}
+//
+//- (FButton *)reslovBtn{
+//    if (_reslovBtn == nil) {
+//        _reslovBtn  = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
+//        _reslovBtn.layer.borderWidth = 1;
+//        [_reslovBtn  setTitle:@"请选择" forState:UIControlStateNormal];
+//        _reslovBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
+//        _reslovBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [_reslovBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
+//        [_reslovBtn  setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+//        [_reslovBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+//        _reslovBtn.tag = 3;
+//    }
+//    return _reslovBtn ;
+//}
+//
+//- (UIView *)lineSix{
+//    if (_lineSix == nil) {
+//        _lineSix = [[UIView alloc] init];
+//        _lineSix.backgroundColor = UIColorWithFloat(239);
+//    }
+//    return _lineSix;
+//}
+
+//- (UILabel *)levelLabel{
+//    if (_levelLabel == nil) {
+//        _levelLabel = [[UILabel alloc] init];
+//        _levelLabel.text = @"紧急度:";
+//        _levelLabel.textColor = UIColorWithFloat(79);
+//        _levelLabel.font = [UIFont systemFontOfSize:15];
+//    }
+//    return _levelLabel;
+//}
+//
+//- (UIView *)lineSeven{
+//    if (_lineSeven== nil) {
+//        _lineSeven = [[UIView alloc] init];
+//        _lineSeven.backgroundColor = UIColorWithFloat(239);
+//    }
+//    return _lineSeven;
+//}
+
+- (FButton *)saveBtn{
+    if (_saveBtn == nil) {
+        _saveBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
+        [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_saveBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        _saveBtn.backgroundColor = BTNBackgroudColor;
+        _saveBtn.layer.cornerRadius = 6;
+        [_saveBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _saveBtn.tag = 5;
+    }
+    return _saveBtn;
+}
+
+- (FButton *)submitBtn{
+    if (_submitBtn == nil) {
+        _submitBtn = [FButton fbtnWithFBLayout:FBLayoutTypeTextFull andPadding:0];
+        [_submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [_submitBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        _submitBtn.backgroundColor = BTNBackgroudColor;
+        _submitBtn.layer.cornerRadius = 6;
+        [_submitBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _submitBtn.tag = 6;
+    }
+    return _submitBtn;
+}
+
+//- (FButton *)levelBtn{
+//    if (_levelBtn == nil) {
+//        _levelBtn  = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
+//        _levelBtn.layer.borderWidth = 1;
+//        [_levelBtn  setTitle:@"请选择" forState:UIControlStateNormal];
+//        _levelBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
+//        _levelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [_levelBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
+//        [_levelBtn setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+//        [_levelBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+//        _levelBtn.tag = 3;
+//    }
+//    return _levelBtn;
+//}
+//
+//- (UILabel *)isvehNeedLabel{
+//    if (_isvehNeedLabel == nil) {
+//        _isvehNeedLabel = [[UILabel alloc] init];
+//        _isvehNeedLabel.text = @"车辆需求:";
+//        _isvehNeedLabel.textColor = UIColorWithFloat(79);
+//        _isvehNeedLabel.font = [UIFont systemFontOfSize:15];
+//    }
+//    return _isvehNeedLabel;
+//}
+//
+//- (FButton *)isvehNeedBtn{
+//    if (_isvehNeedBtn == nil) {
+//        _isvehNeedBtn = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
+//        _isvehNeedBtn.layer.borderWidth = 1;
+//        [_isvehNeedBtn  setTitle:@"请选择" forState:UIControlStateNormal];
+//        _isvehNeedBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
+//        _isvehNeedBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [_isvehNeedBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
+//        [_isvehNeedBtn setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+//        [_isvehNeedBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+//        _isvehNeedBtn.tag = 3;
+//    }
+//    return _isvehNeedBtn;
+//}
+
+- (UIView *)lineEight{
+    if (_lineEight == nil) {
+        _lineEight = [[UIView alloc] init];
+        _lineEight.backgroundColor = UIColorWithFloat(239);
+    }
+    return _lineEight;
+}
+
+
+
 
 @end

@@ -129,6 +129,12 @@
 		8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */; };
 		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
 		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
+		8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */; };
+		8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FB520773B6800EC676D /* AttenceCheckView.m */; };
+		8C823FB820773B8400EC676D /* AttenceCheckView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C823FB720773B8400EC676D /* AttenceCheckView.xib */; };
+		8C823FBE20774CE300EC676D /* AttenceRecoderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FBD20774CE300EC676D /* AttenceRecoderController.m */; };
+		8C823FC120775BA800EC676D /* AttenceRecoderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FC020775BA800EC676D /* AttenceRecoderView.m */; };
+		8C823FC42078C27600EC676D /* HttpClient+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FC32078C27600EC676D /* HttpClient+Common.m */; };
 		8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */; };
 		8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA11DBB20595BB500BC14C5 /* MBProgressHUD+PKX.m */; };
 		8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB14587203918A7003E94D4 /* MainTabBar.m */; };
@@ -390,6 +396,17 @@
 		8C5102FF2047E3E500F0E40D /* AttenceDKController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceDKController.m; sourceTree = "<group>"; };
 		8C5103012048DDF000F0E40D /* SettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewCell.h; sourceTree = "<group>"; };
 		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
+		8C823FAD2075C45A00EC676D /* HttpClient+WorkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+WorkTask.h"; sourceTree = "<group>"; };
+		8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+WorkTask.m"; sourceTree = "<group>"; };
+		8C823FB420773B6800EC676D /* AttenceCheckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceCheckView.h; sourceTree = "<group>"; };
+		8C823FB520773B6800EC676D /* AttenceCheckView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceCheckView.m; sourceTree = "<group>"; };
+		8C823FB720773B8400EC676D /* AttenceCheckView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AttenceCheckView.xib; sourceTree = "<group>"; };
+		8C823FBC20774CE300EC676D /* AttenceRecoderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceRecoderController.h; sourceTree = "<group>"; };
+		8C823FBD20774CE300EC676D /* AttenceRecoderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceRecoderController.m; sourceTree = "<group>"; };
+		8C823FBF20775BA800EC676D /* AttenceRecoderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceRecoderView.h; sourceTree = "<group>"; };
+		8C823FC020775BA800EC676D /* AttenceRecoderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceRecoderView.m; sourceTree = "<group>"; };
+		8C823FC22078C27600EC676D /* HttpClient+Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+Common.h"; sourceTree = "<group>"; };
+		8C823FC32078C27600EC676D /* HttpClient+Common.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+Common.m"; sourceTree = "<group>"; };
 		8CA11DB520525E7300BC14C5 /* WorkTaskDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskDetailController.h; sourceTree = "<group>"; };
 		8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskDetailController.m; sourceTree = "<group>"; };
 		8CA11DBA20595BB500BC14C5 /* MBProgressHUD+PKX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+PKX.h"; sourceTree = "<group>"; };
@@ -808,6 +825,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8C823FB320773B4100EC676D /* Attence */,
 				49EC0DD22063650F002CE92C /* Events */,
 				49EC0D7C206109E1002CE92C /* workFlow */,
 				49EC0D6D205B9B22002CE92C /* ProjectReviewCell */,
@@ -824,12 +842,6 @@
 				8C5102B32042E37900F0E40D /* HomeRightTableViewCell.m */,
 				8C5102B82042EC7700F0E40D /* HomeBottomTableViewCell.h */,
 				8C5102B92042EC7700F0E40D /* HomeBottomTableViewCell.m */,
-				8C5102E1204671F400F0E40D /* AttenceHeaderView.h */,
-				8C5102E2204671F400F0E40D /* AttenceHeaderView.m */,
-				8C5102E42046723B00F0E40D /* AttenceHeaderView.xib */,
-				8C5102E6204682B100F0E40D /* AttenceTimeView.h */,
-				8C5102E7204682B100F0E40D /* AttenceTimeView.m */,
-				8C5102E92046832200F0E40D /* AttenceTimeView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -957,10 +969,14 @@
 				8C33C2A92031700400B93F6E /* XMNetworking */,
 				8C33C2D1203170BD00B93F6E /* HttpClient.h */,
 				8C33C2D2203170BD00B93F6E /* HttpClient.m */,
+				8C823FC22078C27600EC676D /* HttpClient+Common.h */,
+				8C823FC32078C27600EC676D /* HttpClient+Common.m */,
 				49EC0DDB20648A69002CE92C /* HttpClient+DutyEvents.h */,
 				49EC0DDC20648A69002CE92C /* HttpClient+DutyEvents.m */,
 				4932D987206B85DA0048D299 /* HttpClient+UploadFile.h */,
 				4932D988206B85DA0048D299 /* HttpClient+UploadFile.m */,
+				8C823FAD2075C45A00EC676D /* HttpClient+WorkTask.h */,
+				8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1070,6 +1086,8 @@
 				8C5102DC20443EC000F0E40D /* AttendanceController.m */,
 				8C5102FE2047E3E500F0E40D /* AttenceDKController.h */,
 				8C5102FF2047E3E500F0E40D /* AttenceDKController.m */,
+				8C823FBC20774CE300EC676D /* AttenceRecoderController.h */,
+				8C823FBD20774CE300EC676D /* AttenceRecoderController.m */,
 			);
 			path = "Attendance(考勤打卡)";
 			sourceTree = "<group>";
@@ -1087,6 +1105,24 @@
 				8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */,
 			);
 			path = FrameWork;
+			sourceTree = "<group>";
+		};
+		8C823FB320773B4100EC676D /* Attence */ = {
+			isa = PBXGroup;
+			children = (
+				8C5102E1204671F400F0E40D /* AttenceHeaderView.h */,
+				8C5102E2204671F400F0E40D /* AttenceHeaderView.m */,
+				8C5102E42046723B00F0E40D /* AttenceHeaderView.xib */,
+				8C5102E6204682B100F0E40D /* AttenceTimeView.h */,
+				8C5102E7204682B100F0E40D /* AttenceTimeView.m */,
+				8C5102E92046832200F0E40D /* AttenceTimeView.xib */,
+				8C823FB420773B6800EC676D /* AttenceCheckView.h */,
+				8C823FB520773B6800EC676D /* AttenceCheckView.m */,
+				8C823FB720773B8400EC676D /* AttenceCheckView.xib */,
+				8C823FBF20775BA800EC676D /* AttenceRecoderView.h */,
+				8C823FC020775BA800EC676D /* AttenceRecoderView.m */,
+			);
+			path = Attence;
 			sourceTree = "<group>";
 		};
 		8CA11DB820595BB500BC14C5 /* Resource */ = {
@@ -1261,6 +1297,7 @@
 			files = (
 				4932D992206CCABE0048D299 /* PersonInfoDeflutCell.xib in Resources */,
 				49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */,
+				8C823FB820773B8400EC676D /* AttenceCheckView.xib in Resources */,
 				8C04521E204920CA0067F10E /* LeaveView.xib in Resources */,
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
@@ -1323,10 +1360,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-ZXProject/Pods-ZXProject-resources.sh",
+				"${PODS_ROOT}/AMap2DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1406,10 +1445,12 @@
 				49EC0E022064A7A7002CE92C /* NSDate+CGXPicker.m in Sources */,
 				8CB1459020391BF9003E94D4 /* UIView+Layout.m in Sources */,
 				8C04521B204913FC0067F10E /* LeaveView.m in Sources */,
+				8C823FC120775BA800EC676D /* AttenceRecoderView.m in Sources */,
 				8C33C2C42031700400B93F6E /* XMCenter.m in Sources */,
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
+				8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */,
 				4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */,
 				8C33C2C82031700400B93F6E /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */,
@@ -1424,6 +1465,7 @@
 				8C5102AE204282C900F0E40D /* NSString+boundSize.m in Sources */,
 				49EC0DE0206495AA002CE92C /* ZXDatePickerView.m in Sources */,
 				8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */,
+				8C823FC42078C27600EC676D /* HttpClient+Common.m in Sources */,
 				8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */,
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
 				49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */,
@@ -1460,9 +1502,11 @@
 				8C33C2CD2031700400B93F6E /* AFURLSessionManager.m in Sources */,
 				8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */,
 				8C33C2D92031857400B93F6E /* Tool+MD5.m in Sources */,
+				8C823FBE20774CE300EC676D /* AttenceRecoderController.m in Sources */,
 				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
 				49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
+				8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */,
 				492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1595,7 +1639,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 395607529@qq.com (N3BEQP9D2C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THPFNYW7A3;
@@ -1620,7 +1664,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 395607529@qq.com (N3BEQP9D2C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THPFNYW7A3;

@@ -10,10 +10,19 @@
 
 @interface ZXCalendarManager : NSObject
 
+
 - (NSArray *)zx_CalendarItemsWithDate:(NSDate *)date;
 
 - (NSArray *)nextMonthDataArr;
 
-- (NSArray *)lastMonthDataArr ;
+- (NSArray *)lastMonthDataArr;
+
+- (NSDate *)nextDate;
+
+- (NSDate *)preDate;
+
+- (NSTimeInterval)dayBeginTimeWithDay:(NSInteger)day;
+
+- (NSTimeInterval)dayEndTimeWithDay:(NSInteger)day;
 
 @end

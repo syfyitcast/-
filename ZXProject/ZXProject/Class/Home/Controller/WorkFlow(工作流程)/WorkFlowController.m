@@ -229,7 +229,7 @@
     if (self.currentIndex == 0) {//草稿
         WorkFlowModel *model = self.draftModels[indexPath.row];
         WorkFlowDraftViewController *vc = [[WorkFlowDraftViewController alloc] init];
-        vc.model = model;
+        vc.model = self.draftModels[indexPath.row];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }else if (self.currentIndex == 1){

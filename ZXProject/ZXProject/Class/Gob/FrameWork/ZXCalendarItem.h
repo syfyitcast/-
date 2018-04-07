@@ -21,7 +21,9 @@ typedef enum {
 @interface ZXCalendarItem : NSObject
 
 @property (nonatomic, assign) ZXCalendarItemType type;//打卡类型
+@property (nonatomic, assign) int isSelected;//被选中
 @property (nonatomic, copy)   NSString *time;//日期
+@property (nonatomic, assign) NSInteger day;
 
 + (instancetype)zx_CalendarItemWithTime:(NSString *)time  andType:(ZXCalendarItemType)type;
 

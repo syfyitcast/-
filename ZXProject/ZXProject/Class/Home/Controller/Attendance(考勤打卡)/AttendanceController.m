@@ -16,19 +16,24 @@
 #import "HttpClient+DutyEvents.h"
 #import "AttDutySettingModel.h"
 #import "UserLocationManager.h"
+#import "AttDutyCheckModel.h"
+#import "AttenceCheckView.h"
+#import "AttenceRecoderController.h"
+#import "HttpClient+UploadFile.h"
 
-@interface AttendanceController ()
+@interface AttendanceController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) AttenceHeaderView *headerView;
 @property (nonatomic, strong) FButton *workBtn;
 @property (nonatomic, strong) FButton *offBtn;
 @property (nonatomic, strong) UIView *oneLineView;
-@property (nonatomic, strong) AttenceTimeView *timeView;
-@property (nonatomic, strong) AttenceTimeView *twoTimeView;
-@property (nonatomic, strong) UIView *twoLineView;
-@property (nonatomic, strong) UIView *threeLineView;
+
+@property (nonatomic, assign) int clickTag;
+
+@property (nonatomic, strong) UITableView *recoderTable;
 
 @property (nonatomic, strong) NSArray *attDutySettingModels;
+@property (nonatomic, strong) NSArray *attDutyCheckModels;
 
 @end
 
@@ -37,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"考勤打卡";
+    self.clickTag = -1;
     [self setNetworkRequest];
 }
 
@@ -69,7 +75,10 @@
         NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
         [HttpClient zx_httpClientToQueryProjectDutyWithBeginTime:[startDate timeIntervalSince1970] * 1000.0 andEndTime:[endDate timeIntervalSince1970] * 1000.0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                
+                NSArray *datas = data[@"dutystatis"];
+                self.attDutyCheckModels = [AttDutyCheckModel attdutyCheckModelsWithSource_arr:datas];
+                AttDutyCheckModel *model = self.attDutyCheckModels.lastObject;
+                NSLog(@"model.SettingName = %@",model.settingname);
             }
             dispatch_group_leave(group);
         }];
@@ -80,8 +89,6 @@
         ZXHIDE_LOADING;
         [self setUpSubViews];
     });
-    
-   
 }
 
 - (void)setUpSubViews{
@@ -109,10 +116,7 @@
     [self.view addSubview:self.workBtn];
     [self.view addSubview:self.offBtn];
     [self.view addSubview:self.oneLineView];
-    [self.view addSubview:self.timeView];
-    [self.view addSubview:self.twoLineView];
-    [self.view addSubview:self.twoTimeView];
-    [self.view addSubview:self.threeLineView];
+    [self.view addSubview:self.recoderTable];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
@@ -137,54 +141,136 @@
         make.top.equalTo(weakself.workBtn.mas_bottom).offset(20);
         make.height.mas_equalTo(1);
     }];
-    [self.timeView mas_makeConstraints:^(MASConstraintMaker *make) {
+    CGFloat tableHeight = self.attDutyCheckModels.count * 70;
+    if (tableHeight > 210) {
+        tableHeight = 210;
+    }
+    [self.recoderTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.top.equalTo(weakself.oneLineView.mas_bottom);
-        make.height.mas_equalTo(100);
+        make.height.mas_equalTo(tableHeight);
     }];
-    [self.twoLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.top.equalTo(weakself.timeView.mas_bottom);
-        make.height.mas_equalTo(1);
-    }];
-    [self.twoTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.top.equalTo(weakself.twoLineView.mas_bottom);
-        make.height.mas_equalTo(100);
-    }];
-    [self.threeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.view.mas_left);
-        make.right.equalTo(weakself.view.mas_right);
-        make.top.equalTo(weakself.twoTimeView.mas_bottom);
-        make.height.mas_equalTo(1);
+}
+
+- (void)refreshCheckData{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *now = [NSDate date];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+    NSDate *startDate = [calendar dateFromComponents:components];
+    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+    [HttpClient zx_httpClientToQueryProjectDutyWithBeginTime:[startDate timeIntervalSince1970] * 1000.0 andEndTime:[endDate timeIntervalSince1970] * 1000.0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"dutystatis"];
+            self.attDutyCheckModels = [AttDutyCheckModel attdutyCheckModelsWithSource_arr:datas];
+            [self.recoderTable reloadData];
+        }else{
+            if (message.length != 0) {
+                [MBProgressHUD showError:message toView:self.view];
+            }
+        }
     }];
 }
 
 - (void)clickDutyBtn:(UIButton *)btn{
-    ZXSHOW_LOADING(self.view, @"获取位置中...");
-    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
-        NSString *state=[addressDic objectForKey:@"State"];
-        NSString *city=[addressDic objectForKey:@"City"];
-        NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
-        NSString *street=[addressDic objectForKey:@"Street"];
-        NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
-        [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            ZXHIDE_LOADING;
-            if (code == 0) {
-                [MBProgressHUD showError:@"打卡成功" toView:self.view];
-            }else{
-                if (message.length != 0) {
-                    [MBProgressHUD showError:message toView:self.view];
-                }else{
-                    [MBProgressHUD showError:@"请求出错" toView:self.view];
-                }
-            }
-        }];
+    //是否上传照片;
+    self.clickTag = (int)btn.tag;
+    UIAlertController *alterController = [UIAlertController alertControllerWithTitle:@"拍照" message:@"是否上传照片" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *alterAction_0 = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
+            pickVc.delegate = self;
+            pickVc.sourceType =  UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
     }];
-   
+    UIAlertAction *alterAction_1 = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ZXSHOW_LOADING(self.view, @"获取位置中...");
+        [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+            NSString *state=[addressDic objectForKey:@"State"];
+            NSString *city=[addressDic objectForKey:@"City"];
+            NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+            NSString *street=[addressDic objectForKey:@"Street"];
+            NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
+            [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING;
+                if (code == 0) {
+                    [MBProgressHUD showError:@"打卡成功" toView:self.view];
+                    [self refreshCheckData];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message toView:self.view];
+                    }else{
+                        [MBProgressHUD showError:@"请求出错" toView:self.view];
+                    }
+                }
+            }];
+        }];
+        
+    }];
+    [alterController addAction:alterAction_0];
+    [alterController addAction:alterAction_1];
+    [self presentViewController:alterController animated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSData *data =  UIImageJPEGRepresentation(image, 1);
+    ZXSHOW_LOADING(self.view, @"上传照片...");
+    [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        ZXHIDE_LOADING;
+        if (code == 0) {
+            NSDictionary *dict = (NSDictionary *)data;
+            NSString *url = dict[@"url"];
+            ZXSHOW_LOADING(self.view, @"获取位置中...");
+            [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+                NSString *state=[addressDic objectForKey:@"State"];
+                NSString *city=[addressDic objectForKey:@"City"];
+                NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+                NSString *street=[addressDic objectForKey:@"Street"];
+                NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
+                [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",self.clickTag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:url andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    ZXHIDE_LOADING;
+                    if (code == 0) {
+                        [MBProgressHUD showError:@"打卡成功" toView:self.view];
+                        [self refreshCheckData];
+                    }else{
+                        if (message.length != 0) {
+                            [MBProgressHUD showError:message toView:self.view];
+                        }else{
+                            [MBProgressHUD showError:@"请求出错" toView:self.view];
+                        }
+                    }
+                }];
+            }];
+        }
+    }];
+}
+
+
+#pragma mark - UITableViewDelegate && DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.attDutyCheckModels.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    AttenceCheckView *cell = [AttenceCheckView attenceCheckCellWithTableView:tableView];
+    cell.model = self.attDutyCheckModels[self.attDutyCheckModels.count -  indexPath.row - 1];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 70;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AttenceRecoderController *vc = [[AttenceRecoderController alloc] init];
+    vc.model = self.attDutyCheckModels[self.attDutyCheckModels.count -  indexPath.row - 1];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - setter && getter
@@ -231,40 +317,21 @@
 - (UIView *)oneLineView{
     if (_oneLineView == nil) {
         _oneLineView = [[UIView alloc] init];
-        _oneLineView.backgroundColor = UIColorWithRGB(215, 215, 215);
+        _oneLineView.backgroundColor = UIColorWithRGB(239, 239, 239);
     }
     return _oneLineView;
 }
 
-- (AttenceTimeView *)timeView{
-    if (_timeView == nil) {
-        _timeView = [AttenceTimeView attenceTimeView];
+- (UITableView *)recoderTable{
+    if (_recoderTable == nil) {
+        _recoderTable = [[UITableView alloc] init];
+        _recoderTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _recoderTable.backgroundColor = WhiteColor;
+        _recoderTable.delegate = self;
+        _recoderTable.dataSource = self;
     }
-    return _timeView;
+    return _recoderTable;
 }
 
-- (AttenceTimeView *)twoTimeView{
-    if (_twoTimeView == nil) {
-        _twoTimeView = [AttenceTimeView attenceTimeView];
-        [_twoTimeView setType:@"中班"];
-    }
-    return _twoTimeView;
-}
-
-- (UIView *)twoLineView{
-    if (_twoLineView == nil) {
-        _twoLineView = [[UIView alloc] init];
-        _twoLineView.backgroundColor = UIColorWithRGB(215, 215, 215);
-    }
-    return _twoLineView;
-}
-
-- (UIView *)threeLineView{
-    if (_threeLineView == nil) {
-        _threeLineView = [[UIView alloc] init];
-        _threeLineView.backgroundColor =  UIColorWithRGB(215, 215, 215);
-    }
-    return _threeLineView;
-}
 
 @end

@@ -22,6 +22,7 @@
 
 @implementation ZXCalendarManager
 
+
 - (NSArray *)zx_CalendarItemsWithDate:(NSDate *)date{
     return [self setDayArrWithDate:date];
 }
@@ -50,8 +51,15 @@
     //上个月遗留的天数
     for (NSInteger i = lastdayRange.length - components.weekday + 2; i <= lastdayRange.length; i++) {
         NSString * string = [NSString stringWithFormat:@"%zd",i];
-        ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:ZXCalendarItemTypePreMothRight];
-        [self.dayArray addObject:item];
+        if (components.weekday == 1) {
+            ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:ZXCalendarItemTypeNextMoth];
+            item.day = i;
+            [self.dayArray addObject:item];
+        }else{
+            ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:ZXCalendarItemTypeNone];
+            item.day = i;
+            [self.dayArray addObject:item];
+        }
     }
     //本月的总天数
     for (NSInteger i = 1; i <= dayRange.length ; i++) {
@@ -59,27 +67,34 @@
         NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%zd",_year,_month,i]];
         NSDateComponents * components = [_calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:date];
         if (components.weekday == 1 || components.weekday == 7) {
-            type = ZXCalendarItemTypePreMothRight;
+            type = ZXCalendarItemTypeNextMoth;
             if (i > _day) {
                 type = ZXCalendarItemTypeNextMoth;
             }
         }else{
-            type = ZXCalendarItemTypeRight;
+            type = ZXCalendarItemTypeNone;
             if (i > _day) {
                 type = ZXCalendarItemTypeNone;
             }
         }
-        if (_day == i && nowDate.timeIntervalSince1970 == [NSDate date].timeIntervalSince1970) {
-            type = ZXCalendarItemTypeToday;
-        }
+      
         NSString * string = [NSString stringWithFormat:@"%zd",i];
         ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:type];
+        item.day = i;
+        NSDateComponents *nowCompoents = [self.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
+        long year = nowCompoents.year;
+        long month = nowCompoents.month;
+        long day = nowCompoents.day;
+        if (self.year == year && self.month == month && i == day) {
+            item.isSelected = YES;
+        }
         [self.dayArray addObject:item];
     }
     //下个月空出的天数
     for (NSInteger i = 1; i <= (7 - lastDay.weekday); i++) {
         NSString * string = [NSString stringWithFormat:@"%zd",i];
-        ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:ZXCalendarItemTypeNone];
+        ZXCalendarItem *item = [ZXCalendarItem zx_CalendarItemWithTime:string andType:ZXCalendarItemTypeNextMoth];
+        item.day = i;
         [self.dayArray addObject:item];
     }
     NSArray *weekDesItems = @[@"日",@"一",@"二",@"三",@"四",@"五",@"六"];
@@ -95,6 +110,9 @@
         }
     }
     [tem_ar addObjectsFromArray:self.dayArray];
+    for (ZXCalendarItem *item in self.dayArray) {
+        NSLog(@"itemType = %zd",item.type);
+    }
     
     return tem_ar.mutableCopy;
 }
@@ -140,6 +158,39 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate * nowDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",_year,_month,_day]];
     return [self setDayArrWithDate:nowDate];
+}
+
+- (NSDate *)nextDate{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate * nowDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",_year,_month,_day]];
+    return nowDate;
+}
+
+- (NSDate *)preDate{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate * nowDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",_year,_month,_day]];
+    return nowDate;
+}
+
+- (NSTimeInterval)dayBeginTimeWithDay:(NSInteger)day{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate * nowDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",_year,_month,day]];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:nowDate];
+    return  [[calendar dateFromComponents:components] timeIntervalSince1970] * 1000.0;
+}
+
+- (NSTimeInterval)dayEndTimeWithDay:(NSInteger)day{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate * nowDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",_year,_month,day]];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:nowDate];
+    NSDate *startDate = [calendar dateFromComponents:components];
+    return  [[calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0] timeIntervalSince1970] * 1000.0;
 }
 
 @end

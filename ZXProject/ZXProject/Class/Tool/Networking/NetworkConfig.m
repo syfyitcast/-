@@ -49,6 +49,10 @@ NSString *const API_QUERYREPORT    = @"getreportevent";//查询呈报事件
 NSString *const API_COMFIRMFLOWTASK = @"confirmflowtask";//流程任务确认
 NSString *const API_DELETEFLOWEVENT = @"deleteflowevent";//删除流程任务
 
+#pragma mark --------------------------------------------------------------  环卫作业
+
+NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所在的环卫作业区域
+
 
 @implementation NetworkConfig
 
@@ -67,7 +71,7 @@ NSString *const API_DELETEFLOWEVENT = @"deleteflowevent";//删除流程任务
         self.snid = @"";
         self.apiuser = @"appapi";
         self.accountid = @"";
-        self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude];
+        self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude];
         self.ipUrl = @"http://113.247.222.45:9080";
 #if DEBUG
         self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
@@ -127,7 +131,7 @@ NSString *const API_DELETEFLOWEVENT = @"deleteflowevent";//删除流程任务
 }
 
 - (NSString *)position{
-    return [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude];
+    return [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude];
 }
 
 - (NSString *)accountid{

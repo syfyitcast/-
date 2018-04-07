@@ -16,6 +16,10 @@
 #import "ProjectManager.h"
 #import "ProjectModel.h"
 #import "UserManager.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+
+
 
 @interface AppDelegate ()
 
@@ -25,6 +29,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setHttpConfig];
+    [self setGDConfig];
     [[UserLocationManager sharedUserLocationManager] getUserLocation];
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
@@ -42,6 +47,16 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   
+}
+
+- (void)setGDConfig{
+     [AMapServices sharedServices].enableHTTPS = YES;
+#if DEBUG
+    [AMapServices sharedServices].apiKey = @"4a182c369c7a754ec5210242e87facb8";
+#else
+    [AMapServices sharedServices].apiKey =@"0a1e3ab46c09358f7bb3d9de638a8228";
+#endif
+   
 }
 
 - (void)setHttpConfig{

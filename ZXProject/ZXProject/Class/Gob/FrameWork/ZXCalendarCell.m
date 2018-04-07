@@ -33,7 +33,7 @@
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left);
         make.right.equalTo(weakself.mas_right);
-        make.top.equalTo(weakself.mas_top);
+        make.centerY.equalTo(weakself.mas_centerY);
         make.height.mas_equalTo(20);
     }];
 }
@@ -51,28 +51,22 @@
             break;
         case ZXCalendarItemTypePreMothRight:
             self.timeLabel.textColor = UIColorWithRGB(175, 175, 175);
-            self.typeImageView.image = [UIImage imageNamed:@"attenceRight"];
+//            self.typeImageView.image = [UIImage imageNamed:@"attenceRight"];
             size = CGSizeMake(15, 11);
             break;
         case ZXCalendarItemTypeRight:
             self.timeLabel.textColor = UIColorWithRGB(49, 49, 49);
-            self.typeImageView.image = [UIImage imageNamed:@"attenceRight"];
+//            self.typeImageView.image = [UIImage imageNamed:@"attenceRight"];
             size = CGSizeMake(15, 11);
-            break;
-        case ZXCalendarItemTypeToday:
-            self.timeLabel.textColor = UIColorWithRGB(49, 49, 49);
-            self.typeImageView.image = [UIImage imageNamed:@"attenceRight"];
-            size = CGSizeMake(15, 11);
-            self.backgroundColor = UIColorWithRGB(207, 246, 192);
             break;
         case ZXCalendarItemTypeWrong:
             self.timeLabel.textColor = UIColorWithRGB(49, 49, 49);
-            self.typeImageView.image = [UIImage imageNamed:@"attenceWrong"];
+//            self.typeImageView.image = [UIImage imageNamed:@"attenceWrong"];
             size = CGSizeMake(15, 15);
             break;
         case ZXCalendarItemTypePreMothWrong:
             self.timeLabel.textColor = UIColorWithRGB(175, 175, 175);
-            self.typeImageView.image = [UIImage imageNamed:@"attenceWrong"];
+//            self.typeImageView.image = [UIImage imageNamed:@"attenceWrong"];
             size = CGSizeMake(15, 15);
             break;
         case ZXCalendarItemTypeNextMoth:
@@ -81,6 +75,13 @@
             break;
         default:
             break;
+    }
+    if (item.isSelected) {
+        self.backgroundColor = UIColorWithRGB(203, 243, 170);
+        self.layer.cornerRadius = self.width * 0.5;
+    }else{
+        self.backgroundColor = [UIColor whiteColor];
+        self.layer.cornerRadius = 0;
     }
     __weak typeof(self) weakself = self;
     [self.typeImageView mas_makeConstraints:^(MASConstraintMaker *make) {

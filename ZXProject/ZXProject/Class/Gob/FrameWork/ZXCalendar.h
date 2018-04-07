@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ZXCalendarDelegate<NSObject>
+
+@optional
+
+- (void)calendarDelegateMethodWithStartTime:(long)startTime andEndTime:(long)endTime;
+
+@end
+
 @interface ZXCalendar : UIView
 
+
+@property (nonatomic, weak) id <ZXCalendarDelegate>delegate;
 
 
 + (instancetype)zx_CalendarWithFrame:(CGRect)frame;
