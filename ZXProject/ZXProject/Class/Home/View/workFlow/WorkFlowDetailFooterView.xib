@@ -12,8 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WorkFlowDetailFooterView">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="approFlowRect" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-jO-Uga">
                     <rect key="frame" x="15" y="15" width="14" height="16"/>
@@ -42,35 +42,35 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYG-ep-LJf">
-                    <rect key="frame" x="0.0" y="47" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="47" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="eq8-6B-pUL"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNd-pJ-dMY">
-                    <rect key="frame" x="0.0" y="148" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="148" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="2t2-Yd-qDt"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrz-YR-3yc">
-                    <rect key="frame" x="0.0" y="196" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="196" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="28G-VL-vKT"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-pa-kB4">
-                    <rect key="frame" x="0.0" y="245" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="245" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="6qT-Js-qlU"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDh-zL-yv8">
-                    <rect key="frame" x="0.0" y="346" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="346" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="edc-hP-JmF"/>
@@ -83,13 +83,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未审批" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynU-vZ-p9R">
-                    <rect key="frame" x="338" y="211.5" width="46" height="18"/>
+                    <rect key="frame" x="299" y="211.5" width="46" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="审批状态:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Nk-rl-F4v">
-                    <rect key="frame" x="242.5" y="211.5" width="65.5" height="18"/>
+                    <rect key="frame" x="203.5" y="211.5" width="65.5" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -101,7 +101,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="审批意见" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cuz-So-rYo">
-                    <rect key="frame" x="15" y="256" width="384" height="80"/>
+                    <rect key="frame" x="15" y="256" width="345" height="80"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="Djq-mz-RVa"/>
@@ -129,14 +129,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2T-ZY-oaq">
-                    <rect key="frame" x="0.0" y="394.5" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="394.5" width="375" height="1"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="CjM-Xc-vQ6"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VE3-vL-fHY">
-                    <rect key="frame" x="0.0" y="48" width="414" height="100"/>
+                    <rect key="frame" x="0.0" y="48" width="375" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="OJQ-ia-Cyx"/>
                     </constraints>

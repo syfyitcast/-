@@ -51,6 +51,7 @@ extern NSString *const API_COMFIRMFLOWTASK;//流程任务确认
 extern NSString *const API_DELETEFLOWEVENT;//删除流程任务
 
 extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业区域
+extern NSString *const API_GETPROJECTREGIONLIST;//获取项目作业区域列表
 
 
 @interface NetworkConfig : NSObject
@@ -58,7 +59,6 @@ extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业�
 @property (nonatomic, copy) NSString *ipUrl;
 
 @property (nonatomic, copy) NSString *baseUrl;
-@property (nonatomic, strong) NSMutableDictionary *publicParamters; //公共参数
 @property (nonatomic, copy) NSString *apiuser;//用户id
 @property (nonatomic, copy) NSString *snid;//流水id
 @property (nonatomic, copy) NSString *accountid;//账号id
@@ -77,8 +77,8 @@ extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业�
 
 + (NSString *)api:(NSString *)apiIdentifier;
 
-+ (void)networkConfigTokenWithMethodName:(NSString *)methodName;
++ (NSMutableDictionary *)networkConfigTokenWithMethodName:(NSString *)methodName;
 
-+ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl;
++ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl withDict:(NSDictionary *)dict;
 
 @end

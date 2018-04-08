@@ -43,8 +43,8 @@
 
 - (void)setSubViews{
     self.mainScrollView.frame = self.view.bounds;
-    [self.mainScrollView addSubview:self.mainScrollView];
-    [self.mainScrollView  addSubview:self.pickView];
+    [self.view addSubview:self.mainScrollView];
+    [self.mainScrollView addSubview:self.pickView];
     [self.mainScrollView addSubview:self.lineOne];
     [self.mainScrollView addSubview:self.desLabel];
     [self.mainScrollView addSubview:self.textView];

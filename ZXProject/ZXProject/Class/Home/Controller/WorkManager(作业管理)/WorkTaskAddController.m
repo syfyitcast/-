@@ -13,6 +13,7 @@
 #import "UIAlertAction+Attribute.h"
 #import <Masonry.h>
 #import "HttpClient+WorkTask.h"
+#import "WorkTaskDetailModel.h"
 
 @interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -44,7 +45,7 @@
 @property (nonatomic, strong) FButton *saveBtn;
 @property (nonatomic, strong) FButton *submitBtn;
 
-@property (nonatomic, strong) NSDictionary *pointRegionDict;
+@property (nonatomic, strong) NSArray *projectRegions;
 
 
 @end
@@ -59,23 +60,28 @@
 }
 
 - (void)setNetworkRequest{
-    [HttpClient zx_httpClientToGetWorkTaskPointProjectoRgregionWithPosition:[UserLocationManager sharedUserLocationManager].position andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+    [HttpClient zx_httpClientToGetProjectRegionListWithSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 0) {
-           self.pointRegionDict = data[@"projectorgregion"];
-           [self setSubViews];
+            NSArray *datas = data[@"projectorgregion"];
+            self.projectRegions = [WorkTaskDetailModel workTaskDetailModelsWithSource_arr:datas];
+            [self setSubViews];
         }
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
-        NSString *state=[addressDic objectForKey:@"State"];
-        NSString *city=[addressDic objectForKey:@"City"];
-        NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
-        NSString *street=[addressDic objectForKey:@"Street"];
-        self.positionLabel.text = [NSString stringWithFormat:@"位置:  %@%@%@%@",state,city, subLocality, street];
-    }];
+    if ([UserLocationManager sharedUserLocationManager].positionAdress != nil) {
+        self.positionLabel.text = [NSString stringWithFormat:@"位置:%@",[UserLocationManager sharedUserLocationManager].positionAdress];
+    }else{
+        [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+            NSString *state=[addressDic objectForKey:@"State"];
+            NSString *city=[addressDic objectForKey:@"City"];
+            NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+            NSString *street=[addressDic objectForKey:@"Street"];
+            self.positionLabel.text = [NSString stringWithFormat:@"位置:%@%@%@%@",state,city, subLocality, street];
+        }];
+    }
 }
 
 - (void)setSubViews{
@@ -94,13 +100,13 @@
     [self.view addSubview:self.dutyRegionLabel];
     [self.view addSubview:self.dutyPersonLabel];
     [self.view addSubview:self.lineFive];
-//    [self.view addSubview:self.reslovBtn];
-//    [self.view addSubview:self.reslovPersonLabel];
-//    [self.view addSubview:self.lineSix];
+    [self.view addSubview:self.reslovBtn];
+    [self.view addSubview:self.reslovPersonLabel];
+    [self.view addSubview:self.lineSix];
 //    [self.view addSubview:self.levelLabel];
 //    [self.view addSubview:self.levelBtn];
 //    [self.view addSubview:self.isvehNeedLabel];
-//    [self.view addSubview:self.lineSeven];
+     [self.view addSubview:self.lineSeven];
 //    [self.view addSubview:self.lineEight];
 //    [self.view addSubview:self.isvehNeedBtn];
     [self.view addSubview:self.submitBtn];
@@ -146,6 +152,7 @@
     [self.positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(15);
         make.top.equalTo(weakself.lineThree.mas_bottom).offset(15);
+        make.right.equalTo(weakself.view.mas_right).offset(-25);
     }];
     [self.positionIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.positionLabel.mas_right).offset(5);
@@ -157,36 +164,36 @@
         make.top.equalTo(weakself.positionLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
-    [self.dutyRegionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.reslovPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(15);
         make.top.equalTo(weakself.lineFour.mas_bottom).offset(15);
     }];
-    [self.dutyPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakself.view.mas_right).offset(-50);
-         make.top.equalTo(weakself.lineFour.mas_bottom).offset(15);
+    [self.reslovBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.reslovPersonLabel.mas_right).offset(30);
+        make.centerY.equalTo(weakself.reslovPersonLabel.mas_centerY);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(30);
     }];
     [self.lineFive mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(weakself.reslovPersonLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+    [self.dutyRegionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left).offset(15);
+        make.top.equalTo(weakself.lineFive.mas_bottom).offset(15);
+    }];
+    [self.lineSix mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.top.equalTo(weakself.dutyRegionLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
-//    [self.reslovPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakself.view.mas_left).offset(15);
-//        make.top.equalTo(weakself.lineFive.mas_bottom).offset(15);
-//    }];
-//    [self.reslovBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakself.reslovPersonLabel.mas_right).offset(30);
-//        make.centerY.equalTo(weakself.reslovPersonLabel.mas_centerY);
-//        make.width.mas_equalTo(100);
-//        make.height.mas_equalTo(30);
-//    }];
-//    [self.lineSix mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakself.view.mas_left);
-//        make.right.equalTo(weakself.view.mas_right);
-//        make.top.equalTo(weakself.reslovPersonLabel.mas_bottom).offset(15);
-//        make.height.mas_equalTo(1);
-//    }];
+    [self.dutyPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left).offset(15);
+        make.top.equalTo(weakself.lineSix.mas_bottom).offset(15);
+    }];
 //    [self.levelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(weakself.view.mas_left).offset(15);
 //        make.top.equalTo(weakself.lineSix.mas_bottom).offset(15);
@@ -197,12 +204,12 @@
 //        make.width.mas_equalTo(100);
 //        make.height.mas_equalTo(30);
 //    }];
-//    [self.lineSeven mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakself.view.mas_left);
-//        make.right.equalTo(weakself.view.mas_right);
-//        make.top.equalTo(weakself.levelLabel.mas_bottom).offset(15);
-//        make.height.mas_equalTo(1);
-//    }];
+    [self.lineSeven mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(weakself.dutyRegionLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
 //    [self.isvehNeedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(weakself.view.mas_left).offset(15);
 //        make.top.equalTo(weakself.lineSeven.mas_bottom).offset(15);
@@ -221,13 +228,13 @@
 //    }];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(60);
-        make.top.equalTo(weakself.lineFive.mas_bottom).offset(60);
+        make.top.equalTo(weakself.lineSeven.mas_bottom).offset(20);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(44);
     }];
     [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakself.view.mas_right).offset(-60);
-        make.top.equalTo(weakself.lineFive.mas_bottom).offset(60);
+        make.top.equalTo(weakself.lineSeven.mas_bottom).offset(20);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(44);
     }];
@@ -361,6 +368,7 @@
         _positionLabel = [[UILabel alloc] init];
         _positionLabel.textColor = UIColorWithFloat(79);
         _positionLabel.font = [UIFont systemFontOfSize:15];
+        _positionLabel.numberOfLines = 0;
     }
     return _positionLabel;
 }
@@ -386,8 +394,8 @@
         _dutyRegionLabel = [[UILabel alloc] init];
         _dutyRegionLabel.textColor = UIColorWithFloat(79);
         _dutyRegionLabel.font = [UIFont systemFontOfSize:15];
+        _dutyRegionLabel.text = @"责任区:";
         ;
-        _dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",self.pointRegionDict[@"regionname"]?self.pointRegionDict[@"regionname"]:@"清扫1班"];
     }
     return _dutyRegionLabel;
 }
@@ -398,7 +406,7 @@
         _dutyPersonLabel.textColor = UIColorWithFloat(79);
         _dutyPersonLabel.font = [UIFont systemFontOfSize:15];
         _dutyPersonLabel.textAlignment = NSTextAlignmentRight;
-        _dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",self.pointRegionDict[@"regionname"]?self.pointRegionDict[@"employername"]:@"小王"];
+        _dutyPersonLabel.text = @"责任人:";
     }
     return _dutyPersonLabel;
 }
@@ -411,38 +419,39 @@
     return _lineFive;
 }
 
-//- (UILabel *)reslovPersonLabel{
-//    if (_reslovPersonLabel == nil) {
-//        _reslovPersonLabel = [[UILabel alloc] init];
-//        _reslovPersonLabel.text = @"处理人:";
-//        _reslovPersonLabel.textColor = UIColorWithFloat(79);
-//        _reslovPersonLabel.font = [UIFont systemFontOfSize:15];
-//    }
-//    return _reslovPersonLabel;
-//}
+- (UILabel *)reslovPersonLabel{
+    if (_reslovPersonLabel == nil) {
+        _reslovPersonLabel = [[UILabel alloc] init];
+        _reslovPersonLabel.text = @"选择责任区与责任人:";
+        _reslovPersonLabel.textColor = UIColorWithFloat(79);
+        _reslovPersonLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _reslovPersonLabel;
+}
+
+- (FButton *)reslovBtn{
+    if (_reslovBtn == nil) {
+        _reslovBtn  = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
+        _reslovBtn.layer.borderWidth = 1;
+        [_reslovBtn  setTitle:@"请选择" forState:UIControlStateNormal];
+        _reslovBtn.layer.borderColor = UIColorWithFloat(159).CGColor;
+        _reslovBtn.backgroundColor = UIColorWithFloat(222);
+        _reslovBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_reslovBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
+        [_reslovBtn  setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+        [_reslovBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        _reslovBtn.tag = 3;
+    }
+    return _reslovBtn ;
+}
 //
-//- (FButton *)reslovBtn{
-//    if (_reslovBtn == nil) {
-//        _reslovBtn  = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
-//        _reslovBtn.layer.borderWidth = 1;
-//        [_reslovBtn  setTitle:@"请选择" forState:UIControlStateNormal];
-//        _reslovBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
-//        _reslovBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [_reslovBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
-//        [_reslovBtn  setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
-//        [_reslovBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-//        _reslovBtn.tag = 3;
-//    }
-//    return _reslovBtn ;
-//}
-//
-//- (UIView *)lineSix{
-//    if (_lineSix == nil) {
-//        _lineSix = [[UIView alloc] init];
-//        _lineSix.backgroundColor = UIColorWithFloat(239);
-//    }
-//    return _lineSix;
-//}
+- (UIView *)lineSix{
+    if (_lineSix == nil) {
+        _lineSix = [[UIView alloc] init];
+        _lineSix.backgroundColor = UIColorWithFloat(239);
+    }
+    return _lineSix;
+}
 
 //- (UILabel *)levelLabel{
 //    if (_levelLabel == nil) {

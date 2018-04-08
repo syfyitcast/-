@@ -32,6 +32,8 @@
 @property (nonatomic, copy) NSString *stepName;
 @property (nonatomic, strong) NextStepModel *currentModel;
 
+@property (nonatomic, assign) dispatch_group_t group;
+
 @end
 
 @implementation WorkFlowDetailController
@@ -39,6 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"流程详情";
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self setRequestNetWork];
 }
 
@@ -47,6 +53,7 @@
         ZXSHOW_LOADING(self.view, @"加载中...");
         // 调度组
         dispatch_group_t group = dispatch_group_create();
+        self.group = group;
         // 队列
         dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
         // 将任务添加到队列和调度组
@@ -124,6 +131,7 @@
     }
 }
 
+
 - (void)setSubViews{
     self.mainScrollView.frame = self.view.bounds;
     [self.view addSubview:self.mainScrollView];
@@ -155,12 +163,11 @@
         self.approvFootView.height = 520;
         [self.mainScrollView addSubview:self.approvFootView];
     }else{
-        self.footerView.x = 0;
-        self.footerView.height = 420;
-        self.footerView.width = self.view.width;
         [self.mainScrollView addSubview:self.footerView];
+        self.footerView.x = 0;
+        self.footerView.width = self.view.width;
+        self.footerView.height = 420;
     }
-   
     if (self.model.flowtype == 1) {//请假
         UILabel *eventTypeLabel = [[UILabel alloc] init];
         eventTypeLabel.textColor = UIColorWithFloat(49);
@@ -458,19 +465,18 @@
         int i = 0;
         CGFloat width = (self.view.width - 5 * padding) / 4;
         CGFloat height = 100;
-        for (NSString *picUrl in self.detailModel.photoUrls) {
-            UIImageView *picImagView = [[UIImageView alloc] init];
-            [picImagView sd_setImageWithURL:[NSURL URLWithString:picUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                if (image == nil) {
-                    [MBProgressHUD showError:@"加载图片失败" toView:self.mainScrollView];
-                }
-            }];//加载图片
-            picImagView.x = padding + (padding + width) * i;
-            picImagView.y = CGRectGetMaxY(picDesLabel.frame) + 10;
-            picImagView.width = width;
-            picImagView.height = height;
-            [self.mainScrollView addSubview:picImagView];
-            i ++;
+        if (self.detailModel.photourl != nil && self.detailModel.photourl.length != 0) {
+            for (NSString *picUrl in self.detailModel.photoUrls) {
+                UIImageView *picImagView = [[UIImageView alloc] init];
+                [picImagView sd_setImageWithURL:[NSURL URLWithString:picUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                }];//加载图片
+                picImagView.x = padding + (padding + width) * i;
+                picImagView.y = CGRectGetMaxY(picDesLabel.frame) + 10;
+                picImagView.width = width;
+                picImagView.height = height;
+                [self.mainScrollView addSubview:picImagView];
+                i ++;
+            }
         }
         UIView *lineFive = [[UIView alloc] init];
         lineFive.backgroundColor = UIColorWithFloat(239);
@@ -547,9 +553,6 @@
         for (NSString *picUrl in self.detailModel.photoUrls) {
             UIImageView *picImagView = [[UIImageView alloc] init];
             [picImagView sd_setImageWithURL:[NSURL URLWithString:picUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                if (image == nil) {
-                    [MBProgressHUD showError:@"加载图片失败" toView:self.mainScrollView];
-                }
             }];//加载图片
             picImagView.x = padding + (padding + width) * i;
             picImagView.y = CGRectGetMaxY(picDesLabel.frame) + 10;

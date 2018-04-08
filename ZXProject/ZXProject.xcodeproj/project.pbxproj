@@ -23,6 +23,7 @@
 		4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4932D99E206DC97C0048D299 /* WorkFlowDetailFooterView.xib */; };
 		4932D9A2206E25780048D299 /* WorkFlowDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */; };
 		4932D9A52070725D0048D299 /* WorkFlowApprovModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D9A42070725D0048D299 /* WorkFlowApprovModel.m */; };
+		495D898F207A10D50043FF09 /* WorkTaskDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495D898E207A10D50043FF09 /* WorkTaskDetailModel.m */; };
 		495E8D662068D82B00ABE900 /* ReimbursementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D652068D82B00ABE900 /* ReimbursementView.m */; };
 		495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495E8D672068D8A800ABE900 /* ReimbursementView.xib */; };
 		495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D6A2068E6CF00ABE900 /* ReportView.m */; };
@@ -192,6 +193,8 @@
 		4932D9A1206E25780048D299 /* WorkFlowDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailModel.m; sourceTree = "<group>"; };
 		4932D9A32070725D0048D299 /* WorkFlowApprovModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowApprovModel.h; sourceTree = "<group>"; };
 		4932D9A42070725D0048D299 /* WorkFlowApprovModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowApprovModel.m; sourceTree = "<group>"; };
+		495D898D207A10D50043FF09 /* WorkTaskDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskDetailModel.h; sourceTree = "<group>"; };
+		495D898E207A10D50043FF09 /* WorkTaskDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskDetailModel.m; sourceTree = "<group>"; };
 		495E8D642068D82B00ABE900 /* ReimbursementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReimbursementView.h; sourceTree = "<group>"; };
 		495E8D652068D82B00ABE900 /* ReimbursementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReimbursementView.m; sourceTree = "<group>"; };
 		495E8D672068D8A800ABE900 /* ReimbursementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReimbursementView.xib; sourceTree = "<group>"; };
@@ -649,6 +652,8 @@
 			children = (
 				8C224B04204D23BA00319CC0 /* WorkTaskModel.h */,
 				8C224B05204D23BA00319CC0 /* WorkTaskModel.m */,
+				495D898D207A10D50043FF09 /* WorkTaskDetailModel.h */,
+				495D898E207A10D50043FF09 /* WorkTaskDetailModel.m */,
 			);
 			path = WorkTask;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 		8C224B07204D2CFD00319CC0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				8C340E732037C20E00D1A0AD /* UserLocation */,
 				8C224B0B204D2D2100319CC0 /* UserManager.h */,
 				8C224B0C204D2D2100319CC0 /* UserManager.m */,
 				8C224B0E204D2D2A00319CC0 /* User.h */,
@@ -849,7 +855,6 @@
 		8C305C2A202C0F1400A843B5 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				8C340E732037C20E00D1A0AD /* UserLocation */,
 				8CB14589203919D3003E94D4 /* Model */,
 				8C33C2A420316CF900B93F6E /* View */,
 				8C305C46202C17D900A843B5 /* Login&&Register */,
@@ -1255,7 +1260,7 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = THPFNYW7A3;
+						DevelopmentTeam = X8WH8B8GR2;
 						ProvisioningStyle = Automatic;
 					};
 					8C305C02202C09AD00A843B5 = {
@@ -1365,8 +1370,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1451,6 +1455,7 @@
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
 				8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */,
+				495D898F207A10D50043FF09 /* WorkTaskDetailModel.m in Sources */,
 				4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */,
 				8C33C2C82031700400B93F6E /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8C224B1C204FACAA00319CC0 /* WorkTaskAddImagePickView.m in Sources */,
@@ -1642,7 +1647,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = THPFNYW7A3;
+				DEVELOPMENT_TEAM = X8WH8B8GR2;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1651,7 +1656,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zoomlion.project;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1667,7 +1672,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = THPFNYW7A3;
+				DEVELOPMENT_TEAM = X8WH8B8GR2;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1676,7 +1681,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zoomlion.project;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

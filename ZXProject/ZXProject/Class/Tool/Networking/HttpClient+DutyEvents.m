@@ -16,8 +16,7 @@
 
 
 + (void)zx_httpClientToQueryEventListBySelfWithEventStatus:(NSString *)eventStatus andFlowtype:(NSString *)flowtype andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTLIST];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTLIST];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
@@ -43,8 +42,7 @@
 }
 
 + (void)zx_httpClientToQueryNextStepApprvoPersonWithFlowType:(NSString *)type andEventId:(NSString *)eventId andFlowTaskId:(NSString *)flowtaskId andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_QUERYNEXTSTEPFLOW];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_QUERYNEXTSTEPFLOW];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"eventemployerid"];
@@ -72,8 +70,7 @@
 }
 
 + (void)zx_httpClientToSubmitDutyEventWithEventType:(NSString *)eventType andBeginTime:(long long)beginTime andEndTime:(long long)endTime andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITDUTYEVENT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITDUTYEVENT];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
@@ -106,8 +103,7 @@
 
 
 + (void)zx_httpClientToSubmitEvectionEventWithEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andFromcity:(NSString *)fromcity andToCity:(NSString *)city andBeginTime:(long)beginTime andEndTime:(long)endTime andTransmode:(NSString *)transmode andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITEVCATION];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITEVCATION];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
@@ -139,8 +135,7 @@
 }
 
 + (void)zx_httpClientToSubmitReimentEventWithFeetype:(NSString *)feetype andBeginTime:(long)beginTime andEndTime:(long)endTime andFeemoney:(NSString *)feemoney andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)url andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITFEEEVENT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITFEEEVENT];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
@@ -172,8 +167,7 @@
 }
 
 + (void)zx_httpClientToSubmitReportWithReportType:(NSString *)reportType andEventName:(NSString *)eventName andEventMark:(NSString *)eventMark andPhotoUrl:(NSString *)photoUrl andSubmitto:(NSString *)submitto andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITREPORTEVENT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_SUBMITREPORTEVENT];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"submitemployer"];
@@ -202,8 +196,7 @@
 }
 
 + (void)zx_httpClientToDutyCheckWithDutytype:(NSString *)dutytype andPositionAdress:(NSString *)positionAdress andPosition:(NSString *)posiotion andPhotoUrl:(NSString *)url andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_DUTYCHECK];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_DUTYCHECK];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:dutytype forKey:@"dutytype"];
@@ -230,8 +223,7 @@
 }
 
 + (void)zx_httpClientToQueryDutyRuleWithWorkDateFormatter:(NSString *)formatter andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_DUTYRULE];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_DUTYRULE];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
     [dict setObject:formatter forKey:@"workdate"];
@@ -255,8 +247,7 @@
 }
 
 + (void)zx_httpClientToInitWorkDateWithProjectId:(NSString *)projectid andSettingId:(NSString *)settingId andEmployerid:(NSString *)employerid andWorkdates:(NSString *)workDates andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_DUTYINIT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_DUTYINIT];
     [dict setObject:projectid forKey:@"projectid"];
     [dict setObject:employerid forKey:@"employerids"];
     [dict setObject:settingId forKey:@"settingtypeid"];
@@ -281,8 +272,7 @@
 }
 
 + (void)zx_httpClientToQueryProjectDutyWithBeginTime:(long)beginTime andEndTime:(long)time andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_PROJECTDUTYQUERY];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_PROJECTDUTYQUERY];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:@(beginTime) forKey:@"begintime"];
@@ -324,8 +314,7 @@
         default:
             break;
     }
-    [NetworkConfig networkConfigTokenWithMethodName:api];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:api];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:@(eventid) forKey:@"eventid"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -351,8 +340,7 @@
 }
 
 + (void)zx_httpClientToQueryEventFlowTasklistWithEventid:(int)eventid andflowtype:(int)flowtype andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_QUERYEVENTFLOWTASKLIST];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_QUERYEVENTFLOWTASKLIST];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:@(eventid) forKey:@"eventid"];
     [dict setObject:@(flowtype) forKey:@"flowtype"];
@@ -379,8 +367,7 @@
 }
 
 + (void)zx_httpClientToConfirmflowtaskWithEventFlowid:(long)eventFlowid andFlowtaskid:(long)flowTaskid andCheckOpion:(NSString *)checkOpion andSubmitto:(long)submitto andSubmittype:(long)type andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_COMFIRMFLOWTASK];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_COMFIRMFLOWTASK];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
      [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:@(eventFlowid) forKey:@"eventflowid"];
@@ -411,8 +398,7 @@
 }
 
 + (void)zx_httpClientToDeleteFlowEventWithEventid:(long)eventid andFlowtype:(long)flowtype andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_DELETEFLOWEVENT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_DELETEFLOWEVENT];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:@(eventid) forKey:@"eventid"];

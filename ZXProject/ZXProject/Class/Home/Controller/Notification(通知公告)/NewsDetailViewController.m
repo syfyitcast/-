@@ -8,10 +8,11 @@
 
 #import "NewsDetailViewController.h"
 #import "GobHeaderFile.h"
+#import <WebKit/WebKit.h>
 
-@interface NewsDetailViewController ()<UIWebViewDelegate>
+@interface NewsDetailViewController ()<WKNavigationDelegate>
 
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong)  WKWebView*webView;
 
 @end
 
@@ -22,16 +23,16 @@
     self.title = @"新闻详情";
     self.view.backgroundColor = WhiteColor;
     self.webView.backgroundColor = WhiteColor;
-    self.webView = [[UIWebView alloc] init];
+    self.webView = [[WKWebView alloc] init];
     self.webView.frame = self.view.bounds;
     [self.view addSubview:self.webView];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.url]];
     [self.webView loadRequest:request];
-    self.webView.delegate = self;
+    self.webView.navigationDelegate = self;
     ZXSHOW_LOADING(self.view, @"加载中...");
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     ZXHIDE_LOADING;
 }
 

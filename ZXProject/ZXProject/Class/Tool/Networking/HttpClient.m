@@ -21,8 +21,7 @@
 @implementation HttpClient
 
 + (void)zx_httpClientToQueryDictWithDataType:(NSString *)dataType andDataCode:(NSString *)datacode andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_QUERYDICT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_QUERYDICT];
     [dict setObject:dataType forKey:@"datatype"];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:@"" forKey:@"companyid"];
@@ -47,8 +46,7 @@
 }
 
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_LOGINPWD];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_LOGINPWD];
     [dict setObject:userName forKey:@"loginname"];
     [dict setObject:[Tool MD5ForLower32Bate:password] forKey:@"loginpass"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -71,8 +69,7 @@
 }
 
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andVerifyCode:(NSString *_Nullable)VerifyCode andSmsid:(NSString *)smsid andSuccessBlock:(responseBlock _Nullable )block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_LOGINCODE];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_LOGINCODE];
     [dict setObject:userName forKey:@"mobileno"];
     [dict setObject:smsid forKey:@"smsid"];
     [dict setObject:VerifyCode forKey:@"smscontent"];
@@ -96,8 +93,7 @@
 }
 
 + (void)zx_httpClientToLogoutWithUserName:(NSString *)userName andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_LOGOUT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_LOGOUT];
     [dict setObject:userName forKey:@"loginname"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_LOGOUT];
@@ -119,9 +115,7 @@
 }
 
 + (void)zx_httpClientToGetVerifyCodeWithType:(int)type andMobile:(NSString *)mobile andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETCODE];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
-    [dict setObject:@(type) forKey:@"optype"];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETCODE];
     [dict setObject:mobile forKey:@"mobileno"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETCODE];
@@ -143,8 +137,7 @@
 }
 
 + (void)zx_httpClientToRegisterWithMobile:(NSString *_Nullable)mobile andSmcontent:(NSString *_Nullable)content andSmsid:(NSString *_Nullable)smsid andPassword:(NSString *)password andSuccessBlock:(responseBlock _Nullable)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_REGISTER];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_REGISTER];
     [dict setObject:content forKey:@"smscontent"];
     [dict setObject:mobile forKey:@"mobileno"];
     [dict setObject:smsid?smsid:@"" forKey:@"smsid"];
@@ -170,8 +163,7 @@
 
 //修改密码
 + (void)zx_httpClientToForgetPasswordWithMobile:(NSString *_Nullable)mobile andVerifyCode:(NSString *_Nullable)code andSmsid:(NSString *_Nullable)smsid andNewPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_FORGETPWD];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_FORGETPWD];
     [dict setObject:code forKey:@"smscontent"];
     [dict setObject:mobile forKey:@"mobileno"];
     [dict setObject:smsid?smsid:@"" forKey:@"smsid"];
@@ -196,8 +188,7 @@
 }
 
 + (void)zx_httpClientToGetProjectListWithProjectCode:(NSString *)projectCode andProjectName:(NSString *)projectName andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETPROJECTLIST];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_GETPROJECTLIST];
     [dict setObject:projectCode forKey:@"projectcode"];
     [dict setObject:projectName forKey:@"projectname"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -220,8 +211,7 @@
 }
 
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
     [dict setObject:projectId forKey:@"projectid"];
     [dict setObject:eventStatus forKey:@"eventstatus"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -244,8 +234,7 @@
 }
 
 + (void)zx_getAppNoticeinfoWithProjectid:(NSString *)projectId andEmployedId:(NSString *)employedId andPublishType:(NSString *)type andpublishLevel:(NSString *)level andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEINFO];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEINFO];
     [dict setObject:projectId forKey:@"projectid"];
     [dict setObject:employedId forKey:@"employerid"];
     [dict setObject:type forKey:@"publishtype"];
@@ -270,8 +259,7 @@
 }
 
 + (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *)projectid andEmployerid:(NSString *)employerid andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
     [dict setObject:projectid forKey:@"projectid"];
     [dict setObject:employerid forKey:@"employerid"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -300,8 +288,7 @@
 
 
 + (void)zx_httpClientToDutyEventlistWithProjectid:(NSString *_Nonnull)projectId andEmployerid:(NSString *_Nonnull)employerid  andFlowTaskStatus:(NSString *_Nonnull)taskStatus andSuccessBlock:(responseBlock _Nonnull )block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_GETDUTYEVENTLIST];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETDUTYEVENTLIST];
     [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
     [dict setObject:employerid?employerid:@"" forKey:@"employerid"];
     [dict setObject:taskStatus forKey:@"flowtaskstatus"];

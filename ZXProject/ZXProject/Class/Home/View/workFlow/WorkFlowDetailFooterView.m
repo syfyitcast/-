@@ -9,6 +9,7 @@
 #import "WorkFlowDetailFooterView.h"
 #import "GobHeaderFile.h"
 #import "WorkFlowDetailItemView.h"
+#import <Masonry.h>
 
 @interface WorkFlowDetailFooterView()<WorkFlowApprovItemViewDelegate>
 
@@ -39,48 +40,59 @@
     //第一个item是申请人
     WorkFlowDetailItemView *item_0 = [WorkFlowDetailItemView workFlowDetailItemView];
     item_0.model = self.submitModel;
-    CGFloat width = ([UIScreen mainScreen].bounds.size.width - 2 * 58.5 ) / 3.0;
+    CGFloat width = (self.width - 2 * 58.5 ) / 3.0;
     CGFloat height = 100;
-    item_0.x = 0;
-    item_0.y = 0;
-    item_0.width = width;
-    item_0.height = height;
     [self.myScrollView addSubview:item_0];
+     __weak typeof(self)  weakself = self;
+    [item_0 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.mas_left);
+        make.top.equalTo(weakself.myScrollView.mas_top);
+        make.width.mas_equalTo(width);
+        make.height.mas_equalTo(height);
+    }];
     UIImageView *imageView_0 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];
-    imageView_0.x = CGRectGetMaxX(item_0.frame);
-    imageView_0.width = 58.5;
-    imageView_0.height = 28.5;
-    imageView_0.y = (self.myScrollView.height - imageView_0.height) * 0.5;
     [self.myScrollView addSubview:imageView_0];
+    [imageView_0 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(item_0.mas_right);
+        make.centerY.equalTo(weakself.myScrollView.mas_centerY);
+        make.width.mas_equalTo(58.5);
+        make.height.mas_equalTo(28.5);
+    }];
     for (int i = 1; i <= self.models.count; i ++) {
         if (i == self.models.count) {
             WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailEndItemView];
-            item.x = CGRectGetMaxX(imageView_0.frame) + (i - 1) * (width + 58.5);
-            item.y = 0;
-            item.height = height;
-            item.width = width;
             [self.myScrollView addSubview:item];
-            self.myScrollView.contentSize = CGSizeMake(CGRectGetMaxX(item.frame), 0);
+            [item mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(imageView_0.mas_right).offset((i - 1) * (width + 58.5));
+                make.top.equalTo(weakself.myScrollView.mas_top);
+                make.width.mas_equalTo(width);
+                make.height.mas_equalTo(height);
+            }];
+//            self.myScrollView.contentSize = CGSizeMake(1000, 0);
             break;
         }
         WorkFlowApprovModel *model = self.models[i];
         WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailItemView];
+        [self.myScrollView addSubview:item];
+        [item mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(imageView_0.mas_right).offset((i - 1) * (width + 58.5));
+            make.top.equalTo(weakself.myScrollView.mas_top);
+            make.width.mas_equalTo(width);
+            make.height.mas_equalTo(height);
+        }];
         item.model = model;
-        item.x = CGRectGetMaxX(imageView_0.frame) + (i - 1) * (width + 58.5);
         if (model.isCurrentModel) {
             self.myScrollView.contentOffset = CGPointMake(item.x - self.width * 0.5 + width * 0.5  , 0);
         }
-        item.y = 0;
-        item.height = height;
-        item.width = width;
         item.index = i;
-        [self.myScrollView addSubview:item];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];
-        imageView.x = CGRectGetMaxX(item.frame);
-        imageView.y = (self.myScrollView.height - imageView_0.height) * 0.5;
-        imageView.width = 58.5;
-        imageView.height = 28.5;
         [self.myScrollView addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(item.mas_right);
+            make.centerY.equalTo(weakself.myScrollView.mas_centerY);
+            make.width.mas_equalTo(58.5);
+            make.height.mas_equalTo(28.5);
+        }];
     }
 }
 

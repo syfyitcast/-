@@ -10,7 +10,12 @@
 
 @interface HttpClient (WorkTask)
 
-//获取环卫作业区域
+//获取项目作业区域列表
++ (void)zx_httpClientToGetProjectRegionListWithSuccessBlock:(responseBlock)block;
+
+//获取项目作业区域
 + (void)zx_httpClientToGetWorkTaskPointProjectoRgregionWithPosition:(NSString *)position andSuccessBlock:(responseBlock)block;
+
+
 
 @end

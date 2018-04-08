@@ -13,7 +13,7 @@
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
 
-@interface AttenceRecoderView()
+@interface AttenceRecoderView()<MAMapViewDelegate>
 
 @property (nonatomic, strong) AttDutyCheckModel *model;
 @property (nonatomic, assign) int type;
@@ -27,7 +27,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *bigImageBgView;
 
-@property (nonatomic, assign) CGRect oldFrame;
+
 
 @end
 
@@ -64,7 +64,7 @@
     [self.positionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left).offset(15);
         make.top.equalTo(weakself.timeLabel.mas_bottom).offset(10);
-        make.right.equalTo(weakself.mas_right).offset(70);
+        make.right.equalTo(weakself.mas_right).offset(-70);
         make.height.mas_equalTo(15);
     }];
     [self addSubview:self.mapView];
@@ -96,6 +96,12 @@
             self.timeLabel.text = @"时间:";
             self.positionLabel.text = @"位置:";
         }else{
+            CLLocationCoordinate2D coor ;
+            coor.latitude = model.beginpositionlat;
+            coor.longitude = model.beginpositionlon;
+            MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
+            pointAnnotation.coordinate = coor;
+            [self.mapView addAnnotation:pointAnnotation];
             self.statusLabel.text = @"打卡状态: 正常";
             NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.begintime / 1000.0];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -120,6 +126,12 @@
             self.timeLabel.text = @"时间:";
             self.positionLabel.text = @"位置:";
         }else{
+            CLLocationCoordinate2D coor ;
+            coor.latitude = model.endpositionlat;
+            coor.longitude = model.endpositionlon;
+            MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
+            pointAnnotation.coordinate = coor;
+            [self.mapView addAnnotation:pointAnnotation];
             self.statusLabel.text = @"打卡状态: 正常";
             NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.endtime / 1000.0];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -136,13 +148,26 @@
     
 }
 
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
+    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
+        static NSString *pointReuseIndentifier = @"pointReuseIndentifier";
+        MAAnnotationView*annotationView = (MAAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndentifier];
+        if (annotationView == nil) {
+            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndentifier];
+        }
+        annotationView.frame = CGRectMake(0, 0, 12.5, 27);
+        annotationView.image = [UIImage imageNamed:@"annotionIcon"];
+        return annotationView;
+    }
+    return nil;
+}
+
 - (void)clickBtn{
     [self.bigImageBgView removeFromSuperview];
     self.bigImageBgView = nil;
 }
 
 - (void)tapImageView{
-    self.oldFrame = self.imageView.frame;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     self.bigImageBgView.frame = window.bounds;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:self.imageView.image];
@@ -195,6 +220,7 @@
 - (MAMapView *)mapView{
     if (_mapView == nil) {
         _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, self.width - 30, 200)];
+        _mapView.delegate = self;
     }
     return _mapView;
 }

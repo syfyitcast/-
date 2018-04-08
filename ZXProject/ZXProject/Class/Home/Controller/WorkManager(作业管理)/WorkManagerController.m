@@ -33,6 +33,8 @@
 
 @property (nonatomic, strong) FButton *addEventBtn;
 
+@property (nonatomic, assign) dispatch_group_t group;
+
 @end
 
 @implementation WorkManagerController
@@ -51,6 +53,7 @@
     ZXSHOW_LOADING(self.view, @"加载中...");
     // 调度组
     dispatch_group_t group = dispatch_group_create();
+    self.group = group;
     // 队列
     dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
     // 将任务添加到队列和调度组

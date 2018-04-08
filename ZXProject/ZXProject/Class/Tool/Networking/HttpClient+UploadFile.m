@@ -14,13 +14,12 @@
 @implementation HttpClient (UploadFile)
 
 + (void)zx_httpClientToUploadFileWithData:(NSData *)fileData andType:(UploadFileType)type andSuccessBlock:(responseBlock)block{
-    [NetworkConfig networkConfigTokenWithMethodName:API_UPLOADFILE];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[NetworkConfig sharedNetworkingConfig].publicParamters];
+    NSMutableDictionary *params = [NetworkConfig networkConfigTokenWithMethodName:API_UPLOADFILE];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     //2.上传文件
-    NSString *url = [NetworkConfig appendPulicParamterWithApiUrl:API_UPLOADFILE];
+    NSString *url = [NetworkConfig appendPulicParamterWithApiUrl:API_UPLOADFILE withDict:params];
     NSString *key = @"";
     if (type == UploadFileTypePhoto) {
         key = @"photourl";

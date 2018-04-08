@@ -52,6 +52,7 @@ NSString *const API_DELETEFLOWEVENT = @"deleteflowevent";//删除流程任务
 #pragma mark --------------------------------------------------------------  环卫作业
 
 NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所在的环卫作业区域
+NSString *const API_GETPROJECTREGIONLIST = @"projectorgregionlist";//获取项目区域列表
 
 
 @implementation NetworkConfig
@@ -89,16 +90,15 @@ NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所
     return [config.baseUrl stringByAppendingString:apiIdentifier];
 }
 
-+ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl{
++ (NSString *)appendPulicParamterWithApiUrl:(NSString *)apiUrl withDict:(NSDictionary *)dict{
     NSMutableString *baseUrl = [[self api:apiUrl] stringByAppendingString:@"?"].mutableCopy;
-    NetworkConfig *config = [NetworkConfig sharedNetworkingConfig];
     int i = 0;
-    for (NSString *key in config.publicParamters.allKeys) {
-        if (i == config.publicParamters.allKeys.count - 1) {
-            [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,config.publicParamters[key]]];
+    for (NSString *key in dict.allKeys) {
+        if (i == dict.allKeys.count - 1) {
+            [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,dict[key]]];
             return baseUrl;
         }
-        [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,config.publicParamters[key]]];
+        [baseUrl appendString:[NSString stringWithFormat:@"%@=%@",key,dict[key]]];
         [baseUrl appendString:@"&"];
          i ++;
     }
@@ -107,27 +107,21 @@ NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所
 
 #pragma mark - setter && getter
 
-- (NSMutableDictionary *)publicParamters{
-    if (_publicParamters == nil) {
-        NSString *version =  [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        _publicParamters = @{
-                             @"apiuser":self.apiuser,
-                             @"apptime":@(0),
-                             @"appversion": [NSString stringWithFormat:@"iOS-%@",version]
-                             }.mutableCopy;
-        
-    }
-    return _publicParamters;
-}
-
-+ (void)networkConfigTokenWithMethodName:(NSString *)methodName{
++ (NSMutableDictionary *)networkConfigTokenWithMethodName:(NSString *)methodName{
     NetworkConfig *config = [NetworkConfig sharedNetworkingConfig];
-    [config.publicParamters setObject:config.accountid forKey:@"accountid"];
-    [config.publicParamters setObject:config.position forKey:@"position"];
-    [config.publicParamters setObject:config.snid forKey:@"snid"];
+    NSString *version =  [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *dict =@{
+                                @"apiuser":config.apiuser,
+                                @"apptime":@(0),
+                                @"appversion": [NSString stringWithFormat:@"iOS-%@",version]
+                                }.mutableCopy;
+    
+    [dict setObject:config.accountid forKey:@"accountid"];
+    [dict setObject:config.position forKey:@"position"];
+    [dict setObject:config.snid forKey:@"snid"];
     NSString *tokenString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",config.apiuser,config.snid,methodName,config.position,config.accountid,config.usertoken,MD5_ID];
-    config.token = [Tool MD5ForLower32Bate:tokenString];
-    [config.publicParamters setObject:config.token forKey:@"token"];
+    [dict setObject:[Tool MD5ForLower32Bate:tokenString] forKey:@"token"];
+    return dict;
 }
 
 - (NSString *)position{

@@ -35,6 +35,8 @@
 @property (nonatomic, strong) NSArray *attDutySettingModels;
 @property (nonatomic, strong) NSArray *attDutyCheckModels;
 
+@property (nonatomic, assign) dispatch_group_t group;
+
 @end
 
 @implementation AttendanceController
@@ -49,6 +51,7 @@
 - (void)setNetworkRequest{
     ZXSHOW_LOADING(self.view, @"加载中...");
     dispatch_group_t group = dispatch_group_create();
+    self.group = group;
     // 队列
     dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
     // 将任务添加到队列和调度组
@@ -163,6 +166,13 @@
         if (code == 0) {
             NSArray *datas = data[@"dutystatis"];
             self.attDutyCheckModels = [AttDutyCheckModel attdutyCheckModelsWithSource_arr:datas];
+            CGFloat tableHeight = self.attDutyCheckModels.count * 70;
+            if (tableHeight > 210) {
+                tableHeight = 210;
+            }
+            [self.recoderTable mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(tableHeight);
+            }];
             [self.recoderTable reloadData];
         }else{
             if (message.length != 0) {
@@ -185,14 +195,8 @@
         }
     }];
     UIAlertAction *alterAction_1 = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZXSHOW_LOADING(self.view, @"获取位置中...");
-        [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
-            NSString *state=[addressDic objectForKey:@"State"];
-            NSString *city=[addressDic objectForKey:@"City"];
-            NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
-            NSString *street=[addressDic objectForKey:@"Street"];
-            NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
-            [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if ([UserLocationManager sharedUserLocationManager].positionAdress != nil) {
+            [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:[UserLocationManager sharedUserLocationManager].positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                 ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"打卡成功" toView:self.view];
@@ -205,8 +209,29 @@
                     }
                 }
             }];
-        }];
-        
+        }else{
+            ZXSHOW_LOADING(self.view, @"获取位置中...");
+            [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+                NSString *state=[addressDic objectForKey:@"State"];
+                NSString *city=[addressDic objectForKey:@"City"];
+                NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+                NSString *street=[addressDic objectForKey:@"Street"];
+                NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
+                [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",btn.tag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    ZXHIDE_LOADING;
+                    if (code == 0) {
+                        [MBProgressHUD showError:@"打卡成功" toView:self.view];
+                        [self refreshCheckData];
+                    }else{
+                        if (message.length != 0) {
+                            [MBProgressHUD showError:message toView:self.view];
+                        }else{
+                            [MBProgressHUD showError:@"请求出错" toView:self.view];
+                        }
+                    }
+                }];
+            }];
+        }
     }];
     [alterController addAction:alterAction_0];
     [alterController addAction:alterAction_1];
@@ -225,14 +250,8 @@
         if (code == 0) {
             NSDictionary *dict = (NSDictionary *)data;
             NSString *url = dict[@"url"];
-            ZXSHOW_LOADING(self.view, @"获取位置中...");
-            [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
-                NSString *state=[addressDic objectForKey:@"State"];
-                NSString *city=[addressDic objectForKey:@"City"];
-                NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
-                NSString *street=[addressDic objectForKey:@"Street"];
-                NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
-                [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",self.clickTag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:url andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if ([UserLocationManager sharedUserLocationManager].positionAdress != nil) {
+                [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",self.clickTag] andPositionAdress:[UserLocationManager sharedUserLocationManager].positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:url andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     ZXHIDE_LOADING;
                     if (code == 0) {
                         [MBProgressHUD showError:@"打卡成功" toView:self.view];
@@ -245,7 +264,29 @@
                         }
                     }
                 }];
-            }];
+            }else{
+                ZXSHOW_LOADING(self.view, @"获取位置中...");
+                [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+                    NSString *state=[addressDic objectForKey:@"State"];
+                    NSString *city=[addressDic objectForKey:@"City"];
+                    NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+                    NSString *street=[addressDic objectForKey:@"Street"];
+                    NSString *positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
+                    [HttpClient zx_httpClientToDutyCheckWithDutytype:[NSString stringWithFormat:@"%zd",self.clickTag] andPositionAdress:positionAdress  andPosition:[UserLocationManager sharedUserLocationManager].position andPhotoUrl:url andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                        ZXHIDE_LOADING;
+                        if (code == 0) {
+                            [MBProgressHUD showError:@"打卡成功" toView:self.view];
+                            [self refreshCheckData];
+                        }else{
+                            if (message.length != 0) {
+                                [MBProgressHUD showError:message toView:self.view];
+                            }else{
+                                [MBProgressHUD showError:@"请求出错" toView:self.view];
+                            }
+                        }
+                    }];
+                }];
+            }
         }
     }];
 }
