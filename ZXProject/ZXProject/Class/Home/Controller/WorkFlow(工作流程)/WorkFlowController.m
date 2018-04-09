@@ -159,13 +159,13 @@
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.top.equalTo(weakself.topBar.mas_bottom);
-        make.bottom.equalTo(weakself.view.mas_bottom).offset(-60);
+        make.bottom.equalTo(weakself.view.mas_bottom).offset(-80);
     }];
     [self.bottomBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.bottom.equalTo(weakself.view.mas_bottom);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo(80);
     }];
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakself.bottomBar.mas_top);

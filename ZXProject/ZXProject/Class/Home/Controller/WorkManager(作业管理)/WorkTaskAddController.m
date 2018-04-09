@@ -290,18 +290,30 @@
 #pragma mark - ClickAction
 
 - (void)clickAction:(FButton *)btn{
-    NSMutableArray *arr = [NSMutableArray array];
-    for (WorkTaskDetailModel *model in self.projectRegions) {
-        [arr addObject:model.regionname];
+    if (btn.tag == 3) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (WorkTaskDetailModel *model in self.projectRegions) {
+            [arr addObject:model.regionname];
+        }
+        [CGXPickerView showStringPickerWithTitle:@"责任区域和责任人" DataSource:arr DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+            int index = [selectRow intValue];
+            WorkTaskDetailModel *model = self.projectRegions[index];
+            self.currentModel = model;
+            [btn setTitle:model.regionname forState:UIControlStateNormal];
+            self.dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",model.orgname];
+            self.dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",model.employername];
+        }];
+    }else if (btn.tag == 5){//保存
+        
+    }else if (btn.tag == 6){//提交
+        if (self.currentModel == nil) {
+            [MBProgressHUD showError:@"请选择责任人和责任区域" toView:self.view];
+        }else{
+            
+        }
+        
     }
-    [CGXPickerView showStringPickerWithTitle:@"责任区域和责任人" DataSource:arr DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
-        int index = [selectRow intValue];
-        WorkTaskDetailModel *model = self.projectRegions[index];
-        self.currentModel = model;
-        [btn setTitle:model.regionname forState:UIControlStateNormal];
-        self.dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",model.orgname];
-        self.dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",model.employername];
-    }];
+   
 }
 
 #pragma mark - setter && getter

@@ -19,7 +19,6 @@
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTLIST];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
-    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:flowtype forKey:@"flowtype"];
     [dict setObject:eventStatus forKey:@"eventstatus"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {

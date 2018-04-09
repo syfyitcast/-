@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSMutableArray *allModels;
 @property (nonatomic, assign) int currentype;
 
+@property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) FButton *addEventBtn;
 
 @property (nonatomic, assign) dispatch_group_t group;
@@ -103,13 +104,20 @@
 - (void)setSubViews{
     [self.view addSubview:self.topBar];
     [self.view addSubview:self.myTable];
+    [self.view addSubview:self.bottomLine];
     [self.view addSubview:self.addEventBtn];
     __weak typeof(self) weakself = self;
     [self.myTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
         make.top.equalTo(weakself.topBar.mas_bottom);
-        make.height.mas_equalTo(460);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-80);
+    }];
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(weakself.myTable.mas_bottom);
+        make.height.mas_equalTo(1);
     }];
     [self.addEventBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakself.view.mas_centerX);
@@ -236,6 +244,14 @@
         _myTable.dataSource = self;
     }
     return _myTable;
+}
+
+- (UIView *)bottomLine{
+    if (_bottomLine == nil) {
+        _bottomLine = [[UIView alloc] init];
+        _bottomLine.backgroundColor = UIColorWithFloat(239);
+    }
+    return _bottomLine;
 }
 
 - (FButton *)addEventBtn{
