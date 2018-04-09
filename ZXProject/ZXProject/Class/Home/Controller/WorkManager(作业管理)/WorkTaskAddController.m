@@ -14,6 +14,9 @@
 #import <Masonry.h>
 #import "HttpClient+WorkTask.h"
 #import "WorkTaskDetailModel.h"
+#import "CGXStringPickerView.h"
+#import "CGXPickerView.h"
+
 
 @interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -46,6 +49,7 @@
 @property (nonatomic, strong) FButton *submitBtn;
 
 @property (nonatomic, strong) NSArray *projectRegions;
+@property (nonatomic, strong) WorkTaskDetailModel *currentModel;
 
 
 @end
@@ -207,7 +211,7 @@
     [self.lineSeven mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left);
         make.right.equalTo(weakself.view.mas_right);
-        make.top.equalTo(weakself.dutyRegionLabel.mas_bottom).offset(15);
+        make.top.equalTo(weakself.dutyPersonLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
 //    [self.isvehNeedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,7 +290,18 @@
 #pragma mark - ClickAction
 
 - (void)clickAction:(FButton *)btn{
-    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (WorkTaskDetailModel *model in self.projectRegions) {
+        [arr addObject:model.regionname];
+    }
+    [CGXPickerView showStringPickerWithTitle:@"责任区域和责任人" DataSource:arr DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
+        int index = [selectRow intValue];
+        WorkTaskDetailModel *model = self.projectRegions[index];
+        self.currentModel = model;
+        [btn setTitle:model.regionname forState:UIControlStateNormal];
+        self.dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",model.orgname];
+        self.dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",model.employername];
+    }];
 }
 
 #pragma mark - setter && getter
@@ -444,7 +459,7 @@
     }
     return _reslovBtn ;
 }
-//
+
 - (UIView *)lineSix{
     if (_lineSix == nil) {
         _lineSix = [[UIView alloc] init];
@@ -453,23 +468,13 @@
     return _lineSix;
 }
 
-//- (UILabel *)levelLabel{
-//    if (_levelLabel == nil) {
-//        _levelLabel = [[UILabel alloc] init];
-//        _levelLabel.text = @"紧急度:";
-//        _levelLabel.textColor = UIColorWithFloat(79);
-//        _levelLabel.font = [UIFont systemFontOfSize:15];
-//    }
-//    return _levelLabel;
-//}
-//
-//- (UIView *)lineSeven{
-//    if (_lineSeven== nil) {
-//        _lineSeven = [[UIView alloc] init];
-//        _lineSeven.backgroundColor = UIColorWithFloat(239);
-//    }
-//    return _lineSeven;
-//}
+- (UIView *)lineSeven{
+    if (_lineSeven== nil) {
+        _lineSeven = [[UIView alloc] init];
+        _lineSeven.backgroundColor = UIColorWithFloat(239);
+    }
+    return _lineSeven;
+}
 
 - (FButton *)saveBtn{
     if (_saveBtn == nil) {
