@@ -38,58 +38,64 @@
 
 - (void)setApprovItem{
     //第一个item是申请人
+     __weak typeof(self)  weakself = self;
     WorkFlowDetailItemView *item_0 = [WorkFlowDetailItemView workFlowDetailItemView];
     item_0.model = self.submitModel;
     CGFloat width = (self.width - 2 * 58.5 ) / 3.0;
     CGFloat height = 100;
-    [self.myScrollView addSubview:item_0];
-     __weak typeof(self)  weakself = self;
+    UIView *contentView = [[UIView alloc] init];
+    contentView.backgroundColor = [UIColor whiteColor];
+    [self.myScrollView addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(weakself.myScrollView);
+        make.height.equalTo(weakself.myScrollView);
+    }];
+    [contentView addSubview:item_0];
     [item_0 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.mas_left);
+        make.left.equalTo(contentView);
         make.top.equalTo(weakself.myScrollView.mas_top);
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
     }];
     UIImageView *imageView_0 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];
-    [self.myScrollView addSubview:imageView_0];
+    [contentView addSubview:imageView_0];
     [imageView_0 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(item_0.mas_right);
-        make.centerY.equalTo(weakself.myScrollView.mas_centerY);
+        make.centerY.equalTo(contentView.mas_centerY);
         make.width.mas_equalTo(58.5);
         make.height.mas_equalTo(28.5);
     }];
     for (int i = 1; i <= self.models.count; i ++) {
         if (i == self.models.count) {
             WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailEndItemView];
-            [self.myScrollView addSubview:item];
+            [contentView addSubview:item];
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(imageView_0.mas_right).offset((i - 1) * (width + 58.5));
-                make.top.equalTo(weakself.myScrollView.mas_top);
+                make.top.equalTo(contentView);
                 make.width.mas_equalTo(width);
                 make.height.mas_equalTo(height);
             }];
-//            self.myScrollView.contentSize = CGSizeMake(1000, 0);
+            [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(item.mas_right);
+            }];
             break;
         }
         WorkFlowApprovModel *model = self.models[i];
         WorkFlowDetailItemView *item = [WorkFlowDetailItemView workFlowDetailItemView];
-        [self.myScrollView addSubview:item];
+        [contentView addSubview:item];
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imageView_0.mas_right).offset((i - 1) * (width + 58.5));
-            make.top.equalTo(weakself.myScrollView.mas_top);
+            make.top.equalTo(contentView);
             make.width.mas_equalTo(width);
             make.height.mas_equalTo(height);
         }];
         item.model = model;
-        if (model.isCurrentModel) {
-            self.myScrollView.contentOffset = CGPointMake(item.x - self.width * 0.5 + width * 0.5  , 0);
-        }
         item.index = i;
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"apprvoFlowAworr"]];
-        [self.myScrollView addSubview:imageView];
+        [contentView addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(item.mas_right);
-            make.centerY.equalTo(weakself.myScrollView.mas_centerY);
+            make.centerY.equalTo(contentView.mas_centerY);
             make.width.mas_equalTo(58.5);
             make.height.mas_equalTo(28.5);
         }];
