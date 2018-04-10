@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RecordViewDelegate<NSObject>
+
+@optional
+
+- (void)recordViewDidEndRecord;
+
+@end
+
 @interface RecordView : UIView
+
+@property (nonatomic, weak) id<RecordViewDelegate> delegate;
 
 + (instancetype)recordViewWithFrame:(CGRect)frame;
 

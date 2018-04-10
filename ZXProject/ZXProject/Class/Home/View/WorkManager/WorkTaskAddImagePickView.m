@@ -64,7 +64,6 @@
     CGFloat width = WIDTH;
     imageView.frame = CGRectMake(x, y, width, height);
     [self addSubview:imageView];
-    
     self.tapImageView.x = PDDING + self.currentCount * ( WIDTH + PDDING) ;
     self.tapImageView.height = height;
     self.tapImageView.width = height;

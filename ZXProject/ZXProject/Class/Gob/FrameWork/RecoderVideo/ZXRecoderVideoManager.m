@@ -11,10 +11,13 @@
 @interface ZXRecoderVideoManager()
 
 @property (nonatomic, strong) AVAudioSession *session;
-@property (nonatomic, strong) NSURL *recordFileUrl;
+
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 
 @property (nonatomic, strong) AVAudioPlayer *player;
+
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) float videoTime;
 
 @end
 
@@ -64,6 +67,8 @@
     manager.recorder = [[AVAudioRecorder alloc] initWithURL:manager.recordFileUrl settings:recordSetting error:nil];
     if (manager.recorder) {
         manager.recorder.meteringEnabled = YES;
+        [[NSRunLoop currentRunLoop] addTimer:manager.timer forMode:NSRunLoopCommonModes];
+        [manager.timer fire];
         [manager.recorder  prepareToRecord];
         [manager.recorder  record];
     }else{
@@ -73,8 +78,14 @@
 
 + (void)stopRecordVideo{
     ZXRecoderVideoManager *manager =  [ZXRecoderVideoManager sharedRecoderManager];
+    [manager.timer invalidate];
+    manager.timer = nil;
     if ([manager.recorder isRecording]) {
         [manager.recorder stop];
+        AVURLAsset* audioAsset =[AVURLAsset URLAssetWithURL:manager.recordFileUrl options:nil];
+        CMTime audioDuration = audioAsset.duration;
+        float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+        manager.videoTime = audioDurationSeconds;
     }
 }
 
@@ -84,6 +95,21 @@
     manager.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
     [manager.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [manager.player play];
+}
+
+- (void)retureVideoCount{
+    [self.recorder updateMeters];
+    float lowPassResults = pow(10, (0.05 * [self.recorder peakPowerForChannel:0]));
+    if (self.delegate && [self.delegate respondsToSelector:@selector(zx_RecordVideoManagerReturnVideoCount:)]) {
+        [self.delegate zx_RecordVideoManagerReturnVideoCount:lowPassResults];
+    }
+}
+
+- (NSTimer *)timer{
+    if (_timer == nil) {
+        _timer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(retureVideoCount) userInfo:nil repeats:YES];
+    }
+    return _timer;
 }
 
 @end

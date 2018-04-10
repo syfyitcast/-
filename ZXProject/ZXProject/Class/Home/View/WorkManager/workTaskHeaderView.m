@@ -33,10 +33,35 @@
 }
 
 - (void)awakeFromNib{
+    [super awakeFromNib];
     [self addSubview:self.pickImageView];
     self.textView.layer.borderColor = UIColorWithFloat(239).CGColor;
     self.textView.layer.borderWidth = 1;
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.timeLabel.text =[formatter stringFromDate:date];
     
+}
+
+
+- (IBAction)ClickMapAction:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:)]) {
+        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag];
+    }
+}
+
+
+- (IBAction)ClickVideoAction:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:)]) {
+        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag];
+    }
+}
+
+
+- (void)setPositionAdress:(NSString *)positionAdress{
+    _positionAdress = positionAdress;
+    self.positionLabel.text = self.positionAdress;
 }
 
 - (WorkTaskAddImagePickView *)pickImageView{

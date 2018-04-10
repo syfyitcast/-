@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol workTaskHeaderViewDelegate<NSObject>
+
+@optional
+
+- (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag;
+
+@end
+
 @interface workTaskHeaderView : UIView
+
+@property (nonatomic, weak) id<workTaskHeaderViewDelegate> delegate;
 
 + (instancetype)workTaskViewWithImageUrls:(NSArray *)imageUrls andPositionAdress:(NSString *)positionAdress;
 

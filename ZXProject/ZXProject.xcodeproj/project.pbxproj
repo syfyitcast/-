@@ -1296,7 +1296,7 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X8WH8B8GR2;
+						DevelopmentTeam = 5PXVBX9CU7;
 						ProvisioningStyle = Automatic;
 					};
 					8C305C02202C09AD00A843B5 = {
@@ -1687,7 +1687,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8WH8B8GR2;
+				DEVELOPMENT_TEAM = 5PXVBX9CU7;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1696,7 +1696,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1712,7 +1712,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8WH8B8GR2;
+				DEVELOPMENT_TEAM = 5PXVBX9CU7;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1721,7 +1721,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlionhwgps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

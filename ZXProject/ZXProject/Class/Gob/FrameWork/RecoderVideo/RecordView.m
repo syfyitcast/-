@@ -9,14 +9,19 @@
 #import "RecordView.h"
 #import "GobHeaderFile.h"
 #import <Masonry.h>
+#import "ZXRecoderVideoManager.h"
 
-@interface RecordView()
+@interface RecordView()<ZXRecordVideoManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIImageView *videoConutView;
 @property (nonatomic, strong) UILabel *desLabel;
 
 @property (nonatomic, strong) UILabel *longPressLabel;
+
+@property (nonatomic, strong) ZXRecoderVideoManager *manager;
+
+@property (nonatomic, assign) BOOL isCancelled;
 
 
 @end
@@ -27,6 +32,7 @@
     RecordView *recordView = [[RecordView alloc] initWithFrame:frame];
     recordView.backgroundColor = UIColorWithFloat(68);
     recordView.layer.cornerRadius = 12;
+    recordView.manager.delegate = recordView;
     [recordView setSubViews];
     return recordView;
 }
@@ -35,7 +41,7 @@
      __weak typeof(self)  weakself = self;
     [self addSubview:self.iconImageView];
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself).offset((self.width - 60) * 0.5);
+        make.centerX.equalTo(weakself.mas_centerX);
         make.centerY.equalTo(weakself.mas_centerY).offset(-32);
     }];
     [self addSubview:self.videoConutView];
@@ -61,6 +67,7 @@
     CGPoint point;
     switch (longPress.state) {
         case UIGestureRecognizerStateBegan://开始录音
+            [ZXRecoderVideoManager startRecordVideo];//开始
             self.longPressLabel.text = @"松开结束";
             self.desLabel.text = @"手指上滑,取消发送";
             self.desLabel.hidden = NO;
@@ -68,19 +75,32 @@
         case UIGestureRecognizerStateChanged://手指移动
             point = [longPress locationInView:self.longPressLabel];
             if (point.y < -10) {
+                self.isCancelled = YES;
                 self.desLabel.text = @"松开手指，取消发送";
                 self.iconImageView.image = [UIImage imageNamed:@"chexiao"];
                 self.videoConutView.hidden = YES;
                 self.desLabel.backgroundColor = [UIColor redColor];
+            }else{
+                self.isCancelled = NO;
+                self.desLabel.text = @"手指上滑,取消发送";
+                self.iconImageView.image = [UIImage imageNamed:@"yuyin"];
+                self.videoConutView.hidden = NO;
+                self.desLabel.backgroundColor = [UIColor clearColor];
             }
             break;
         case UIGestureRecognizerStateEnded: {
-            self.desLabel.hidden = YES;
-            self.longPressLabel.text = @"长按录音";
-            self.desLabel.backgroundColor = [UIColor clearColor];
-            self.iconImageView.image = [UIImage imageNamed:@"yuyin"];
-            self.videoConutView.hidden = NO;
-            break;
+            [ZXRecoderVideoManager stopRecordVideo];
+            if (self.isCancelled) {
+                self.manager.recordFileUrl = nil;
+            }else{
+                self.desLabel.hidden = YES;
+                self.longPressLabel.text = @"长按录音";
+                self.desLabel.backgroundColor = [UIColor clearColor];
+                self.iconImageView.image = [UIImage imageNamed:@"yuyin"];
+                self.videoConutView.hidden = NO;
+                self.videoConutView.image = nil;
+                break;
+            }
         }
         case UIGestureRecognizerStateFailed: {
         
@@ -92,7 +112,30 @@
 }
 
 
+- (void)zx_RecordVideoManagerReturnVideoCount:(float)count{
+    if (0<count<=0.27) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（1）"];
+    }else if (0.27<count<=0.34) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（2）"];
+    }else if (0.34<count<=0.41) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（3）"];
+    }else if (0.41<count<=0.48) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（4）"];
+    }else if (0.48<count<=0.55) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（5）"];
+    }else if (0.55<count) {
+        self.videoConutView.image = [UIImage imageNamed:@"yinjie（6）"];
+    }
+}
+
 #pragma mark - setter && getter
+
+- (ZXRecoderVideoManager *)manager{
+    if (_manager == nil) {
+        _manager = [ZXRecoderVideoManager sharedRecoderManager];
+    }
+    return _manager;
+}
 
 - (UIImageView *)iconImageView{
     if (_iconImageView == nil) {
@@ -103,7 +146,7 @@
 
 - (UIImageView *)videoConutView{
     if (_videoConutView == nil) {
-        _videoConutView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yinjie"]];
+        _videoConutView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
     }
     return _videoConutView;
 }
