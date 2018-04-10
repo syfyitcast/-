@@ -16,9 +16,12 @@
 #import "WorkTaskDetailModel.h"
 #import "CGXStringPickerView.h"
 #import "CGXPickerView.h"
+#import "ZXRecordKit.h"
+
 
 
 @interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
 
 @property (nonatomic, strong) WorkTaskAddImagePickView *pickView;
 @property (nonatomic, strong) UIView *lineOne;
@@ -68,7 +71,18 @@
         if (code == 0) {
             NSArray *datas = data[@"projectorgregion"];
             self.projectRegions = [WorkTaskDetailModel workTaskDetailModelsWithSource_arr:datas];
-            [self setSubViews];
+            [HttpClient zx_httpClientToGetWorkTaskPointProjectoRgregionWithPosition:[UserLocationManager sharedUserLocationManager].position andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                if (code == 0) {
+                    NSDictionary *dict = data[@"projectorgregion"];
+                    for (WorkTaskDetailModel *model in self.projectRegions) {
+                        if (model.orgid == [dict[@"orgid"] longValue]) {
+                            self.currentModel = model;
+                            break;
+                        }
+                    }
+                }
+                [self setSubViews];
+            }];
         }
     }];
 }
@@ -257,20 +271,12 @@
             [self presentViewController:pickVc animated:YES completion:nil];
         }
     }];
-    UIAlertAction *alterAction_1 = [UIAlertAction actionWithTitle:@"从相册中获取照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            pickVc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickVc animated:YES completion:nil];
-        }
-    }];
     UIAlertAction *alterAction_2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [alterVc dismissViewControllerAnimated:YES completion:nil];
     }];
     [alterAction_0 setTitleColor:UIColorWithFloat(49)];
-    [alterAction_1 setTitleColor:UIColorWithFloat(49)];
     [alterAction_2 setTitleColor:UIColorWithRGB(245, 0, 0)];
     [alterVc addAction:alterAction_0];
-    [alterVc addAction:alterAction_1];
     [alterVc addAction:alterAction_2];
     [self presentViewController:alterVc animated:YES completion:^{
         
@@ -316,6 +322,12 @@
    
 }
 
+- (void)clickVoiceBtn{
+    CGFloat width = self.view.width * 0.7;
+    RecordView *recordView = [RecordView recordViewWithFrame:CGRectMake((self.view.width - width)*0.5,(self.view.height - 300) * 0.5 , width, 300)];
+    [self.view addSubview:recordView];
+}
+
 #pragma mark - setter && getter
 
 - (WorkTaskAddImagePickView *)pickView{
@@ -358,6 +370,7 @@
     if (_VoiceBtn == nil) {
         _VoiceBtn = [[UIButton alloc] init];
         [_VoiceBtn setBackgroundImage:[UIImage imageNamed:@"voiceIcon"] forState:UIControlStateNormal];
+        [_VoiceBtn addTarget:self action:@selector(clickVoiceBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _VoiceBtn;
 }
@@ -421,8 +434,11 @@
         _dutyRegionLabel = [[UILabel alloc] init];
         _dutyRegionLabel.textColor = UIColorWithFloat(79);
         _dutyRegionLabel.font = [UIFont systemFontOfSize:15];
-        _dutyRegionLabel.text = @"责任区:";
-        ;
+        if (self.currentModel != nil) {
+            _dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",self.currentModel.orgname];
+        }else{
+            _dutyRegionLabel.text = @"责任区: ";
+        }
     }
     return _dutyRegionLabel;
 }
@@ -433,7 +449,11 @@
         _dutyPersonLabel.textColor = UIColorWithFloat(79);
         _dutyPersonLabel.font = [UIFont systemFontOfSize:15];
         _dutyPersonLabel.textAlignment = NSTextAlignmentRight;
-        _dutyPersonLabel.text = @"责任人:";
+        if (self.currentModel != nil) {
+            _dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",self.currentModel.employername];
+        }else{
+            _dutyPersonLabel.text = @"责任人:  ";
+        }
     }
     return _dutyPersonLabel;
 }
