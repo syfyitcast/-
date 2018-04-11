@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *adressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *timeCoutLabel;
 
 @end;
 
@@ -38,17 +39,17 @@
 
 - (void)setModel:(WorkTaskModel *)model{
     _model = model;
-    self.personName.text =  [NSString stringWithFormat:@"发起人:%@", model.solveusername];
-    self.desLabel.text = [NSString stringWithFormat:@"说明:%@",model.eventdescription];
+    self.personName.text =  [NSString stringWithFormat:@"发起人:%@",model.submitemployername];
+    self.desLabel.text = [NSString stringWithFormat:@"说明:%@",model.taskcontent];
     self.updateLabel.text = [NSString stringWithFormat:@"更新:%@",model.occurtime];
     self.adressLabel.text = model.positionaddress;
-    if ([model.eventstatus isEqualToString:@"2"]) {
+    if (model.taskstatus == 2) {
         self.typeLabel.text = @"已完成";
         self.typeLabel.backgroundColor = BTNBackgroudColor;
-    }else if ([model.eventstatus isEqualToString:@"99"]){
+    }else if (model.taskstatus == 99){
         self.typeLabel.text = @"草稿";
         self.typeLabel.backgroundColor = UIColorWithRGB(59, 127, 159);
-    }else if ([model.eventstatus isEqualToString:@"0"]){
+    }else if (model.taskstatus == 0){
         self.typeLabel.text = @"未完成";
         self.typeLabel.backgroundColor = [UIColor redColor];
     }

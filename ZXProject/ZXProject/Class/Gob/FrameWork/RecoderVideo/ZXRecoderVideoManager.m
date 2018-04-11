@@ -8,7 +8,9 @@
 
 #import "ZXRecoderVideoManager.h"
 
-@interface ZXRecoderVideoManager()
+#define DIRCTPATH   [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"Record"]
+
+@interface ZXRecoderVideoManager()<AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) AVAudioSession *session;
 
@@ -17,7 +19,7 @@
 @property (nonatomic, strong) AVAudioPlayer *player;
 
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) float videoTime;
+
 
 @end
 
@@ -30,6 +32,18 @@
         instance = [[ZXRecoderVideoManager alloc] init];
     });
     return instance;
+}
+
++ (void)deleteFile{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDirectory = NO;
+    BOOL isExist = [fileManager fileExistsAtPath:DIRCTPATH isDirectory:&isDirectory];
+    if (isExist && isDirectory) {
+        BOOL success = [fileManager removeItemAtPath:DIRCTPATH error:nil];
+        if (success) {
+            NSLog(@"删除录音文件夹成功");
+        }
+    }
 }
 
 + (void)startRecordVideo{
@@ -82,19 +96,32 @@
     manager.timer = nil;
     if ([manager.recorder isRecording]) {
         [manager.recorder stop];
-        AVURLAsset* audioAsset =[AVURLAsset URLAssetWithURL:manager.recordFileUrl options:nil];
-        CMTime audioDuration = audioAsset.duration;
-        float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
-        manager.videoTime = audioDurationSeconds;
+        
     }
+}
+
+- (float)videoTime{
+    AVURLAsset* audioAsset =[AVURLAsset URLAssetWithURL:self.recordFileUrl options:nil];
+    CMTime audioDuration = audioAsset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    _videoTime = audioDurationSeconds;
+    return _videoTime;
 }
 
 + (void)playVideoWithData:(NSData *)data{
     ZXRecoderVideoManager *manager =  [ZXRecoderVideoManager sharedRecoderManager];
     if ([manager.player isPlaying])return;
     manager.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
+    manager.player.delegate = manager;
     [manager.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [manager.player play];
+}
+
++ (void)stopPlay{
+    ZXRecoderVideoManager *manager =  [ZXRecoderVideoManager sharedRecoderManager];
+    if (manager.player.isPlaying) {
+        [manager.player stop];
+    }
 }
 
 - (void)retureVideoCount{
@@ -105,11 +132,18 @@
     }
 }
 
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    if (self.playerDidFinshedBlock) {
+        self.playerDidFinshedBlock();
+    }
+}
+
 - (NSTimer *)timer{
     if (_timer == nil) {
         _timer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(retureVideoCount) userInfo:nil repeats:YES];
     }
     return _timer;
 }
+
 
 @end

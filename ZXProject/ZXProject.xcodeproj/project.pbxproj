@@ -11,6 +11,9 @@
 		49082676207C659800ABA061 /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49082675207C659800ABA061 /* RecordView.m */; };
 		490826DA207C924D00ABA061 /* workTaskHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826D9207C924D00ABA061 /* workTaskHeaderView.m */; };
 		490826DC207C938200ABA061 /* workTaskHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490826DB207C938200ABA061 /* workTaskHeaderView.xib */; };
+		490826E0207D981100ABA061 /* MyPositionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826DF207D981100ABA061 /* MyPositionViewController.m */; };
+		490826E6207DA13900ABA061 /* RecordPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826E5207DA13900ABA061 /* RecordPlayView.m */; };
+		490826E9207DBAB000ABA061 /* UIImage+NotStrech.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826E8207DBAB000ABA061 /* UIImage+NotStrech.m */; };
 		492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */; };
 		492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */; };
 		492F942F207313D500BBB677 /* WorkFlowDetailFooterApprovView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942E207313D500BBB677 /* WorkFlowDetailFooterApprovView.m */; };
@@ -178,6 +181,12 @@
 		490826D9207C924D00ABA061 /* workTaskHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = workTaskHeaderView.m; sourceTree = "<group>"; };
 		490826DB207C938200ABA061 /* workTaskHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = workTaskHeaderView.xib; sourceTree = "<group>"; };
 		490826DD207CA65600ABA061 /* ZXRecordKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXRecordKit.h; sourceTree = "<group>"; };
+		490826DE207D981100ABA061 /* MyPositionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPositionViewController.h; sourceTree = "<group>"; };
+		490826DF207D981100ABA061 /* MyPositionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPositionViewController.m; sourceTree = "<group>"; };
+		490826E4207DA13900ABA061 /* RecordPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordPlayView.h; sourceTree = "<group>"; };
+		490826E5207DA13900ABA061 /* RecordPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordPlayView.m; sourceTree = "<group>"; };
+		490826E7207DBAB000ABA061 /* UIImage+NotStrech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+NotStrech.h"; sourceTree = "<group>"; };
+		490826E8207DBAB000ABA061 /* UIImage+NotStrech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NotStrech.m"; sourceTree = "<group>"; };
 		492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailItemView.h; sourceTree = "<group>"; };
 		492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailItemView.m; sourceTree = "<group>"; };
 		492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailItemView.xib; sourceTree = "<group>"; };
@@ -492,6 +501,8 @@
 				49082674207C659800ABA061 /* RecordView.h */,
 				49082675207C659800ABA061 /* RecordView.m */,
 				490826DD207CA65600ABA061 /* ZXRecordKit.h */,
+				490826E4207DA13900ABA061 /* RecordPlayView.h */,
+				490826E5207DA13900ABA061 /* RecordPlayView.m */,
 			);
 			path = RecoderVideo;
 			sourceTree = "<group>";
@@ -670,6 +681,8 @@
 				8C224B18204FABE100319CC0 /* WorkTaskAddController.m */,
 				8CA11DB520525E7300BC14C5 /* WorkTaskDetailController.h */,
 				8CA11DB620525E7300BC14C5 /* WorkTaskDetailController.m */,
+				490826DE207D981100ABA061 /* MyPositionViewController.h */,
+				490826DF207D981100ABA061 /* MyPositionViewController.m */,
 			);
 			path = "WorkManager(作业管理)";
 			sourceTree = "<group>";
@@ -1204,6 +1217,8 @@
 				8CB1458F20391BF9003E94D4 /* UIView+Layout.m */,
 				49EC0D61205A4E9B002CE92C /* UIAlertAction+Attribute.h */,
 				49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */,
+				490826E7207DBAB000ABA061 /* UIImage+NotStrech.h */,
+				490826E8207DBAB000ABA061 /* UIImage+NotStrech.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1296,7 +1311,7 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 5PXVBX9CU7;
+						DevelopmentTeam = X8WH8B8GR2;
 						ProvisioningStyle = Automatic;
 					};
 					8C305C02202C09AD00A843B5 = {
@@ -1512,6 +1527,7 @@
 				8CB1459A203BE145003E94D4 /* HomeCollectionView.m in Sources */,
 				8C33C2A3202DCB0C00B93F6E /* RegisterViewController.m in Sources */,
 				49082673207C4A7500ABA061 /* ZXRecoderVideoManager.m in Sources */,
+				490826E9207DBAB000ABA061 /* UIImage+NotStrech.m in Sources */,
 				49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */,
 				4932D990206CC8970048D299 /* PersonInfoController.m in Sources */,
 				8CB1459320393F42003E94D4 /* HomeHeaderView.m in Sources */,
@@ -1526,11 +1542,13 @@
 				4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */,
 				49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
+				490826E6207DA13900ABA061 /* RecordPlayView.m in Sources */,
 				495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */,
 				8C224B10204D2D2A00319CC0 /* User.m in Sources */,
 				8C224B13204D320C00319CC0 /* NSNULL+Filtration.m in Sources */,
 				49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */,
 				8C33C2C52031700400B93F6E /* XMEngine.m in Sources */,
+				490826E0207D981100ABA061 /* MyPositionViewController.m in Sources */,
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
 				495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */,
 				49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */,
@@ -1687,7 +1705,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5PXVBX9CU7;
+				DEVELOPMENT_TEAM = X8WH8B8GR2;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1696,7 +1714,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1712,7 +1730,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5PXVBX9CU7;
+				DEVELOPMENT_TEAM = X8WH8B8GR2;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1721,7 +1739,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infore.zoomlions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

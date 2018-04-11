@@ -47,6 +47,7 @@
 
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block{
     NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_LOGINPWD];
+    [dict setObject:@"0" forKey:@"accountid"];
     [dict setObject:userName forKey:@"loginname"];
     [dict setObject:[Tool MD5ForLower32Bate:password] forKey:@"loginpass"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -70,6 +71,7 @@
 
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andVerifyCode:(NSString *_Nullable)VerifyCode andSmsid:(NSString *)smsid andSuccessBlock:(responseBlock _Nullable )block{
     NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_LOGINCODE];
+    [dict setObject:@"0" forKey:@"accountid"];
     [dict setObject:userName forKey:@"mobileno"];
     [dict setObject:smsid forKey:@"smsid"];
     [dict setObject:VerifyCode forKey:@"smscontent"];
@@ -212,8 +214,8 @@
 
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block{
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
-    [dict setObject:projectId forKey:@"projectid"];
-    [dict setObject:eventStatus forKey:@"eventstatus"];
+    [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
+    [dict setObject:eventStatus?eventStatus:@"" forKey:@"eventstatus"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETEVENTS];
         request.httpMethod           = kXMHTTPMethodPOST;

@@ -21,17 +21,25 @@
     //2.上传文件
     NSString *url = [NetworkConfig appendPulicParamterWithApiUrl:API_UPLOADFILE withDict:params];
     NSString *key = @"";
+    NSString *flieName = @"";
+    NSString *mimeType = @"";
     if (type == UploadFileTypePhoto) {
         key = @"photourl";
+        flieName = @"image.png";
+        mimeType = @"image/png";
     }else if (type == UploadFileTypeVideo){
         key = @"videourl";
+        flieName = @"video.mp4";
+        mimeType = @"video/mp4";
     }else if (type == UPloadFileTypeSound){
         key = @"soundurl";
+        flieName = @"sound.wav";
+        mimeType = @"sound/wav";
     }
     [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         //上传文件参数
-        [formData appendPartWithFileData:fileData name:key fileName:@"image.png" mimeType:@"image/png"];
+        [formData appendPartWithFileData:fileData name:key fileName:flieName mimeType:mimeType];
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         

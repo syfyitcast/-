@@ -18,11 +18,15 @@
 #import "CGXPickerView.h"
 #import "ZXRecordKit.h"
 #import "workTaskHeaderView.h"
+#import "MyPositionViewController.h"
+#import "HttpClient+UploadFile.h"
 
 
 
-@interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,workTaskHeaderViewDelegate>
+@interface WorkTaskAddController()<WorkTaskAddImagePickViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,workTaskHeaderViewDelegate,RecordViewDelegate>
 
+
+@property (nonatomic, copy) NSString *positionAdress;
 
 @property (nonatomic, strong) WorkTaskAddImagePickView *pickView;
 @property (nonatomic, strong) workTaskHeaderView *headerView;
@@ -47,6 +51,8 @@
 @property (nonatomic, strong) WorkTaskDetailModel *currentModel;
 
 @property (nonatomic, strong) RecordView *recordView;
+@property (nonatomic, strong) UIButton *coverView;
+@property (nonatomic, assign) BOOL hasRecord;
 
 
 @end
@@ -60,6 +66,7 @@
 }
 
 - (void)setNetworkRequest{
+    ZXSHOW_LOADING(self.view, @"加载中...");
     [HttpClient zx_httpClientToGetProjectRegionListWithSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 0) {
             NSArray *datas = data[@"projectorgregion"];
@@ -82,39 +89,59 @@
 
 - (void)setPositionAdress{
     if ([UserLocationManager sharedUserLocationManager].positionAdress != nil) {
+        ZXHIDE_LOADING;
         self.headerView = [workTaskHeaderView workTaskViewWithImageUrls:nil andPositionAdress:[UserLocationManager sharedUserLocationManager].positionAdress];
+        self.positionAdress = [UserLocationManager sharedUserLocationManager].positionAdress;
         self.headerView.delegate = self;
          [self setSubViews];
     }else{
         [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:^(NSDictionary *addressDic) {
+            ZXHIDE_LOADING;
             NSString *state=[addressDic objectForKey:@"State"];
             NSString *city=[addressDic objectForKey:@"City"];
             NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
             NSString *street=[addressDic objectForKey:@"Street"];
             self.headerView = [workTaskHeaderView workTaskViewWithImageUrls:nil andPositionAdress:[NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street]];
             self.headerView.delegate = self;
+            self.positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
              [self setSubViews];
         }];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
- 
-}
-
 - (void)setSubViews{
     __weak typeof(self) weakself = self;
-    [self.view addSubview:self.headerView];
-    [self.view addSubview:self.dutyRegionLabel];
-    [self.view addSubview:self.dutyPersonLabel];
-    [self.view addSubview:self.lineFive];
-    [self.view addSubview:self.reslovBtn];
-    [self.view addSubview:self.reslovPersonLabel];
-    [self.view addSubview:self.lineSix];
-    [self.view addSubview:self.lineSeven];
-    [self.view addSubview:self.submitBtn];
-    [self.view addSubview:self.saveBtn];
+    UIScrollView *svc = [[UIScrollView alloc] init];
+    svc.backgroundColor = WhiteColor;
+    svc.showsVerticalScrollIndicator = NO;
+    svc.bounces = NO;
+    [self.view addSubview:svc];
+    [svc mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(weakself.view);
+    }];
+    UIView *contentView = [[UIView alloc] init];
+    contentView.backgroundColor = WhiteColor;
+    [svc addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(svc);
+        make.width.equalTo(svc);
+    }];
+    [contentView addSubview:self.headerView];
+    [contentView addSubview:self.dutyRegionLabel];
+    [contentView addSubview:self.dutyPersonLabel];
+    [contentView addSubview:self.lineFive];
+    [contentView addSubview:self.reslovBtn];
+    [contentView addSubview:self.reslovPersonLabel];
+    [contentView addSubview:self.lineSix];
+    [contentView addSubview:self.lineSeven];
+    [contentView addSubview:self.submitBtn];
+    [contentView addSubview:self.saveBtn];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view.mas_left);
+        make.right.equalTo(weakself.view.mas_right);
+        make.top.equalTo(contentView.mas_top);
+        make.height.mas_equalTo(361);
+    }];
     [self.reslovPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.view.mas_left).offset(15);
         make.top.equalTo(weakself.headerView.mas_bottom).offset(15);
@@ -163,41 +190,32 @@
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(44);
     }];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.submitBtn.mas_bottom).offset(30);
+    }];
     
 }
 
 #pragma mark - WorkTaskAddImageViewDelegateMethod
 
-- (void)WorkTaskAddImagePickViewDidTapImageView{
-    UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:@"选择" message:@"请选择获取照片的方式" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
-    pickVc.delegate = self;
-    UIAlertAction *alterAction_0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            pickVc.sourceType =  UIImagePickerControllerSourceTypeCamera;
-            [self presentViewController:pickVc animated:YES completion:nil];
-        }
-    }];
-    UIAlertAction *alterAction_2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [alterVc dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [alterAction_0 setTitleColor:UIColorWithFloat(49)];
-    [alterAction_2 setTitleColor:UIColorWithRGB(245, 0, 0)];
-    [alterVc addAction:alterAction_0];
-    [alterVc addAction:alterAction_2];
-    [self presentViewController:alterVc animated:YES completion:^{
-        
-    }];
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.pickView getImage:image];
+    [self.headerView workTaskHeaderViewGetImage:image];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)recordViewDidEndRecord{
+    [self.recordView removeFromSuperview];
+    [self.coverView removeFromSuperview];
+    [self.headerView insertVideoPlayViewWithPlayTime:[ZXRecoderVideoManager sharedRecoderManager].videoTime];
+    [self.headerView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(431);
+    }];
+    self.hasRecord = YES;
 }
 
 #pragma mark - ClickAction
@@ -221,22 +239,113 @@
     }else if (btn.tag == 6){//提交
         if (self.currentModel == nil) {
             [MBProgressHUD showError:@"请选择责任人和责任区域" toView:self.view];
-        }else{
-            
+            return;
+        };
+        if (self.headerView.textView.text.length == 0) {
+            [MBProgressHUD showError:@"请填写说明" toView:self.view];
+            return;
         }
-        
+        NSArray *pickImages = [self.headerView workTaskHeaderViewGetPickImages];
+        // 调度组
+        dispatch_group_t group = dispatch_group_create();
+        // 队列
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        if (pickImages.count != 0) {
+            ZXSHOW_LOADING(self.view, @"上传文件中...")
+        }
+        NSMutableString *temStr = [NSMutableString string];//拼接照片url
+        for (UIImage *image in pickImages) {
+            dispatch_group_enter(group);
+            NSData *data =  UIImageJPEGRepresentation(image, 1);
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        [temStr appendString:[NSString stringWithFormat:@"%@|",url]];
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        __block NSString *soundUrl = @"";
+        if (self.hasRecord) {
+             dispatch_group_enter(group);
+            NSData *recordData = [NSData dataWithContentsOfURL:[ZXRecoderVideoManager sharedRecoderManager].recordFileUrl];
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:recordData andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        soundUrl = url;
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        dispatch_queue_t mQueue = dispatch_get_main_queue();
+        dispatch_group_notify(group, mQueue, ^{//照片上传完提交审核
+            ZXHIDE_LOADING;
+            ZXSHOW_LOADING(self.view, @"提交中...");
+            if (temStr.length != 0) {
+                [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
+            }
+            [HttpClient zx_httpClientToAddOrgTaskWithEventMark:self.headerView.textView.text andPosition:[UserLocationManager sharedUserLocationManager].position andPositionaddress:self.positionAdress andRegionid:[self.currentModel.regioncode  longLongValue] andOrgid:self.currentModel.orgid andIableemployerid:self.currentModel.employerid andPhotoUrls:temStr andSoundUrls:soundUrl andVideoUrls:@"" andConfirmemployer:@"" andTaskStatus:@"" andOrgTaskid:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                if (code == 0) {
+                    [MBProgressHUD showError:@"提交成功" toView:self.view];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                    [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message toView:self.view];
+                    }else{
+                         [MBProgressHUD showError:@"提交失败" toView:self.view];
+                    }
+                }
+                ZXHIDE_LOADING;
+            }];
+        });
     }
-   
 }
 
 - (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag{
     if (tag == 1006) {//录音
         [self clickVoiceBtn];
+    }else if (tag == 1007){//位置
+        [self clickMapBtn];
     }
+}
+
+- (void)workTaskHeaderViewDidTapImagePickView{
+    UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:@"选择" message:@"请选择获取照片的方式" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
+    pickVc.delegate = self;
+    UIAlertAction *alterAction_0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            pickVc.sourceType =  UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:pickVc animated:YES completion:nil];
+        }
+    }];
+    UIAlertAction *alterAction_2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [alterVc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alterAction_0 setTitleColor:UIColorWithFloat(49)];
+    [alterAction_2 setTitleColor:UIColorWithRGB(245, 0, 0)];
+    [alterVc addAction:alterAction_0];
+    [alterVc addAction:alterAction_2];
+    [self presentViewController:alterVc animated:YES completion:^{
+        
+    }];
+}
+
+- (void)clickMapBtn{
+    MyPositionViewController *vc = [[MyPositionViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)clickVoiceBtn{
     UIButton *coverView = [[UIButton alloc] init];
+    self.coverView = coverView;
     coverView.backgroundColor = [UIColor blackColor];
     coverView.alpha = 0.5;
     coverView.frame = self.view.bounds;
@@ -245,6 +354,7 @@
     CGFloat width = self.view.width * 0.7;
     RecordView *recordView = [RecordView recordViewWithFrame:CGRectMake((self.view.width - width)*0.5,(self.view.height - 300) * 0.5 , width, 300)];
     self.recordView = recordView;
+    self.recordView.delegate = self;
     [self.view addSubview:recordView];
 }
 
@@ -254,8 +364,6 @@
 }
 
 #pragma mark - setter && getter
-
-
 - (UILabel *)dutyRegionLabel{
     if (_dutyRegionLabel == nil) {
         _dutyRegionLabel = [[UILabel alloc] init];
@@ -360,46 +468,6 @@
     }
     return _submitBtn;
 }
-
-//- (FButton *)levelBtn{
-//    if (_levelBtn == nil) {
-//        _levelBtn  = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
-//        _levelBtn.layer.borderWidth = 1;
-//        [_levelBtn  setTitle:@"请选择" forState:UIControlStateNormal];
-//        _levelBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
-//        _levelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [_levelBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
-//        [_levelBtn setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
-//        [_levelBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-//        _levelBtn.tag = 3;
-//    }
-//    return _levelBtn;
-//}
-//
-//- (UILabel *)isvehNeedLabel{
-//    if (_isvehNeedLabel == nil) {
-//        _isvehNeedLabel = [[UILabel alloc] init];
-//        _isvehNeedLabel.text = @"车辆需求:";
-//        _isvehNeedLabel.textColor = UIColorWithFloat(79);
-//        _isvehNeedLabel.font = [UIFont systemFontOfSize:15];
-//    }
-//    return _isvehNeedLabel;
-//}
-//
-//- (FButton *)isvehNeedBtn{
-//    if (_isvehNeedBtn == nil) {
-//        _isvehNeedBtn = [FButton fbtnWithFBLayout:FBLayoutTypeRight andPadding:5];
-//        _isvehNeedBtn.layer.borderWidth = 1;
-//        [_isvehNeedBtn  setTitle:@"请选择" forState:UIControlStateNormal];
-//        _isvehNeedBtn.layer.borderColor = UIColorWithFloat(239).CGColor;
-//        _isvehNeedBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [_isvehNeedBtn  setTitleColor:UIColorWithFloat(108) forState:UIControlStateNormal];
-//        [_isvehNeedBtn setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
-//        [_isvehNeedBtn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-//        _isvehNeedBtn.tag = 3;
-//    }
-//    return _isvehNeedBtn;
-//}
 
 - (UIView *)lineEight{
     if (_lineEight == nil) {

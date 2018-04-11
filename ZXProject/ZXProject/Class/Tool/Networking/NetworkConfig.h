@@ -50,8 +50,10 @@ extern NSString *const API_QUERYREPORT;//查询呈报事件
 extern NSString *const API_COMFIRMFLOWTASK;//流程任务确认
 extern NSString *const API_DELETEFLOWEVENT;//删除流程任务
 
+extern NSString *const API_GETTASKLIST;//获取工作列表
 extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业区域
 extern NSString *const API_GETPROJECTREGIONLIST;//获取项目作业区域列表
+extern NSString *const API_ADDTASK;//新增工作事件
 
 
 @interface NetworkConfig : NSObject
