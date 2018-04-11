@@ -139,11 +139,12 @@
                 <outlet property="adressLabel" destination="dQ8-80-ypq" id="EIr-fA-z5H"/>
                 <outlet property="desLabel" destination="RYA-nY-Hqv" id="3xU-eM-aGo"/>
                 <outlet property="personName" destination="eWx-Gg-mUd" id="HMC-f8-5iv"/>
+                <outlet property="timeCoutLabel" destination="Bru-en-gXP" id="xAg-iL-Ax5"/>
                 <outlet property="typeLabel" destination="Jce-Mi-VxM" id="gVi-EL-HyN"/>
                 <outlet property="updateLabel" destination="x8M-gL-Ycf" id="8j5-fh-pBk"/>
                 <outlet property="workTaskIcon" destination="38g-fc-wX5" id="0yt-vL-1OO"/>
             </connections>
-            <point key="canvasLocation" x="-49.5" y="50"/>
+            <point key="canvasLocation" x="-147" y="51"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -17,6 +17,7 @@
 #import "WorkTaskAddController.h"
 #import "ProjectManager.h"
 #import "WorkTaskDetailController.h"
+#import "HttpClient+WorkTask.h"
 
 
 @interface WorkManagerController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -48,21 +49,26 @@
     [self setSubViews];
     [self setNetWorkRequest];
     [self.topBar bottomLineMoveWithIndex:1];
+    //监听通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:NOTIFI_WORKTASKRELOADDATA object:nil];
+}
+
+- (void)reloadData{//刷新数据
+    [self setNetWorkRequest];
 }
 
 - (void)setNetWorkRequest{
     ZXSHOW_LOADING(self.view, @"加载中...");
     // 调度组
     dispatch_group_t group = dispatch_group_create();
-    self.group = group;
     // 队列
     dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetTaskListWithOrgtaskid:0 andBegintime:0 andEndTime:0 andTaskdate:0 andOrgid:0 andRegionid:0 andSubmitemployerid:0 andComfirmemployerid:0 andTaskStatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
+                NSArray *source_arr = data[@"orgtask"];
                 self.unfinishedmodels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
@@ -70,33 +76,38 @@
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetTaskListWithOrgtaskid:0 andBegintime:0 andEndTime:0 andTaskdate:0 andOrgid:0 andRegionid:0 andSubmitemployerid:0 andComfirmemployerid:0 andTaskStatus:2 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
+                NSArray *source_arr = data[@"orgtask"];
                 self.finishedModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
             }
-             dispatch_group_leave(group);
+            dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetTaskListWithOrgtaskid:0 andBegintime:0 andEndTime:0 andTaskdate:0 andOrgid:0 andRegionid:0 andSubmitemployerid:0 andComfirmemployerid:0 andTaskStatus:99 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
-                self.draftModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
+                NSArray *source_arr = data[@"orgtask"];
+                 self.draftModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
             }
-             dispatch_group_leave(group);
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_enter(group);
+    dispatch_group_async(group, queue, ^{
+        [HttpClient zx_httpClientToGetTaskListWithOrgtaskid:0 andBegintime:0 andEndTime:0 andTaskdate:0 andOrgid:0 andRegionid:0 andSubmitemployerid:0 andComfirmemployerid:0 andTaskStatus:100 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            if (code == 0) {
+                NSArray *source_arr = data[@"orgtask"];
+                self.allModels = [WorkTaskModel workTaskModelsWithSource_arr:source_arr];
+            }
+            dispatch_group_leave(group);
         }];
     });
     // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
     dispatch_queue_t mQueue = dispatch_get_main_queue();
     dispatch_group_notify(group, mQueue, ^{
         ZXHIDE_LOADING;
-        NSMutableArray *tem_arr = [NSMutableArray array];
-        [tem_arr addObjectsFromArray:self.draftModels];
-        [tem_arr addObjectsFromArray:self.unfinishedmodels];
-        [tem_arr addObjectsFromArray:self.finishedModels];
-        self.allModels = tem_arr;
         [self.myTable reloadData];
     });
 }

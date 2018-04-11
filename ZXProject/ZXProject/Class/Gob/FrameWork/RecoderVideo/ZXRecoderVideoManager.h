@@ -21,6 +21,9 @@
 
 @property (nonatomic, weak) id <ZXRecordVideoManagerDelegate>delegate;
 @property (nonatomic, strong) NSURL *recordFileUrl;
+@property (nonatomic, assign) float videoTime;
+
+@property (nonatomic, copy) void(^playerDidFinshedBlock)();
 
 + (instancetype)sharedRecoderManager;
 
@@ -29,6 +32,10 @@
 + (void)stopRecordVideo;
 
 + (void)playVideoWithData:(NSData *)data;
+
++ (void)deleteFile;
+
++ (void)stopPlay;
 
 
 

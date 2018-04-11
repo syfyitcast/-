@@ -14,12 +14,21 @@
 
 - (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag;
 
+- (void)workTaskHeaderViewDidTapImagePickView;
+
 @end
 
 @interface workTaskHeaderView : UIView
 
 @property (nonatomic, weak) id<workTaskHeaderViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 + (instancetype)workTaskViewWithImageUrls:(NSArray *)imageUrls andPositionAdress:(NSString *)positionAdress;
+
+- (void)insertVideoPlayViewWithPlayTime:(float)playTime;
+
+- (void)workTaskHeaderViewGetImage:(UIImage *)image;
+
+- (NSArray *)workTaskHeaderViewGetPickImages;
 
 @end

@@ -92,15 +92,16 @@
             [ZXRecoderVideoManager stopRecordVideo];
             if (self.isCancelled) {
                 self.manager.recordFileUrl = nil;
-            }else{
-                self.desLabel.hidden = YES;
-                self.longPressLabel.text = @"长按录音";
-                self.desLabel.backgroundColor = [UIColor clearColor];
-                self.iconImageView.image = [UIImage imageNamed:@"yuyin"];
-                self.videoConutView.hidden = NO;
-                self.videoConutView.image = nil;
-                break;
+                [ZXRecoderVideoManager deleteFile];//删除文件
             }
+            self.desLabel.hidden = YES;
+            self.longPressLabel.text = @"长按录音";
+            self.desLabel.backgroundColor = [UIColor clearColor];
+            self.iconImageView.image = [UIImage imageNamed:@"yuyin"];
+            self.videoConutView.hidden = NO;
+            self.videoConutView.image = nil;
+            [self endRecord];
+            break;
         }
         case UIGestureRecognizerStateFailed: {
         
@@ -108,6 +109,16 @@
         }
         default:
             break;
+    }
+}
+
+- (void)endRecord{
+    if (self.isCancelled) {
+        return;
+    }else{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(recordViewDidEndRecord)]) {
+            [self.delegate recordViewDidEndRecord];
+        }
     }
 }
 

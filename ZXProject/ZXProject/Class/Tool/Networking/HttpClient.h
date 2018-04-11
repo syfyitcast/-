@@ -17,7 +17,7 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 @interface HttpClient : NSObject
 
 //字典查询
-+ (void)zx_httpClientToQueryDictWithDataType:(NSString *_Nullable)dataType andDataCode:(NSString *)datacode andSuccessBlock:(responseBlock _Nonnull )block;
++ (void)zx_httpClientToQueryDictWithDataType:(NSString *_Nullable)dataType andDataCode:(NSString *_Nonnull)datacode andSuccessBlock:(responseBlock _Nonnull )block;
 
 //用户密码登录
 + (void)zx_httpClientToLoginWithUserName:(NSString *_Nullable)userName andPassword:(NSString *_Nullable)password andSuccessBlock:(responseBlock _Nullable )block;

@@ -36,16 +36,16 @@
 
 - (NSArray *)photoUrls{
     if (_photoUrls == nil) {
-        _photoUrls = [self.photourl componentsSeparatedByString:@"|"];
+        _photoUrls = [self.beforephotourl componentsSeparatedByString:@"|"];
         if (_photoUrls == nil) {
-            _photoUrls = @[self.photourl];
+            _photoUrls = @[self.beforephotourl];
         }
     }
     return _photoUrls;
 }
 
 - (NSString *)occurtime{
-    unsigned long long time = [_occurtime longLongValue] / 1000.0;
+    unsigned long long time = _beforetime / 1000.0;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

@@ -10,6 +10,9 @@
 
 @interface HttpClient (WorkTask)
 
+//获取作业列表
++ (void)zx_httpClientToGetTaskListWithOrgtaskid:(long)orgtaskid andBegintime:(long)begintime andEndTime:(long)endTime andTaskdate:(NSString *)taskdate andOrgid:(long)orgid andRegionid:(long)regionid andSubmitemployerid:(long)submitemployerid andComfirmemployerid:(long)comfirmemployerid andTaskStatus:(long)taskStatus andSuccessBlock:(responseBlock)block;
+
 //获取项目作业区域列表
 + (void)zx_httpClientToGetProjectRegionListWithSuccessBlock:(responseBlock)block;
 

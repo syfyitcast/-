@@ -139,6 +139,8 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="lineTwo" destination="VEV-4A-FkL" id="7VJ-pW-7DL"/>
+                <outlet property="lineTwoTop" destination="jIh-rW-PzK" id="R1N-x4-iaC"/>
                 <outlet property="positionLabel" destination="QZb-Pu-Ehm" id="VYK-LM-fM7"/>
                 <outlet property="textView" destination="TTq-0S-NLV" id="96W-uk-mfN"/>
                 <outlet property="timeLabel" destination="qba-OZ-Ij0" id="nWi-bq-YSB"/>
