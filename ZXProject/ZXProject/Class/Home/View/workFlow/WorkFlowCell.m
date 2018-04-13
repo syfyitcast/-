@@ -77,7 +77,7 @@
     self.timeLbel.text = model.countTime;
     self.coutTiemDesLabel.hidden = NO;
     self.timeLbel.hidden = NO;
-      self.draftIconView.hidden = YES;
+    self.draftIconView.hidden = YES;
     switch (model.eventType) {
         case 4://草稿
             self.statusLabel.text = @"草稿";
