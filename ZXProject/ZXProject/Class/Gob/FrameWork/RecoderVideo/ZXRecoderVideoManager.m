@@ -7,6 +7,7 @@
 //
 
 #import "ZXRecoderVideoManager.h"
+#import "HttpClient+UploadFile.h"
 
 #define DIRCTPATH   [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"Record"]
 
@@ -108,6 +109,13 @@
     return _videoTime;
 }
 
++ (float)vdieoTimeWithUrl:(NSString *)url{
+    AVURLAsset* audioAsset =[AVURLAsset URLAssetWithURL:[NSURL URLWithString:url] options:nil];
+    CMTime audioDuration = audioAsset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    return audioDurationSeconds;
+}
+
 + (void)playVideoWithData:(NSData *)data{
     ZXRecoderVideoManager *manager =  [ZXRecoderVideoManager sharedRecoderManager];
     if ([manager.player isPlaying])return;
@@ -122,6 +130,11 @@
     if (manager.player.isPlaying) {
         [manager.player stop];
     }
+}
+
++ (BOOL)isPlaying{
+    ZXRecoderVideoManager *manager =  [ZXRecoderVideoManager sharedRecoderManager];
+    return manager.player.isPlaying;
 }
 
 - (void)retureVideoCount{
@@ -145,5 +158,31 @@
     return _timer;
 }
 
+#pragma mark - download
+
++ (void)downLoadRecordFileWithUrl:(NSString *)url andSuccessBlock:(void(^)(NSString *path))block{
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"downloadRecodeFlie"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    BOOL existed = [fileManager fileExistsAtPath:path isDirectory:&isDir];
+    if (!(isDir && existed)) {
+        [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSURL *URL = [NSURL URLWithString:url];
+    NSString *subUrl = URL.lastPathComponent;
+    NSString *desPath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",subUrl]];
+    if ([fileManager fileExistsAtPath:desPath isDirectory:nil]) {//文件已经存在
+        block(desPath);
+        return;
+    }
+    [HttpClient zx_httpClientToDownloadFileWithUrl:url andDestinationPath:desPath andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (error == 0 && message.length != 0) {
+            if (block) {
+                block(message);
+            }
+        }
+    }];
+    
+}
 
 @end

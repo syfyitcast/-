@@ -53,6 +53,10 @@
         self.typeLabel.text = @"未完成";
         self.typeLabel.backgroundColor = [UIColor redColor];
     }
+    NSTimeInterval chaTime = [[NSDate date] timeIntervalSince1970] - self.model.beforetime / 1000.0;
+    int h = chaTime / 3600;
+    int m = (chaTime - h * 3600) / 60;
+    self.timeCoutLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",h,m];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[NetworkConfig sharedNetworkingConfig].ipUrl,model.photoUrls.firstObject]];
     [self.workTaskIcon sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"workTaskIcon"]];
 }

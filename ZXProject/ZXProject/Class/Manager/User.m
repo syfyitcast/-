@@ -74,5 +74,13 @@
     _photourl = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:photourl];
 }
 
+- (NSString *)employerid{
+    if (_employerid == nil) {
+        return @"";
+    }else{
+        return _employerid;
+    }
+}
+
 
 @end

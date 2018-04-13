@@ -7,8 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface MyPositionViewController : BaseViewController
+
+ @property (nonatomic, assign) CLLocationCoordinate2D location;
 
 
 

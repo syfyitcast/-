@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WorkTaskModel.h"
+@class workTaskHeaderView;
 
 @protocol workTaskHeaderViewDelegate<NSObject>
 
 @optional
 
-- (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag;
+- (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag andView:(workTaskHeaderView *)view;
 
 - (void)workTaskHeaderViewDidTapImagePickView;
 
@@ -22,13 +24,20 @@
 
 @property (nonatomic, weak) id<workTaskHeaderViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic, strong)  WorkTaskModel *model;
+@property (nonatomic, copy) NSString *positionAdress;
+@property (nonatomic, assign) int type;
 
-+ (instancetype)workTaskViewWithImageUrls:(NSArray *)imageUrls andPositionAdress:(NSString *)positionAdress;
+
++ (instancetype)workTaskView;
 
 - (void)insertVideoPlayViewWithPlayTime:(float)playTime;
 
 - (void)workTaskHeaderViewGetImage:(UIImage *)image;
 
 - (NSArray *)workTaskHeaderViewGetPickImages;
+
+- (void)insetSoundViewWithUrl:(NSString *)url;
+
 
 @end

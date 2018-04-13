@@ -37,6 +37,11 @@
 
 + (void)stopPlay;
 
++ (void)downLoadRecordFileWithUrl:(NSString *)url andSuccessBlock:(void(^)(NSString *path))block;
+
++ (float)vdieoTimeWithUrl:(NSString *)url;
+
++ (BOOL)isPlaying;
 
 
 @end

@@ -10,11 +10,13 @@
 #import <UIKit/UIKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
+#import "NOTIFICATION_HEADER.h"
 
 
 @interface UserLocationManager()<AMapLocationManagerDelegate>
 
 @property (nonatomic, strong) AMapLocationManager *manager;
+@property (nonatomic, assign) BOOL hasUpdateLocation;
 
 
 
@@ -54,15 +56,33 @@
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode
 {
+    
     CLLocation *currentLocation = location;
     NSLog(@"经纬度: la = %f , lng = %f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     self.currentLaction = currentLocation;
     self.currentCoordinate = self.currentLaction.coordinate;
     self.position = [NSString stringWithFormat:@"%f,%f",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude];
+    
     if (reGeocode)
     {
         self.positionAdress = reGeocode.formattedAddress;
-        NSLog(@"地址:%@",self.positionAdress);
+        self.city = reGeocode.city;
+        if (self.hasUpdateLocation == NO) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_GETLOCATIONINFO object:nil];
+            self.hasUpdateLocation = YES;
+        }
+       
+    }else{
+        CLGeocoder *clGeoCoder = [[CLGeocoder alloc] init];
+        [clGeoCoder reverseGeocodeLocation:self.currentLaction completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            CLPlacemark *placemark = placemarks.lastObject;
+            NSDictionary *addressDic = placemark.addressDictionary;
+            self.city = addressDic[@"City"];
+            if (self.hasUpdateLocation == NO) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_GETLOCATIONINFO object:nil];
+                self.hasUpdateLocation = YES;
+            }
+        }];
     }
 }
 
@@ -74,6 +94,24 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:okAction];
     [alert addAction:cancelAction];
+}
+
+#pragma mark - setter && getter
+
+- (NSString *)position{
+    if (_position == nil) {
+        return @"长沙";
+    }else{
+        return _position;
+    }
+}
+
+- (NSString *)city{
+    if (_city == nil) {
+        return @"";
+    }else{
+        return _city;
+    }
 }
 
 @end

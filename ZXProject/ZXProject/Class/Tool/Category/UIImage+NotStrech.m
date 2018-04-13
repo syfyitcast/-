@@ -14,8 +14,7 @@
     UIImage *image = [UIImage imageNamed:name];
     CGFloat left = image.size.width * 0.5;
     CGFloat top = image.size.height * 0.5;
-    [image stretchableImageWithLeftCapWidth:left topCapHeight:top];
-    return image;
+    return [image stretchableImageWithLeftCapWidth:left topCapHeight:top];
 }
 
 @end

@@ -31,6 +31,7 @@
 #import "WorkFlowAddController.h"
 #import "MainNavigationController.h"
 #import "LoginViewController.h"
+#import "HttpClient+Common.h"
 
 
 
@@ -67,9 +68,42 @@
     self.title = @"首页";
     self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
     self.navigationController.navigationBar.hidden = YES;
+    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
+    [self isLocationAuthrize];
     [self setSubviews];
     [self getProjectsInfo];//获取项目信息
-    [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
+    //监听通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshWeather) name:NOTIFI_GETLOCATIONINFO object:nil];
+}
+
+- (void)isLocationAuthrize{//判断有没有定位权限
+    UIView *coverView = [[UIView alloc] init];
+    coverView.backgroundColor = [UIColor blackColor];
+    coverView.alpha = 0.75;
+    coverView.frame = [UIApplication sharedApplication].keyWindow.bounds;
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [UIColor blackColor];
+    label.text = @"智慧环卫app需要使用您手机的始终定位权限,否则app无法正常使用";
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor whiteColor];
+    label.width = self.view.width *  0.8;
+    label.x = self.view.width * 0.1;
+    label.height = 50;
+    label.y = (self.view.height - label.height)*0.5;
+    [coverView addSubview:label];
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
+        //定位功能可用
+       
+        
+    }else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusDenied) {
+        //定位不能用
+        [[UIApplication sharedApplication].keyWindow addSubview:coverView];
+    }
+}
+
+- (void)refreshWeather{
+    [self getWeatherInformation];
 }
 
 - (void)getProjectsInfo{
@@ -112,6 +146,16 @@
             }else{
                 self.bottomTabel.backgroundColor = [UIColor clearColor];
             }
+        }
+    }];
+}
+
+- (void)getWeatherInformation{
+    [HttpClient zx_httpCilentToGetWeatherWithCityName:[UserLocationManager sharedUserLocationManager].city andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 1000) {
+            NSArray *weather_arr = data[@"forecast"];
+            NSDictionary *weather_dict = weather_arr.firstObject;
+            [self.headerView setWeatherDict:weather_dict];
         }
     }];
 }

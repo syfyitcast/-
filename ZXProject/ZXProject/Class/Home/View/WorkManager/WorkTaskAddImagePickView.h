@@ -25,4 +25,6 @@
 
 - (void)getImage:(UIImage *)image;
 
+- (void)setImagesWithUrls:(NSArray *)urls;
+
 @end

@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (nonatomic, weak) id<HomeHeaderViewDelegate> delegate;
 
+@property (nonatomic, strong) NSDictionary *weatherDict;
+
 + (instancetype)homeHeaderView;
 
 - (void)setProjectLabelName:(NSString *)projectName;

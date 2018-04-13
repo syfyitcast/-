@@ -22,11 +22,15 @@
     [super viewDidLoad];
     self.title = @"我的位置";
     [self.view addSubview:self.mapView];
-    self.mapView.centerCoordinate = [UserLocationManager sharedUserLocationManager].currentCoordinate;
+    if (self.location.longitude != 0) {
+        self.mapView.centerCoordinate = self.location;
+    }else{
+        self.mapView.centerCoordinate = [UserLocationManager sharedUserLocationManager].currentCoordinate;
+    }
     MAPointAnnotation *annotion = [[MAPointAnnotation alloc] init];
     annotion.coordinate = self.mapView.centerCoordinate;
     [self.mapView addAnnotation:annotion];
-    self.mapView.delegate = self;
+   
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
@@ -46,6 +50,7 @@
 - (MAMapView *)mapView{
     if (_mapView == nil) {
         _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+        _mapView.delegate = self;
         _mapView.zoomLevel = 17.5;
     }
     return _mapView;

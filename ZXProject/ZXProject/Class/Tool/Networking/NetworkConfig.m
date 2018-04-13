@@ -55,6 +55,8 @@ NSString *const API_GETTASKLIST  = @"orgtasklist";//获取工作列表
 NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所在的环卫作业区域
 NSString *const API_GETPROJECTREGIONLIST = @"projectorgregionlist";//获取项目区域列表
 NSString *const API_ADDTASK = @"addorgtask";//新增工作事件
+NSString *const API_CONFIRMORGTASK = @"confirmorgtask";//完成环卫工作项
+
 
 
 

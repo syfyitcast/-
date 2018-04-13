@@ -14,16 +14,19 @@
 
 @interface workTaskHeaderView()<WorkTaskAddImagePickViewDelegate>
 
-@property (nonatomic, strong) NSArray *imageUrls;
-@property (nonatomic, copy) NSString *positionAdress;
+
+
 
 @property (nonatomic, strong) WorkTaskAddImagePickView *pickImageView;
 
+@property (nonatomic, strong) NSArray *imageUrls;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UIView *lineTwo;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineTwoTop;
+@property (weak, nonatomic) IBOutlet UIButton *soundBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textRightW;
 
 @property (nonatomic, strong) RecordPlayView *playView;
 
@@ -31,10 +34,8 @@
 
 @implementation workTaskHeaderView
 
-+ (instancetype)workTaskViewWithImageUrls:(NSArray *)imageUrls andPositionAdress:(NSString *)positionAdress{
++ (instancetype)workTaskView{
     workTaskHeaderView *view = [[NSBundle mainBundle] loadNibNamed:@"workTaskHeaderView" owner:nil options:nil].lastObject;
-    view.positionAdress = positionAdress;
-    view.imageUrls = imageUrls;
     return view;
 }
 
@@ -67,15 +68,33 @@
     self.lineTwoTop.constant = 70;
 }
 
+- (void)insetSoundViewWithUrl:(NSString *)url{
+    if (self.playView == nil) {
+        CGRect frame = CGRectMake(0, 0, 200, 40);
+        self.playView = [RecordPlayView recordPlayViewWithUrl:url andFrame:frame];
+    }else{
+        [self.playView removeFromSuperview];
+        self.playView = nil;
+        CGRect frame = CGRectMake(0, 0, 200, 40);
+        self.playView = [RecordPlayView recordPlayViewWithUrl:url andFrame:frame];
+    }
+    [self addSubview:self.playView];
+    self.playView.width = 200;
+    self.playView.height = 40;
+    self.playView.x = self.width - 15 - self.playView.width;
+    self.playView.y = CGRectGetMaxY(self.textView.frame) + 15;
+    self.lineTwoTop.constant = 70;
+}
+
 - (IBAction)ClickMapAction:(UIButton *)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:)]) {
-        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:andView:)]) {
+        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag andView:self];
     }
 }
 
 - (IBAction)ClickVideoAction:(UIButton *)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:)]) {
-        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(workTaskHeaderViewDidClickAtionWithTag:andView:)]) {
+        [self.delegate workTaskHeaderViewDidClickAtionWithTag:(int)sender.tag andView:self];
     }
 }
 
@@ -93,6 +112,25 @@
     return self.pickImageView.images.mutableCopy;
 }
 
+
+
+#pragma mark - setter && getter
+
+- (void)setModel:(WorkTaskModel *)model{
+    _model = model;
+    if (self.type == 1) {
+        self.textView.text = model.taskcontent;
+        self.imageUrls = model.photoUrls;
+        self.timeLabel.text = [NSString stringWithFormat:@"时间:  %@",model.occurtime];
+    }else if (self.type == 2){
+        self.textView.text = model.confirmcontent;
+        self.imageUrls = model.afterPhotoUrls;
+        self.timeLabel.text = [NSString stringWithFormat:@"时间:  %@",model.afterTimeString];
+    }
+    self.textView.editable = NO;
+    self.positionAdress = model.positionaddress;
+}
+
 - (void)setPositionAdress:(NSString *)positionAdress{
     _positionAdress = positionAdress;
     self.positionLabel.text = self.positionAdress;
@@ -105,5 +143,13 @@
     }
     return _pickImageView;
 }
+
+- (void)setImageUrls:(NSArray *)imageUrls{
+    _imageUrls = imageUrls;
+    [self.pickImageView setImagesWithUrls:imageUrls];
+    self.soundBtn.hidden = YES;
+    self.textRightW.constant = 15;
+}
+
 
 @end

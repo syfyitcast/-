@@ -12,5 +12,6 @@
 
 + (instancetype)recordPlayViewWithPlayTime:(CGFloat)playTime andFrame:(CGRect)frame;
 
++ (instancetype)recordPlayViewWithUrl:(NSString *)url andFrame:(CGRect)frame;
 
 @end
