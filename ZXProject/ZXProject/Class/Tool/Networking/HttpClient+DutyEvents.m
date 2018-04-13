@@ -223,8 +223,8 @@
 
 + (void)zx_httpClientToQueryDutyRuleWithWorkDateFormatter:(NSString *)formatter andSuccessBlock:(responseBlock)block{
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_DUTYRULE];
-    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
-    [dict setObject:[UserManager sharedUserManager].user.employerid forKey:@"employerid"];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid :@"" forKey:@"employerid"];
     [dict setObject:formatter forKey:@"workdate"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_DUTYRULE];

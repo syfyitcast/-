@@ -18,4 +18,7 @@ typedef enum {
 
 + (void)zx_httpClientToUploadFileWithData:(NSData *)fileData andType:(UploadFileType)type andSuccessBlock:(responseBlock)block;
 
+//下载文件
++ (void)zx_httpClientToDownloadFileWithUrl:(NSString *)url andDestinationPath:(NSString *)path andSuccessBlock:(responseBlock)block;
+
 @end

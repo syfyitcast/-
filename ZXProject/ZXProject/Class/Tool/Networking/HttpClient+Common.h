@@ -12,4 +12,6 @@
 
 + (void)zx_httpCilentToGetWeatherWithCityName:(NSString *)cityName  andSuccessBlock:(responseBlock)block;
 
++ (void)zx_httpCilentToGetWeatherWithPosition:(NSString *)position andSuccessBlock:(responseBlock)block;
+
 @end

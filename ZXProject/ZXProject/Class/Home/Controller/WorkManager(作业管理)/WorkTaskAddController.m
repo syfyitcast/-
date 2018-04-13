@@ -55,6 +55,7 @@
 @property (nonatomic, assign) BOOL hasRecord;
 
 
+
 @end
 
 @implementation WorkTaskAddController
@@ -90,7 +91,8 @@
 - (void)setPositionAdress{
     if ([UserLocationManager sharedUserLocationManager].positionAdress != nil) {
         ZXHIDE_LOADING;
-        self.headerView = [workTaskHeaderView workTaskViewWithImageUrls:nil andPositionAdress:[UserLocationManager sharedUserLocationManager].positionAdress];
+        self.headerView = [workTaskHeaderView workTaskView];
+        self.headerView.positionAdress =  [UserLocationManager sharedUserLocationManager].positionAdress;
         self.positionAdress = [UserLocationManager sharedUserLocationManager].positionAdress;
         self.headerView.delegate = self;
          [self setSubViews];
@@ -101,10 +103,11 @@
             NSString *city=[addressDic objectForKey:@"City"];
             NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
             NSString *street=[addressDic objectForKey:@"Street"];
-            self.headerView = [workTaskHeaderView workTaskViewWithImageUrls:nil andPositionAdress:[NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street]];
+            self.headerView = [workTaskHeaderView workTaskView];
+            self.headerView.positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
             self.headerView.delegate = self;
             self.positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
-             [self setSubViews];
+            [self setSubViews];
         }];
     }
 }
@@ -224,19 +227,24 @@
     if (btn.tag == 3) {
         NSMutableArray *arr = [NSMutableArray array];
         for (WorkTaskDetailModel *model in self.projectRegions) {
-            [arr addObject:model.regionname];
+            [arr addObject:model.orgname];
         }
         [CGXPickerView showStringPickerWithTitle:@"责任区域和责任人" DataSource:arr DefaultSelValue:nil IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
             int index = [selectRow intValue];
             WorkTaskDetailModel *model = self.projectRegions[index];
             self.currentModel = model;
-            [btn setTitle:model.regionname forState:UIControlStateNormal];
-            self.dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",model.orgname];
+            [btn setTitle:model.orgname forState:UIControlStateNormal];
+            self.dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",model.regionname];
             self.dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",model.employername];
         }];
     }else if (btn.tag == 5){//保存
         
     }else if (btn.tag == 6){//提交
+        NSArray *pickImages = [self.headerView workTaskHeaderViewGetPickImages];
+        if (pickImages.count == 0) {
+            [MBProgressHUD showError:@"请添加至少一张照片" toView:self.view];
+            return;
+        }
         if (self.currentModel == nil) {
             [MBProgressHUD showError:@"请选择责任人和责任区域" toView:self.view];
             return;
@@ -245,7 +253,7 @@
             [MBProgressHUD showError:@"请填写说明" toView:self.view];
             return;
         }
-        NSArray *pickImages = [self.headerView workTaskHeaderViewGetPickImages];
+      
         // 调度组
         dispatch_group_t group = dispatch_group_create();
         // 队列
@@ -270,10 +278,10 @@
         }
         __block NSString *soundUrl = @"";
         if (self.hasRecord) {
-             dispatch_group_enter(group);
+            dispatch_group_enter(group);
             NSData *recordData = [NSData dataWithContentsOfURL:[ZXRecoderVideoManager sharedRecoderManager].recordFileUrl];
             dispatch_group_async(group, queue, ^{
-                [HttpClient zx_httpClientToUploadFileWithData:recordData andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                [HttpClient zx_httpClientToUploadFileWithData:recordData andType:UPloadFileTypeSound andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     if (code == 0) {
                         NSDictionary *dict = (NSDictionary *)data;
                         NSString *url = dict[@"url"];
@@ -290,10 +298,11 @@
             if (temStr.length != 0) {
                 [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
-            [HttpClient zx_httpClientToAddOrgTaskWithEventMark:self.headerView.textView.text andPosition:[UserLocationManager sharedUserLocationManager].position andPositionaddress:self.positionAdress andRegionid:[self.currentModel.regioncode  longLongValue] andOrgid:self.currentModel.orgid andIableemployerid:self.currentModel.employerid andPhotoUrls:temStr andSoundUrls:soundUrl andVideoUrls:@"" andConfirmemployer:@"" andTaskStatus:@"" andOrgTaskid:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            [HttpClient zx_httpClientToAddOrgTaskWithEventMark:self.headerView.textView.text andPosition:[UserLocationManager sharedUserLocationManager].position andPositionaddress:self.positionAdress andRegionid:self.currentModel.projectorgregionid andOrgid:self.currentModel.orgid andIableemployerid:self.currentModel.employerid andPhotoUrls:temStr andSoundUrls:soundUrl andVideoUrls:@"" andConfirmemployer:@"" andTaskStatus:@"" andOrgTaskid:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"提交成功" toView:self.view];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKFLOWRELOADDATA object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
                     [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
                 }else{
                     if (message.length != 0) {
@@ -302,13 +311,12 @@
                          [MBProgressHUD showError:@"提交失败" toView:self.view];
                     }
                 }
-                ZXHIDE_LOADING;
             }];
         });
     }
 }
 
-- (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag{
+- (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag andView:(workTaskHeaderView *)view{
     if (tag == 1006) {//录音
         [self clickVoiceBtn];
     }else if (tag == 1007){//位置

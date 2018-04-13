@@ -31,7 +31,7 @@
 @property (nonatomic, copy) NSString *confirmemployername;//确认人姓名
 @property (nonatomic, copy) NSString *beforephotourl;//处理前图像
 @property (nonatomic, copy) NSString *beforevideourl;//处理前视频
-@property (nonatomic, copy) NSString *beforesoundurl;//处理前音频
+@property (nonatomic, copy) NSString *beforesoundourl;//处理前音频
 @property (nonatomic, copy) NSString *afterphotourl;//处理后图像
 @property (nonatomic, copy) NSString *aftervideourl;//处理后视频
 @property (nonatomic, copy) NSString *aftersoundurl;//处理后音频
@@ -41,7 +41,10 @@
 @property (nonatomic, copy) NSString *doingsoundurl;//处理中音频
 
 @property (nonatomic, copy) NSString *occurtime;//字符串
-
+@property (nonatomic, strong) NSString *afterTimeString;
+@property (nonatomic, strong) NSArray *beforeSoundUrls;
+@property (nonatomic, strong) NSArray *afterSoundUrls;
+@property (nonatomic, strong) NSArray *afterPhotoUrls;
 
 
 @property (nonatomic, strong) NSArray *photoUrls;

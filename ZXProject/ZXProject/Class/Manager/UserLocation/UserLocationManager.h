@@ -15,6 +15,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D currentCoordinate;
 @property (nonatomic, copy) NSString *position;
 @property (nonatomic, copy) NSString *positionAdress;
+@property (nonatomic, copy) NSString *city;
 
 + (instancetype)sharedUserLocationManager;
 

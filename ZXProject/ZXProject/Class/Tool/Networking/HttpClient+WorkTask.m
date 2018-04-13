@@ -128,4 +128,32 @@
     }];
 }
 
++ (void)zx_httpClientToComfirmOrgTaskWithOrgtaskId:(long)orgtaskid andConfirmContent:(NSString *)confirmcontent andPhotoUrl:(NSString *)photoUrl andVideoUrl:(NSString *)videoUrl andSoundUrl:(NSString *)soundUrl andSuccessBlock:(responseBlock)block{
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_CONFIRMORGTASK];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"]; 
+    [dict setObject:@(orgtaskid) forKey:@"orgtaskid"];
+    [dict setObject:confirmcontent forKey:@"confirmcontent"];
+    [dict setObject:photoUrl forKey:@"photourl"];
+    [dict setObject:videoUrl forKey:@"videourl"];
+    [dict setObject:soundUrl forKey:@"soundurl"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_CONFIRMORGTASK];
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 @end

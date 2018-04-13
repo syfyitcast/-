@@ -54,6 +54,7 @@ extern NSString *const API_GETTASKLIST;//获取工作列表
 extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业区域
 extern NSString *const API_GETPROJECTREGIONLIST;//获取项目作业区域列表
 extern NSString *const API_ADDTASK;//新增工作事件
+extern NSString *const API_CONFIRMORGTASK;//完成环卫工作项
 
 
 @interface NetworkConfig : NSObject

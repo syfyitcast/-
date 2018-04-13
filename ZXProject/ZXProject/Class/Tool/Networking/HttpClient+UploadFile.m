@@ -62,6 +62,20 @@
     }];
 }
 
-
++ (void)zx_httpClientToDownloadFileWithUrl:(NSString *)url andDestinationPath:(NSString *)path andSuccessBlock:(responseBlock)block{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    // 要下载文件的url
+    NSURL *URL = [NSURL URLWithString:url];
+    // 创建请求对象
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    // 异步
+    [[manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        
+        return [NSURL URLWithString:path];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        block(-1,response,filePath.absoluteString,error);
+    }] resume];
+}
 
 @end

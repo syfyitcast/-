@@ -24,4 +24,12 @@
     _currentProjectid = self.currentModel.projectid;
 }
 
+- (NSString *)currentProjectid{
+    if (_currentProjectid == nil) {
+        return @"";
+    }else{
+        return _currentProjectid;
+    }
+}
+
 @end

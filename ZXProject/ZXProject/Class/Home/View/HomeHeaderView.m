@@ -10,6 +10,7 @@
 #import "UserManager.h"
 #import "NSString+boundSize.h"
 #import <Masonry.h>
+#import "UserLocationManager.h"
 
 @interface HomeHeaderView()
 
@@ -20,9 +21,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *personName;
 
-@property (weak, nonatomic) IBOutlet UILabel *userrank;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userrankW;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *projectName;
+@property (weak, nonatomic) IBOutlet UILabel *positionCity;
+@property (weak, nonatomic) IBOutlet UILabel *temptureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pmLabel;
+@property (weak, nonatomic) IBOutlet UILabel *wrLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
 
@@ -56,11 +63,13 @@
     [self.headerIconView addGestureRecognizer:tap];
     User *user = [UserManager sharedUserManager].user;
     self.personName.text = [NSString stringWithFormat:@"%@ 欢迎你",user.employername];
-    self.userrank.text = user.userrank;
-    CGFloat width = [self.userrank.text boundSizeWithFont:self.userrank.font].width + 20;
-    [self.userrank mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-    }];
+    self.categoryLabel.text = user.userrank;
+    if ([user.userrank isEqualToString:@""]||user.userrank == nil) {
+        self.categoryLabel.hidden = YES;
+    }
+    CGFloat width = [self.categoryLabel.text boundSizeWithFont:self.categoryLabel.font].width + 20;
+    self.userrankW.constant = width;
+    
 }
 
 - (void)clickIconView{
@@ -76,6 +85,19 @@
 
 - (void)setProjectLabelName:(NSString *)projectName{
     self.projectName.text = projectName;
+}
+
+- (void)setWeatherDict:(NSDictionary *)weatherDict{
+    _weatherDict = weatherDict;
+    NSString *highDes = weatherDict[@"high"];
+    NSString *lowDes = weatherDict[@"low"];
+    if (highDes.length > 3 && lowDes.length > 3) {
+        NSString *high = [highDes substringWithRange:NSMakeRange(3, highDes.length - 3)];
+        NSString *low = [lowDes substringWithRange:NSMakeRange(3, lowDes.length - 3)];
+        self.temptureLabel.text = [NSString stringWithFormat:@"%@~%@",low,high];
+    }
+    self.dateLabel.text = weatherDict[@"date"];
+    self.positionCity.text = [UserLocationManager sharedUserLocationManager].city;
 }
 
 @end

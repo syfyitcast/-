@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *animationImageView;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, assign) BOOL isPlaying;
+@property (nonatomic, copy) NSString *playUrl;
 
 
 @property (nonatomic, assign) float playTime;
@@ -28,10 +29,20 @@
 + (instancetype)recordPlayViewWithPlayTime:(CGFloat)playTime andFrame:(CGRect)frame{
     RecordPlayView *playView = [[RecordPlayView alloc] initWithFrame:frame];
     playView.playTime = playTime;
-    [[ZXRecoderVideoManager sharedRecoderManager] setPlayerDidFinshedBlock:^{
-        [playView animationStop];
-        playView.isPlaying = NO;
-    }];
+    [playView setSubViews];
+    return playView;
+}
+
++ (instancetype)recordPlayViewWithUrl:(NSString *)url andFrame:(CGRect)frame{
+    RecordPlayView *playView = [[RecordPlayView alloc] initWithFrame:frame];
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    dispatch_async(queue, ^{
+        float time = [ZXRecoderVideoManager vdieoTimeWithUrl:url];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            playView.playTime = time;
+        });
+    });
+    playView.playUrl = url;
     [playView setSubViews];
     return playView;
 }
@@ -67,7 +78,18 @@
 
 - (void)setPlayTime:(float)playTime{
     _playTime = playTime;
+    CGFloat width = 0;
     _timeLabel.text = [NSString stringWithFormat:@"\"%.1f",self.playTime];
+    if (playTime >= 10) {
+        width = 124;
+    }else if (playTime <= 2){
+        width = 60;
+    }else{
+        width = 60 + playTime * 8;
+    }
+    [self.bgImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+    }];
 }
 
 - (void)animationFire{
@@ -95,7 +117,19 @@
         [ZXRecoderVideoManager stopPlay];
         [self animationStop];
     }else{
-        NSData *data = [NSData dataWithContentsOfURL:[ZXRecoderVideoManager sharedRecoderManager].recordFileUrl];
+        if ([ZXRecoderVideoManager isPlaying]) {
+            return;
+        }
+        NSData *data = nil;
+        [[ZXRecoderVideoManager sharedRecoderManager] setPlayerDidFinshedBlock:^{
+            [self animationStop];
+            self.isPlaying = NO;
+        }];
+        if (self.playUrl != nil) {
+            data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.playUrl]];
+        }else{
+            data = [NSData dataWithContentsOfURL:[ZXRecoderVideoManager sharedRecoderManager].recordFileUrl];
+        }
         [ZXRecoderVideoManager playVideoWithData:data];
         [self animationFire];
     }
@@ -125,8 +159,8 @@
 - (UILabel *)timeLabel{
     if (_timeLabel == nil) {
         _timeLabel = [[UILabel alloc] init];
-        _timeLabel.text = [NSString stringWithFormat:@"%.1f\"",self.playTime];
         _timeLabel.font = [UIFont systemFontOfSize:13];
+        _timeLabel.text = [NSString stringWithFormat:@"%.1f\"",self.playTime];
         _timeLabel.textColor = [UIColor lightGrayColor];
     }
     return _timeLabel;
