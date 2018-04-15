@@ -29,10 +29,14 @@
     NSMutableArray *tem_arr = [NSMutableArray array];
     for (NSDictionary *dic in source_arr) {
         ProjectModel *model = [ProjectModel projectsWithDict:dic];
+        for (NSString *projectid in [UserManager sharedUserManager].user.allProjects) {
+            if ([model.projectid isEqualToString:projectid]) {
+                [tem_arr addObject:model];
+            }
+        }
         if ([model.projectid isEqualToString:[UserManager sharedUserManager].user.allProjects.firstObject]) {
             [ProjectManager sharedProjectManager].currentModel = model;
         }
-        [tem_arr addObject:model];
     }
     return tem_arr.mutableCopy;
 }

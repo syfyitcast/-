@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WorkTaskModel.h"
+#import "eventsMdoel.h"
 
 @interface WorkTaskCell : UITableViewCell
 
 @property (nonatomic, strong) WorkTaskModel *model;
+@property (nonatomic, strong) eventsMdoel *eventModel;
 
 + (instancetype)workTaskCellWithTableView:(UITableView *)tableView;
 

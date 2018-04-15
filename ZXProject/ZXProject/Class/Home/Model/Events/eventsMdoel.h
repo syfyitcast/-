@@ -10,22 +10,27 @@
 
 @interface eventsMdoel : NSObject
 
+@property (nonatomic, assign) long eventstatus;//事件状态
+
 @property (nonatomic, copy) NSString *assignvehid;//分配处理车辆
 @property (nonatomic, copy) NSString *createuserid;//发起人id
 @property (nonatomic, copy) NSString *createusername;//发起人名字
 @property (nonatomic, copy) NSString *eventdescription;//事件描述
 @property (nonatomic, copy) NSString *eventid;//时间主键
 @property (nonatomic, copy) NSString *eventno;//事件编号
-@property (nonatomic, copy) NSString *eventstatus;//时间状态
+
 @property (nonatomic, copy) NSString *positionlon;//纬度
 @property (nonatomic, copy) NSString *positionlat;//经度
 @property (nonatomic, copy) NSString *solveusername;//解决人
-@property (nonatomic, copy) NSString *occurtime;//发生时间
+@property (nonatomic, assign) long  occurtime;//发生时间
 @property (nonatomic, copy) NSString *photourl;//照片
 @property (nonatomic, copy) NSString *positionaddress;//地址
 @property (nonatomic, copy) NSString *solveuserid;//解决人id
 @property (nonatomic, copy) NSString *isvehneed;//是否需要车
 @property (nonatomic, copy) NSString *timeCount;//经历时间
+
+@property (nonatomic, strong) NSArray *photoUrls;//照片url;
+@property (nonatomic, strong) NSString *occourtimeString;
 
 
 

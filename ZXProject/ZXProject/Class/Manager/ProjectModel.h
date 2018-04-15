@@ -27,7 +27,7 @@
 @property (nonatomic, copy) NSString *districtname;//区
 
 
-
++ (instancetype)projectsWithDict:(NSDictionary *)dict;
 
 + (NSArray *)projectModelsWithsource_arr:(NSArray *)source_arr;
 

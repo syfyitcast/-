@@ -137,6 +137,7 @@
 		8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FC2047DB6800F0E40D /* ZXCalendarManager.m */; };
 		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
 		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
+		8C6FD32A2082E37F00CBC013 /* AddEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */; };
 		8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */; };
 		8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FB520773B6800EC676D /* AttenceCheckView.m */; };
 		8C823FB820773B8400EC676D /* AttenceCheckView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C823FB720773B8400EC676D /* AttenceCheckView.xib */; };
@@ -420,6 +421,8 @@
 		8C5102FF2047E3E500F0E40D /* AttenceDKController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttenceDKController.m; sourceTree = "<group>"; };
 		8C5103012048DDF000F0E40D /* SettingViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewCell.h; sourceTree = "<group>"; };
 		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
+		8C6FD3282082E37F00CBC013 /* AddEventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEventsViewController.h; sourceTree = "<group>"; };
+		8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEventsViewController.m; sourceTree = "<group>"; };
 		8C823FAD2075C45A00EC676D /* HttpClient+WorkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+WorkTask.h"; sourceTree = "<group>"; };
 		8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+WorkTask.m"; sourceTree = "<group>"; };
 		8C823FB420773B6800EC676D /* AttenceCheckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceCheckView.h; sourceTree = "<group>"; };
@@ -527,6 +530,8 @@
 			children = (
 				495E8D74206A1C3800ABE900 /* EventsViewController.h */,
 				495E8D75206A1C3800ABE900 /* EventsViewController.m */,
+				8C6FD3282082E37F00CBC013 /* AddEventsViewController.h */,
+				8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1311,7 +1316,7 @@
 				TargetAttributes = {
 					8C305BE9202C09AD00A843B5 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X8WH8B8GR2;
+						DevelopmentTeam = THPFNYW7A3;
 						ProvisioningStyle = Automatic;
 					};
 					8C305C02202C09AD00A843B5 = {
@@ -1559,6 +1564,7 @@
 				8C305C45202C143D00A843B5 /* MainNavigationController.m in Sources */,
 				8C5102FD2047DB6800F0E40D /* ZXCalendarManager.m in Sources */,
 				4932D9A2206E25780048D299 /* WorkFlowDetailModel.m in Sources */,
+				8C6FD32A2082E37F00CBC013 /* AddEventsViewController.m in Sources */,
 				8C33C2C72031700400B93F6E /* AFHTTPSessionManager.m in Sources */,
 				490826DA207C924D00ABA061 /* workTaskHeaderView.m in Sources */,
 				8C305C39202C113C00A843B5 /* HomeViewController.m in Sources */,
@@ -1705,7 +1711,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8WH8B8GR2;
+				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1730,7 +1736,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Infore Investment Holding Group Co., Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8WH8B8GR2;
+				DEVELOPMENT_TEAM = THPFNYW7A3;
 				INFOPLIST_FILE = ZXProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

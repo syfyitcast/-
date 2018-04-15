@@ -26,6 +26,7 @@ NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
 NSString *const API_GETAPPNOTICEINFO = @"appnoticeinfo";//获取通知公告
 NSString *const API_GETAPPNOTICEREADCOUNT = @"noticenotreadcount";//获取app通知消息未阅读数
 NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信息
+NSString *const API_GETPROJECTDETAIL = @"getprojectdetail";//获取项目详细信息
 
 #pragma mark 考勤  --------------------------------------------------------------
 NSString *const API_GETEVENTLIST = @"eventlist";//查询事件由自己发起的
@@ -56,10 +57,6 @@ NSString *const API_GETPOINTPROJECTREGION = @"pointprojectorgregion";//获取所
 NSString *const API_GETPROJECTREGIONLIST = @"projectorgregionlist";//获取项目区域列表
 NSString *const API_ADDTASK = @"addorgtask";//新增工作事件
 NSString *const API_CONFIRMORGTASK = @"confirmorgtask";//完成环卫工作项
-
-
-
-
 
 @implementation NetworkConfig
 

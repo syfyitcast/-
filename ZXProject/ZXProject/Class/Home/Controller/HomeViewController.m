@@ -35,6 +35,7 @@
 
 
 
+
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,HomeHeaderViewDelegate,HomeCollectionViewDelegate>
 
 @property (nonatomic, strong) NSNotificationCenter *notifiCenter;
@@ -107,19 +108,43 @@
 }
 
 - (void)getProjectsInfo{
-    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-        if (code == 0) {
-            NSArray *datas = data[@"projectList"];
-            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
-            if (self.currentModel == nil) {
-                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
-            }
-            [self.headerView setProjectLabelName:self.currentModel.projectname];
-            [self getDutyEvents];
-            [self getNotificationCount];
-        }
-    }];
+//    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+//        if (code == 0) {
+//            NSArray *datas = data[@"projectList"];
+//            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
+//            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
+//            if (self.currentModel == nil) {
+//                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+//            }
+//            [self.headerView setProjectLabelName:self.currentModel.projectname];
+//            [self getDutyEvents];
+//            [self getNotificationCount];
+//        }
+//    }];
+    // 调度组
+    dispatch_group_t group = dispatch_group_create();
+    // 队列
+    dispatch_queue_t queue = dispatch_queue_create("zj", DISPATCH_QUEUE_CONCURRENT);
+    // 将任务添加到队列和调度组
+    NSMutableArray *tem_arr = [NSMutableArray array];
+    for (NSString *projectid in [UserManager sharedUserManager].user.allProjects) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            [HttpClient zx_httpClientToProjectDetailWithProjectid:projectid andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                if (code == 0) {
+                    NSDictionary *datas = data[@"projectInfo"];
+                    ProjectModel *model = [ProjectModel projectsWithDict:datas];
+                    model.projectid = projectid;
+                    [tem_arr addObject:model];
+                }
+            }];
+        });
+    }
+    // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
+    dispatch_queue_t mQueue = dispatch_get_main_queue();
+    dispatch_group_notify(group, mQueue, ^{
+        [ProjectManager sharedProjectManager].projects = tem_arr.mutableCopy;
+    });
 }
 
 - (void)getNotificationCount{
@@ -206,7 +231,7 @@
     }else{
         self.coverView.frame = self.view.bounds;
         [self.view addSubview:self.coverView];
-        self.leftTable.frame = CGRectMake(5, 65, 150, 200);
+        self.leftTable.frame = CGRectMake(5, 65, 150, [ProjectManager sharedProjectManager].projects.count * 34);
         [self.view addSubview:self.leftTable];
     }
 }

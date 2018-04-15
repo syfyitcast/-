@@ -27,6 +27,7 @@ extern NSString *const API_GETAPPNOTICEINFO;//获取通知新闻
 extern NSString *const API_GETAPPNOTICEREADCOUNT;//获取app通知消息未阅读数
 extern NSString *const API_GETDUTYEVENTLIST;//获取待审核考勤事件
 extern NSString *const API_GETPROJECTLIST;//获取项目列表
+extern NSString *const API_GETPROJECTDETAIL;//获取项目详细信息
 
 #pragma mark ---------------------------------------------------
 

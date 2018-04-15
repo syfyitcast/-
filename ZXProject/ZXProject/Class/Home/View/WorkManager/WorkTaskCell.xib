@@ -137,7 +137,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="adressLabel" destination="dQ8-80-ypq" id="EIr-fA-z5H"/>
+                <outlet property="countTimeDesLabel" destination="keR-yy-iod" id="wll-Ma-Msr"/>
                 <outlet property="desLabel" destination="RYA-nY-Hqv" id="3xU-eM-aGo"/>
+                <outlet property="personLabel" destination="4GD-H5-Sr9" id="ZSm-cT-nG9"/>
                 <outlet property="personName" destination="eWx-Gg-mUd" id="HMC-f8-5iv"/>
                 <outlet property="timeCoutLabel" destination="Bru-en-gXP" id="xAg-iL-Ax5"/>
                 <outlet property="typeLabel" destination="Jce-Mi-VxM" id="gVi-EL-HyN"/>

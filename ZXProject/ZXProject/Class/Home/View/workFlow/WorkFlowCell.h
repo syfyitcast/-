@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WorkFlowModel.h"
+#import "eventsMdoel.h"
 
 @interface WorkFlowCell : UITableViewCell
 
 @property (nonatomic, strong) WorkFlowModel *model;
+
 
 + (instancetype)workFlowCellWithTableView:(UITableView *)tableView;
 

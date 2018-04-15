@@ -229,7 +229,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WorkFlowDetailController *vc = [[WorkFlowDetailController alloc] init];
     if (self.currentIndex == 0) {//草稿
-        WorkFlowModel *model = self.draftModels[indexPath.row];
         WorkFlowDraftViewController *vc = [[WorkFlowDraftViewController alloc] init];
         vc.model = self.draftModels[indexPath.row];
         [self.navigationController pushViewController:vc animated:YES];

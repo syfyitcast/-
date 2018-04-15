@@ -212,6 +212,28 @@
     }];
 }
 
++ (void)zx_httpClientToProjectDetailWithProjectid:(NSString *_Nonnull)projectid andSuccessBlock:(responseBlock _Nonnull )block{
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_GETPROJECTDETAIL];
+    [dict setObject:projectid forKey:@"projectid"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETPROJECTDETAIL];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block{
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
     [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
@@ -264,6 +286,29 @@
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
     [dict setObject:projectid forKey:@"projectid"];
     [dict setObject:employerid forKey:@"employerid"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETAPPNOTICEREADCOUNT];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToGetNoticeReaderlistWithNoticeid:(long)noticeid andSuccessBlock:(responseBlock)block{
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
+    [dict setObject:@(noticeid) forKey:@"noticeid"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETAPPNOTICEREADCOUNT];
         request.httpMethod           = kXMHTTPMethodPOST;

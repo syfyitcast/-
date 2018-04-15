@@ -196,7 +196,6 @@
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.submitBtn.mas_bottom).offset(30);
     }];
-    
 }
 
 #pragma mark - WorkTaskAddImageViewDelegateMethod

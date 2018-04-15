@@ -34,7 +34,7 @@
     self.createName.text = model.createusername;
     self.isNeedCar.text = [model.isvehneed intValue]?@"需要派车":@"无需派车";
     self.adress.text = model.eventdescription;
-    self.timeLabel.text = model.occurtime;
+    self.timeLabel.text = model.occourtimeString;
     NSString *text = [NSString stringWithFormat:@"计时:  %@",model.timeCount];
     NSMutableAttributedString *mString = [[NSMutableAttributedString alloc] initWithString:text];
     [mString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[text rangeOfString:model.timeCount]];

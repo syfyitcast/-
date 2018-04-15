@@ -7,6 +7,7 @@
 //
 
 #import "eventsMdoel.h"
+#import "NetworkConfig.h"
 
 @implementation eventsMdoel
 
@@ -32,8 +33,8 @@
     return tem_arr.mutableCopy;
 }
 
-- (NSString *)occurtime{
-    long long time = [_occurtime longLongValue] / 1000.0;
+- (NSString *)occourtimeString{
+    long long time = _occurtime/ 1000.0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
@@ -41,12 +42,29 @@
 }
 
 - (NSString *)timeCount{
-    long long time = [_occurtime longLongValue] / 1000.0;
+    long long time = _occurtime / 1000.0;
     NSTimeInterval timeInterval =  [[NSDate date] timeIntervalSince1970];
     long long chaTime = timeInterval - time;
     long long h = chaTime / 3600.0;
     long long m = (chaTime - h * 3600) / 60.0;
     return [NSString stringWithFormat:@"%02lld:%02lld",h,m];
+}
+
+- (NSArray *)photoUrls{
+    if (_photoUrls == nil) {
+        _photoUrls = [self.photourl componentsSeparatedByString:@"|"];
+        if (_photoUrls == nil) {
+            _photoUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.photourl]];
+        }else{
+            NSMutableArray *tem_arr = [NSMutableArray array];
+            for (NSString *subUrl in _photoUrls) {
+                NSString *url = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:subUrl];
+                [tem_arr addObject:url];
+            }
+            _photoUrls = tem_arr.mutableCopy;
+        }
+    }
+    return _photoUrls;
 }
 
 
