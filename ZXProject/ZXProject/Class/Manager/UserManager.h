@@ -12,6 +12,7 @@
 @interface UserManager : NSObject
 
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSArray *orgUsers;
 
 + (instancetype)sharedUserManager;
 

@@ -118,12 +118,14 @@
     svc.backgroundColor = WhiteColor;
     svc.showsVerticalScrollIndicator = NO;
     svc.bounces = NO;
+    svc.userInteractionEnabled = YES;
     [self.view addSubview:svc];
     [svc mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakself.view);
     }];
     UIView *contentView = [[UIView alloc] init];
     contentView.backgroundColor = WhiteColor;
+    contentView.userInteractionEnabled = YES;
     [svc addSubview:contentView];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(svc);
@@ -252,7 +254,6 @@
             [MBProgressHUD showError:@"请填写说明" toView:self.view];
             return;
         }
-      
         // 调度组
         dispatch_group_t group = dispatch_group_create();
         // 队列
@@ -483,8 +484,5 @@
     }
     return _lineEight;
 }
-
-
-
 
 @end

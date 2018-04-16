@@ -87,9 +87,9 @@
     dispatch_group_notify(group, mQueue, ^{
         ZXHIDE_LOADING;
         NSMutableArray *tem_arr = [NSMutableArray array];
-        [tem_arr addObjectsFromArray:self.draftModels];
         [tem_arr addObjectsFromArray:self.unfnishedModels];
         [tem_arr addObjectsFromArray:self.finishedModels];
+        [tem_arr addObjectsFromArray:self.draftModels];
         self.allModels = tem_arr;
         [self.myTableView reloadData];
     });

@@ -72,9 +72,8 @@
     [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
     [self isLocationAuthrize];
     [self setSubviews];
-    [self getProjectsInfo];//获取项目信息
     //监听通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshWeather) name:NOTIFI_GETLOCATIONINFO object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProjectsInfo) name:NOTIFI_PROJECTLISTDONE object:nil];
 }
 
 - (void)isLocationAuthrize{//判断有没有定位权限
@@ -103,24 +102,14 @@
     }
 }
 
-- (void)refreshWeather{
-    [self getWeatherInformation];
-}
-
 - (void)getProjectsInfo{
-//    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-//        if (code == 0) {
-//            NSArray *datas = data[@"projectList"];
-//            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-//            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
-//            if (self.currentModel == nil) {
-//                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
-//            }
-//            [self.headerView setProjectLabelName:self.currentModel.projectname];
-//            [self getDutyEvents];
-//            [self getNotificationCount];
-//        }
-//    }];
+    self.currentModel = [ProjectManager sharedProjectManager].currentModel;
+    if (self.currentModel == nil) {
+        self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+    }
+    [self.headerView setProjectLabelName:self.currentModel.projectname];
+    [self getDutyEvents];
+    [self getNotificationCount];
     // 调度组
     dispatch_group_t group = dispatch_group_create();
     // 队列
@@ -137,13 +126,15 @@
                     model.projectid = projectid;
                     [tem_arr addObject:model];
                 }
+                dispatch_group_leave(group);
             }];
         });
     }
     // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
     dispatch_queue_t mQueue = dispatch_get_main_queue();
     dispatch_group_notify(group, mQueue, ^{
-        [ProjectManager sharedProjectManager].projects = tem_arr.mutableCopy;
+        [ProjectManager sharedProjectManager].projectDetails = tem_arr.mutableCopy;
+        [self getWeatherInformation];
     });
 }
 
@@ -176,7 +167,7 @@
 }
 
 - (void)getWeatherInformation{
-    [HttpClient zx_httpCilentToGetWeatherWithCityName:[UserLocationManager sharedUserLocationManager].city andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+    [HttpClient zx_httpCilentToGetWeatherWithCityName:[ProjectManager sharedProjectManager].currentModel.cityname andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 1000) {
             NSArray *weather_arr = data[@"forecast"];
             NSDictionary *weather_dict = weather_arr.firstObject;
@@ -226,12 +217,12 @@
 #pragma mark - HomeHeaderViewDelegateMethod
 
 - (void)homeHeaderViewDidClickLeftBtn{
-    if ([ProjectManager sharedProjectManager].projects.count == 0) {
+    if ([ProjectManager sharedProjectManager].projectDetails.count == 0) {
         [MBProgressHUD showError:@"正在获取数据请稍后"];
     }else{
         self.coverView.frame = self.view.bounds;
         [self.view addSubview:self.coverView];
-        self.leftTable.frame = CGRectMake(5, 65, 150, [ProjectManager sharedProjectManager].projects.count * 34);
+        self.leftTable.frame = CGRectMake(5, 65, 150, [ProjectManager sharedProjectManager].projectDetails.count * 34);
         [self.view addSubview:self.leftTable];
     }
 }
@@ -323,7 +314,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftTable) {
-        ProjectModel *model = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        ProjectModel *model = [ProjectManager sharedProjectManager].projectDetails[indexPath.row];
         if ([self.currentModel.projectid isEqualToString:model.projectid]) return;
         HomeLeftTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.backgroundColor = UIColorWithRGB(110, 199, 54);
@@ -331,10 +322,12 @@
         self.currentLeftCell.backgroundColor = WhiteColor;
         [self.currentLeftCell setTitleColor:UIColorWithRGB(132, 132, 132)];
         self.currentLeftCell = cell;
-        self.currentModel = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        self.currentModel = [ProjectManager sharedProjectManager].projectDetails[indexPath.row];
+        [ProjectManager sharedProjectManager].currentModel = self.currentModel;
         [ProjectManager sharedProjectManager].currentProjectid = self.currentModel.projectid;
         [self.headerView setProjectLabelName:self.currentModel.projectname];
         [self getDutyEvents];
+        [self getWeatherInformation];
         [self clickCoverView];
     }else if (tableView == self.bottomTabel){
         
@@ -456,7 +449,7 @@
 
 - (NSArray *)headerLeftItems{
     if (_headerLeftItems == nil) {
-        _headerLeftItems = [ProjectManager sharedProjectManager].projects;
+        _headerLeftItems = [ProjectManager sharedProjectManager].projectDetails;
     }
     return _headerLeftItems;
 }

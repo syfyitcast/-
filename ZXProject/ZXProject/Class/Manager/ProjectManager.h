@@ -13,12 +13,14 @@
 @interface ProjectManager : NSObject
 
 @property (nonatomic, strong) NSArray *projects;
+@property (nonatomic, strong) NSArray *projectDetails;
 @property (nonatomic, copy) NSString *currentProjectid;
 @property (nonatomic, strong) ProjectModel *currentModel;
+@property (nonatomic, strong) NSArray *orgContactlist;
 
 
 + (instancetype)sharedProjectManager;
 
-
++ (void)getProjectList;
 
 @end

@@ -7,6 +7,9 @@
 //
 
 #import "ProjectManager.h"
+#import "HttpClient.h"
+#import "User.h"
+#import "NOTIFICATION_HEADER.h"
 
 @implementation ProjectManager
 
@@ -24,6 +27,11 @@
     _currentProjectid = self.currentModel.projectid;
 }
 
+- (void)setCurrentModel:(ProjectModel *)currentModel{
+    _currentModel = currentModel;
+    self.currentProjectid = currentModel.projectid;
+}
+
 - (NSString *)currentProjectid{
     if (_currentProjectid == nil) {
         return @"";
@@ -31,5 +39,27 @@
         return _currentProjectid;
     }
 }
+
+- (void)setProjectDetails:(NSArray *)projectDetails{
+    _projectDetails = projectDetails;
+    self.currentModel = projectDetails.firstObject;
+}
+
++ (void)getProjectList{
+    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"projectList"];
+            [ProjectManager sharedProjectManager].projects = [ProjectModel  projectModelsWithsource_arr:datas];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_PROJECTLISTDONE object:nil];
+            [HttpClient zx_httpClientToGetOrgContactListWithProjectid:[ProjectManager sharedProjectManager].currentModel.projectid andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                if (code == 0) {
+                    NSArray *datas = data[@"employer"];
+                    [ProjectManager sharedProjectManager].orgContactlist = [User usersWithSource_arr:datas];
+                };
+            }];
+        }
+    }];
+}
+
 
 @end

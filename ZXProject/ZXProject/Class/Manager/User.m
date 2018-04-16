@@ -74,6 +74,15 @@
     _photourl = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:photourl];
 }
 
++ (NSArray *)usersWithSource_arr:(NSArray *)source_arr{
+    NSMutableArray *tem_arr = [NSMutableArray array];
+    for (NSDictionary *dict in source_arr) {
+        User *user = [User userWithDict:dict];
+        [tem_arr addObject:user];
+    }
+    return tem_arr.mutableCopy;
+}
+
 - (NSString *)employerid{
     if (_employerid == nil) {
         return @"";

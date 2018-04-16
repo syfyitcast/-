@@ -46,6 +46,8 @@
     }];
 }
 
+
+
 + (void)zx_httpClientToGetProjectRegionListWithSuccessBlock:(responseBlock)block{
     NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_GETPROJECTREGIONLIST];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
@@ -96,7 +98,7 @@
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
     [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
     [dict setObject:eventMark forKey:@"taskcontent"];
-    [dict setObject:positionaddress forKey:@"position"];
+    [dict setObject:position forKey:@"position"];
     [dict setObject:positionaddress forKey:@"positionaddress"];
     [dict setObject:@(regionid) forKey:@"regionid"];
     [dict setObject:@(orgid) forKey:@"orgid"];
@@ -108,9 +110,48 @@
          [dict setObject:taskStatus forKey:@"taskstatus"];
     }
     [dict setObject:orgtaskid forKey:@"orgtaskid"];
-    [dict setObject:position forKey:@"position"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_ADDTASK];
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void)zx_httpClientToAddEventWithEventno:(long)eventno andEventdescription:(NSString *)eventdescription andOrgid:(long)ordid andRegionid:(long)regionid andPhotoUrl:(NSString *)photoUrl andVideoUrl:(NSString *)videoUrl andSoundUrl:(NSString *)soundUrl andPositionAdress:(NSString *)positionAdress andPosition:(NSString *)position andCreateemployerid:(long)createemployerid  andLiableemployerid:(long)liableemployerid andUrgency:(long)urgency andIsvehneed:(long)isvehneed andSendsms:(long)sendsms andSolveemployerid:(long)solveemployerid andEventsStatus:(long)eventStatus andPatroleventid:(long)patroleventid andSuccessBlock:(responseBlock)block{
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_ADDEVENT];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:eventdescription forKey:@"eventdescription"];
+    [dict setObject:@(eventno) forKey:@"eventno"];
+    [dict setObject:position forKey:@"position"];
+    [dict setObject:positionAdress forKey:@"positionaddress"];
+    [dict setObject:@(regionid) forKey:@"regionid"];
+    [dict setObject:@(ordid) forKey:@"orgid"];
+    [dict setObject:@(liableemployerid) forKey:@"liableemployerid"];
+    [dict setObject:photoUrl forKey:@"photourl"];
+    [dict setObject:soundUrl forKey:@"soundurl"];
+    [dict setObject:@(createemployerid) forKey:@"createemployerid"];
+    [dict setObject:@(liableemployerid) forKey:@"liableemployerid"];
+    [dict setObject:@(urgency) forKey:@"urgency"];
+    [dict setObject:@(isvehneed) forKey:@"isvehneed"];
+    [dict setObject:@(sendsms) forKey:@"sendsms"];
+    [dict setObject:@(solveemployerid) forKey:@"solveemployerid"];
+    if (eventStatus == 99) {
+        [dict setObject:@(eventStatus) forKey:@"eventstatus"];
+    }
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_ADDEVENT];
         request.httpMethod           = kXMHTTPMethodGET;
         request.parameters =         dict;
         request.timeoutInterval      = 30;
