@@ -22,7 +22,7 @@ NSString *const API_LOGOUT = @"applogout";//登出
 NSString *const API_GETCODE = @"getverificationcode";//获取短信验证码
 NSString *const API_REGISTER = @"verificationcoderegiste";//注册
 NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
-NSString *const API_GETEVENTS = @"getprojectevents";//获取环卫事件
+NSString *const API_GETEVENTS = @"eventassignlist";//获取环卫事件
 NSString *const API_GETAPPNOTICEINFO = @"appnoticeinfo";//获取通知公告
 NSString *const API_GETAPPNOTICEREADCOUNT = @"noticenotreadcount";//获取app通知消息未阅读数
 NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信息
@@ -59,6 +59,7 @@ NSString *const API_GETPROJECTREGIONLIST = @"projectorgregionlist";//获取项�
 NSString *const API_ADDTASK = @"addorgtask";//新增工作事件
 NSString *const API_ADDEVENT = @"addpatrolevent";//新增项目环卫事件
 NSString *const API_CONFIRMORGTASK = @"confirmorgtask";//完成环卫工作项
+NSString *const API_CONFIRMEVNTASSIGN = @"confirmeventassign";//完成事件派单
 
 @implementation NetworkConfig
 

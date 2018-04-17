@@ -169,6 +169,33 @@
     }];
 }
 
++ (void)zx_httpClientToConfirmEventAssignWithAssignid:(NSString *)assignid andSoundUrl:(NSString *)soundUrl andVideoUrl:(NSString *)videoUrl andPhotoUrl:(NSString *)photoUrl andBeginTime:(long)beginTime andSolveOpinon:(NSString *)solveopinion andSuccessBlock:(responseBlock)block{
+    NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_CONFIRMEVNTASSIGN];
+    [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
+    [dict setObject:assignid forKey:@"assignid"];
+    [dict setObject:solveopinion forKey:@"solveopinion"];
+    [dict setObject:photoUrl forKey:@"photourl"];
+    [dict setObject:videoUrl forKey:@"videourl"];
+    [dict setObject:soundUrl forKey:@"soundurl"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_CONFIRMEVNTASSIGN];
+        request.httpMethod           = kXMHTTPMethodGET;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
 + (void)zx_httpClientToComfirmOrgTaskWithOrgtaskId:(long)orgtaskid andConfirmContent:(NSString *)confirmcontent andPhotoUrl:(NSString *)photoUrl andVideoUrl:(NSString *)videoUrl andSoundUrl:(NSString *)soundUrl andSuccessBlock:(responseBlock)block{
     NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_CONFIRMORGTASK];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];

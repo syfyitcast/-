@@ -38,6 +38,9 @@
 		495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D75206A1C3800ABE900 /* EventsViewController.m */; };
 		495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D79206A292900ABE900 /* AttDutySettingModel.m */; };
 		495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 495E8D7C206B240F00ABE900 /* AttDutyCheckModel.m */; };
+		49CF0CEB2085833100AE707D /* EventsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CF0CEA2085833100AE707D /* EventsDetailViewController.m */; };
+		49CF0CEE2085E56300AE707D /* EventMapConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CF0CED2085E56300AE707D /* EventMapConfigController.m */; };
+		49CF0CF12085E66E00AE707D /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CF0CF02085E66E00AE707D /* SearchBar.m */; };
 		49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */; };
 		49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D6B205B9510002CE92C /* ProjectReviewController.m */; };
 		49EC0D73205B9BF4002CE92C /* ProjectReviewPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */; };
@@ -229,6 +232,12 @@
 		495E8D79206A292900ABE900 /* AttDutySettingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttDutySettingModel.m; sourceTree = "<group>"; };
 		495E8D7B206B240F00ABE900 /* AttDutyCheckModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttDutyCheckModel.h; sourceTree = "<group>"; };
 		495E8D7C206B240F00ABE900 /* AttDutyCheckModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttDutyCheckModel.m; sourceTree = "<group>"; };
+		49CF0CE92085833100AE707D /* EventsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsDetailViewController.h; sourceTree = "<group>"; };
+		49CF0CEA2085833100AE707D /* EventsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsDetailViewController.m; sourceTree = "<group>"; };
+		49CF0CEC2085E56300AE707D /* EventMapConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapConfigController.h; sourceTree = "<group>"; };
+		49CF0CED2085E56300AE707D /* EventMapConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapConfigController.m; sourceTree = "<group>"; };
+		49CF0CEF2085E66E00AE707D /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
+		49CF0CF02085E66E00AE707D /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
 		49EC0D61205A4E9B002CE92C /* UIAlertAction+Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertAction+Attribute.h"; sourceTree = "<group>"; };
 		49EC0D62205A4E9B002CE92C /* UIAlertAction+Attribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertAction+Attribute.m"; sourceTree = "<group>"; };
 		49EC0D6A205B9510002CE92C /* ProjectReviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewController.h; sourceTree = "<group>"; };
@@ -532,6 +541,8 @@
 				495E8D75206A1C3800ABE900 /* EventsViewController.m */,
 				8C6FD3282082E37F00CBC013 /* AddEventsViewController.h */,
 				8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */,
+				49CF0CE92085833100AE707D /* EventsDetailViewController.h */,
+				49CF0CEA2085833100AE707D /* EventsDetailViewController.m */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -840,6 +851,8 @@
 				8C5102A920427B4300F0E40D /* ZXShowLoadingManager.h */,
 				8C5102AA20427B4300F0E40D /* ZXShowLoadingManager.m */,
 				8C305C4A202C1A2F00A843B5 /* FatherClass */,
+				49CF0CEF2085E66E00AE707D /* SearchBar.h */,
+				49CF0CF02085E66E00AE707D /* SearchBar.m */,
 			);
 			path = Gob;
 			sourceTree = "<group>";
@@ -859,6 +872,8 @@
 			children = (
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				49CF0CEC2085E56300AE707D /* EventMapConfigController.h */,
+				49CF0CED2085E56300AE707D /* EventMapConfigController.m */,
 				4932D98D206CC8840048D299 /* PersonInfo(个人信息) */,
 				495E8D73206A1C1B00ABE900 /* Events */,
 				49EC0D69205B94D4002CE92C /* ProjectReview（项目总览） */,
@@ -1481,6 +1496,7 @@
 				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
 				495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */,
 				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
+				49CF0CEE2085E56300AE707D /* EventMapConfigController.m in Sources */,
 				8C5102D42044388A00F0E40D /* NewsDetailViewController.m in Sources */,
 				492F942F207313D500BBB677 /* WorkFlowDetailFooterApprovView.m in Sources */,
 				49EC0D6C205B9510002CE92C /* ProjectReviewController.m in Sources */,
@@ -1512,6 +1528,7 @@
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
+				49CF0CF12085E66E00AE707D /* SearchBar.m in Sources */,
 				8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */,
 				495D898F207A10D50043FF09 /* WorkTaskDetailModel.m in Sources */,
 				4932D989206B85DA0048D299 /* HttpClient+UploadFile.m in Sources */,
@@ -1542,6 +1559,7 @@
 				8C5102CD2043E8F500F0E40D /* NotificationNewsCell.m in Sources */,
 				8C5102B42042E37900F0E40D /* HomeRightTableViewCell.m in Sources */,
 				49EC0D852061F315002CE92C /* NotificationModel.m in Sources */,
+				49CF0CEB2085833100AE707D /* EventsDetailViewController.m in Sources */,
 				8C33C2D02031709A00B93F6E /* Tool.m in Sources */,
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
 				4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */,

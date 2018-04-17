@@ -22,11 +22,6 @@
     return intance;
 }
 
-- (void)setProjects:(NSArray *)projects{
-    _projects = projects;
-    _currentProjectid = self.currentModel.projectid;
-}
-
 - (void)setCurrentModel:(ProjectModel *)currentModel{
     _currentModel = currentModel;
     self.currentProjectid = currentModel.projectid;
@@ -42,7 +37,11 @@
 
 - (void)setProjectDetails:(NSArray *)projectDetails{
     _projectDetails = projectDetails;
-    self.currentModel = projectDetails.firstObject;
+    for (ProjectModel *model in projectDetails) {
+        if ([self.currentModel.projectid isEqualToString:model.projectid]) {
+            self.currentModel = model;
+        }
+    }
 }
 
 + (void)getProjectList{

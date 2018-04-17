@@ -16,6 +16,8 @@
 #import <Masonry.h>
 #import "WorkTaskCell.h"
 #import "AddEventsViewController.h"
+#import "NOTIFICATION_HEADER.h"
+#import "EventsDetailViewController.h"
 
 
 @interface EventsViewController ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -42,8 +44,14 @@
     self.title = @"环卫事件";
     self.currentIndex = 1;
     [self.topBar bottomLineMoveWithIndex:1];
-    [self setNetworkRequest];
     [self setSubviews];
+    [self setNetworkRequest];
+    //刷新数据
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:NOTIFI_WORKEVENTRELOADDATA object:nil];
+}
+
+- (void)reloadData{
+    [self setNetworkRequest];
 }
 
 - (void)setNetworkRequest{
@@ -54,9 +62,9 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
+                NSArray *source_arr = data[@"getpatroleventassign"];
                 self.unfnishedModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
@@ -64,9 +72,9 @@
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
+                NSArray *source_arr = data[@"getpatroleventassign"];
                 self.finishedModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
@@ -74,9 +82,9 @@
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getprojectevents"];
+                NSArray *source_arr = data[@"getpatroleventassign"];
                 self.draftModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
@@ -164,6 +172,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 125;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    eventsMdoel *model = nil;
+    if (self.currentIndex == 0) {
+        model = self.draftModels[indexPath.row];
+    }else if (self.currentIndex == 3){
+        model = self.allModels[indexPath.row];
+    }else if (self.currentIndex == 2){
+        model = self.finishedModels[indexPath.row];
+    }else if (self.currentIndex == 1){
+        model = self.unfnishedModels[indexPath.row];
+    }
+    EventsDetailViewController *vc = [[EventsDetailViewController alloc] init];
+    vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Action

@@ -25,6 +25,9 @@
 //新增项目环卫事件
 + (void)zx_httpClientToAddEventWithEventno:(long)eventno andEventdescription:(NSString *)eventdescription andOrgid:(long)ordid andRegionid:(long)regionid andPhotoUrl:(NSString *)photoUrl andVideoUrl:(NSString *)videoUrl andSoundUrl:(NSString *)soundUrl andPositionAdress:(NSString *)positionAdress andPosition:(NSString *)position andCreateemployerid:(long)createemployerid  andLiableemployerid:(long)liableemployerid andUrgency:(long)urgency andIsvehneed:(long)isvehneed andSendsms:(long)sendsms andSolveemployerid:(long)solveemployerid andEventsStatus:(long)eventStatus andPatroleventid:(long)patroleventid andSuccessBlock:(responseBlock)block;
 
+//完成事件派单
++ (void)zx_httpClientToConfirmEventAssignWithAssignid:(NSString *)assignid andSoundUrl:(NSString *)soundUrl andVideoUrl:(NSString *)videoUrl andPhotoUrl:(NSString *)photoUrl andBeginTime:(long)beginTime andSolveOpinon:(NSString *)solveopinion andSuccessBlock:(responseBlock)block;
+
 //完成环卫工作项
 + (void)zx_httpClientToComfirmOrgTaskWithOrgtaskId:(long)orgtaskid andConfirmContent:(NSString *)confirmcontent andPhotoUrl:(NSString *)photoUrl andVideoUrl:(NSString *)videoUrl andSoundUrl:(NSString *)soundUrl andSuccessBlock:(responseBlock)block;
 

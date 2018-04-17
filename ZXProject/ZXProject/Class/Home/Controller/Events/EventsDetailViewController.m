@@ -1,42 +1,35 @@
 //
-//  WorkTaskDetailController.m
+//  EventsDetailViewController.m
 //  ZXProject
 //
-//  Created by Me on 2018/3/9.
+//  Created by 刘清 on 2018/4/17.
 //  Copyright © 2018年 com.nexpaq. All rights reserved.
 //
 
-#import "WorkTaskDetailController.h"
-#import "WorkTaskAddImagePickView.h"
+#import "EventsDetailViewController.h"
 #import "GobHeaderFile.h"
 #import <Masonry.h>
 #import "workTaskHeaderView.h"
 #import "UserLocationManager.h"
-#import "ZXRecoderVideoManager.h"
 #import "MyPositionViewController.h"
 #import "RecordView.h"
+#import "ZXRecoderVideoManager.h"
 #import "UIAlertAction+Attribute.h"
 #import "HttpClient+UploadFile.h"
 #import "HttpClient+WorkTask.h"
 
-
-
-
-
-@interface WorkTaskDetailController ()<workTaskHeaderViewDelegate,RecordViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
-
-
-@property (nonatomic, strong) UIScrollView *mainScrollView;
+@interface EventsDetailViewController ()<workTaskHeaderViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,RecordViewDelegate>
 
 @property (nonatomic, strong) workTaskHeaderView *headerView;
-
-@property (nonatomic, strong) UILabel *localHandlerLabel;
-@property (nonatomic, strong) UIView *lineFive;
 
 @property (nonatomic, strong) UILabel *submiterDesLabel;
 @property (nonatomic, strong) UILabel *submiterNameLabel;
 @property (nonatomic, strong) UILabel *dutyRegionLabel;
 @property (nonatomic, strong) UILabel *dutyPersonLabel;
+
+@property (nonatomic, strong) UILabel *selectedPersonDesLabel;
+@property (nonatomic, strong) UILabel *urgencyDesLabel;
+@property (nonatomic, strong) UILabel *isNeedIvhLabel;
 
 @property (nonatomic, strong) workTaskHeaderView *FooterView;
 @property (nonatomic, strong) FButton *saveBtn;
@@ -46,33 +39,34 @@
 @property (nonatomic, strong) RecordView *recordView;
 @property (nonatomic, assign) BOOL hasRecord;
 
+
 @end
 
-@implementation WorkTaskDetailController
+@implementation EventsDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"作业详情";
+    self.title = @"事件详情";
+    [self setupSubViews];
     [self swichTaskStatus];
-    [self setSubViews];
 }
 
 - (void)swichTaskStatus{
-    if (self.model.taskstatus == 2) {
-        if (self.model.beforesoundourl != nil && self.model.beforesoundourl.length != 0) {//有音频
-            [self.headerView insetSoundViewWithUrl:self.model.beforeSoundUrls.firstObject];
+    if (self.model.eventstatus == 2) {
+        if (self.model.soundurl != nil && self.model.soundurl.length != 0) {//有音频
+            [self.headerView insetSoundViewWithUrl:self.model.soundUrls.firstObject];
         }
-        if (self.model.aftersoundurl != nil && self.model.aftersoundurl.length != 0) {//有音频
+        if (self.model.solvesoundurl != nil && self.model.solvesoundurl.length != 0) {//有音频
             [self.FooterView insetSoundViewWithUrl:self.model.afterSoundUrls.firstObject];
         }
-        self.headerView.model = self.model;
-        self.FooterView.model = self.model;
+        self.headerView.eventModel = self.model;
+        self.FooterView.eventModel = self.model;
         [self setPositionAdress];
-    }else if (self.model.taskstatus == 0){//未完成
-        if (self.model.beforesoundourl != nil && self.model.beforesoundourl.length != 0) {//有音频
-            [self.headerView insetSoundViewWithUrl:self.model.beforeSoundUrls.firstObject];
+    }else if (self.model.eventstatus == 0){//未完成
+        if (self.model.soundurl != nil && self.model.soundurl.length != 0) {//有音频
+            [self.headerView insetSoundViewWithUrl:self.model.soundUrls.firstObject];
         }
-        self.headerView.model = self.model;
+        self.headerView.eventModel = self.model;
         [self setPositionAdress];
     }
 }
@@ -93,33 +87,58 @@
     }
 }
 
-- (void)setSubViews{
-     __weak typeof(self)  weakself = self;
-    self.mainScrollView = [[UIScrollView alloc] init];
-    self.mainScrollView.backgroundColor = WhiteColor;
-    self.mainScrollView.bounces = NO;
-    self.mainScrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.mainScrollView];
-    [self.mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+- (void)setupSubViews{
+    __weak typeof(self)  weakself = self;
+    UIScrollView *mainScrollView = [[UIScrollView alloc] init];
+    mainScrollView.backgroundColor = WhiteColor;
+    mainScrollView.showsVerticalScrollIndicator = NO;
+    mainScrollView.bounces = NO;
+    mainScrollView.userInteractionEnabled = YES;
+    [self.view addSubview:mainScrollView];
+    [mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakself.view);
     }];
     UIView *contentView = [[UIView alloc] init];
     contentView.backgroundColor = WhiteColor;
-    [self.mainScrollView addSubview:contentView];
+    contentView.userInteractionEnabled = YES;
+    [mainScrollView addSubview:contentView];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakself.mainScrollView);
-        make.width.equalTo(weakself.mainScrollView.mas_width);
+        make.edges.equalTo(mainScrollView);
+        make.width.equalTo(mainScrollView);
+    }];
+    UILabel *resolvBeforeDesLabel = [[UILabel alloc] init];
+    resolvBeforeDesLabel.text = @"处理前";
+    resolvBeforeDesLabel.layer.cornerRadius = 4;
+    resolvBeforeDesLabel.backgroundColor = UIColorWithFloat(219);
+    resolvBeforeDesLabel.textColor = WhiteColor;
+    resolvBeforeDesLabel.font = [UIFont systemFontOfSize:14];
+    resolvBeforeDesLabel.clipsToBounds = YES;
+    resolvBeforeDesLabel.textAlignment = NSTextAlignmentCenter;
+    [contentView addSubview:resolvBeforeDesLabel];
+    [resolvBeforeDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(15);
+        make.top.equalTo(contentView.mas_top).offset(15);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(35);
+    }];
+    UIView *lineOne = [[UIView alloc] init];
+    lineOne.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineOne];
+    [lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(resolvBeforeDesLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
     }];
     [contentView addSubview:self.headerView];
     CGFloat height = 0;
-    if (self.model.beforesoundourl != nil && self.model.beforesoundourl.length != 0) {//有音频
+    if (self.model.soundurl != nil && self.model.soundurl.length != 0) {//有音频
         height = 421;
     }else{
         height = 361;
     }
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(contentView);
-        make.top.equalTo(contentView.mas_top);
+        make.top.equalTo(lineOne.mas_bottom);
         make.height.mas_equalTo(height);
     }];
     [contentView addSubview:self.submiterDesLabel];
@@ -132,10 +151,10 @@
         make.left.equalTo(self.submiterDesLabel.mas_right).offset(5);
         make.centerY.equalTo(self.submiterDesLabel.mas_centerY);
     }];
-    UIView *lineOne = [[UIView alloc] init];
-    lineOne.backgroundColor = UIColorWithFloat(239);
-    [contentView addSubview:lineOne];
-    [lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *lineTwo = [[UIView alloc] init];
+    lineTwo.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineTwo];
+    [lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(contentView);
         make.top.equalTo(self.submiterDesLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
@@ -143,57 +162,124 @@
     [contentView addSubview:self.dutyRegionLabel];
     [self.dutyRegionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(contentView.mas_left).offset(15);
-        make.top.equalTo(lineOne.mas_bottom).offset(15);
+        make.top.equalTo(lineTwo.mas_bottom).offset(15);
     }];
     [contentView addSubview:self.dutyPersonLabel];
     [self.dutyPersonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(contentView.mas_right).offset(-40);
-        make.top.equalTo(lineOne.mas_bottom).offset(15);
+        make.top.equalTo(lineTwo.mas_bottom).offset(15);
     }];
-    UIView *lineTwo = [[UIView alloc] init];
-    lineTwo.backgroundColor = UIColorWithFloat(239);
-    [contentView addSubview:lineTwo];
-    [lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *lineThree = [[UIView alloc] init];
+    lineThree.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineThree];
+    [lineThree mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(contentView);
-        make.top.equalTo(self.dutyPersonLabel.mas_bottom).offset(15);
+        make.top.equalTo(self.dutyRegionLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
-    CGFloat footHeight = 0;
-    if (self.model.aftersoundurl != nil && self.model.aftersoundurl.length != 0) {//有音频
-        footHeight = 421;
+    [contentView addSubview:self.selectedPersonDesLabel];
+    [self.selectedPersonDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(15);
+        make.top.equalTo(lineThree.mas_bottom).offset(15);
+    }];
+    UIView *lineFour = [[UIView alloc] init];
+    lineFour.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineFour];
+    [lineFour mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(self.selectedPersonDesLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+    [contentView addSubview:self.urgencyDesLabel];
+    [self.urgencyDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(15);
+        make.top.equalTo(lineFour.mas_bottom).offset(15);
+    }];
+    [contentView addSubview:self.isNeedIvhLabel];
+    [self.isNeedIvhLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(15);
+        make.top.equalTo(self.urgencyDesLabel.mas_bottom).offset(30);
+    }];
+    UIView *lineFive = [[UIView alloc] init];
+    lineFive.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineFive];
+    [lineFive mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(self.isNeedIvhLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+    UILabel *resolvAfterDesLabel = [[UILabel alloc] init];
+    resolvAfterDesLabel.text = @"处理后";
+    resolvAfterDesLabel.layer.cornerRadius = 4;
+    resolvAfterDesLabel.backgroundColor = UIColorWithFloat(219);
+    resolvAfterDesLabel.textColor = WhiteColor;
+    resolvAfterDesLabel.font = [UIFont systemFontOfSize:14];
+    resolvAfterDesLabel.clipsToBounds = YES;
+    resolvAfterDesLabel.textAlignment = NSTextAlignmentCenter;
+    [contentView addSubview:resolvAfterDesLabel];
+    [resolvAfterDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(15);
+        make.top.equalTo(lineFive.mas_bottom).offset(15);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(35);
+    }];
+    UIView *lineSix = [[UIView alloc] init];
+    lineSix.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineSix];
+    [lineSix mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(resolvAfterDesLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+    CGFloat afterHeight = 0;
+    if (self.model.solvesoundurl != nil && self.model.solvesoundurl.length != 0) {//有音频
+        afterHeight = 421;
     }else{
-        footHeight = 361;
+        afterHeight = 361;
     }
     [contentView addSubview:self.FooterView];
     [self.FooterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(contentView);
-        make.top.equalTo(lineTwo.mas_bottom);
-        make.height.mas_equalTo(footHeight);
+        make.top.equalTo(lineSix.mas_bottom);
+        make.height.mas_equalTo(afterHeight);
     }];
-    if (self.model.taskstatus == 0) {
+    if (self.model.eventstatus != 2) {
         [contentView addSubview:self.saveBtn];
         [contentView addSubview:self.submitBtn];
         [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakself.view.mas_left).offset(60);
+            make.left.equalTo(contentView.mas_left).offset(60);
             make.top.equalTo(weakself.FooterView.mas_bottom).offset(20);
             make.width.mas_equalTo(100);
             make.height.mas_equalTo(44);
         }];
         [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(weakself.view.mas_right).offset(-60);
+            make.right.equalTo(contentView.mas_right).offset(-60);
             make.top.equalTo(weakself.FooterView.mas_bottom).offset(20);
             make.width.mas_equalTo(100);
             make.height.mas_equalTo(44);
         }];
         [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(weakself.submitBtn.mas_bottom).offset(30);
+            make.bottom.equalTo(self.submitBtn.mas_bottom).offset(30);
         }];
-    }else if(self.model.taskstatus == 2){
+    }else{
         [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(weakself.FooterView.mas_bottom);
+            make.bottom.equalTo(self.FooterView.mas_bottom);
         }];
     }
 }
+
+#pragma mark - RecordViewDelegateMethod
+
+- (void)recordViewDidEndRecord{
+    [self.recordView removeFromSuperview];
+    [self.coverView removeFromSuperview];
+    [self.FooterView insertVideoPlayViewWithPlayTime:[ZXRecoderVideoManager sharedRecoderManager].videoTime];
+    [self.FooterView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(431);
+    }];
+    self.hasRecord = YES;
+}
+
 
 #pragma mark - WorkTaskHeaderViewDelegateMethod
 
@@ -207,13 +293,13 @@
 
 - (void)clickMapBtnWithView:(workTaskHeaderView *)view{
     MyPositionViewController *vc = [[MyPositionViewController alloc] init];
-    if (self.model.taskstatus == 2) {
-         vc.location = CLLocationCoordinate2DMake(self.model.positionlat, self.model.positionlon);
+    if (self.model.eventstatus == 2) {
+        vc.location = CLLocationCoordinate2DMake([self.model.positionlat doubleValue], [self.model.positionlon doubleValue]);
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (view == self.headerView) {
-        vc.location = CLLocationCoordinate2DMake(self.model.positionlat, self.model.positionlon);
+        vc.location = CLLocationCoordinate2DMake([self.model.positionlat doubleValue],[self.model.positionlon doubleValue]);
     }
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -270,24 +356,11 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-#pragma mark - RecordViewDelegateMethod
-
-- (void)recordViewDidEndRecord{
-    [self.recordView removeFromSuperview];
-    [self.coverView removeFromSuperview];
-    [self.FooterView insertVideoPlayViewWithPlayTime:[ZXRecoderVideoManager sharedRecoderManager].videoTime];
-    [self.FooterView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(431);
-    }];
-    self.hasRecord = YES;
-}
-
-#pragma mark - clickAction
+#pragma make - clickAction
 
 - (void)clickAction:(FButton *)btn{
     if (btn.tag == 3) {
-
+        
     }else if (btn.tag == 5){//返回
         [self.navigationController popViewControllerAnimated:YES];
     }else if (btn.tag == 6){//提交
@@ -344,11 +417,11 @@
             if (temStr.length != 0) {
                 [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
-            [HttpClient zx_httpClientToComfirmOrgTaskWithOrgtaskId:[self.model.orgtaskid longLongValue] andConfirmContent:self.FooterView.textView.text andPhotoUrl:temStr andVideoUrl:@"" andSoundUrl:soundUrl andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            [HttpClient zx_httpClientToConfirmEventAssignWithAssignid:self.model.assignid andSoundUrl:soundUrl andVideoUrl:@"" andPhotoUrl:temStr andBeginTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andSolveOpinon:self.FooterView.textView.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                 ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"提交成功" toView:self.view];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKEVENTRELOADDATA object:nil];
                     [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
                 }else{
                     if (message.length != 0) {
@@ -357,13 +430,30 @@
                         [MBProgressHUD showError:@"提交失败" toView:self.view];
                     }
                 }
-             
             }];
         });
     }
 }
 
 #pragma mark - setter && getter
+
+- (workTaskHeaderView *)headerView{
+    if (_headerView == nil) {
+        _headerView = [workTaskHeaderView workTaskView];
+        _headerView.type = 1;
+        _headerView.delegate = self;
+    }
+    return _headerView;
+}
+
+- (workTaskHeaderView *)FooterView{
+    if (_FooterView == nil) {
+        _FooterView = [workTaskHeaderView workTaskView];
+        _FooterView.type = 2;
+        _FooterView.delegate = self;
+    }
+    return _FooterView;
+}
 
 - (UILabel *)submiterDesLabel{
     if (_submiterDesLabel == nil) {
@@ -380,7 +470,7 @@
         _submiterNameLabel = [[UILabel alloc] init];
         _submiterNameLabel.textColor = BTNBackgroudColor;
         _submiterNameLabel.font = [UIFont systemFontOfSize:15];
-        _submiterNameLabel.text = self.model.submitemployername;
+        _submiterNameLabel.text = self.model.createemployername;
     }
     return _submiterNameLabel;
 }
@@ -390,7 +480,7 @@
         _dutyRegionLabel = [[UILabel alloc] init];
         _dutyRegionLabel.textColor = UIColorWithFloat(79);
         _dutyRegionLabel.font = [UIFont systemFontOfSize:15];
-        _dutyRegionLabel.text = [NSString stringWithFormat:@"责任区: %@",self.model.regionname];
+        _dutyRegionLabel.text = [NSString stringWithFormat:@"责任区:  %@",self.model.regionname];
     }
     return _dutyRegionLabel;
 }
@@ -401,9 +491,39 @@
         _dutyPersonLabel.textColor = UIColorWithFloat(79);
         _dutyPersonLabel.font = [UIFont systemFontOfSize:15];
         _dutyPersonLabel.textAlignment = NSTextAlignmentLeft;
-        _dutyPersonLabel.text = [NSString stringWithFormat:@"责任人: %@",self.model.liableemployename];
+        _dutyPersonLabel.text = [NSString stringWithFormat:@"责任人:  %@",self.model.liableemployername];
     }
     return _dutyPersonLabel;
+}
+
+- (UILabel *)selectedPersonDesLabel{
+    if (_selectedPersonDesLabel == nil) {
+        _selectedPersonDesLabel = [[UILabel alloc] init];
+        _selectedPersonDesLabel.text = [NSString stringWithFormat:@"处理人:  %@",self.model.receiveemployername?self.model.receiveemployername:@""];
+        _selectedPersonDesLabel.textColor = UIColorWithFloat(79);
+        _selectedPersonDesLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _selectedPersonDesLabel;
+}
+
+- (UILabel *)urgencyDesLabel{
+    if (_urgencyDesLabel == nil) {
+        _urgencyDesLabel = [[UILabel alloc] init];
+        _urgencyDesLabel.text = [NSString stringWithFormat:@"紧急度:  %@",self.model.urgencyname];
+        _urgencyDesLabel.textColor = UIColorWithFloat(79);
+        _urgencyDesLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _urgencyDesLabel;
+}
+
+- (UILabel *)isNeedIvhLabel{
+    if (_isNeedIvhLabel == nil) {
+        _isNeedIvhLabel = [[UILabel alloc] init];
+        _isNeedIvhLabel.text = [NSString stringWithFormat:@"车辆需求:  %@",[self.model.isvehneed intValue] == 0?@"不需要":@"需要"];
+        _isNeedIvhLabel.textColor = UIColorWithFloat(79);
+        _isNeedIvhLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return _isNeedIvhLabel;
 }
 
 - (FButton *)saveBtn{
@@ -432,23 +552,6 @@
     return _submitBtn;
 }
 
-- (workTaskHeaderView *)headerView{
-    if (_headerView == nil) {
-        _headerView = [workTaskHeaderView workTaskView];
-        _headerView.type = 1;
-        _headerView.delegate = self;
-    }
-    return _headerView;
-}
-
-- (workTaskHeaderView *)FooterView{
-    if (_FooterView == nil) {
-        _FooterView = [workTaskHeaderView workTaskView];
-        _FooterView.type = 2;
-        _FooterView.delegate = self;
-    }
-    return _FooterView;
-}
 
 
 @end

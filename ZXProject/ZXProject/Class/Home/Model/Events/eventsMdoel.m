@@ -34,7 +34,23 @@
 }
 
 - (NSString *)occourtimeString{
-    long long time = _occurtime/ 1000.0;
+    long long time = _createtime/ 1000.0;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    return [dateFormatter stringFromDate:date];
+}
+
+- (NSString *)beginString{
+    long long time = _begintime / 1000.0;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    return [dateFormatter stringFromDate:date];
+}
+
+- (NSString *)finishtimesSting{
+    long long time = _finishtime / 1000.0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
@@ -42,7 +58,7 @@
 }
 
 - (NSString *)timeCount{
-    long long time = _occurtime / 1000.0;
+    long long time = _createtime / 1000.0;
     NSTimeInterval timeInterval =  [[NSDate date] timeIntervalSince1970];
     long long chaTime = timeInterval - time;
     long long h = chaTime / 3600.0;
@@ -66,6 +82,62 @@
     }
     return _photoUrls;
 }
+
+- (NSArray *)soundUrls{
+    if (_soundUrls == nil) {
+        _soundUrls = [self.soundurl componentsSeparatedByString:@"|"];
+        if (_soundUrls == nil) {
+            if (self.soundurl != nil) {
+                _soundUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.soundurl]];
+            }
+        }else{
+            NSMutableArray *tem_arr = [NSMutableArray array];
+            for (NSString *subUrl in _soundUrls) {
+                NSString *url = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:subUrl];
+                [tem_arr addObject:url];
+            }
+            _soundUrls= tem_arr.mutableCopy;
+        }
+    }
+    return _soundUrls;
+}
+
+- (NSArray *)afterSoundUrls{
+    if (_afterSoundUrls == nil) {
+        _afterSoundUrls = [self.solvesoundurl componentsSeparatedByString:@"|"];
+        if (_afterSoundUrls == nil) {
+            _afterSoundUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.solvesoundurl]];
+        }else{
+            NSMutableArray *tem_arr = [NSMutableArray array];
+            for (NSString *subUrl in _afterSoundUrls) {
+                NSString *url = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:subUrl];
+                [tem_arr addObject:url];
+            }
+            _afterSoundUrls= tem_arr.mutableCopy;
+        }
+    }
+    return _afterSoundUrls;
+}
+
+- (NSArray *)afterPhotoUrls{
+    if (_afterPhotoUrls == nil) {
+        _afterPhotoUrls = [self.solvephotourl componentsSeparatedByString:@"|"];
+        if (_afterPhotoUrls == nil) {
+            _afterPhotoUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.solvephotourl]];
+        }else{
+            NSMutableArray *tem_arr = [NSMutableArray array];
+            for (NSString *subUrl in _afterPhotoUrls) {
+                NSString *url = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:subUrl];
+                [tem_arr addObject:url];
+            }
+            _afterPhotoUrls = tem_arr.mutableCopy;
+        }
+    }
+    return _afterPhotoUrls;
+}
+
+
+
 
 
 @end

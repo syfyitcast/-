@@ -20,10 +20,12 @@
 #import "MyPositionViewController.h"
 #import "ZXRecoderVideoManager.h"
 #import "HttpClient+WorkTask.h"
+#import "HttpClient+UploadFile.h"
 
 
 
 @interface AddEventsViewController ()<workTaskHeaderViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,RecordViewDelegate>
+
 
 @property (nonatomic, strong) NSArray *projectRegions;
 @property (nonatomic, strong) workTaskHeaderView *headerView;
@@ -42,6 +44,8 @@
 
 @property (nonatomic, strong) UILabel *isNeedIvhLabel;
 @property (nonatomic, strong) FButton *isNeedIvhBtn;
+
+@property (nonatomic, strong) FButton *selectApprvoBtn;
 
 @property (nonatomic, strong) FButton *saveBtn;
 @property (nonatomic, strong) FButton *submitBtn;
@@ -127,29 +131,6 @@
         make.edges.equalTo(mainScrollView);
         make.width.equalTo(mainScrollView);
     }];
-//    UILabel *resolvBeforeDesLabel = [[UILabel alloc] init];
-//    resolvBeforeDesLabel.text = @"处理前";
-//    resolvBeforeDesLabel.layer.cornerRadius = 4;
-//    resolvBeforeDesLabel.backgroundColor = UIColorWithFloat(199);
-//    resolvBeforeDesLabel.textColor = WhiteColor;
-//    resolvBeforeDesLabel.font = [UIFont systemFontOfSize:14];
-//    resolvBeforeDesLabel.clipsToBounds = YES;
-//    resolvBeforeDesLabel.textAlignment = NSTextAlignmentCenter;
-//    [contentView addSubview:resolvBeforeDesLabel];
-//    [resolvBeforeDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(contentView.mas_left).offset(15);
-//        make.top.equalTo(contentView.mas_top).offset(15);
-//        make.width.mas_equalTo(60);
-//        make.height.mas_equalTo(35);
-//    }];
-//    UIView *lineOne = [[UIView alloc] init];
-//    lineOne.backgroundColor = UIColorWithFloat(239);
-//    [contentView addSubview:lineOne];
-//    [lineOne mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(contentView);
-//        make.top.equalTo(resolvBeforeDesLabel.mas_bottom).offset(15);
-//        make.height.mas_equalTo(1);
-//    }];
     [contentView addSubview:self.headerView];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(contentView);
@@ -206,18 +187,10 @@
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(100);
     }];
-    UIView *lineFour = [[UIView alloc] init];
-    lineFour.backgroundColor = UIColorWithFloat(239);
-    [contentView addSubview:lineFour];
-    [lineFour mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(contentView);
-        make.top.equalTo(self.selectedPersonDesLabel.mas_bottom).offset(15);
-        make.height.mas_equalTo(1);
-    }];
     [contentView addSubview:self.urgencyDesLabel];
     [self.urgencyDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(contentView.mas_left).offset(15);
-        make.top.equalTo(lineFour.mas_top).offset(15);
+        make.top.equalTo(self.selectedPersonDesLabel.mas_bottom).offset(30);
     }];
     [contentView addSubview:self.urgencyBtn];
     [self.urgencyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -225,6 +198,21 @@
         make.centerY.equalTo(weakself.urgencyDesLabel.mas_centerY);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(30);
+    }];
+    UILabel *sendsmsLabel = [[UILabel alloc] init];
+    sendsmsLabel.textColor = [UIColor redColor];
+    sendsmsLabel.text = @"短信通知";
+    sendsmsLabel.font = [UIFont systemFontOfSize:14];
+    [contentView addSubview:sendsmsLabel];
+    [sendsmsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(contentView.mas_right).offset(-15);
+        make.centerY.equalTo(self.urgencyBtn.mas_centerY);
+    }];
+    [contentView addSubview:self.selectApprvoBtn];
+    [self.selectApprvoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(sendsmsLabel.mas_left).offset(-5);
+        make.centerY.equalTo(weakself.urgencyBtn.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(18, 16.5));
     }];
     UIView *lineFive = [[UIView alloc] init];
     lineFive.backgroundColor = UIColorWithFloat(239);
@@ -411,16 +399,76 @@
         if (self.headerView.textView.text.length == 0) {
             [MBProgressHUD showError:@"请填写说明" toView:self.view];
             return;
-        }
+        };
         if (self.reslovid == 0) {
             [MBProgressHUD showError:@"请选择处理人" toView:self.view];
             return;
+        };
+        // 调度组
+        dispatch_group_t group = dispatch_group_create();
+        // 队列
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        if (pickImages.count != 0) {
+            ZXSHOW_LOADING(self.view, @"上传文件中...")
         }
-        [HttpClient zx_httpClientToAddEventWithEventno:0 andEventdescription:self.headerView.textView.text andOrgid:self.currentModel.orgid andRegionid:self.currentModel.projectorgregionid andPhotoUrl:nil andVideoUrl:nil andSoundUrl:nil andPositionAdress:nil andPosition:[UserLocationManager sharedUserLocationManager].position andCreateemployerid:[[UserManager sharedUserManager].user.employerid longLongValue] andLiableemployerid:self.currentModel.employerid andUrgency:self.urgencyType andIsvehneed:self.isNeedCarType andSendsms:0 andSolveemployerid:self.reslovid andEventsStatus:0 andPatroleventid:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-            
-        }];
+        NSMutableString *temStr = [NSMutableString string];//拼接照片url
+        for (UIImage *image in pickImages) {
+            dispatch_group_enter(group);
+            NSData *data =  UIImageJPEGRepresentation(image, 1);
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:data andType:UploadFileTypePhoto andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        [temStr appendString:[NSString stringWithFormat:@"%@|",url]];
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        __block NSString *soundUrl = @"";
+        if (self.hasRecord) {
+            dispatch_group_enter(group);
+            NSData *recordData = [NSData dataWithContentsOfURL:[ZXRecoderVideoManager sharedRecoderManager].recordFileUrl];
+            dispatch_group_async(group, queue, ^{
+                [HttpClient zx_httpClientToUploadFileWithData:recordData andType:UPloadFileTypeSound andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        NSDictionary *dict = (NSDictionary *)data;
+                        NSString *url = dict[@"url"];
+                        soundUrl = url;
+                    }
+                    dispatch_group_leave(group);
+                }];
+            });
+        }
+        dispatch_queue_t mQueue = dispatch_get_main_queue();
+        dispatch_group_notify(group, mQueue, ^{//照片上传完提交审核
+            ZXHIDE_LOADING;
+            ZXSHOW_LOADING(self.view, @"提交中...");
+            if (temStr.length != 0) {
+                [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
+            }
+            [HttpClient zx_httpClientToAddEventWithEventno:0 andEventdescription:self.headerView.textView.text andOrgid:self.currentModel.orgid andRegionid:self.currentModel.projectorgregionid andPhotoUrl:temStr andVideoUrl:@"" andSoundUrl:soundUrl andPositionAdress:self.headerView.positionAdress andPosition:[UserLocationManager sharedUserLocationManager].position andCreateemployerid:[[UserManager sharedUserManager].user.employerid longLongValue] andLiableemployerid:self.currentModel.employerid andUrgency:self.urgencyType andIsvehneed:self.isNeedCarType andSendsms:self.selectApprvoBtn.selected andSolveemployerid:self.reslovid andEventsStatus:0 andPatroleventid:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                if (code == 0) {
+                    [MBProgressHUD showError:@"提交成功" toView:self.view];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
+                    [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                }else{
+                    if (message.length != 0) {
+                        [MBProgressHUD showError:message toView:self.view];
+                    }else{
+                        [MBProgressHUD showError:@"提交失败" toView:self.view];
+                    }
+                }
+            }];
+        });
+      
 
     }
+}
+
+- (void)clickMeassageAction{
+    self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
 }
 
 #pragma mark - setter && getter
@@ -590,6 +638,17 @@
         _submitBtn.tag = 7;
     }
     return _submitBtn;
+}
+
+- (FButton *)selectApprvoBtn{
+    if (_selectApprvoBtn == nil) {
+        _selectApprvoBtn = [FButton fbtnWithFBLayout:FBLayoutTypeImageFull andPadding:0];
+        [_selectApprvoBtn setImage:[UIImage imageNamed:@"eventSelectNomal"]
+                          forState:UIControlStateNormal];
+        [_selectApprvoBtn setImage:[UIImage imageNamed:@"eventSelectHighted"] forState:UIControlStateSelected];
+        [_selectApprvoBtn addTarget:self action:@selector(clickMeassageAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectApprvoBtn;
 }
 
 @end

@@ -152,7 +152,7 @@
 - (void)getDutyEvents{
     [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 0) {
-            NSArray *datas = data[@"getprojectevents"];
+            NSArray *datas = data[@"getpatroleventassign"];
             self.eventsModels = [eventsMdoel eventsModelsWithSource_arr:datas];
             [self.bottomTabel reloadData];
             if (self.eventsModels.count != 0) {
