@@ -34,7 +34,7 @@
                 [tem_arr addObject:model];
             }
         }
-        if ([model.projectid isEqualToString:[UserManager sharedUserManager].user.allProjects.firstObject]) {
+        if ([model.projectid isEqualToString:[UserManager sharedUserManager].user.allProjects.lastObject]) {
             [ProjectManager sharedProjectManager].currentModel = model;
         }
     }

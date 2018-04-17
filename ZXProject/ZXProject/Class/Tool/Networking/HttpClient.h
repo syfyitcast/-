@@ -41,6 +41,9 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 //项目信息列表
 + (void)zx_httpClientToGetProjectListWithProjectCode:(NSString *_Nonnull)projectCode andProjectName:(NSString *_Nonnull)projectName andSuccessBlock:(responseBlock _Nonnull )block;
 
+//获取通讯录
++ (void)zx_httpClientToGetOrgContactListWithProjectid:(NSString *)projectid andSuccessBlock:(responseBlock)block;
+
 //项目详细信息
 + (void)zx_httpClientToProjectDetailWithProjectid:(NSString *_Nonnull)projectid andSuccessBlock:(responseBlock _Nonnull )block;
 
@@ -55,12 +58,14 @@ typedef void (^responseBlock)( int  code, id _Nullable data, NSString * _Nullabl
 + (void)zx_httpClientToGetNotificationReadCountWithProjectid:(NSString *_Nonnull)projectid_Nonnull andEmployerid:(NSString *_Nonnull)employerid andSuccessBlock:(responseBlock _Nonnull )block;
 
 //获取通知公告阅读人列表
-+ (void)zx_httpClientToGetNoticeReaderlistWithNoticeid:(long)noticeid andSuccessBlock:(responseBlock)block;
++ (void)zx_httpClientToGetNoticeReaderlistWithNoticeid:(long)noticeid andSuccessBlock:(responseBlock _Nonnull )block;
 
 //工作流程
 + (void)zx_httpClientWorkFlowWithProject_id:(NSString *_Nullable)project_id andEmployedId:(NSString *_Nullable)employedId andSubmitmployer:(NSString *_Nonnull)submitemployer andEventType:(NSString *_Nonnull)type andBeginTime:(NSString *_Nonnull)beginTime andEndTime:(NSString *_Nonnull)endTime andEventName:(NSString *_Nonnull)eventName andEventRemark:(NSString *_Nonnull)eventMark andPhotoUrl:(NSString *_Nonnull)photoUrl andSubmitto:(NSString *_Nonnull)submitto;
 
 //待审核考勤事件
 + (void)zx_httpClientToDutyEventlistWithProjectid:(NSString *_Nonnull)projectId andEmployerid:(NSString *_Nonnull)employerid  andFlowTaskStatus:(NSString *_Nonnull)taskStatus andSuccessBlock:(responseBlock _Nonnull )block;
+
+
 
 @end

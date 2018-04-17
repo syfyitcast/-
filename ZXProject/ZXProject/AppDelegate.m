@@ -30,6 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setHttpConfig];
     [self setGDConfig];
+    [ProjectManager getProjectList];
     [[UserLocationManager sharedUserLocationManager] getUserLocation];
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;

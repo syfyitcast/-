@@ -72,9 +72,8 @@
     [[UserLocationManager sharedUserLocationManager] reverseGeocodeLocationWithAdressBlock:nil];
     [self isLocationAuthrize];
     [self setSubviews];
-    [self getProjectsInfo];//获取项目信息
     //监听通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshWeather) name:NOTIFI_GETLOCATIONINFO object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProjectsInfo) name:NOTIFI_PROJECTLISTDONE object:nil];
 }
 
 - (void)isLocationAuthrize{//判断有没有定位权限
@@ -101,10 +100,6 @@
         //定位不能用
         [[UIApplication sharedApplication].keyWindow addSubview:coverView];
     }
-}
-
-- (void)refreshWeather{
-    [self getWeatherInformation];
 }
 
 - (void)getProjectsInfo{
@@ -137,6 +132,7 @@
                     model.projectid = projectid;
                     [tem_arr addObject:model];
                 }
+                dispatch_group_leave(group);
             }];
         });
     }
@@ -161,7 +157,7 @@
 - (void)getDutyEvents{
     [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentProjectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 0) {
-            NSArray *datas = data[@"getprojectevents"];
+            NSArray *datas = data[@"getpatroleventassign"];
             self.eventsModels = [eventsMdoel eventsModelsWithSource_arr:datas];
             [self.bottomTabel reloadData];
             if (self.eventsModels.count != 0) {
@@ -176,7 +172,7 @@
 }
 
 - (void)getWeatherInformation{
-    [HttpClient zx_httpCilentToGetWeatherWithCityName:[UserLocationManager sharedUserLocationManager].city andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+    [HttpClient zx_httpCilentToGetWeatherWithCityName:[ProjectManager sharedProjectManager].currentModel.cityname andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
         if (code == 1000) {
             NSArray *weather_arr = data[@"forecast"];
             NSDictionary *weather_dict = weather_arr.firstObject;
@@ -226,12 +222,12 @@
 #pragma mark - HomeHeaderViewDelegateMethod
 
 - (void)homeHeaderViewDidClickLeftBtn{
-    if ([ProjectManager sharedProjectManager].projects.count == 0) {
+    if ([ProjectManager sharedProjectManager].projectDetails.count == 0) {
         [MBProgressHUD showError:@"正在获取数据请稍后"];
     }else{
         self.coverView.frame = self.view.bounds;
         [self.view addSubview:self.coverView];
-        self.leftTable.frame = CGRectMake(5, 65, 150, [ProjectManager sharedProjectManager].projects.count * 34);
+        self.leftTable.frame = CGRectMake(5, 65, 150, [ProjectManager sharedProjectManager].projectDetails.count * 34);
         [self.view addSubview:self.leftTable];
     }
 }
@@ -323,7 +319,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftTable) {
-        ProjectModel *model = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        ProjectModel *model = [ProjectManager sharedProjectManager].projectDetails[indexPath.row];
         if ([self.currentModel.projectid isEqualToString:model.projectid]) return;
         HomeLeftTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.backgroundColor = UIColorWithRGB(110, 199, 54);
@@ -331,10 +327,12 @@
         self.currentLeftCell.backgroundColor = WhiteColor;
         [self.currentLeftCell setTitleColor:UIColorWithRGB(132, 132, 132)];
         self.currentLeftCell = cell;
-        self.currentModel = [ProjectManager sharedProjectManager].projects[indexPath.row];
+        self.currentModel = [ProjectManager sharedProjectManager].projectDetails[indexPath.row];
+        [ProjectManager sharedProjectManager].currentModel = self.currentModel;
         [ProjectManager sharedProjectManager].currentProjectid = self.currentModel.projectid;
         [self.headerView setProjectLabelName:self.currentModel.projectname];
         [self getDutyEvents];
+        [self getWeatherInformation];
         [self clickCoverView];
     }else if (tableView == self.bottomTabel){
         
@@ -456,7 +454,7 @@
 
 - (NSArray *)headerLeftItems{
     if (_headerLeftItems == nil) {
-        _headerLeftItems = [ProjectManager sharedProjectManager].projects;
+        _headerLeftItems = [ProjectManager sharedProjectManager].projectDetails;
     }
     return _headerLeftItems;
 }

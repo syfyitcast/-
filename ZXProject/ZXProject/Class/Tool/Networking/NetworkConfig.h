@@ -28,6 +28,7 @@ extern NSString *const API_GETAPPNOTICEREADCOUNT;//获取app通知消息未阅�
 extern NSString *const API_GETDUTYEVENTLIST;//获取待审核考勤事件
 extern NSString *const API_GETPROJECTLIST;//获取项目列表
 extern NSString *const API_GETPROJECTDETAIL;//获取项目详细信息
+extern NSString *const API_GETORGCONTACTLIST;//获取项目通讯录
 
 #pragma mark ---------------------------------------------------
 
@@ -55,7 +56,9 @@ extern NSString *const API_GETTASKLIST;//获取工作列表
 extern NSString *const API_GETPOINTPROJECTREGION;//获取所在的环卫作业区域
 extern NSString *const API_GETPROJECTREGIONLIST;//获取项目作业区域列表
 extern NSString *const API_ADDTASK;//新增工作事件
+extern NSString *const API_ADDEVENT;//新增环卫事件
 extern NSString *const API_CONFIRMORGTASK;//完成环卫工作项
+extern NSString *const API_CONFIRMEVNTASSIGN;//完成事件派单
 
 
 @interface NetworkConfig : NSObject

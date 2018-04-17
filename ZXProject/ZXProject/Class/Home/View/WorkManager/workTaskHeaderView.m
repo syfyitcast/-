@@ -11,10 +11,12 @@
 #import "GobHeaderFile.h"
 #import "RecordPlayView.h"
 #import <Masonry.h>
+#import "NSString+boundSize.h"
 
 @interface workTaskHeaderView()<WorkTaskAddImagePickViewDelegate>
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapIconLeftW;
 
 
 @property (nonatomic, strong) WorkTaskAddImagePickView *pickImageView;
@@ -48,6 +50,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.timeLabel.text =[formatter stringFromDate:date];
+    self.positionLabel.numberOfLines = 0;
 }
 
 - (void)insertVideoPlayViewWithPlayTime:(float)playTime{
@@ -121,19 +124,41 @@
     if (self.type == 1) {
         self.textView.text = model.taskcontent;
         self.imageUrls = model.photoUrls;
-        self.timeLabel.text = [NSString stringWithFormat:@"时间:  %@",model.occurtime];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@",model.occurtime];
     }else if (self.type == 2){
         self.textView.text = model.confirmcontent;
         self.imageUrls = model.afterPhotoUrls;
-        self.timeLabel.text = [NSString stringWithFormat:@"时间:  %@",model.afterTimeString];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@",model.afterTimeString];
     }
     self.textView.editable = NO;
     self.positionAdress = model.positionaddress;
 }
 
+- (void)setEventModel:(eventsMdoel *)eventModel{
+    _eventModel = eventModel;
+    if (self.type == 1) {
+        self.textView.text = eventModel.eventdescription;
+        self.imageUrls = eventModel.photoUrls;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@",eventModel.occourtimeString];
+    }else if (self.type == 2){
+        self.textView.text = eventModel.solveopinion;
+        self.imageUrls = eventModel.afterPhotoUrls;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@",eventModel.finishtimesSting];
+    }
+    self.textView.editable = NO;
+    self.positionAdress = eventModel.positionaddress;
+}
+
 - (void)setPositionAdress:(NSString *)positionAdress{
     _positionAdress = positionAdress;
     self.positionLabel.text = self.positionAdress;
+    CGFloat width = [self.positionAdress boudSizeWithFont:self.positionLabel.font andMaxSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 88, MAXFLOAT)].width;
+    if (width >= [UIScreen mainScreen].bounds.size.width - 88) {
+        self.mapIconLeftW.constant = self.width - 30;
+    }else{
+        self.mapIconLeftW.constant = 63 + width;
+    }
+    
 }
 
 - (WorkTaskAddImagePickView *)pickImageView{

@@ -11,6 +11,7 @@
 #import "NSString+boundSize.h"
 #import <Masonry.h>
 #import "UserLocationManager.h"
+#import "ProjectManager.h"
 
 @interface HomeHeaderView()
 
@@ -97,7 +98,7 @@
         self.temptureLabel.text = [NSString stringWithFormat:@"%@~%@",low,high];
     }
     self.dateLabel.text = weatherDict[@"date"];
-    self.positionCity.text = [UserLocationManager sharedUserLocationManager].city;
+    self.positionCity.text = [ProjectManager sharedProjectManager].currentModel.cityname;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WorkTaskModel.h"
+#import "eventsMdoel.h"
 @class workTaskHeaderView;
 
 @protocol workTaskHeaderViewDelegate<NSObject>
@@ -25,6 +26,7 @@
 @property (nonatomic, weak) id<workTaskHeaderViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic, strong)  WorkTaskModel *model;
+@property (nonatomic, strong)  eventsMdoel *eventModel;
 @property (nonatomic, copy) NSString *positionAdress;
 @property (nonatomic, assign) int type;
 

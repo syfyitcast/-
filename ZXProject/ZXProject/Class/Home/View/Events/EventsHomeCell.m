@@ -31,7 +31,7 @@
 
 - (void)setModel:(eventsMdoel *)model{
     _model = model;
-    self.createName.text = model.createusername;
+    self.createName.text = model.createemployername;
     self.isNeedCar.text = [model.isvehneed intValue]?@"需要派车":@"无需派车";
     self.adress.text = model.eventdescription;
     self.timeLabel.text = model.occourtimeString;

@@ -29,5 +29,7 @@
 
 + (instancetype)userWithDict:(NSDictionary *)dict;
 
++ (NSArray *)usersWithSource_arr:(NSArray *)source_arr;
+
 
 @end

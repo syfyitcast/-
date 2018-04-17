@@ -237,9 +237,34 @@
 + (void)zx_httpClientToGetProjectEventsWithProjectId:(NSString *_Nullable)projectId andEventsStatus:(NSString *_Nullable)eventStatus andSuccessBlock:(responseBlock _Nullable )block{
     NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETEVENTS];
     [dict setObject:projectId?projectId:@"" forKey:@"projectid"];
-    [dict setObject:eventStatus?eventStatus:@"" forKey:@"eventstatus"];
+    if (![eventStatus isEqualToString:@"3"]) {
+        [dict setObject:eventStatus?eventStatus:@"" forKey:@"eventstatus"];
+    }
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.api                  = [NetworkConfig api:API_GETEVENTS];
+        request.httpMethod           = kXMHTTPMethodPOST;
+        request.parameters =         dict;
+        request.timeoutInterval      = 30;
+        request.useGeneralHeaders    = YES;
+        request.useGeneralServer     = YES;
+        request.useGeneralParameters = NO;
+    } onSuccess:^(id  _Nullable responseObject) {
+        id responseObjectNoNull = [responseObject filterNullObject];
+        int resultCode = [responseObjectNoNull[@"code"] intValue];
+        id data = responseObjectNoNull[@"datas"];
+        NSString *message = responseObjectNoNull[@"codedes"];
+        block(resultCode,data,message,nil);
+    } onFailure:^(NSError * _Nullable error) {
+        block(-1,nil,nil,error);
+    }];
+}
+
++ (void) zx_httpClientToGetOrgContactListWithProjectid:(NSString *)projectid andSuccessBlock:(responseBlock)block{
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETORGCONTACTLIST];
+    [dict setObject:projectid?projectid:@"" forKey:@"projectid"];
+    [dict setObject:@(1) forKey:@"accounttype"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.api                  = [NetworkConfig api:API_GETORGCONTACTLIST];
         request.httpMethod           = kXMHTTPMethodPOST;
         request.parameters =         dict;
         request.timeoutInterval      = 30;

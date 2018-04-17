@@ -90,7 +90,7 @@
 
 - (void)setEventModel:(eventsMdoel *)eventModel{
     _eventModel = eventModel;
-    self.personName.text =  [NSString stringWithFormat:@"发起人:%@",eventModel.createusername];
+    self.personName.text =  [NSString stringWithFormat:@"发起人:%@",eventModel.createemployername];
     self.desLabel.text = [NSString stringWithFormat:@"说明:%@",eventModel.eventdescription];
     self.updateLabel.text = [NSString stringWithFormat:@"更新:%@",eventModel.occourtimeString];
     self.adressLabel.text = eventModel.positionaddress;
@@ -116,7 +116,7 @@
         self.countTimeDesLabel.hidden = NO;
         self.draftIconView.hidden = YES;
     }
-    NSTimeInterval chaTime = [[NSDate date] timeIntervalSince1970] - (eventModel.occurtime/1000.0);
+    NSTimeInterval chaTime = [[NSDate date] timeIntervalSince1970] - (eventModel.createtime/1000.0);
     int h = chaTime / 3600;
     int m = (chaTime - h * 3600) / 60;
     self.timeCoutLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",h,m];

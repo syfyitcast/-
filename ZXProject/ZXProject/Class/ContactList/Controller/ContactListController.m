@@ -7,6 +7,8 @@
 //
 
 #import "ContactListController.h"
+#import "HttpClient.h"
+#import "ProjectManager.h"
 
 @interface ContactListController ()
 
@@ -17,8 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"通讯录";
+    [self setNetworkRequest];
 }
 
-
+- (void)setNetworkRequest{
+   
+}
 
 @end
