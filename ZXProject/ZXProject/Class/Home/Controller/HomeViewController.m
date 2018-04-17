@@ -108,19 +108,19 @@
 }
 
 - (void)getProjectsInfo{
-//    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-//        if (code == 0) {
-//            NSArray *datas = data[@"projectList"];
-//            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
-//            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
-//            if (self.currentModel == nil) {
-//                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
-//            }
-//            [self.headerView setProjectLabelName:self.currentModel.projectname];
-//            [self getDutyEvents];
-//            [self getNotificationCount];
-//        }
-//    }];
+    [HttpClient zx_httpClientToGetProjectListWithProjectCode:@"" andProjectName:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        if (code == 0) {
+            NSArray *datas = data[@"projectList"];
+            [ProjectManager sharedProjectManager].projects = [ProjectModel projectModelsWithsource_arr:datas];
+            self.currentModel = [ProjectManager sharedProjectManager].currentModel;
+            if (self.currentModel == nil) {
+                self.currentModel = [ProjectManager sharedProjectManager].projects.firstObject;
+            }
+            [self.headerView setProjectLabelName:self.currentModel.projectname];
+            [self getDutyEvents];
+            [self getNotificationCount];
+        }
+    }];
     // 调度组
     dispatch_group_t group = dispatch_group_create();
     // 队列
@@ -143,7 +143,7 @@
     // 异步 : 调度组中的所有异步任务执行结束之后,在这里得到统一的通知
     dispatch_queue_t mQueue = dispatch_get_main_queue();
     dispatch_group_notify(group, mQueue, ^{
-        [ProjectManager sharedProjectManager].projects = tem_arr.mutableCopy;
+        [ProjectManager sharedProjectManager].projectDetails = tem_arr.mutableCopy;
     });
 }
 
