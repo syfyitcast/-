@@ -123,6 +123,41 @@
     [self.workTaskIcon sd_setImageWithURL:eventModel.photoUrls.firstObject placeholderImage:[UIImage imageNamed:@"workTaskIcon"]];
 }
 
+- (void)setInspectionModel:(InspectionModel *)inspectionModel{
+    _inspectionModel = inspectionModel;
+    self.personName.text =  [NSString stringWithFormat:@"发起人:%@",inspectionModel.employername];
+    self.desLabel.text = [NSString stringWithFormat:@"说明:%@",inspectionModel.patroltcontent];
+    self.updateLabel.text = [NSString stringWithFormat:@"更新:%@",inspectionModel.occourtimeString];
+    self.adressLabel.text = inspectionModel.positionaddress;
+    if (inspectionModel.patroltstatus == 2) {
+        self.typeLabel.text = @"已完成";
+        self.typeLabel.backgroundColor = BTNBackgroudColor;
+        self.timeCoutLabel.hidden = NO;
+        self.personLabel.hidden = NO;
+        self.countTimeDesLabel.hidden = NO;
+        self.draftIconView.hidden = YES;
+    }else if (inspectionModel.patroltstatus == 99){
+        self.typeLabel.text = @"草稿";
+        self.typeLabel.backgroundColor = DRAFTBackgroudColor;
+        self.timeCoutLabel.hidden = YES;
+        self.personLabel.hidden = YES;
+        self.countTimeDesLabel.hidden = YES;
+        self.draftIconView.hidden = NO;
+    }else if (inspectionModel.patroltstatus == 0){
+        self.typeLabel.text = @"未完成";
+        self.typeLabel.backgroundColor = [UIColor redColor];
+        self.timeCoutLabel.hidden = NO;
+        self.personLabel.hidden = NO;
+        self.countTimeDesLabel.hidden = NO;
+        self.draftIconView.hidden = YES;
+    }
+    NSTimeInterval chaTime = [[NSDate date] timeIntervalSince1970] - (inspectionModel.patroldate/1000.0);
+    int h = chaTime / 3600;
+    int m = (chaTime - h * 3600) / 60;
+    self.timeCoutLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",h,m];
+    [self.workTaskIcon sd_setImageWithURL:inspectionModel.photoUrls.firstObject placeholderImage:[UIImage imageNamed:@"workTaskIcon"]];
+}
+
 - (UIImageView *)draftIconView{
     if (_draftIconView == nil) {
         _draftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"draftIcon"]];

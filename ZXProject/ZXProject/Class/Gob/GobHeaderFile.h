@@ -16,6 +16,13 @@
 #import "NOTIFICATION_HEADER.h"
 
 
+typedef enum {
+    MapConfigTypeTask = 0,
+    MapConfigTypeEvents,
+    MapConfigTypeCheck,
+    MapConfigTypeDevice,
+}MapConfigType;
+
 
 #define UIColorWithRGB(r,g,b)   [UIColor colorWithRed:r*1.0/255.0 green:g*1.0/255.0 blue:b*1.0/255.0 alpha:1]
 #define UIColorWithFloat(float) [UIColor colorWithRed:float*1.0/255.0 green:float*1.0/255.0 blue:float*1.0/255.0 alpha:1]

@@ -60,6 +60,8 @@ extern NSString *const API_ADDEVENT;//新增环卫事件
 extern NSString *const API_CONFIRMORGTASK;//完成环卫工作项
 extern NSString *const API_CONFIRMEVNTASSIGN;//完成事件派单
 
+extern NSString *const API_GETINSPECTION;//项目巡检报告查询
+
 
 @interface NetworkConfig : NSObject
 

@@ -18,6 +18,7 @@
 #import "ProjectManager.h"
 #import "WorkTaskDetailController.h"
 #import "HttpClient+WorkTask.h"
+#import "EventMapConfigController.h"
 
 
 @interface WorkManagerController ()<UITableViewDelegate,UITableViewDataSource,NotificationBarDelegate>
@@ -49,8 +50,20 @@
     [self setSubViews];
     [self setNetWorkRequest];
     [self.topBar bottomLineMoveWithIndex:1];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem  alloc] initWithImage:[UIImage imageNamed:@"mapConfigIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(clickRightItem)];
     //监听通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:NOTIFI_WORKTASKRELOADDATA object:nil];
+}
+
+- (void)clickRightItem{
+    EventMapConfigController *mapConfigVc = [[EventMapConfigController alloc] init];
+    mapConfigVc.titleStr = @"作业分布";
+    mapConfigVc.type = MapConfigTypeTask;
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObjectsFromArray:self.unfinishedmodels];
+    [arr addObjectsFromArray:self.finishedModels];
+    mapConfigVc.dataSource_arr = arr.mutableCopy;
+    [self.navigationController pushViewController:mapConfigVc animated:YES];
 }
 
 - (void)reloadData{//刷新数据

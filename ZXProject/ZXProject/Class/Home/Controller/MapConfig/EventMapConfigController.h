@@ -7,10 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "GobHeaderFile.h"
 
 @interface EventMapConfigController : BaseViewController
 
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic, strong) NSArray *dataSource_arr;
+@property (nonatomic, assign) MapConfigType type;
 
 @end

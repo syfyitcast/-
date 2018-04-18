@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "WorkTaskModel.h"
 #import "eventsMdoel.h"
+#import "InspectionModel.h"
 
 @interface WorkTaskCell : UITableViewCell
 
 @property (nonatomic, strong) WorkTaskModel *model;
 @property (nonatomic, strong) eventsMdoel *eventModel;
+@property (nonatomic, strong) InspectionModel *inspectionModel;
 
 + (instancetype)workTaskCellWithTableView:(UITableView *)tableView;
 

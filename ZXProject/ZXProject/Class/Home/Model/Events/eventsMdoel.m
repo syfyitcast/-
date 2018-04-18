@@ -70,7 +70,9 @@
     if (_photoUrls == nil) {
         _photoUrls = [self.photourl componentsSeparatedByString:@"|"];
         if (_photoUrls == nil) {
-            _photoUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.photourl]];
+            if (self.photourl != nil) {
+                _photoUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.photourl]];
+            }
         }else{
             NSMutableArray *tem_arr = [NSMutableArray array];
             for (NSString *subUrl in _photoUrls) {

@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSString *eventdescription;//事件描述
 @property (nonatomic, copy) NSString *assignid;//事件主键
 @property (nonatomic, copy) NSString *eventno;//事件编号
+@property (nonatomic, copy) NSString *eventid;
 
 @property (nonatomic, copy) NSString *positionlon;//纬度
 @property (nonatomic, copy) NSString *positionlat;//经度
