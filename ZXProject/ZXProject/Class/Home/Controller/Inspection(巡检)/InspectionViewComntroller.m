@@ -1,26 +1,26 @@
 //
-//  EventsViewController.m
+//  InspectionViewComntroller.m
 //  ZXProject
 //
-//  Created by 刘清 on 2018/3/27.
+//  Created by 刘清 on 2018/4/18.
 //  Copyright © 2018年 com.nexpaq. All rights reserved.
 //
 
-#import "EventsViewController.h"
+#import "InspectionViewComntroller.h"
 #import "GobHeaderFile.h"
 #import "NotificationBar.h"
 #import "ProjectManager.h"
-#import "HttpClient+DutyEvents.h"
-#import "eventsMdoel.h"
+#import "InspectionModel.h"
 #import "WorkFlowCell.h"
 #import <Masonry.h>
 #import "WorkTaskCell.h"
 #import "AddEventsViewController.h"
 #import "NOTIFICATION_HEADER.h"
 #import "EventsDetailViewController.h"
+#import "HttpClient+Inspection.h"
+#import "AddInspectionViewController.h"
 
-
-@interface EventsViewController ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface InspectionViewComntroller ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NotificationBar *topBar;
 @property (nonatomic, strong) UITableView *myTableView;
@@ -34,10 +34,9 @@
 
 @property (nonatomic, assign) int currentIndex;
 
-
 @end
 
-@implementation EventsViewController
+@implementation InspectionViewComntroller
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,30 +61,30 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"0" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getpatroleventassign"];
-                self.unfnishedModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
+                NSArray *source_arr = data[@"patrolrecord"];
+                self.unfnishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"2" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:2 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getpatroleventassign"];
-                self.finishedModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
+                NSArray *source_arr = data[@"patrolrecord"];
+                self.finishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClientToGetProjectEventsWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andEventsStatus:@"99" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:99 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
-                NSArray *source_arr = data[@"getpatroleventassign"];
-                self.draftModels = [eventsMdoel eventsModelsWithSource_arr:source_arr];
+                NSArray *source_arr = data[@"patrolrecord"];
+                self.draftModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
         }];
@@ -134,12 +133,7 @@
     }];
 }
 
-- (void)notificationBarDidTapIndexLabel:(NSInteger)index{
-    self.currentIndex = (int)index;
-    [self.myTableView reloadData];
-}
-
-#pragma mark - setter && getter
+#pragma UITableViewDelegate && DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.currentIndex == 0) {
@@ -156,7 +150,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WorkTaskCell *cell = [WorkTaskCell workTaskCellWithTableView:tableView];
-    eventsMdoel *model = nil;
+    InspectionModel *model = nil;
     if (self.currentIndex == 0) {
         model = self.draftModels[indexPath.row];
     }else if (self.currentIndex == 3){
@@ -166,7 +160,7 @@
     }else if (self.currentIndex == 1){
         model = self.unfnishedModels[indexPath.row];
     }
-    cell.eventModel = model;
+    cell.inspectionModel = model;
     return cell;
 }
 
@@ -176,25 +170,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    eventsMdoel *model = nil;
-    if (self.currentIndex == 0) {
-        model = self.draftModels[indexPath.row];
-    }else if (self.currentIndex == 3){
-        model = self.allModels[indexPath.row];
-    }else if (self.currentIndex == 2){
-        model = self.finishedModels[indexPath.row];
-    }else if (self.currentIndex == 1){
-        model = self.unfnishedModels[indexPath.row];
-    }
-    EventsDetailViewController *vc = [[EventsDetailViewController alloc] init];
-    vc.model = model;
-    [self.navigationController pushViewController:vc animated:YES];
+//    eventsMdoel *model = nil;
+//    if (self.currentIndex == 0) {
+//        model = self.draftModels[indexPath.row];
+//    }else if (self.currentIndex == 3){
+//        model = self.allModels[indexPath.row];
+//    }else if (self.currentIndex == 2){
+//        model = self.finishedModels[indexPath.row];
+//    }else if (self.currentIndex == 1){
+//        model = self.unfnishedModels[indexPath.row];
+//    }
+//    EventsDetailViewController *vc = [[EventsDetailViewController alloc] init];
+//    vc.model = model;
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)notificationBarDidTapIndexLabel:(NSInteger)index{
+    self.currentIndex = (int)index;
+    [self.myTableView reloadData];
 }
 
 #pragma mark - Action
 
 - (void)clickAddAction{
-    AddEventsViewController *vc = [[AddEventsViewController alloc] init];
+    AddInspectionViewController *vc = [[AddInspectionViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

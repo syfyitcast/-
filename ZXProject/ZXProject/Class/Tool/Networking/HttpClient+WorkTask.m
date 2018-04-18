@@ -169,10 +169,14 @@
     }];
 }
 
-+ (void)zx_httpClientToConfirmEventAssignWithAssignid:(NSString *)assignid andSoundUrl:(NSString *)soundUrl andVideoUrl:(NSString *)videoUrl andPhotoUrl:(NSString *)photoUrl andBeginTime:(long)beginTime andSolveOpinon:(NSString *)solveopinion andSuccessBlock:(responseBlock)block{
++ (void)zx_httpClientToConfirmEventAssignWithAssignid:(NSString *)assignid andEventId:(long)eventId andSoundUrl:(NSString *)soundUrl andVideoUrl:(NSString *)videoUrl andPhotoUrl:(NSString *)photoUrl andBeginTime:(long)beginTime andSolveOpinon:(NSString *)solveopinion andSuccessBlock:(responseBlock)block{
     NSMutableDictionary *dict =  [NetworkConfig networkConfigTokenWithMethodName:API_CONFIRMEVNTASSIGN];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid?[ProjectManager sharedProjectManager].currentProjectid:@"" forKey:@"projectid"];
-    [dict setObject:assignid forKey:@"assignid"];
+    [dict setObject:[UserManager sharedUserManager].user.employerid?[UserManager sharedUserManager].user.employerid:@"" forKey:@"employerid"];
+    [dict setObject:@(eventId) forKey:@"eventid"];
+    if (assignid != nil) {
+       [dict setObject:assignid forKey:@"assignid"];
+    }
     [dict setObject:solveopinion forKey:@"solveopinion"];
     [dict setObject:photoUrl forKey:@"photourl"];
     [dict setObject:videoUrl forKey:@"videourl"];

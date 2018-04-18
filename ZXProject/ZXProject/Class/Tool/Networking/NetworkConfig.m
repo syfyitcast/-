@@ -61,6 +61,10 @@ NSString *const API_ADDEVENT = @"addpatrolevent";//新增项目环卫事件
 NSString *const API_CONFIRMORGTASK = @"confirmorgtask";//完成环卫工作项
 NSString *const API_CONFIRMEVNTASSIGN = @"confirmeventassign";//完成事件派单
 
+#pragma mark --------------------------------------------------------------- 巡检任务
+
+NSString *const API_GETINSPECTION = @"patrolrecordlist";//项目巡检报告查询
+
 @implementation NetworkConfig
 
 + (instancetype)sharedNetworkingConfig{
@@ -79,11 +83,11 @@ NSString *const API_CONFIRMEVNTASSIGN = @"confirmeventassign";//完成事件派�
         self.apiuser = @"appapi";
         self.accountid = @"";
         self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude];
-        self.ipUrl = @"http://113.247.222.45:9080";
+        self.ipUrl = @"http://113.247.222.45:8088";
 #if DEBUG
-        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
+        self.baseUrl = @"http://113.247.222.45:8088/hjwulian/appservice/";
 #else
-        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
+        self.baseUrl = @"http://113.247.222.45:8088/hjwulian/appservice/";
 #endif
     }
     return self;

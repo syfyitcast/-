@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, strong) UITextField *searchField;
 @property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) UIView *bottomLine;
 
 @end
 
@@ -29,6 +30,7 @@
     bar.backgroundColor = WhiteColor;
     bar.block = block;
     bar.placeHolder = placeHolder;
+    [bar setSubViews];
     return bar;
 }
 
@@ -36,9 +38,9 @@
      __weak typeof(self)  weakself = self;
     [self addSubview:self.searchBtn];
     [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakself.mas_right).offset(15);
+        make.right.equalTo(weakself.mas_right).offset(-20);
         make.centerY.equalTo(weakself.mas_centerY);
-        make.width.mas_equalTo(50);
+        make.width.mas_equalTo(60);
         make.height.mas_equalTo(40);
     }];
     [self addSubview:self.searchBgView];
@@ -46,13 +48,25 @@
         make.left.equalTo(weakself.mas_left).offset(15);
         make.centerY.equalTo(weakself.mas_centerY);
         make.right.equalTo(weakself.searchBtn.mas_left).offset(-20);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(45);
     }];
     [self.searchBgView addSubview:self.searchImageView];
     [self.searchImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.searchBgView.mas_left).offset(5);
+        make.left.equalTo(weakself.searchBgView.mas_left).offset(10);
         make.centerY.equalTo(weakself.searchBgView.mas_centerY);
-        make.size.mas_equalTo(weakself.searchImageView.image.size);
+        make.size.mas_equalTo(CGSizeMake(25, 25));
+    }];
+    [self.searchBgView addSubview:self.searchField];
+    [self.searchField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.searchImageView.mas_right).offset(5);
+        make.right.equalTo(weakself.searchBgView.mas_right).offset(-5);
+        make.centerY.equalTo(weakself.searchBgView.mas_centerY);
+        make.height.mas_equalTo(40);
+    }];
+    [self addSubview:self.bottomLine];
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.bottom.equalTo(weakself);
+        make.height.mas_equalTo(1);
     }];
 }
 
@@ -95,6 +109,14 @@
         _searchField.textColor = UIColorWithFloat(98);
     }
     return _searchField;
+}
+
+- (UIView *)bottomLine{
+    if (_bottomLine == nil) {
+        _bottomLine = [[UIView alloc] init];
+        _bottomLine.backgroundColor = UIColorWithFloat(239);
+    }
+    return _bottomLine;
 }
 
 @end

@@ -417,7 +417,7 @@
             if (temStr.length != 0) {
                 [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
-            [HttpClient zx_httpClientToConfirmEventAssignWithAssignid:self.model.assignid andSoundUrl:soundUrl andVideoUrl:@"" andPhotoUrl:temStr andBeginTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andSolveOpinon:self.FooterView.textView.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+            [HttpClient zx_httpClientToConfirmEventAssignWithAssignid:self.model.assignid andEventId:[self.model.eventid longLongValue] andSoundUrl:soundUrl andVideoUrl:@"" andPhotoUrl:temStr andBeginTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andSolveOpinon:self.FooterView.textView.text andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                 ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"提交成功" toView:self.view];
