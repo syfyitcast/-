@@ -134,6 +134,10 @@
     self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
 }
 
+- (void)clickTranEventAction{
+    
+}
+
 
 #pragma mark - setter  && getter
 

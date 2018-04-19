@@ -64,6 +64,8 @@ NSString *const API_CONFIRMEVNTASSIGN = @"confirmeventassign";//完成事件派�
 #pragma mark --------------------------------------------------------------- 巡检任务
 
 NSString *const API_GETINSPECTION = @"patrolrecordlist";//项目巡检报告查询
+NSString *const API_ADDINPECTION = @"addpatrolrecord";//新增巡检记录;
+NSString *const APT_INSPECTIONTOEVENT = @"patrolrecordtoevent";//巡检记录生成环卫事件
 
 @implementation NetworkConfig
 

@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"环卫事件";
+    self.title = @"巡检事件";
     self.currentIndex = 1;
     [self.topBar bottomLineMoveWithIndex:1];
     [self setSubviews];
@@ -61,17 +61,17 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:1 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"patrolrecord"];
-                self.unfnishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
+                self.unfnishedModels  = [InspectionModel inspectionModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:2 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"patrolrecord"];
                 self.finishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];

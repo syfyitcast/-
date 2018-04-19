@@ -129,8 +129,8 @@
     self.desLabel.text = [NSString stringWithFormat:@"说明:%@",inspectionModel.patroltcontent];
     self.updateLabel.text = [NSString stringWithFormat:@"更新:%@",inspectionModel.occourtimeString];
     self.adressLabel.text = inspectionModel.positionaddress;
-    if (inspectionModel.patroltstatus == 2) {
-        self.typeLabel.text = @"已完成";
+    if (inspectionModel.patroltstatus == 0) {
+        self.typeLabel.text = @"合格";
         self.typeLabel.backgroundColor = BTNBackgroudColor;
         self.timeCoutLabel.hidden = NO;
         self.personLabel.hidden = NO;
@@ -143,7 +143,7 @@
         self.personLabel.hidden = YES;
         self.countTimeDesLabel.hidden = YES;
         self.draftIconView.hidden = NO;
-    }else if (inspectionModel.patroltstatus == 0){
+    }else if (inspectionModel.patroltstatus == 1){
         self.typeLabel.text = @"未完成";
         self.typeLabel.backgroundColor = [UIColor redColor];
         self.timeCoutLabel.hidden = NO;
