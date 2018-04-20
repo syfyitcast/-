@@ -12,6 +12,15 @@
 		49073E5C20870E7B008DFEF5 /* HttpClient+Inspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E5B20870E7B008DFEF5 /* HttpClient+Inspection.m */; };
 		49073E61208714D2008DFEF5 /* InspectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E60208714D2008DFEF5 /* InspectionModel.m */; };
 		49073E6420871FA9008DFEF5 /* AddInspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E6320871FA9008DFEF5 /* AddInspectionViewController.m */; };
+		49073E6720897E63008DFEF5 /* InspectionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E6620897E63008DFEF5 /* InspectionDetailViewController.m */; };
+		49073E6B20898238008DFEF5 /* DeviceManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E6A20898238008DFEF5 /* DeviceManagerViewController.m */; };
+		49073E6E2089876D008DFEF5 /* HttpClient+Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E6D2089876D008DFEF5 /* HttpClient+Device.m */; };
+		49073E7220898C46008DFEF5 /* DeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E7120898C46008DFEF5 /* DeviceInfoModel.m */; };
+		49073E772089AC8C008DFEF5 /* DeviceInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E752089AC8C008DFEF5 /* DeviceInfoCell.m */; };
+		49073E782089AC8C008DFEF5 /* DeviceInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49073E762089AC8C008DFEF5 /* DeviceInfoCell.xib */; };
+		49073E7E2089BF26008DFEF5 /* DeviceCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E7D2089BF26008DFEF5 /* DeviceCollectionView.m */; };
+		49073E802089BF3B008DFEF5 /* DeviceCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49073E7F2089BF3B008DFEF5 /* DeviceCollectionView.xib */; };
+		49073E832089CF20008DFEF5 /* DeviceCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49073E822089CF20008DFEF5 /* DeviceCollectionController.m */; };
 		49082673207C4A7500ABA061 /* ZXRecoderVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49082672207C4A7500ABA061 /* ZXRecoderVideoManager.m */; };
 		49082676207C659800ABA061 /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49082675207C659800ABA061 /* RecordView.m */; };
 		490826DA207C924D00ABA061 /* workTaskHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826D9207C924D00ABA061 /* workTaskHeaderView.m */; };
@@ -194,6 +203,22 @@
 		49073E60208714D2008DFEF5 /* InspectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectionModel.m; sourceTree = "<group>"; };
 		49073E6220871FA9008DFEF5 /* AddInspectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddInspectionViewController.h; sourceTree = "<group>"; };
 		49073E6320871FA9008DFEF5 /* AddInspectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddInspectionViewController.m; sourceTree = "<group>"; };
+		49073E6520897E63008DFEF5 /* InspectionDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InspectionDetailViewController.h; sourceTree = "<group>"; };
+		49073E6620897E63008DFEF5 /* InspectionDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectionDetailViewController.m; sourceTree = "<group>"; };
+		49073E6920898238008DFEF5 /* DeviceManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceManagerViewController.h; sourceTree = "<group>"; };
+		49073E6A20898238008DFEF5 /* DeviceManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceManagerViewController.m; sourceTree = "<group>"; };
+		49073E6C2089876D008DFEF5 /* HttpClient+Device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+Device.h"; sourceTree = "<group>"; };
+		49073E6D2089876D008DFEF5 /* HttpClient+Device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+Device.m"; sourceTree = "<group>"; };
+		49073E7020898C46008DFEF5 /* DeviceInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInfoModel.h; sourceTree = "<group>"; };
+		49073E7120898C46008DFEF5 /* DeviceInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoModel.m; sourceTree = "<group>"; };
+		49073E742089AC8C008DFEF5 /* DeviceInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInfoCell.h; sourceTree = "<group>"; };
+		49073E752089AC8C008DFEF5 /* DeviceInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoCell.m; sourceTree = "<group>"; };
+		49073E762089AC8C008DFEF5 /* DeviceInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceInfoCell.xib; sourceTree = "<group>"; };
+		49073E7C2089BF26008DFEF5 /* DeviceCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCollectionView.h; sourceTree = "<group>"; };
+		49073E7D2089BF26008DFEF5 /* DeviceCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceCollectionView.m; sourceTree = "<group>"; };
+		49073E7F2089BF3B008DFEF5 /* DeviceCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCollectionView.xib; sourceTree = "<group>"; };
+		49073E812089CF20008DFEF5 /* DeviceCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCollectionController.h; sourceTree = "<group>"; };
+		49073E822089CF20008DFEF5 /* DeviceCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceCollectionController.m; sourceTree = "<group>"; };
 		49082671207C4A7500ABA061 /* ZXRecoderVideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXRecoderVideoManager.h; sourceTree = "<group>"; };
 		49082672207C4A7500ABA061 /* ZXRecoderVideoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXRecoderVideoManager.m; sourceTree = "<group>"; };
 		49082674207C659800ABA061 /* RecordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordView.h; sourceTree = "<group>"; };
@@ -531,6 +556,8 @@
 				49073E5820870BB1008DFEF5 /* InspectionViewComntroller.m */,
 				49073E6220871FA9008DFEF5 /* AddInspectionViewController.h */,
 				49073E6320871FA9008DFEF5 /* AddInspectionViewController.m */,
+				49073E6520897E63008DFEF5 /* InspectionDetailViewController.h */,
+				49073E6620897E63008DFEF5 /* InspectionDetailViewController.m */,
 			);
 			path = "Inspection(巡检)";
 			sourceTree = "<group>";
@@ -542,6 +569,39 @@
 				49073E60208714D2008DFEF5 /* InspectionModel.m */,
 			);
 			path = Inspection;
+			sourceTree = "<group>";
+		};
+		49073E68208980CF008DFEF5 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				49073E6920898238008DFEF5 /* DeviceManagerViewController.h */,
+				49073E6A20898238008DFEF5 /* DeviceManagerViewController.m */,
+				49073E812089CF20008DFEF5 /* DeviceCollectionController.h */,
+				49073E822089CF20008DFEF5 /* DeviceCollectionController.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		49073E6F20898C32008DFEF5 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				49073E7020898C46008DFEF5 /* DeviceInfoModel.h */,
+				49073E7120898C46008DFEF5 /* DeviceInfoModel.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		49073E732089AC1B008DFEF5 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				49073E742089AC8C008DFEF5 /* DeviceInfoCell.h */,
+				49073E752089AC8C008DFEF5 /* DeviceInfoCell.m */,
+				49073E762089AC8C008DFEF5 /* DeviceInfoCell.xib */,
+				49073E7C2089BF26008DFEF5 /* DeviceCollectionView.h */,
+				49073E7D2089BF26008DFEF5 /* DeviceCollectionView.m */,
+				49073E7F2089BF3B008DFEF5 /* DeviceCollectionView.xib */,
+			);
+			path = Device;
 			sourceTree = "<group>";
 		};
 		4908266F207C4A2200ABA061 /* Calendar */ = {
@@ -927,6 +987,7 @@
 				49073E522086EDF3008DFEF5 /* MapConfig */,
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				49073E68208980CF008DFEF5 /* Device */,
 				4932D98D206CC8840048D299 /* PersonInfo(个人信息) */,
 				49073E5620870B7A008DFEF5 /* Inspection(巡检) */,
 				495E8D73206A1C1B00ABE900 /* Even(环卫事件) */,
@@ -942,6 +1003,7 @@
 		8C305C28202C0F1400A843B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49073E6F20898C32008DFEF5 /* Device */,
 				49073E5E208714A3008DFEF5 /* Inspection */,
 				495E8D77206A28E800ABE900 /* AttenceModel */,
 				49EC0DCE20635A9C002CE92C /* Events */,
@@ -961,6 +1023,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49073E732089AC1B008DFEF5 /* Device */,
 				8C823FB320773B4100EC676D /* Attence */,
 				49EC0DD22063650F002CE92C /* Events */,
 				49EC0D7C206109E1002CE92C /* workFlow */,
@@ -1114,6 +1177,8 @@
 				8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */,
 				49073E5A20870E7B008DFEF5 /* HttpClient+Inspection.h */,
 				49073E5B20870E7B008DFEF5 /* HttpClient+Inspection.m */,
+				49073E6C2089876D008DFEF5 /* HttpClient+Device.h */,
+				49073E6D2089876D008DFEF5 /* HttpClient+Device.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1428,6 +1493,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49073E802089BF3B008DFEF5 /* DeviceCollectionView.xib in Resources */,
 				490826DC207C938200ABA061 /* workTaskHeaderView.xib in Resources */,
 				4932D992206CCABE0048D299 /* PersonInfoDeflutCell.xib in Resources */,
 				49EC0E072064A7A7002CE92C /* CGXBasicInfoPicker.plist in Resources */,
@@ -1446,6 +1512,7 @@
 				49EC0E322068A271002CE92C /* EvectionView.xib in Resources */,
 				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
 				4932D99A206CD52D0048D299 /* PersonInfoHeaderCell.xib in Resources */,
+				49073E782089AC8C008DFEF5 /* DeviceInfoCell.xib in Resources */,
 				495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
@@ -1547,6 +1614,8 @@
 				8C5102D920443A4700F0E40D /* WorkFlowController.m in Sources */,
 				49EC0E2D2064DFFC002CE92C /* NextStepModel.m in Sources */,
 				8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */,
+				49073E6720897E63008DFEF5 /* InspectionDetailViewController.m in Sources */,
+				49073E772089AC8C008DFEF5 /* DeviceInfoCell.m in Sources */,
 				8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */,
 				4932D995206CCAEA0048D299 /* PersoninfoDeflutCell.m in Sources */,
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
@@ -1578,6 +1647,7 @@
 				8C5102AB20427B4300F0E40D /* ZXShowLoadingManager.m in Sources */,
 				495E8D76206A1C3800ABE900 /* EventsViewController.m in Sources */,
 				49EC0DDA2063986C002CE92C /* WorkFlowAddController.m in Sources */,
+				49073E832089CF20008DFEF5 /* DeviceCollectionController.m in Sources */,
 				8CB14588203918A7003E94D4 /* MainTabBar.m in Sources */,
 				8C340E7020357DDC00D1A0AD /* ForgetPasswordCotroller.m in Sources */,
 				8C305BF2202C09AD00A843B5 /* AppDelegate.m in Sources */,
@@ -1634,6 +1704,7 @@
 				49EC0E032064A7A7002CE92C /* CGXAddressPcikerView.m in Sources */,
 				8C33C2C52031700400B93F6E /* XMEngine.m in Sources */,
 				490826E0207D981100ABA061 /* MyPositionViewController.m in Sources */,
+				49073E6B20898238008DFEF5 /* DeviceManagerViewController.m in Sources */,
 				8C305C36202C0FFC00A843B5 /* MainTabBarController.m in Sources */,
 				495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */,
 				49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */,
@@ -1651,14 +1722,17 @@
 				8C33C2CD2031700400B93F6E /* AFURLSessionManager.m in Sources */,
 				49CF0CF42086E27600AE707D /* EventMapConfigDetailView.m in Sources */,
 				8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */,
+				49073E6E2089876D008DFEF5 /* HttpClient+Device.m in Sources */,
 				49073E5C20870E7B008DFEF5 /* HttpClient+Inspection.m in Sources */,
 				8C33C2D92031857400B93F6E /* Tool+MD5.m in Sources */,
 				8C823FBE20774CE300EC676D /* AttenceRecoderController.m in Sources */,
 				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
 				49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
+				49073E7E2089BF26008DFEF5 /* DeviceCollectionView.m in Sources */,
 				8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */,
 				492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */,
+				49073E7220898C46008DFEF5 /* DeviceInfoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

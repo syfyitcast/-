@@ -433,13 +433,24 @@
                 [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
             if (self.isTransEventBtn.selected == YES) {
-                [HttpClient zx_httpClinetToSwitchPatrolToEventWithPatrolRecordid:0 andEventno:0 andEventType:0 andIsvehneed:0 andLiableemployerid:0 andSolveemployerid:0 andUrgency:0 andSendsms:0 andEventdescription:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
-                    ZXHIDE_LOADING;
+                [HttpClient zx_httpClinetToAddPatrolRecordWithPatrolTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andPosition:[UserLocationManager sharedUserLocationManager].position andPositionAdress:self.headerView.positionAdress andRegionid:self.currentModel.projectorgregionid andOrgid:self.currentModel.orgid andLibleemplotyerid:self.currentModel.employerid andPhotourl:temStr andSoundUrl:soundUrl andPatrolName:@"0" andPatroltContent:self.headerView.textView.text andPatroltstatus:1 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
                     if (code == 0) {
-                        [MBProgressHUD showError:@"提交成功" toView:self.view];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
-                        [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                        [HttpClient zx_httpClinetToSwitchPatrolToEventWithPatrolRecordid:0 andEventno:0 andEventType:0 andIsvehneed:0 andLiableemployerid:0 andSolveemployerid:0 andUrgency:0 andSendsms:0 andEventdescription:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                            ZXHIDE_LOADING;
+                            if (code == 0) {
+                                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
+                                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                            }else{
+                                if (message.length != 0) {
+                                    [MBProgressHUD showError:message toView:self.view];
+                                }else{
+                                    [MBProgressHUD showError:@"提交失败" toView:self.view];
+                                }
+                            }
+                        }];
                     }else{
+                        ZXHIDE_LOADING;
                         if (message.length != 0) {
                             [MBProgressHUD showError:message toView:self.view];
                         }else{

@@ -21,15 +21,18 @@
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIView *bottomLine;
 
+@property (nonatomic, assign) SearchBarType type;
+
 @end
 
 @implementation SearchBar
 
-+ (instancetype)zx_SearchBarWithPlaceHolder:(NSString *)placeHolder andFrame:(CGRect)frame andSearchBlock:(void(^)(NSString *macth))block{
++ (instancetype)zx_SearchBarWithPlaceHolder:(NSString *)placeHolder andFrame:(CGRect)frame andType:(SearchBarType)type andSearchBlock:(void(^)(NSString *macth))block{
     SearchBar *bar = [[SearchBar alloc] initWithFrame:frame];
     bar.backgroundColor = WhiteColor;
     bar.block = block;
     bar.placeHolder = placeHolder;
+    bar.type = type;
     [bar setSubViews];
     return bar;
 }

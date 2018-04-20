@@ -56,10 +56,4 @@
     return _mapView;
 }
 
-
-
-
-
-
-
 @end

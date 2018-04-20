@@ -67,6 +67,10 @@ NSString *const API_GETINSPECTION = @"patrolrecordlist";//项目巡检报告查�
 NSString *const API_ADDINPECTION = @"addpatrolrecord";//新增巡检记录;
 NSString *const APT_INSPECTIONTOEVENT = @"patrolrecordtoevent";//巡检记录生成环卫事件
 
+#pragma mark ---------------------------------------------------------------- 设备管理
+
+NSString *const API_GETDEVICEINFO = @"getfacilitylocation";//项目设施列表
+
 @implementation NetworkConfig
 
 + (instancetype)sharedNetworkingConfig{

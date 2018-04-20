@@ -64,6 +64,8 @@ extern NSString *const API_GETINSPECTION;//项目巡检报告查询
 extern NSString *const API_ADDINPECTION;//新增巡检记录
 extern NSString *const APT_INSPECTIONTOEVENT;//巡检记录生成环卫事件
 
+extern NSString *const API_GETDEVICEINFO;//项目设施列表
+
 
 @interface NetworkConfig : NSObject
 

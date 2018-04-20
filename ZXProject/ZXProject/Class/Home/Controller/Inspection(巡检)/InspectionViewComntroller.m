@@ -20,6 +20,7 @@
 #import "HttpClient+Inspection.h"
 #import "AddInspectionViewController.h"
 
+
 @interface InspectionViewComntroller ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NotificationBar *topBar;
@@ -201,7 +202,7 @@
 
 - (NotificationBar *)topBar{
     if (_topBar == nil) {
-        _topBar = [NotificationBar notificationBarWithItems:@[@"草稿",@"未完成",@"已完成",@"全部"] andFrame:CGRectMake(0, 0, self.view.width, 60)];
+        _topBar = [NotificationBar notificationBarWithItems:@[@"草稿",@"巡检事件",@"巡检记录",@"全部"] andFrame:CGRectMake(0, 0, self.view.width, 60)];
         _topBar.delegate = self;
     }
     return _topBar;
