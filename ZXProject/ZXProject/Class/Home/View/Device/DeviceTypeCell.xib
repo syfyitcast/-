@@ -44,19 +44,34 @@
                             <constraint firstAttribute="height" constant="19" id="X3r-cw-VVJ"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A4R-PP-V5b">
+                        <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="mZ4-PI-g9d"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="auk-E4-Pv9" firstAttribute="leading" secondItem="4iu-pM-0hM" secondAttribute="trailing" constant="30" id="1IF-sL-r0Y"/>
+                    <constraint firstAttribute="bottom" secondItem="A4R-PP-V5b" secondAttribute="bottom" id="4NK-yH-XB1"/>
+                    <constraint firstItem="A4R-PP-V5b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Aai-Ej-0Sd"/>
                     <constraint firstItem="Maf-nj-D8H" firstAttribute="leading" secondItem="auk-E4-Pv9" secondAttribute="trailing" constant="10" id="AtY-ut-aBK"/>
                     <constraint firstItem="auk-E4-Pv9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="D2X-5J-qXC"/>
                     <constraint firstItem="4iu-pM-0hM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OgM-RP-4nj"/>
                     <constraint firstItem="Maf-nj-D8H" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="U5o-AI-gfn"/>
+                    <constraint firstAttribute="trailing" secondItem="A4R-PP-V5b" secondAttribute="trailing" id="Vur-H2-WNI"/>
                     <constraint firstAttribute="trailing" secondItem="kF9-Ht-xMB" secondAttribute="trailing" constant="15" id="W2o-vq-FQ4"/>
                     <constraint firstItem="4iu-pM-0hM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="f47-2C-ewq"/>
                     <constraint firstItem="kF9-Ht-xMB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="l29-vY-lDl"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="40" y="5"/>
+            <connections>
+                <outlet property="iconImageView" destination="auk-E4-Pv9" id="9aN-a3-bwW"/>
+                <outlet property="indexLabel" destination="4iu-pM-0hM" id="kXJ-gJ-SzS"/>
+                <outlet property="nameLabel" destination="Maf-nj-D8H" id="qGX-Bh-zOX"/>
+            </connections>
+            <point key="canvasLocation" x="-112" y="74"/>
         </tableViewCell>
     </objects>
     <resources>

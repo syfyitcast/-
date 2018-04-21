@@ -10,4 +10,9 @@
 
 @interface DeviceTypeCell : UITableViewCell
 
+@property (nonatomic, strong) NSDictionary *modelDict;
+@property (nonatomic, assign) int index;
+
++ (instancetype)deviceTypeCellWithTableView:(UITableView *)tableView;
+
 @end
