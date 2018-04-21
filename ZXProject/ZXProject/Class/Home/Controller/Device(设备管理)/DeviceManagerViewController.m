@@ -16,6 +16,7 @@
 #import "HttpClient+Device.h"
 #import "ProjectManager.h"
 #import "DeviceCollectionController.h"
+#import "DeviceListController.h"
 
 @interface DeviceManagerViewController ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -87,7 +88,7 @@
 #pragma mark - clickAction
 
 - (void)clickAddAction{
-    DeviceCollectionController *vc = [[DeviceCollectionController alloc] init];
+    DeviceListController *vc = [[DeviceListController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -70,6 +70,7 @@ NSString *const APT_INSPECTIONTOEVENT = @"patrolrecordtoevent";//巡检记录生
 #pragma mark ---------------------------------------------------------------- 设备管理
 
 NSString *const API_GETDEVICEINFO = @"getfacilitylocation";//项目设施列表
+NSString *const API_GETDEVICETYPELIST = @"getfacilitytype";//获取设施类型
 
 @implementation NetworkConfig
 

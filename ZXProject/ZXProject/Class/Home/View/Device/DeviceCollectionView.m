@@ -28,6 +28,10 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.positionLabel.numberOfLines = 0;
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+    self.ddateLabel.text = [formatter stringFromDate:date];
 }
 
 - (void)setPositionAdress:(NSString *)positionAdress{

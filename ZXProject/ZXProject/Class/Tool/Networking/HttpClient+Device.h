@@ -10,6 +10,10 @@
 
 @interface HttpClient (Device)
 
+//获取项目设施类型列表
++ (void)zx_httpClientToGetDeviceTypeListWithSuccessBlock:(responseBlock)block;
+
+//获取项目设施
 + (void)zx_httpClientToGetProjectDeviceInfoWithProjectid:(NSString *)projectid andSuccessBlock:(responseBlock)block;
 
 @end

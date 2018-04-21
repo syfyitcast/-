@@ -157,6 +157,9 @@
 		8C5103002047E3E500F0E40D /* AttenceDKController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5102FF2047E3E500F0E40D /* AttenceDKController.m */; };
 		8C5103032048DDF000F0E40D /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5103022048DDF000F0E40D /* SettingViewCell.m */; };
 		8C6FD32A2082E37F00CBC013 /* AddEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */; };
+		8C6FD32D208B49E400CBC013 /* DeviceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD32C208B49E400CBC013 /* DeviceListController.m */; };
+		8C6FD331208B503400CBC013 /* DeviceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD32F208B503400CBC013 /* DeviceTypeCell.m */; };
+		8C6FD332208B503400CBC013 /* DeviceTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FD330208B503400CBC013 /* DeviceTypeCell.xib */; };
 		8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */; };
 		8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FB520773B6800EC676D /* AttenceCheckView.m */; };
 		8C823FB820773B8400EC676D /* AttenceCheckView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C823FB720773B8400EC676D /* AttenceCheckView.xib */; };
@@ -477,6 +480,11 @@
 		8C5103022048DDF000F0E40D /* SettingViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewCell.m; sourceTree = "<group>"; };
 		8C6FD3282082E37F00CBC013 /* AddEventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEventsViewController.h; sourceTree = "<group>"; };
 		8C6FD3292082E37F00CBC013 /* AddEventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEventsViewController.m; sourceTree = "<group>"; };
+		8C6FD32B208B49E400CBC013 /* DeviceListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListController.h; sourceTree = "<group>"; };
+		8C6FD32C208B49E400CBC013 /* DeviceListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListController.m; sourceTree = "<group>"; };
+		8C6FD32E208B503400CBC013 /* DeviceTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceTypeCell.h; sourceTree = "<group>"; };
+		8C6FD32F208B503400CBC013 /* DeviceTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTypeCell.m; sourceTree = "<group>"; };
+		8C6FD330208B503400CBC013 /* DeviceTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceTypeCell.xib; sourceTree = "<group>"; };
 		8C823FAD2075C45A00EC676D /* HttpClient+WorkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+WorkTask.h"; sourceTree = "<group>"; };
 		8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+WorkTask.m"; sourceTree = "<group>"; };
 		8C823FB420773B6800EC676D /* AttenceCheckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceCheckView.h; sourceTree = "<group>"; };
@@ -571,15 +579,17 @@
 			path = Inspection;
 			sourceTree = "<group>";
 		};
-		49073E68208980CF008DFEF5 /* Device */ = {
+		49073E68208980CF008DFEF5 /* Device(设备管理) */ = {
 			isa = PBXGroup;
 			children = (
 				49073E6920898238008DFEF5 /* DeviceManagerViewController.h */,
 				49073E6A20898238008DFEF5 /* DeviceManagerViewController.m */,
 				49073E812089CF20008DFEF5 /* DeviceCollectionController.h */,
 				49073E822089CF20008DFEF5 /* DeviceCollectionController.m */,
+				8C6FD32B208B49E400CBC013 /* DeviceListController.h */,
+				8C6FD32C208B49E400CBC013 /* DeviceListController.m */,
 			);
-			path = Device;
+			path = "Device(设备管理)";
 			sourceTree = "<group>";
 		};
 		49073E6F20898C32008DFEF5 /* Device */ = {
@@ -600,6 +610,9 @@
 				49073E7C2089BF26008DFEF5 /* DeviceCollectionView.h */,
 				49073E7D2089BF26008DFEF5 /* DeviceCollectionView.m */,
 				49073E7F2089BF3B008DFEF5 /* DeviceCollectionView.xib */,
+				8C6FD32E208B503400CBC013 /* DeviceTypeCell.h */,
+				8C6FD32F208B503400CBC013 /* DeviceTypeCell.m */,
+				8C6FD330208B503400CBC013 /* DeviceTypeCell.xib */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -987,7 +1000,7 @@
 				49073E522086EDF3008DFEF5 /* MapConfig */,
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
-				49073E68208980CF008DFEF5 /* Device */,
+				49073E68208980CF008DFEF5 /* Device(设备管理) */,
 				4932D98D206CC8840048D299 /* PersonInfo(个人信息) */,
 				49073E5620870B7A008DFEF5 /* Inspection(巡检) */,
 				495E8D73206A1C1B00ABE900 /* Even(环卫事件) */,
@@ -1506,6 +1519,7 @@
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */,
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
+				8C6FD332208B503400CBC013 /* DeviceTypeCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
 				4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */,
@@ -1674,6 +1688,7 @@
 				8C305BEF202C09AD00A843B5 /* main.m in Sources */,
 				49EC0D7A2060F44E002CE92C /* WorkFlowModel.m in Sources */,
 				8C5102AE204282C900F0E40D /* NSString+boundSize.m in Sources */,
+				8C6FD331208B503400CBC013 /* DeviceTypeCell.m in Sources */,
 				49EC0DE0206495AA002CE92C /* ZXDatePickerView.m in Sources */,
 				8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */,
 				8C823FC42078C27600EC676D /* HttpClient+Common.m in Sources */,
@@ -1727,6 +1742,7 @@
 				8C33C2D92031857400B93F6E /* Tool+MD5.m in Sources */,
 				8C823FBE20774CE300EC676D /* AttenceRecoderController.m in Sources */,
 				8C5102F72047AAB700F0E40D /* ZXCalendarItem.m in Sources */,
+				8C6FD32D208B49E400CBC013 /* DeviceListController.m in Sources */,
 				49EC0DD120635ABE002CE92C /* eventsMdoel.m in Sources */,
 				8C5102BD2042ECD600F0E40D /* HomeBottomItem.m in Sources */,
 				49073E7E2089BF26008DFEF5 /* DeviceCollectionView.m in Sources */,
