@@ -20,6 +20,7 @@
 #import "HttpClient+UploadFile.h"
 #import "UserLocationManager.h"
 #import <Masonry.h>
+#import "HttpClient+Inspection.h"
 
 @interface AddInspectionViewController ()<workTaskHeaderViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,RecordViewDelegate>
 
@@ -27,10 +28,20 @@
 @property (nonatomic, strong) workTaskHeaderView *headerView;
 @property (nonatomic, strong) WorkTaskDetailModel *currentModel;
 
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *lineSix;
+
+@property (nonatomic, strong) FButton *selectApprvoBtn;
+
 @property (nonatomic, strong) UILabel *reslovPersonLabel;
 @property (nonatomic, strong) FButton *reslovBtn;
 @property (nonatomic, strong) UILabel *dutyRegionLabel;
 @property (nonatomic, strong) UILabel *dutyPersonLabel;
+
+@property (nonatomic, strong) FButton *isTransEventBtn;
+@property (nonatomic, strong) UILabel *isTransEventLabel;
+
+@property (nonatomic, strong) UIView *footerView;
 
 @property (nonatomic, strong) UILabel *selectedPersonDesLabel;
 @property (nonatomic, strong) FButton *selecetedPersonBtn;
@@ -40,8 +51,6 @@
 
 @property (nonatomic, strong) UILabel *isNeedIvhLabel;
 @property (nonatomic, strong) FButton *isNeedIvhBtn;
-
-
 
 @property (nonatomic, strong) FButton *saveBtn;
 @property (nonatomic, strong) FButton *submitBtn;
@@ -53,6 +62,8 @@
 @property (nonatomic, assign) int urgencyType;
 @property (nonatomic, assign) int isNeedCarType;
 @property (nonatomic, assign) long reslovid;
+
+
 
 @end
 
@@ -118,6 +129,7 @@
         make.edges.equalTo(weakself.view);
     }];
     UIView *contentView = [[UIView alloc] init];
+    self.contentView = contentView;
     contentView.backgroundColor = WhiteColor;
     contentView.userInteractionEnabled = YES;
     [mainScrollView addSubview:contentView];
@@ -169,45 +181,96 @@
         make.top.equalTo(self.dutyRegionLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
-    [contentView addSubview:self.selectedPersonDesLabel];
-    [self.selectedPersonDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *isTransEventLabel = [[UILabel alloc] init];
+    self.isTransEventLabel = isTransEventLabel;
+    isTransEventLabel.text = @"是否转事件";
+    isTransEventLabel.textColor = UIColorWithFloat(79);
+    isTransEventLabel.font = [UIFont systemFontOfSize:14];
+    [contentView addSubview:isTransEventLabel];
+    [isTransEventLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(contentView.mas_left).offset(15);
         make.top.equalTo(lineThree.mas_top).offset(15);
     }];
-    [contentView addSubview:self.selecetedPersonBtn];
+    [contentView addSubview:self.isTransEventBtn];
+    [self.isTransEventBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(isTransEventLabel.mas_right).offset(5);
+        make.centerY.equalTo(isTransEventLabel.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(18, 16.5));
+    }];
+    UIView *lineOther = [[UIView alloc] init];
+    lineOther.backgroundColor = UIColorWithFloat(239);
+    [contentView addSubview:lineOther];
+    [lineOther mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(isTransEventLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(1);
+    }];
+    self.footerView = [[UIView alloc] init];
+    self.footerView.backgroundColor = WhiteColor;
+    [contentView addSubview:self.footerView];
+    [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(contentView);
+        make.top.equalTo(lineOther.mas_bottom);
+        make.height.mas_equalTo(0);
+    }];
+    self.footerView.hidden = YES;
+    [self.footerView addSubview:self.selectedPersonDesLabel];
+    [self.selectedPersonDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.footerView.mas_left).offset(15);
+        make.top.equalTo(self.footerView.mas_top).offset(15);
+        make.height.mas_equalTo(15);
+    }];
+    [self.footerView addSubview:self.selecetedPersonBtn];
     [self.selecetedPersonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.selectedPersonDesLabel.mas_right).offset(10);
         make.centerY.equalTo(weakself.selectedPersonDesLabel.mas_centerY);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(100);
     }];
-    [contentView addSubview:self.urgencyDesLabel];
+    [self.footerView addSubview:self.urgencyDesLabel];
     [self.urgencyDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(contentView.mas_left).offset(15);
+        make.left.equalTo(self.footerView.mas_left).offset(15);
         make.top.equalTo(self.selectedPersonDesLabel.mas_bottom).offset(30);
+        make.height.mas_equalTo(15);
     }];
-    [contentView addSubview:self.urgencyBtn];
+    [self.footerView addSubview:self.urgencyBtn];
     [self.urgencyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.urgencyDesLabel.mas_right).offset(10);
         make.centerY.equalTo(weakself.urgencyDesLabel.mas_centerY);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(30);
     }];
-   
+    UILabel *sendsmsLabel = [[UILabel alloc] init];
+    sendsmsLabel.textColor = [UIColor redColor];
+    sendsmsLabel.text = @"短信通知";
+    sendsmsLabel.font = [UIFont systemFontOfSize:14];
+    [self.footerView addSubview:sendsmsLabel];
+    [sendsmsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.footerView.mas_right).offset(-15);
+        make.centerY.equalTo(self.urgencyBtn.mas_centerY);
+    }];
+    [self.footerView addSubview:self.selectApprvoBtn];
+    [self.selectApprvoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(sendsmsLabel.mas_left).offset(-5);
+        make.centerY.equalTo(weakself.urgencyBtn.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(18, 16.5));
+    }];
     UIView *lineFive = [[UIView alloc] init];
+    lineFive.hidden = YES;
     lineFive.backgroundColor = UIColorWithFloat(239);
-    [contentView addSubview:lineFive];
+    [self.footerView addSubview:lineFive];
     [lineFive mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(contentView);
+        make.left.and.right.equalTo(self.footerView);
         make.top.equalTo(self.urgencyDesLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
-    [contentView addSubview:self.isNeedIvhLabel];
+    [self.footerView addSubview:self.isNeedIvhLabel];
     [self.isNeedIvhLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(contentView.mas_left).offset(15);
+        make.left.equalTo(self.footerView.mas_left).offset(15);
         make.top.equalTo(lineFive.mas_top).offset(15);
+        make.height.mas_equalTo(15);
     }];
-    [contentView addSubview:self.isNeedIvhBtn];
+    [self.footerView addSubview:self.isNeedIvhBtn];
     [self.isNeedIvhBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.isNeedIvhLabel.mas_right).offset(10);
         make.centerY.equalTo(weakself.isNeedIvhLabel.mas_centerY);
@@ -215,10 +278,11 @@
         make.height.mas_equalTo(30);
     }];
     UIView *lineSix = [[UIView alloc] init];
+    self.lineSix = lineSix;
     lineSix.backgroundColor = UIColorWithFloat(239);
-    [contentView addSubview:lineSix];
+    [self.footerView addSubview:lineSix];
     [lineSix mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(contentView);
+        make.left.and.right.equalTo(self.footerView);
         make.top.equalTo(self.isNeedIvhLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(1);
     }];
@@ -226,13 +290,13 @@
     [contentView addSubview:self.saveBtn];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(contentView.mas_left).offset(60);
-        make.top.equalTo(lineSix.mas_bottom).offset(20);
+        make.top.equalTo(self.footerView.mas_bottom).offset(20);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(44);
     }];
     [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(contentView.mas_right).offset(-60);
-        make.top.equalTo(lineSix.mas_bottom).offset(20);
+        make.top.equalTo(self.footerView.mas_bottom).offset(20);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(44);
     }];
@@ -291,7 +355,8 @@
             
         }];
     }else if (btn.tag == 5){
-        NSArray *arr = @[@"不紧急",@"紧急"];
+        
+        NSArray *arr = @[@"不紧急",@"紧急",@"特急"];
         [CGXPickerView showStringPickerWithTitle:@"紧急度" DataSource:arr DefaultSelValue:@"紧急" IsAutoSelect:NO ResultBlock:^(id selectValue, id selectRow) {
             int index = [selectRow intValue];
             NSString *str  = arr[index];
@@ -317,14 +382,12 @@
             [MBProgressHUD showError:@"请选择责任人和责任区域" toView:self.view];
             return;
         };
-        if (self.headerView.textView.text.length == 0) {
-            [MBProgressHUD showError:@"请填写说明" toView:self.view];
-            return;
-        };
-        if (self.reslovid == 0) {
-            [MBProgressHUD showError:@"请选择处理人" toView:self.view];
-            return;
-        };
+        if (self.isTransEventBtn.selected == YES) {
+            if (self.reslovid == 0) {
+                [MBProgressHUD showError:@"请选择处理人" toView:self.view];
+                return;
+            };
+        }
         // 调度组
         dispatch_group_t group = dispatch_group_create();
         // 队列
@@ -369,10 +432,49 @@
             if (temStr.length != 0) {
                 [temStr replaceCharactersInRange:NSMakeRange(temStr.length - 1, 1) withString:@""];//去掉最后一个|符号
             }
-          
+            if (self.isTransEventBtn.selected == YES) {
+                [HttpClient zx_httpClinetToAddPatrolRecordWithPatrolTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andPosition:[UserLocationManager sharedUserLocationManager].position andPositionAdress:self.headerView.positionAdress andRegionid:self.currentModel.projectorgregionid andOrgid:self.currentModel.orgid andLibleemplotyerid:self.currentModel.employerid andPhotourl:temStr andSoundUrl:soundUrl andPatrolName:@"0" andPatroltContent:self.headerView.textView.text andPatroltstatus:1 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    if (code == 0) {
+                        [HttpClient zx_httpClinetToSwitchPatrolToEventWithPatrolRecordid:0 andEventno:0 andEventType:0 andIsvehneed:0 andLiableemployerid:0 andSolveemployerid:0 andUrgency:0 andSendsms:0 andEventdescription:@"" andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                            ZXHIDE_LOADING;
+                            if (code == 0) {
+                                [MBProgressHUD showError:@"提交成功" toView:self.view];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
+                                [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                            }else{
+                                if (message.length != 0) {
+                                    [MBProgressHUD showError:message toView:self.view];
+                                }else{
+                                    [MBProgressHUD showError:@"提交失败" toView:self.view];
+                                }
+                            }
+                        }];
+                    }else{
+                        ZXHIDE_LOADING;
+                        if (message.length != 0) {
+                            [MBProgressHUD showError:message toView:self.view];
+                        }else{
+                            [MBProgressHUD showError:@"提交失败" toView:self.view];
+                        }
+                    }
+                }];
+            }else{
+                [HttpClient zx_httpClinetToAddPatrolRecordWithPatrolTime:[[NSDate date] timeIntervalSince1970] * 1000.0 andPosition:[UserLocationManager sharedUserLocationManager].position andPositionAdress:self.headerView.positionAdress andRegionid:self.currentModel.projectorgregionid andOrgid:self.currentModel.orgid andLibleemplotyerid:self.currentModel.employerid andPhotourl:temStr andSoundUrl:soundUrl andPatrolName:@"0" andPatroltContent:self.headerView.textView.text andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+                    ZXHIDE_LOADING;
+                    if (code == 0) {
+                        [MBProgressHUD showError:@"提交成功" toView:self.view];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_WORKTASKRELOADDATA object:nil];
+                        [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
+                    }else{
+                        if (message.length != 0) {
+                            [MBProgressHUD showError:message toView:self.view];
+                        }else{
+                            [MBProgressHUD showError:@"提交失败" toView:self.view];
+                        }
+                    }
+                }];
+            }
         });
-        
-        
     }
 }
 
@@ -433,10 +535,29 @@
     [self.recordView removeFromSuperview];
 }
 
+#pragma mark - clickAction
+
+- (void)clickMeassageAction{
+    self.selectApprvoBtn.selected = !self.selectApprvoBtn.selected;
+}
+
+- (void)clickTranEventAction{
+    self.isTransEventBtn.selected = !self.isTransEventBtn.selected;
+    if (self.isTransEventBtn.selected == YES) {
+        self.footerView.hidden = NO;
+        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(135);
+        }];
+    }else{
+        self.footerView.hidden = YES;
+        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+  
+}
 
 #pragma mark - setter && getter
-
-
 
 - (workTaskHeaderView *)headerView{
     if (_headerView == nil) {
@@ -523,6 +644,7 @@
         [_selecetedPersonBtn  setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
         [_selecetedPersonBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _selecetedPersonBtn.tag = 4;
+
     }
     return _selecetedPersonBtn;
 }
@@ -603,6 +725,28 @@
         _submitBtn.tag = 7;
     }
     return _submitBtn;
+}
+
+- (FButton *)selectApprvoBtn{
+    if (_selectApprvoBtn == nil) {
+        _selectApprvoBtn = [FButton fbtnWithFBLayout:FBLayoutTypeImageFull andPadding:0];
+        [_selectApprvoBtn setImage:[UIImage imageNamed:@"eventSelectNomal"]
+                          forState:UIControlStateNormal];
+        [_selectApprvoBtn setImage:[UIImage imageNamed:@"eventSelectHighted"] forState:UIControlStateSelected];
+        [_selectApprvoBtn addTarget:self action:@selector(clickMeassageAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectApprvoBtn;
+}
+
+- (FButton *)isTransEventBtn{
+    if (_isTransEventBtn == nil) {
+        _isTransEventBtn = [FButton fbtnWithFBLayout:FBLayoutTypeImageFull andPadding:0];
+        [_isTransEventBtn setImage:[UIImage imageNamed:@"eventSelectNomal"]
+                          forState:UIControlStateNormal];
+        [_isTransEventBtn setImage:[UIImage imageNamed:@"eventSelectHighted"] forState:UIControlStateSelected];
+        [_isTransEventBtn addTarget:self action:@selector(clickTranEventAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _isTransEventBtn;
 }
 
 

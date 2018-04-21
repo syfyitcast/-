@@ -81,7 +81,7 @@
 - (SearchBar *)searchBar{
     if (_searchBar == nil) {
         CGRect frame = CGRectMake(0, 0, self.view.width, 65);
-        _searchBar = [SearchBar zx_SearchBarWithPlaceHolder:@"姓名" andFrame:frame andSearchBlock:^(NSString *macth) {
+        _searchBar = [SearchBar zx_SearchBarWithPlaceHolder:@"姓名" andFrame:frame andType:SearchBarTypeNormal andSearchBlock:^(NSString *macth) {
             
         }];
     }

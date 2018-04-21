@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    SearchBarTypeNormal = 0,
+    SearchBarTypeCategory,
+}SearchBarType;
+
 @interface SearchBar : UIView
 
-+ (instancetype)zx_SearchBarWithPlaceHolder:(NSString *)placeHolder andFrame:(CGRect)frame andSearchBlock:(void(^)(NSString *macth))block;
++ (instancetype)zx_SearchBarWithPlaceHolder:(NSString *)placeHolder andFrame:(CGRect)frame andType:(SearchBarType)type andSearchBlock:(void(^)(NSString *macth))block;
+
 
 @end

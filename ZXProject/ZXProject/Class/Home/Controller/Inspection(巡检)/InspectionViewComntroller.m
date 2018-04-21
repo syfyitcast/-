@@ -20,6 +20,7 @@
 #import "HttpClient+Inspection.h"
 #import "AddInspectionViewController.h"
 
+
 @interface InspectionViewComntroller ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NotificationBar *topBar;
@@ -40,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"环卫事件";
+    self.title = @"巡检事件";
     self.currentIndex = 1;
     [self.topBar bottomLineMoveWithIndex:1];
     [self setSubviews];
@@ -61,17 +62,17 @@
     // 将任务添加到队列和调度组
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:1 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"patrolrecord"];
-                self.unfnishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
+                self.unfnishedModels  = [InspectionModel inspectionModelsWithSource_arr:source_arr];
             }
             dispatch_group_leave(group);
         }];
     });
     dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
-        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:2 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
+        [HttpClient zx_httpClinetToGetPatrolReportWithProjectId:[ProjectManager sharedProjectManager].currentModel.projectid andPatroltstatus:0 andSuccessBlock:^(int code, id  _Nullable data, NSString * _Nullable message, NSError * _Nullable error) {
             if (code == 0) {
                 NSArray *source_arr = data[@"patrolrecord"];
                 self.finishedModels = [InspectionModel inspectionModelsWithSource_arr:source_arr];
@@ -201,7 +202,7 @@
 
 - (NotificationBar *)topBar{
     if (_topBar == nil) {
-        _topBar = [NotificationBar notificationBarWithItems:@[@"草稿",@"未完成",@"已完成",@"全部"] andFrame:CGRectMake(0, 0, self.view.width, 60)];
+        _topBar = [NotificationBar notificationBarWithItems:@[@"草稿",@"巡检事件",@"巡检记录",@"全部"] andFrame:CGRectMake(0, 0, self.view.width, 60)];
         _topBar.delegate = self;
     }
     return _topBar;
