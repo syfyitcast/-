@@ -102,6 +102,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DeviceCollectionController *vc = [[DeviceCollectionController alloc] init];
+    vc.deviceTypeDict = self.models[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

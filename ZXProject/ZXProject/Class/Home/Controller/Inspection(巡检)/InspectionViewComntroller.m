@@ -19,6 +19,7 @@
 #import "EventsDetailViewController.h"
 #import "HttpClient+Inspection.h"
 #import "AddInspectionViewController.h"
+#import "InspectionDetailViewController.h"
 
 
 @interface InspectionViewComntroller ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -171,19 +172,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    eventsMdoel *model = nil;
-//    if (self.currentIndex == 0) {
-//        model = self.draftModels[indexPath.row];
-//    }else if (self.currentIndex == 3){
-//        model = self.allModels[indexPath.row];
-//    }else if (self.currentIndex == 2){
-//        model = self.finishedModels[indexPath.row];
-//    }else if (self.currentIndex == 1){
-//        model = self.unfnishedModels[indexPath.row];
-//    }
-//    EventsDetailViewController *vc = [[EventsDetailViewController alloc] init];
-//    vc.model = model;
-//    [self.navigationController pushViewController:vc animated:YES];
+    InspectionDetailViewController *vc = [[InspectionDetailViewController alloc] init];
+    InspectionModel *model = nil;
+    if (self.currentIndex == 0) {
+        model = self.draftModels[indexPath.row];
+    }else if (self.currentIndex == 3){
+        model = self.allModels[indexPath.row];
+    }else if (self.currentIndex == 2){
+        model = self.finishedModels[indexPath.row];
+    }else if (self.currentIndex == 1){
+        model = self.unfnishedModels[indexPath.row];
+    }
+    vc.model = model;
+    [self.navigationController pushViewController:self animated:YES];
 }
 
 - (void)notificationBarDidTapIndexLabel:(NSInteger)index{

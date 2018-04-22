@@ -30,6 +30,8 @@
 @property (nonatomic, strong) NSArray *models;
 
 
+
+
 @end
 
 @implementation DeviceManagerViewController
@@ -40,6 +42,7 @@
     self.view.backgroundColor = UIColorWithFloat(239);
     [self setupSubViews];
     [self setNetWorkRequet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNetWorkRequet) name:NOTIFI_DEVICERELOADDATA object:nil];
 }
 
 - (void)setNetWorkRequet{

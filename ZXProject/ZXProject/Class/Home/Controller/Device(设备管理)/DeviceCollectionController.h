@@ -10,7 +10,7 @@
 
 @interface DeviceCollectionController : BaseViewController
 
-
+@property (nonatomic, strong) NSDictionary *deviceTypeDict;
 
 
 @end

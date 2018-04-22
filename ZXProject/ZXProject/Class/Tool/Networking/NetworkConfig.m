@@ -71,6 +71,7 @@ NSString *const APT_INSPECTIONTOEVENT = @"patrolrecordtoevent";//巡检记录生
 
 NSString *const API_GETDEVICEINFO = @"getfacilitylocation";//项目设施列表
 NSString *const API_GETDEVICETYPELIST = @"getfacilitytype";//获取设施类型
+NSString *const API_ADDFACILITY  = @"addfacility";//获取项目设施
 
 @implementation NetworkConfig
 
@@ -90,11 +91,11 @@ NSString *const API_GETDEVICETYPELIST = @"getfacilitytype";//获取设施类型
         self.apiuser = @"appapi";
         self.accountid = @"";
         self.position = [NSString stringWithFormat:@"%f,%f",[UserLocationManager sharedUserLocationManager].currentCoordinate.longitude,[UserLocationManager sharedUserLocationManager].currentCoordinate.latitude];
-        self.ipUrl = @"http://113.247.222.45:8088";
+        self.ipUrl = @"http://113.247.222.45:9080";//8088
 #if DEBUG
-        self.baseUrl = @"http://113.247.222.45:8088/hjwulian/appservice/";
+        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
 #else
-        self.baseUrl = @"http://113.247.222.45:8088/hjwulian/appservice/";
+        self.baseUrl = @"http://113.247.222.45:9080/hjwulian/appservice/";
 #endif
     }
     return self;

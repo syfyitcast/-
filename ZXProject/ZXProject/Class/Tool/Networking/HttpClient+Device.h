@@ -16,4 +16,8 @@
 //获取项目设施
 + (void)zx_httpClientToGetProjectDeviceInfoWithProjectid:(NSString *)projectid andSuccessBlock:(responseBlock)block;
 
+//新增项目设施
++ (void)zx_httpClientToAddfacilityWithFacilitycode:(NSString *)facilitycode andFacilityname:(NSString *)facilityname andFacilitytype:(NSString *)facilitytype andRfidtag:(NSString *)tag andPhotoUrl:(NSString *)photoUrl andPositionAdress:(NSString *)positionaddress andPositionlon:(double)positionlon andPositionlat:(double)positionlat andIsFocus:(int)isfocus
+                                        andIsvideo:(int)isvideo andIspublic:(int)ispublic andSuccessBlock:(responseBlock)block;
+
 @end

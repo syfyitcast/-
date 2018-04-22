@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "InspectionModel.h"
 
 @interface InspectionDetailViewController : BaseViewController
+
+@property (nonatomic, strong) InspectionModel *model;
 
 @end
