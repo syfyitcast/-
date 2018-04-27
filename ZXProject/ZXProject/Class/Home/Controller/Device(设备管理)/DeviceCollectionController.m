@@ -110,7 +110,7 @@
                 ZXHIDE_LOADING;
                 if (code == 0) {
                     [MBProgressHUD showError:@"提交成功" toView:self.view];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_DEVICERELOADDATA object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_DEVICEINFORELOADDATA object:nil];
                     [self.navigationController performSelector:@selector(popViewControllerAnimated:) withObject:@(YES) afterDelay:1.2];
                 }else{
                     if (message.length != 0) {

@@ -72,6 +72,12 @@ NSString *const APT_INSPECTIONTOEVENT = @"patrolrecordtoevent";//巡检记录生
 NSString *const API_GETDEVICEINFO = @"getfacilitylocation";//项目设施列表
 NSString *const API_GETDEVICETYPELIST = @"getfacilitytype";//获取设施类型
 NSString *const API_ADDFACILITY  = @"addfacility";//获取项目设施
+NSString *const API_MODIFYFACILITY = @"modifyfacility";//修改项目设施
+
+#pragma mark ----------------------------------------------------------------- 在线监控
+
+NSString *const API_MONITORPERSON = @"getemployeelocation";//项目人员查询
+NSString *const API_MONITORCAR = @"getvehiclelocation";//项目车辆查询
 
 @implementation NetworkConfig
 

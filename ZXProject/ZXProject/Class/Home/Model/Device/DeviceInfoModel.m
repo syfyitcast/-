@@ -7,6 +7,7 @@
 //
 
 #import "DeviceInfoModel.h"
+#import "NetworkConfig.h"
 
 @implementation DeviceInfoModel
 
@@ -38,11 +39,30 @@
     if (_updateTimeString == nil) {
         long long time = _gpstime / 1000.0;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
         _updateTimeString = [dateFormatter stringFromDate:date];
     }
     return _updateTimeString;
+}
+
+- (NSArray *)photoUrls{
+    if (_photoUrls == nil) {
+        _photoUrls = [self.photourl componentsSeparatedByString:@"|"];
+        if (_photoUrls == nil) {
+            if (self.photourl != nil) {
+                _photoUrls = @[[[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:self.photourl]];
+            }
+        }else{
+            NSMutableArray *tem_arr = [NSMutableArray array];
+            for (NSString *subUrl in _photoUrls) {
+                NSString *url = [[NetworkConfig sharedNetworkingConfig].ipUrl stringByAppendingString:subUrl];
+                [tem_arr addObject:url];
+            }
+            _photoUrls = tem_arr.mutableCopy;
+        }
+    }
+    return _photoUrls;
 }
 
 @end

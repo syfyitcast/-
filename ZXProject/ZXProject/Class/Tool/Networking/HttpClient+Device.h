@@ -20,4 +20,8 @@
 + (void)zx_httpClientToAddfacilityWithFacilitycode:(NSString *)facilitycode andFacilityname:(NSString *)facilityname andFacilitytype:(NSString *)facilitytype andRfidtag:(NSString *)tag andPhotoUrl:(NSString *)photoUrl andPositionAdress:(NSString *)positionaddress andPositionlon:(double)positionlon andPositionlat:(double)positionlat andIsFocus:(int)isfocus
                                         andIsvideo:(int)isvideo andIspublic:(int)ispublic andSuccessBlock:(responseBlock)block;
 
+//修改项目设施
++ (void)zx_httpClientToModifyFacilityWithFacilityid:(NSString *)facilityid andFacilityCode:(NSString *)facilitycode andFacilityname:(NSString *)facilityname andFacilitytype:(NSString *)facilitytype andWorkStatus:(int)workstatus andPhotourl:(NSString *)photoUrl
+                                 andPositionaddress:(NSString *)positionAddress andPositionlon:(double)positionlon andPositionlat:(double)positionlat andIsfocus:(int)isfocus andIsvideo:(int)isvideo andIspublic:(int)ispublic andRFIDtag:(NSString *)rfidtag andSuccessBlock:(responseBlock)block;
+
 @end

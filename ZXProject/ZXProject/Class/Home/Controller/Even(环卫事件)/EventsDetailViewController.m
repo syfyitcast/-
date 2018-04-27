@@ -280,7 +280,6 @@
     self.hasRecord = YES;
 }
 
-
 #pragma mark - WorkTaskHeaderViewDelegateMethod
 
 - (void)workTaskHeaderViewDidClickAtionWithTag:(int)tag andView:(workTaskHeaderView *)view{

@@ -77,6 +77,11 @@
         [clGeoCoder reverseGeocodeLocation:self.currentLaction completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
             CLPlacemark *placemark = placemarks.lastObject;
             NSDictionary *addressDic = placemark.addressDictionary;
+            NSString *state=[addressDic objectForKey:@"State"];
+            NSString *city=[addressDic objectForKey:@"City"];
+            NSString *subLocality=[addressDic objectForKey:@"SubLocality"];
+            NSString *street=[addressDic objectForKey:@"Street"];
+            self.positionAdress = [NSString stringWithFormat:@"%@%@%@%@",state,city, subLocality, street];
             self.city = addressDic[@"City"];
             if (self.hasUpdateLocation == NO) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFI_GETLOCATIONINFO object:nil];

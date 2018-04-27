@@ -17,6 +17,7 @@
 #import "ProjectManager.h"
 #import "DeviceCollectionController.h"
 #import "DeviceListController.h"
+#import "DeviceInfoDetailViewController.h"
 
 @interface DeviceManagerViewController ()<NotificationBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -42,7 +43,7 @@
     self.view.backgroundColor = UIColorWithFloat(239);
     [self setupSubViews];
     [self setNetWorkRequet];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNetWorkRequet) name:NOTIFI_DEVICERELOADDATA object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNetWorkRequet) name:NOTIFI_DEVICEINFORELOADDATA object:nil];
 }
 
 - (void)setNetWorkRequet{
@@ -113,7 +114,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    DeviceInfoDetailViewController *vc = [[DeviceInfoDetailViewController alloc] init];
+    vc.model = self.models[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

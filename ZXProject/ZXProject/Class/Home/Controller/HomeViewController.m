@@ -34,6 +34,7 @@
 #import "MainNavigationController.h"
 #import "LoginViewController.h"
 #import "HttpClient+Common.h"
+#import "MonitorViewController.h"
 
 
 
@@ -380,7 +381,6 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        
     }
     return _mainScollview;
 }
@@ -396,7 +396,7 @@
 
 - (NSArray *)items{
     if (_items == nil) {
-        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"EventsViewController",@"InspectionViewComntroller",@"DeviceManagerViewController",@"onFoucsController",@"ProjectReviewController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
+        _items = @[@"NotificationViewController",@"WorkFlowController",@"AttendanceController",@"WorkManagerController",@"EventsViewController",@"InspectionViewComntroller",@"DeviceManagerViewController",@"MonitorViewController",@"ProjectReviewController",@"onFoucsController",@"onFoucsController",@"onFoucsController"];
     }
     return _items;
 }

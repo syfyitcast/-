@@ -120,7 +120,6 @@
     return nil;
 }
 
-
 #pragma mark- setter && getter
 
 - (WorkTaskAddImagePickView *)pickView{

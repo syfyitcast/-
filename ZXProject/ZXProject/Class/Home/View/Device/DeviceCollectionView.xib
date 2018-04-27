@@ -197,10 +197,18 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RIFDIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bIT-6U-Wxb">
+                    <rect key="frame" x="307" y="175.5" width="21" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Yh5-tR-0nU"/>
+                        <constraint firstAttribute="width" constant="21" id="m4e-mc-NKL"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Frz-vb-hoR" firstAttribute="leading" secondItem="UvT-iN-dTJ" secondAttribute="trailing" constant="15" id="0f8-dG-yLU"/>
+                <constraint firstItem="bIT-6U-Wxb" firstAttribute="centerY" secondItem="f5h-gZ-L7p" secondAttribute="centerY" id="1Lf-WA-H4U"/>
                 <constraint firstItem="Gsg-1d-rra" firstAttribute="leading" secondItem="mle-3a-INr" secondAttribute="trailing" constant="15" id="1vx-1O-Vzb"/>
                 <constraint firstAttribute="trailing" secondItem="7y7-JM-D50" secondAttribute="trailing" id="2Th-3D-IGP"/>
                 <constraint firstAttribute="trailing" secondItem="mS6-A7-hCb" secondAttribute="trailing" id="3gI-Y4-ZAu"/>
@@ -249,6 +257,7 @@
                 <constraint firstItem="L82-8O-0RT" firstAttribute="leading" secondItem="fpl-5i-YcJ" secondAttribute="trailing" constant="15" id="eqP-2l-Rmd"/>
                 <constraint firstItem="6yt-VY-ouB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fSe-0p-aDX"/>
                 <constraint firstItem="mle-3a-INr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="h3e-ra-AF9"/>
+                <constraint firstItem="bIT-6U-Wxb" firstAttribute="leading" secondItem="f5h-gZ-L7p" secondAttribute="trailing" constant="12" id="i90-r2-1dT"/>
                 <constraint firstItem="zWD-Ey-iyb" firstAttribute="centerY" secondItem="6Ra-YS-hff" secondAttribute="centerY" id="jZS-bs-tZr"/>
                 <constraint firstItem="ZnL-wZ-nw9" firstAttribute="leading" secondItem="lOP-0v-fld" secondAttribute="trailing" constant="15" id="mjE-Me-74v"/>
                 <constraint firstItem="f5h-gZ-L7p" firstAttribute="leading" secondItem="mNR-qU-GBv" secondAttribute="trailing" constant="15" id="mza-Fi-0ce"/>
@@ -274,6 +283,7 @@
         </view>
     </objects>
     <resources>
+        <image name="RIFDIcon" width="20" height="20"/>
         <image name="eventSelectHighted" width="18" height="16"/>
         <image name="eventSelectNomal" width="18" height="16"/>
         <image name="mapIcon" width="13" height="19"/>

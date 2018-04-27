@@ -28,6 +28,16 @@
 		490826E0207D981100ABA061 /* MyPositionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826DF207D981100ABA061 /* MyPositionViewController.m */; };
 		490826E6207DA13900ABA061 /* RecordPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826E5207DA13900ABA061 /* RecordPlayView.m */; };
 		490826E9207DBAB000ABA061 /* UIImage+NotStrech.m in Sources */ = {isa = PBXBuildFile; fileRef = 490826E8207DBAB000ABA061 /* UIImage+NotStrech.m */; };
+		491192D32092F25D00999EC2 /* MonitorPersonInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491192D22092F25D00999EC2 /* MonitorPersonInfoView.m */; };
+		491192D52092F2A000999EC2 /* MonitorPersonInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491192D42092F2A000999EC2 /* MonitorPersonInfoView.xib */; };
+		491192D82092FC4200999EC2 /* MonitorDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */; };
+		491192DA2092FC4E00999EC2 /* MonitorDeviceInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */; };
+		4917A335208DA11800907121 /* DeviceInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A334208DA11800907121 /* DeviceInfoDetailViewController.m */; };
+		4917A339209057AF00907121 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A338209057AF00907121 /* MonitorViewController.m */; };
+		4917A33D2090643B00907121 /* MonitorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A33C2090643B00907121 /* MonitorSelectView.m */; };
+		4917A340209171FF00907121 /* HttpClient+Monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A33F209171FF00907121 /* HttpClient+Monitor.m */; };
+		4917A3432091AB3B00907121 /* MonitorAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A3422091AB3B00907121 /* MonitorAnnotationView.m */; };
+		4917A3462091C4F700907121 /* MonitorPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A3452091C4F700907121 /* MonitorPointAnnotation.m */; };
 		492F942A20721BE400BBB677 /* WorkFlowDetailItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */; };
 		492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */; };
 		492F942F207313D500BBB677 /* WorkFlowDetailFooterApprovView.m in Sources */ = {isa = PBXBuildFile; fileRef = 492F942E207313D500BBB677 /* WorkFlowDetailFooterApprovView.m */; };
@@ -236,6 +246,24 @@
 		490826E5207DA13900ABA061 /* RecordPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordPlayView.m; sourceTree = "<group>"; };
 		490826E7207DBAB000ABA061 /* UIImage+NotStrech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+NotStrech.h"; sourceTree = "<group>"; };
 		490826E8207DBAB000ABA061 /* UIImage+NotStrech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NotStrech.m"; sourceTree = "<group>"; };
+		491192D12092F25D00999EC2 /* MonitorPersonInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorPersonInfoView.h; sourceTree = "<group>"; };
+		491192D22092F25D00999EC2 /* MonitorPersonInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorPersonInfoView.m; sourceTree = "<group>"; };
+		491192D42092F2A000999EC2 /* MonitorPersonInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitorPersonInfoView.xib; sourceTree = "<group>"; };
+		491192D62092FC4200999EC2 /* MonitorDeviceInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorDeviceInfoView.h; sourceTree = "<group>"; };
+		491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorDeviceInfoView.m; sourceTree = "<group>"; };
+		491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitorDeviceInfoView.xib; sourceTree = "<group>"; };
+		4917A333208DA11800907121 /* DeviceInfoDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInfoDetailViewController.h; sourceTree = "<group>"; };
+		4917A334208DA11800907121 /* DeviceInfoDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoDetailViewController.m; sourceTree = "<group>"; };
+		4917A337209057AF00907121 /* MonitorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
+		4917A338209057AF00907121 /* MonitorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
+		4917A33B2090643B00907121 /* MonitorSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorSelectView.h; sourceTree = "<group>"; };
+		4917A33C2090643B00907121 /* MonitorSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorSelectView.m; sourceTree = "<group>"; };
+		4917A33E209171FF00907121 /* HttpClient+Monitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+Monitor.h"; sourceTree = "<group>"; };
+		4917A33F209171FF00907121 /* HttpClient+Monitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+Monitor.m"; sourceTree = "<group>"; };
+		4917A3412091AB3B00907121 /* MonitorAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorAnnotationView.h; sourceTree = "<group>"; };
+		4917A3422091AB3B00907121 /* MonitorAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorAnnotationView.m; sourceTree = "<group>"; };
+		4917A3442091C4F700907121 /* MonitorPointAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorPointAnnotation.h; sourceTree = "<group>"; };
+		4917A3452091C4F700907121 /* MonitorPointAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorPointAnnotation.m; sourceTree = "<group>"; };
 		492F942820721BE400BBB677 /* WorkFlowDetailItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkFlowDetailItemView.h; sourceTree = "<group>"; };
 		492F942920721BE400BBB677 /* WorkFlowDetailItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkFlowDetailItemView.m; sourceTree = "<group>"; };
 		492F942B20721C0900BBB677 /* WorkFlowDetailItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkFlowDetailItemView.xib; sourceTree = "<group>"; };
@@ -588,6 +616,8 @@
 				49073E822089CF20008DFEF5 /* DeviceCollectionController.m */,
 				8C6FD32B208B49E400CBC013 /* DeviceListController.h */,
 				8C6FD32C208B49E400CBC013 /* DeviceListController.m */,
+				4917A333208DA11800907121 /* DeviceInfoDetailViewController.h */,
+				4917A334208DA11800907121 /* DeviceInfoDetailViewController.m */,
 			);
 			path = "Device(设备管理)";
 			sourceTree = "<group>";
@@ -644,6 +674,34 @@
 				490826E5207DA13900ABA061 /* RecordPlayView.m */,
 			);
 			path = RecoderVideo;
+			sourceTree = "<group>";
+		};
+		4917A3362090570B00907121 /* Monitor (视频监控) */ = {
+			isa = PBXGroup;
+			children = (
+				4917A337209057AF00907121 /* MonitorViewController.h */,
+				4917A338209057AF00907121 /* MonitorViewController.m */,
+				4917A3442091C4F700907121 /* MonitorPointAnnotation.h */,
+				4917A3452091C4F700907121 /* MonitorPointAnnotation.m */,
+			);
+			path = "Monitor (视频监控)";
+			sourceTree = "<group>";
+		};
+		4917A33A209063F000907121 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				4917A33B2090643B00907121 /* MonitorSelectView.h */,
+				4917A33C2090643B00907121 /* MonitorSelectView.m */,
+				4917A3412091AB3B00907121 /* MonitorAnnotationView.h */,
+				4917A3422091AB3B00907121 /* MonitorAnnotationView.m */,
+				491192D12092F25D00999EC2 /* MonitorPersonInfoView.h */,
+				491192D22092F25D00999EC2 /* MonitorPersonInfoView.m */,
+				491192D42092F2A000999EC2 /* MonitorPersonInfoView.xib */,
+				491192D62092FC4200999EC2 /* MonitorDeviceInfoView.h */,
+				491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */,
+				491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */,
+			);
+			path = Monitor;
 			sourceTree = "<group>";
 		};
 		4932D98D206CC8840048D299 /* PersonInfo(个人信息) */ = {
@@ -997,9 +1055,10 @@
 		8C305C27202C0F1400A843B5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				49073E522086EDF3008DFEF5 /* MapConfig */,
 				8C305C37202C113C00A843B5 /* HomeViewController.h */,
 				8C305C38202C113C00A843B5 /* HomeViewController.m */,
+				49073E522086EDF3008DFEF5 /* MapConfig */,
+				4917A3362090570B00907121 /* Monitor (视频监控) */,
 				49073E68208980CF008DFEF5 /* Device(设备管理) */,
 				4932D98D206CC8840048D299 /* PersonInfo(个人信息) */,
 				49073E5620870B7A008DFEF5 /* Inspection(巡检) */,
@@ -1036,6 +1095,7 @@
 		8C305C29202C0F1400A843B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4917A33A209063F000907121 /* Monitor */,
 				49073E732089AC1B008DFEF5 /* Device */,
 				8C823FB320773B4100EC676D /* Attence */,
 				49EC0DD22063650F002CE92C /* Events */,
@@ -1192,6 +1252,8 @@
 				49073E5B20870E7B008DFEF5 /* HttpClient+Inspection.m */,
 				49073E6C2089876D008DFEF5 /* HttpClient+Device.h */,
 				49073E6D2089876D008DFEF5 /* HttpClient+Device.m */,
+				4917A33E209171FF00907121 /* HttpClient+Monitor.h */,
+				4917A33F209171FF00907121 /* HttpClient+Monitor.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1518,10 +1580,12 @@
 				492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */,
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */,
+				491192DA2092FC4E00999EC2 /* MonitorDeviceInfoView.xib in Resources */,
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C6FD332208B503400CBC013 /* DeviceTypeCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
+				491192D52092F2A000999EC2 /* MonitorPersonInfoView.xib in Resources */,
 				4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */,
 				49EC0E322068A271002CE92C /* EvectionView.xib in Resources */,
 				49EC0DD7206366B6002CE92C /* EventsHomeCell.xib in Resources */,
@@ -1632,9 +1696,12 @@
 				49073E772089AC8C008DFEF5 /* DeviceInfoCell.m in Sources */,
 				8C5102F42047AA5000F0E40D /* ZXCalendar.m in Sources */,
 				4932D995206CCAEA0048D299 /* PersoninfoDeflutCell.m in Sources */,
+				491192D32092F25D00999EC2 /* MonitorPersonInfoView.m in Sources */,
+				4917A3462091C4F700907121 /* MonitorPointAnnotation.m in Sources */,
 				8C5102BA2042EC7700F0E40D /* HomeBottomTableViewCell.m in Sources */,
 				8C305C42202C11A800A843B5 /* WorkTeamController.m in Sources */,
 				8CA11DBC20595BB500BC14C5 /* MBProgressHUD+PKX.m in Sources */,
+				4917A33D2090643B00907121 /* MonitorSelectView.m in Sources */,
 				495E8D6B2068E6CF00ABE900 /* ReportView.m in Sources */,
 				49EC0E052064A7A7002CE92C /* CGXPickerUIBaseView.m in Sources */,
 				49CF0CEE2085E56300AE707D /* EventMapConfigController.m in Sources */,
@@ -1651,8 +1718,10 @@
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
 				49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */,
+				4917A340209171FF00907121 /* HttpClient+Monitor.m in Sources */,
 				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
 				49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */,
+				491192D82092FC4200999EC2 /* MonitorDeviceInfoView.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
 				4932D98C206CC7470048D299 /* WorkFlowDetailController.m in Sources */,
 				49073E552086EE25008DFEF5 /* ZXPointAnnotation.m in Sources */,
@@ -1699,10 +1768,12 @@
 				49EC0D63205A4E9B002CE92C /* UIAlertAction+Attribute.m in Sources */,
 				4932D990206CC8970048D299 /* PersonInfoController.m in Sources */,
 				8CB1459320393F42003E94D4 /* HomeHeaderView.m in Sources */,
+				4917A339209057AF00907121 /* MonitorViewController.m in Sources */,
 				49EC0D8820622983002CE92C /* APPNotificationManager.m in Sources */,
 				8C33C2CB2031700400B93F6E /* AFURLRequestSerialization.m in Sources */,
 				8C305C49202C17F800A843B5 /* LoginViewController.m in Sources */,
 				8C5102CD2043E8F500F0E40D /* NotificationNewsCell.m in Sources */,
+				4917A3432091AB3B00907121 /* MonitorAnnotationView.m in Sources */,
 				8C5102B42042E37900F0E40D /* HomeRightTableViewCell.m in Sources */,
 				49EC0D852061F315002CE92C /* NotificationModel.m in Sources */,
 				49CF0CEB2085833100AE707D /* EventsDetailViewController.m in Sources */,
@@ -1724,6 +1795,7 @@
 				495E8D7D206B240F00ABE900 /* AttDutyCheckModel.m in Sources */,
 				49EC0DDD20648A69002CE92C /* HttpClient+DutyEvents.m in Sources */,
 				8CA11DB720525E7300BC14C5 /* WorkTaskDetailController.m in Sources */,
+				4917A335208DA11800907121 /* DeviceInfoDetailViewController.m in Sources */,
 				8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */,
 				8C33C2CA2031700400B93F6E /* AFSecurityPolicy.m in Sources */,
 				8C5102B72042E77900F0E40D /* HomeRightItems.m in Sources */,

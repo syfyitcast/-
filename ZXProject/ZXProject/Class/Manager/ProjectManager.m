@@ -40,6 +40,8 @@
     for (ProjectModel *model in projectDetails) {
         if ([self.currentModel.projectid isEqualToString:model.projectid]) {
             self.currentModel = model;
+            self.currentModel.projectid = @"55";
+            self.currentProjectid = @"55";
         }
     }
 }

@@ -32,6 +32,7 @@
 @property (nonatomic, copy) NSString *isbusinessstation;//是否运营场站 0.否 1.是
 
 @property (nonatomic, copy) NSString *updateTimeString;//时间字符串
+@property (nonatomic, strong) NSArray *photoUrls;
 
 + (NSArray *)deviceInfoModelsWithSource_arr:(NSArray *)source_arr;
 

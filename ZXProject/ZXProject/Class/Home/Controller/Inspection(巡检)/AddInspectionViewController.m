@@ -590,7 +590,7 @@
         [_reslovBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _reslovBtn.tag = 3;
     }
-    return _reslovBtn ;
+    return _reslovBtn;
 }
 
 - (UILabel *)dutyRegionLabel{
@@ -644,7 +644,6 @@
         [_selecetedPersonBtn  setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
         [_selecetedPersonBtn  addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
         _selecetedPersonBtn.tag = 4;
-
     }
     return _selecetedPersonBtn;
 }
