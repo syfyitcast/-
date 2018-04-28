@@ -32,6 +32,9 @@
 		491192D52092F2A000999EC2 /* MonitorPersonInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491192D42092F2A000999EC2 /* MonitorPersonInfoView.xib */; };
 		491192D82092FC4200999EC2 /* MonitorDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */; };
 		491192DA2092FC4E00999EC2 /* MonitorDeviceInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */; };
+		491192DD2093FE5300999EC2 /* MonitorCarInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491192DC2093FE5300999EC2 /* MonitorCarInfoView.m */; };
+		491192DF2093FEAD00999EC2 /* MonitorCarInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491192DE2093FEAD00999EC2 /* MonitorCarInfoView.xib */; };
+		491192E22094430B00999EC2 /* MonitorCarInfoSelecedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491192E12094430B00999EC2 /* MonitorCarInfoSelecedView.m */; };
 		4917A335208DA11800907121 /* DeviceInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A334208DA11800907121 /* DeviceInfoDetailViewController.m */; };
 		4917A339209057AF00907121 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A338209057AF00907121 /* MonitorViewController.m */; };
 		4917A33D2090643B00907121 /* MonitorSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4917A33C2090643B00907121 /* MonitorSelectView.m */; };
@@ -252,6 +255,11 @@
 		491192D62092FC4200999EC2 /* MonitorDeviceInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorDeviceInfoView.h; sourceTree = "<group>"; };
 		491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorDeviceInfoView.m; sourceTree = "<group>"; };
 		491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitorDeviceInfoView.xib; sourceTree = "<group>"; };
+		491192DB2093FE5300999EC2 /* MonitorCarInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorCarInfoView.h; sourceTree = "<group>"; };
+		491192DC2093FE5300999EC2 /* MonitorCarInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorCarInfoView.m; sourceTree = "<group>"; };
+		491192DE2093FEAD00999EC2 /* MonitorCarInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonitorCarInfoView.xib; sourceTree = "<group>"; };
+		491192E02094430B00999EC2 /* MonitorCarInfoSelecedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorCarInfoSelecedView.h; sourceTree = "<group>"; };
+		491192E12094430B00999EC2 /* MonitorCarInfoSelecedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorCarInfoSelecedView.m; sourceTree = "<group>"; };
 		4917A333208DA11800907121 /* DeviceInfoDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInfoDetailViewController.h; sourceTree = "<group>"; };
 		4917A334208DA11800907121 /* DeviceInfoDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoDetailViewController.m; sourceTree = "<group>"; };
 		4917A337209057AF00907121 /* MonitorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
@@ -700,6 +708,11 @@
 				491192D62092FC4200999EC2 /* MonitorDeviceInfoView.h */,
 				491192D72092FC4200999EC2 /* MonitorDeviceInfoView.m */,
 				491192D92092FC4E00999EC2 /* MonitorDeviceInfoView.xib */,
+				491192DB2093FE5300999EC2 /* MonitorCarInfoView.h */,
+				491192DC2093FE5300999EC2 /* MonitorCarInfoView.m */,
+				491192DE2093FEAD00999EC2 /* MonitorCarInfoView.xib */,
+				491192E02094430B00999EC2 /* MonitorCarInfoSelecedView.h */,
+				491192E12094430B00999EC2 /* MonitorCarInfoSelecedView.m */,
 			);
 			path = Monitor;
 			sourceTree = "<group>";
@@ -1584,6 +1597,7 @@
 				49EC0D75205B9C19002CE92C /* ProjectReviewPersonCell.xib in Resources */,
 				8C6FD332208B503400CBC013 /* DeviceTypeCell.xib in Resources */,
 				8C5102EA2046832200F0E40D /* AttenceTimeView.xib in Resources */,
+				491192DF2093FEAD00999EC2 /* MonitorCarInfoView.xib in Resources */,
 				8C5102E52046723B00F0E40D /* AttenceHeaderView.xib in Resources */,
 				491192D52092F2A000999EC2 /* MonitorPersonInfoView.xib in Resources */,
 				4932D99F206DC97C0048D299 /* WorkFlowDetailFooterView.xib in Resources */,
@@ -1718,6 +1732,7 @@
 				8C33C2CC2031700400B93F6E /* AFURLResponseSerialization.m in Sources */,
 				8C33C2C62031700400B93F6E /* XMRequest.m in Sources */,
 				49EC0D8B20623F98002CE92C /* ProjectManager.m in Sources */,
+				491192E22094430B00999EC2 /* MonitorCarInfoSelecedView.m in Sources */,
 				4917A340209171FF00907121 /* HttpClient+Monitor.m in Sources */,
 				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
 				49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */,
@@ -1782,6 +1797,7 @@
 				8C224B19204FABE100319CC0 /* WorkTaskAddController.m in Sources */,
 				4932D999206CD52D0048D299 /* PersonInfoHeaderCell.m in Sources */,
 				49EC0E092064A7A7002CE92C /* CGXPickerView.m in Sources */,
+				491192DD2093FE5300999EC2 /* MonitorCarInfoView.m in Sources */,
 				8C33C2A720316D2400B93F6E /* ZXNavigationBar.m in Sources */,
 				490826E6207DA13900ABA061 /* RecordPlayView.m in Sources */,
 				495E8D7A206A292900ABE900 /* AttDutySettingModel.m in Sources */,
