@@ -18,6 +18,7 @@
 #import "HttpClient+UploadFile.h"
 #import "HttpClient+WorkTask.h"
 
+
 @interface EventsDetailViewController ()<workTaskHeaderViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,RecordViewDelegate>
 
 @property (nonatomic, strong) workTaskHeaderView *headerView;

@@ -110,6 +110,7 @@
         _searchField = [[UITextField alloc] init];
         _searchField.placeholder = self.placeHolder;
         _searchField.textColor = UIColorWithFloat(98);
+        _searchField.keyboardType = UIKeyboardTypeTwitter;
     }
     return _searchField;
 }

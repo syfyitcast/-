@@ -35,6 +35,7 @@
 #import "LoginViewController.h"
 #import "HttpClient+Common.h"
 #import "MonitorViewController.h"
+#import "EventsDetailViewController.h"
 
 
 
@@ -226,7 +227,7 @@
 
 - (void)homeHeaderViewDidClickLeftBtn{
     if ([ProjectManager sharedProjectManager].projectDetails.count == 0) {
-        [MBProgressHUD showError:@"正在获取数据请稍后"];
+        [MBProgressHUD showError:@"正在获取数据请稍后" toView:self.view];
     }else{
         self.coverView.frame = self.view.bounds;
         [self.view addSubview:self.coverView];
@@ -338,7 +339,9 @@
         [self getWeatherInformation];
         [self clickCoverView];
     }else if (tableView == self.bottomTabel){
-        
+        EventsDetailViewController *vc = [[EventsDetailViewController alloc] init];
+        vc.model = self.eventsModels[indexPath.row];
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (tableView == self.rightTable){
         if (indexPath.row == 0) {//打卡
             AttendanceController *vc = [[AttendanceController  alloc] init];

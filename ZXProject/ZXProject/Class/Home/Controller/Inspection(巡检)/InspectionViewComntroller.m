@@ -184,7 +184,7 @@
         model = self.unfnishedModels[indexPath.row];
     }
     vc.model = model;
-    [self.navigationController pushViewController:self animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)notificationBarDidTapIndexLabel:(NSInteger)index{
