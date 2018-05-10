@@ -10,6 +10,8 @@
 
 @interface ProjectReviewPersonCell : UITableViewCell
 
+@property (nonatomic, strong) NSDictionary *modelDict;
+
 + (instancetype)projectReviewPersonCellWithTabelView:(UITableView *)tableView;
 
 @end

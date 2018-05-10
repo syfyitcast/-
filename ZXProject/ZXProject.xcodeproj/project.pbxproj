@@ -106,6 +106,7 @@
 		8C045225204BD9270067F10E /* WorkManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C045224204BD9270067F10E /* WorkManagerController.m */; };
 		8C04522A204C1EFD0067F10E /* WorkTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C045229204C1EFD0067F10E /* WorkTaskCell.m */; };
 		8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C04522D204C1F300067F10E /* WorkTaskCell.xib */; };
+		8C08F7BF20A32BDD0022E888 /* ProjectReviewDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C08F7BE20A32BDD0022E888 /* ProjectReviewDetailViewController.m */; };
 		8C224B06204D23BA00319CC0 /* WorkTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B05204D23BA00319CC0 /* WorkTaskModel.m */; };
 		8C224B0D204D2D2100319CC0 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B0C204D2D2100319CC0 /* UserManager.m */; };
 		8C224B10204D2D2A00319CC0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C224B0F204D2D2A00319CC0 /* User.m */; };
@@ -173,6 +174,12 @@
 		8C6FD32D208B49E400CBC013 /* DeviceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD32C208B49E400CBC013 /* DeviceListController.m */; };
 		8C6FD331208B503400CBC013 /* DeviceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD32F208B503400CBC013 /* DeviceTypeCell.m */; };
 		8C6FD332208B503400CBC013 /* DeviceTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FD330208B503400CBC013 /* DeviceTypeCell.xib */; };
+		8C6FD336209D6BCC00CBC013 /* ProjectReviewDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD334209D6BCC00CBC013 /* ProjectReviewDeviceCell.m */; };
+		8C6FD337209D6BCC00CBC013 /* ProjectReviewDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FD335209D6BCC00CBC013 /* ProjectReviewDeviceCell.xib */; };
+		8C6FD33A209FF78E00CBC013 /* TrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD339209FF78E00CBC013 /* TrackViewController.m */; };
+		8C6FD33D209FF9D800CBC013 /* CarWorkStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD33C209FF9D800CBC013 /* CarWorkStatusViewController.m */; };
+		8C6FD340209FFA5500CBC013 /* CarWorkStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FD33F209FFA5500CBC013 /* CarWorkStatusView.m */; };
+		8C6FD344209FFA8D00CBC013 /* CarWorkStatus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6FD343209FFA8D00CBC013 /* CarWorkStatus.xib */; };
 		8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */; };
 		8C823FB620773B6800EC676D /* AttenceCheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C823FB520773B6800EC676D /* AttenceCheckView.m */; };
 		8C823FB820773B8400EC676D /* AttenceCheckView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C823FB720773B8400EC676D /* AttenceCheckView.xib */; };
@@ -386,6 +393,8 @@
 		8C045228204C1EFD0067F10E /* WorkTaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskCell.h; sourceTree = "<group>"; };
 		8C045229204C1EFD0067F10E /* WorkTaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskCell.m; sourceTree = "<group>"; };
 		8C04522D204C1F300067F10E /* WorkTaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkTaskCell.xib; sourceTree = "<group>"; };
+		8C08F7BD20A32BDD0022E888 /* ProjectReviewDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewDetailViewController.h; sourceTree = "<group>"; };
+		8C08F7BE20A32BDD0022E888 /* ProjectReviewDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectReviewDetailViewController.m; sourceTree = "<group>"; };
 		8C224B04204D23BA00319CC0 /* WorkTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkTaskModel.h; sourceTree = "<group>"; };
 		8C224B05204D23BA00319CC0 /* WorkTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkTaskModel.m; sourceTree = "<group>"; };
 		8C224B0B204D2D2100319CC0 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
@@ -521,6 +530,16 @@
 		8C6FD32E208B503400CBC013 /* DeviceTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceTypeCell.h; sourceTree = "<group>"; };
 		8C6FD32F208B503400CBC013 /* DeviceTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTypeCell.m; sourceTree = "<group>"; };
 		8C6FD330208B503400CBC013 /* DeviceTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceTypeCell.xib; sourceTree = "<group>"; };
+		8C6FD333209D6BCC00CBC013 /* ProjectReviewDeviceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectReviewDeviceCell.h; sourceTree = "<group>"; };
+		8C6FD334209D6BCC00CBC013 /* ProjectReviewDeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectReviewDeviceCell.m; sourceTree = "<group>"; };
+		8C6FD335209D6BCC00CBC013 /* ProjectReviewDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectReviewDeviceCell.xib; sourceTree = "<group>"; };
+		8C6FD338209FF78E00CBC013 /* TrackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackViewController.h; sourceTree = "<group>"; };
+		8C6FD339209FF78E00CBC013 /* TrackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackViewController.m; sourceTree = "<group>"; };
+		8C6FD33B209FF9D800CBC013 /* CarWorkStatusViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarWorkStatusViewController.h; sourceTree = "<group>"; };
+		8C6FD33C209FF9D800CBC013 /* CarWorkStatusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarWorkStatusViewController.m; sourceTree = "<group>"; };
+		8C6FD33E209FFA5500CBC013 /* CarWorkStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarWorkStatusView.h; sourceTree = "<group>"; };
+		8C6FD33F209FFA5500CBC013 /* CarWorkStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarWorkStatusView.m; sourceTree = "<group>"; };
+		8C6FD343209FFA8D00CBC013 /* CarWorkStatus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarWorkStatus.xib; sourceTree = "<group>"; };
 		8C823FAD2075C45A00EC676D /* HttpClient+WorkTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpClient+WorkTask.h"; sourceTree = "<group>"; };
 		8C823FAE2075C45A00EC676D /* HttpClient+WorkTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HttpClient+WorkTask.m"; sourceTree = "<group>"; };
 		8C823FB420773B6800EC676D /* AttenceCheckView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttenceCheckView.h; sourceTree = "<group>"; };
@@ -761,6 +780,12 @@
 			children = (
 				49EC0D6A205B9510002CE92C /* ProjectReviewController.h */,
 				49EC0D6B205B9510002CE92C /* ProjectReviewController.m */,
+				8C6FD338209FF78E00CBC013 /* TrackViewController.h */,
+				8C6FD339209FF78E00CBC013 /* TrackViewController.m */,
+				8C6FD33B209FF9D800CBC013 /* CarWorkStatusViewController.h */,
+				8C6FD33C209FF9D800CBC013 /* CarWorkStatusViewController.m */,
+				8C08F7BD20A32BDD0022E888 /* ProjectReviewDetailViewController.h */,
+				8C08F7BE20A32BDD0022E888 /* ProjectReviewDetailViewController.m */,
 			);
 			path = "ProjectReview（项目总览）";
 			sourceTree = "<group>";
@@ -771,6 +796,12 @@
 				49EC0D71205B9BF4002CE92C /* ProjectReviewPersonCell.h */,
 				49EC0D72205B9BF4002CE92C /* ProjectReviewPersonCell.m */,
 				49EC0D74205B9C19002CE92C /* ProjectReviewPersonCell.xib */,
+				8C6FD333209D6BCC00CBC013 /* ProjectReviewDeviceCell.h */,
+				8C6FD334209D6BCC00CBC013 /* ProjectReviewDeviceCell.m */,
+				8C6FD335209D6BCC00CBC013 /* ProjectReviewDeviceCell.xib */,
+				8C6FD33E209FFA5500CBC013 /* CarWorkStatusView.h */,
+				8C6FD33F209FFA5500CBC013 /* CarWorkStatusView.m */,
+				8C6FD343209FFA8D00CBC013 /* CarWorkStatus.xib */,
 			);
 			path = ProjectReviewCell;
 			sourceTree = "<group>";
@@ -1590,6 +1621,7 @@
 				8C305BFA202C09AD00A843B5 /* Assets.xcassets in Resources */,
 				49EC0E002064A7A7002CE92C /* CGXAddressCity.plist in Resources */,
 				49CF0CF62086E29200AE707D /* EventMapConfigDetailView.xib in Resources */,
+				8C6FD344209FFA8D00CBC013 /* CarWorkStatus.xib in Resources */,
 				492F942C20721C0900BBB677 /* WorkFlowDetailItemView.xib in Resources */,
 				8C04522E204C1F300067F10E /* WorkTaskCell.xib in Resources */,
 				495E8D6D2068E6DA00ABE900 /* ReportView.xib in Resources */,
@@ -1607,6 +1639,7 @@
 				49073E782089AC8C008DFEF5 /* DeviceInfoCell.xib in Resources */,
 				495E8D682068D8A800ABE900 /* ReimbursementView.xib in Resources */,
 				8CB1459720394015003E94D4 /* HomeHeaderView.xib in Resources */,
+				8C6FD337209D6BCC00CBC013 /* ProjectReviewDeviceCell.xib in Resources */,
 				49EC0D8120610A91002CE92C /* WorkFlowCell.xib in Resources */,
 				492F9431207313F000BBB677 /* WorkFlowDetailFooterApprovView.xib in Resources */,
 			);
@@ -1697,6 +1730,7 @@
 				8CB1459D203D5246003E94D4 /* HomeCollectionItem.m in Sources */,
 				8C5102E8204682B100F0E40D /* AttenceTimeView.m in Sources */,
 				4932D9A52070725D0048D299 /* WorkFlowApprovModel.m in Sources */,
+				8C08F7BF20A32BDD0022E888 /* ProjectReviewDetailViewController.m in Sources */,
 				49EC0D7F20610A0A002CE92C /* WorkFlowCell.m in Sources */,
 				8C305C52202C1AB900A843B5 /* GobHeaderFile.m in Sources */,
 				8C33C2D3203170BD00B93F6E /* HttpClient.m in Sources */,
@@ -1735,6 +1769,7 @@
 				491192E22094430B00999EC2 /* MonitorCarInfoSelecedView.m in Sources */,
 				4917A340209171FF00907121 /* HttpClient+Monitor.m in Sources */,
 				49EC0D8E20624026002CE92C /* ProjectModel.m in Sources */,
+				8C6FD340209FFA5500CBC013 /* CarWorkStatusView.m in Sources */,
 				49EC0E042064A7A7002CE92C /* CGXDatePickerView.m in Sources */,
 				491192D82092FC4200999EC2 /* MonitorDeviceInfoView.m in Sources */,
 				8C5102FA2047AFE700F0E40D /* ZXCalendarCell.m in Sources */,
@@ -1754,9 +1789,12 @@
 				8C04521B204913FC0067F10E /* LeaveView.m in Sources */,
 				8C823FC120775BA800EC676D /* AttenceRecoderView.m in Sources */,
 				8C33C2C42031700400B93F6E /* XMCenter.m in Sources */,
+				8C6FD33A209FF78E00CBC013 /* TrackViewController.m in Sources */,
 				8C5102B12042DA5D00F0E40D /* HomeLeftTableViewCell.m in Sources */,
+				8C6FD33D209FF9D800CBC013 /* CarWorkStatusViewController.m in Sources */,
 				8C305C3F202C118200A843B5 /* ManagerViewController.m in Sources */,
 				49EC0E062064A7A7002CE92C /* CGXAddressModel.m in Sources */,
+				8C6FD336209D6BCC00CBC013 /* ProjectReviewDeviceCell.m in Sources */,
 				49CF0CF12085E66E00AE707D /* SearchBar.m in Sources */,
 				8C823FAF2075C45A00EC676D /* HttpClient+WorkTask.m in Sources */,
 				495D898F207A10D50043FF09 /* WorkTaskDetailModel.m in Sources */,

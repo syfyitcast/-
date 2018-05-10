@@ -24,7 +24,6 @@
 
 @implementation ProjectReviewPersonCell
 
-
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.iconBgView.layer.cornerRadius = 33.5;
@@ -41,6 +40,21 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"ProjectReviewPersonCell" owner:nil options:nil].lastObject;
     }
     return cell;
+}
+
+- (void)setModelDict:(NSDictionary *)modelDict{
+    _modelDict = modelDict;
+    self.userrankLabel.text = modelDict[@"userrank"];
+    self.companyLabel.text = modelDict[@"companyname"];
+    self.statusLabel.text = modelDict[@"workstatus"];
+    self.positionLabel.text = modelDict[@"positionaddress"];
+    self.nameLabel.text = modelDict[@"employername"];
+    double time = [modelDict[@"gpstime"] doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time / 1000.0];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.timeLabel.text = [dateFormatter stringFromDate:date];
+    self.mobileNumLabel.text = modelDict[@"mobileno"];
 }
 
 @end

@@ -19,8 +19,6 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
-
-
 @interface AppDelegate ()
 
 @end
@@ -45,8 +43,6 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
-
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   

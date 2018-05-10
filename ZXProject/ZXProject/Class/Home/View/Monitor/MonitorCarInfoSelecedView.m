@@ -22,6 +22,7 @@
     view.layer.cornerRadius = view.height * 0.5;
     view.layer.borderColor = BTNBackgroudColor.CGColor;
     view.layer.borderWidth = 1;
+    view.items = items;
     [view setupSubViews];
     return view;
 }
@@ -35,20 +36,29 @@
         [btn setTitle:itemName forState:UIControlStateNormal];
         [btn setTitleColor:BTNBackgroudColor forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        btn.x = i * width - 1;
+        btn.x = i * width;
         btn.y = 0;
         btn.width = width - 1;
         btn.height = self.height;
+        btn.tag = i;
+        [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         if (i != self.items.count - 1) {
             UIView *lineView = [[UIView alloc] init];
             lineView.backgroundColor = BTNBackgroudColor;
-            lineView.x = i * width;
+            lineView.x = CGRectGetMaxX(btn.frame);
             lineView.y = 2;
             lineView.width = 1;
             lineView.height = self.height - 4;
             [self addSubview:lineView];
         }
+        i ++;
+    }
+}
+
+- (void)clickBtn:(UIButton *)btn{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(monitorCarInfoSelecedViewDidClickBtn:)]) {
+        [self.delegate monitorCarInfoSelecedViewDidClickBtn:(int)btn.tag];
     }
 }
 

@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MonitorCarInfoSelecedViewDelegate<NSObject>
+
+@optional
+
+- (void)monitorCarInfoSelecedViewDidClickBtn:(int)index;
+
+@end
+
 @interface MonitorCarInfoSelecedView : UIView
 
 + (instancetype)monitorCarInfoSelecedViewWithItems:(NSArray *)items andFrame:(CGRect)frame;
+
+@property (nonatomic, weak) id <MonitorCarInfoSelecedViewDelegate>delegate;
 
 @end

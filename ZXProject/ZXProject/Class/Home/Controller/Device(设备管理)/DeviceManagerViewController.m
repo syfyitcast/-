@@ -30,9 +30,6 @@
 
 @property (nonatomic, strong) NSArray *models;
 
-
-
-
 @end
 
 @implementation DeviceManagerViewController

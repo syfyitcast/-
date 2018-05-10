@@ -36,6 +36,8 @@
 
 + (NSArray *)deviceInfoModelsWithSource_arr:(NSArray *)source_arr;
 
++ (instancetype)deviceInfoModelWithDict:(NSDictionary *)dict;
+
 
 
 

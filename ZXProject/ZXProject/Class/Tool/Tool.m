@@ -20,7 +20,6 @@
 
 
 +(NSInteger)dayBetweenDate:(NSDate *)fromDate toDate:(NSDate *)endDate{
-    
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *d ;
     if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 100000) {

@@ -98,8 +98,6 @@
     [coverView addSubview:label];
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
         //定位功能可用
-       
-        
     }else if ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusDenied) {
         //定位不能用
         [[UIApplication sharedApplication].keyWindow addSubview:coverView];
