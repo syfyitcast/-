@@ -18,6 +18,7 @@
 #import "DeviceInfoModel.h"
 #import "TrackViewController.h"
 #import "CarWorkStatusViewController.h"
+#import "ProjectReviewDetailViewController.h"
 
 
 
@@ -164,13 +165,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ProjectReviewDetailViewController *vc = [[ProjectReviewDetailViewController alloc] init];
     if (self.currentIndex == 0) {
-        
+        vc.title = @"人员详情";
+        vc.modelDict = self.personInfoDicts[indexPath.row];
     }else if (self.currentIndex == 1){
-        
+        vc.title = @"车辆详情";
+        vc.modelDict = self.carInfoDicts[indexPath.row];
     }else if (self.currentIndex == 2){
-        
+        vc.title = @"设备详情";
+        vc.modelDict = self.deviceInfoDicts[indexPath.row];
     }
+    vc.type = self.currentIndex;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - setter && getter

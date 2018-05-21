@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7U-dG-IC5" id="KPe-aC-lVG">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="147.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H0y-aX-LYI">
@@ -136,6 +136,7 @@
             <connections>
                 <outlet property="companyLabel" destination="c8w-tD-c8b" id="jIY-U6-3we"/>
                 <outlet property="iconBgView" destination="H0y-aX-LYI" id="Fti-9V-XSf"/>
+                <outlet property="iconView" destination="08m-sA-rQ1" id="m4G-hP-jpA"/>
                 <outlet property="mobileNumLabel" destination="ZwF-OF-TSm" id="cD5-a7-Bi9"/>
                 <outlet property="nameLabel" destination="eTz-sI-D8u" id="PMc-A2-d9N"/>
                 <outlet property="positionLabel" destination="XHl-Sr-fn5" id="NCE-tY-tU0"/>
@@ -143,7 +144,7 @@
                 <outlet property="timeLabel" destination="eHS-Oc-ix8" id="hXW-En-Zvj"/>
                 <outlet property="userrankLabel" destination="suE-TE-LGQ" id="EYJ-7r-Flc"/>
             </connections>
-            <point key="canvasLocation" x="-34.5" y="-208"/>
+            <point key="canvasLocation" x="-188" y="-183"/>
         </tableViewCell>
     </objects>
     <resources>

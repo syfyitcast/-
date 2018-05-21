@@ -25,6 +25,7 @@ NSString *const API_FORGETPWD = @"verificationcodemodifypass";//忘记密码
 NSString *const API_GETEVENTS = @"eventassignlist";//获取环卫事件
 NSString *const API_GETAPPNOTICEINFO = @"appnoticeinfo";//获取通知公告
 NSString *const API_GETAPPNOTICEREADCOUNT = @"noticenotreadcount";//获取app通知消息未阅读数
+NSString *const API_GETAPPREDLIST  = @"noticereaderlist";//获取消息阅读列表
 NSString *const API_GETPROJECTLIST = @"getprojectmanangerlist";//获取项目信息
 NSString *const API_GETPROJECTDETAIL = @"getprojectdetail";//获取项目详细信息
 NSString *const API_GETORGCONTACTLIST = @"getprojectorglist";//获取通讯录

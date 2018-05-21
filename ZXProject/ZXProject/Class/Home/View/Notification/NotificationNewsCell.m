@@ -83,7 +83,9 @@
 }
 
 - (void)clickReadDetailAction{
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(notificationNewsCellDidClickReadInfoWithNotificationModel:)]) {
+        [self.delegate notificationNewsCellDidClickReadInfoWithNotificationModel:self.model];
+    }
 }
 
 #pragma mark - setter && getter

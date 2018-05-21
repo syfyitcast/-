@@ -331,11 +331,11 @@
 }
 
 + (void)zx_httpClientToGetNoticeReaderlistWithNoticeid:(long)noticeid andSuccessBlock:(responseBlock)block{
-    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPNOTICEREADCOUNT];
+    NSMutableDictionary *dict = [NetworkConfig networkConfigTokenWithMethodName:API_GETAPPREDLIST];
     [dict setObject:[ProjectManager sharedProjectManager].currentProjectid forKey:@"projectid"];
     [dict setObject:@(noticeid) forKey:@"noticeid"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.api                  = [NetworkConfig api:API_GETAPPNOTICEREADCOUNT];
+        request.api                  = [NetworkConfig api:API_GETAPPREDLIST];
         request.httpMethod           = kXMHTTPMethodPOST;
         request.parameters =         dict;
         request.timeoutInterval      = 30;

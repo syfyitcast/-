@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *companyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconView;
 
 @end
 

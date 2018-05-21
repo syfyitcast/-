@@ -10,6 +10,8 @@
 
 @interface ProjectReviewDetailViewController : BaseViewController
 
+@property (nonatomic, strong) NSDictionary *modelDict;
+
 @property (nonatomic, assign) int type;
 
 @end

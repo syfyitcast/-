@@ -17,6 +17,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"巡检详情";
+    [self setupSubViews];
+}
+
+- (void)setupSubViews{
+    
 }
 
 

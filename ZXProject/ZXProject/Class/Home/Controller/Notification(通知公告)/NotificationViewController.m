@@ -16,8 +16,9 @@
 #import "NotificationModel.h"
 #import "ProjectManager.h"
 #import "APPNotificationManager.h"
+#import "NewsReadCountViewController.h"
 
-@interface NotificationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NotificationBarDelegate>
+@interface NotificationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NotificationBarDelegate,NotificaionNewsCellDelegate>
 
 @property (nonatomic, strong) NotificationBar *topBar;
 @property (nonatomic, strong) UIScrollView *myScrollView;
@@ -129,6 +130,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NotificationNewsCell *cell = [NotificationNewsCell notificationCellWithTableView:tableView];
+    cell.delegate = self;
     NotificationModel *model = nil;
     if (tableView == self.newsTable) {
         model = self.notificationNewsModels[indexPath.row];
@@ -160,6 +162,14 @@
         model = self.notificationXmModels[indexPath.row];
     }
     vc.url = model.url;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - cellDelegate
+
+- (void)notificationNewsCellDidClickReadInfoWithNotificationModel:(NotificationModel *)model{
+    NewsReadCountViewController *vc = [[NewsReadCountViewController alloc] init];
+    vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

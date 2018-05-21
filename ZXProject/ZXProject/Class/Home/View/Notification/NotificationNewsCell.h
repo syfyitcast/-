@@ -9,10 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "NotificationModel.h"
 
+@protocol NotificaionNewsCellDelegate<NSObject>
+
+@optional
+
+- (void)notificationNewsCellDidClickReadInfoWithNotificationModel:(NotificationModel *)model;
+
+@end
+
 @interface NotificationNewsCell : UITableViewCell
 
 @property (nonatomic, strong) NotificationModel *model;
 @property (nonatomic, assign) int cellType;
+@property (nonatomic, weak) id <NotificaionNewsCellDelegate>delegate;
 
 + (instancetype)notificationCellWithTableView:(UITableView *)tableView;
 
